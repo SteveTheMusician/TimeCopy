@@ -6,9 +6,9 @@
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "img/icon16.png",
-      "32": "img/icon32.png",
-      "48": "img/icon48.png"
+      "16": "img/Test-Icon.png",
+      "32": "img/Test-Icon.png",
+      "48": "img/test-Icon.png"
     }
   },
   "manifest_version": 2
