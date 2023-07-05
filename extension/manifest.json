@@ -1,15 +1,23 @@
 {
-  "name": "Time Copy Extension",
-  "version": "1.0",
-  "description": "Time Copy (Trueinnovation Version) by Steve Pietrowki",
-  "permissions": ["activeTab"],
-  "browser_action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "img/Test-Icon.png",
-      "32": "img/Test-Icon.png",
-      "48": "img/test-Icon.png"
-    }
+  "manifest_version": 2,
+  "name": "Time Copy",
+  "description": "Copy Timesheet Values",
+  "icons": {
+    "16": "icons/Project-Icon.png",
+    "48": "icons/Project-Icon.png",
+    "128": "icons/Project-Icon.png"
   },
-  "manifest_version": 2
+  "homepage_url": "https://*/*",
+  "version": "1.0",
+  "browser_action": {
+      "default_title": "Time Copy",
+      "default_popup": "index.html",
+      "default_icon": "icons/Project-Icon.png"
+
+  },
+  "permissions": [
+      "tabs",
+      "http://*/*",
+      "https://*/*"
+  ]
 }
