@@ -1,5 +1,8 @@
 /* Global Style */
 
+::-webkit-scrollbar {
+    display: none;
+  }
 
 body{
     width: 400px;
@@ -21,6 +24,8 @@ h1{
 .header-headline{
     height: 40px;
     text-align: center;
+    align-items: center;
+    display: flex;
 }
 
 header{
@@ -34,8 +39,7 @@ header{
 
 main {
     padding: 60px 10px;
-    heigt: calc(100% -120px);
-    overflow-y: scroll;
+    height: calc(100% - 80px);
     display: flex;
     justify-content: center;
 }
@@ -47,6 +51,7 @@ footer {
     position: fixed;
     align-items: center;
     display: flex;
+    background-color: #255b6a;
 }
 
 .footer-container{
@@ -61,10 +66,11 @@ footer {
 
 .board{
     width: 100%;
-    height: 120px;
+    overflow-y: scroll;
+    max-height: 220px;
     border-radius:6px;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    justify-items: center;
 }
 
 .noboard-text{
@@ -122,10 +128,15 @@ footer {
     background-color: #255b6a;
     overflow: hidden;
     display: flex;
+    margin-bottom:20px;
 }
 
 .board-item-container{
     width: -webkit-fill-available;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
 }
 
 .board-item-logo-container{
@@ -149,8 +160,55 @@ footer {
 
 .board-item-container-last {
     width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.input-text{
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-size: 12px;
+    color: #689ead;
+    outline: none;
+    padding: 4px;
+}
+
+.input-text:hover {
+ border: 1px dashed #689ead;
+}
+
+.input-ordernumber {
+    width: 76px;
+}
+
+.input-services {
+    width: 180px;
+}
+
+textarea{
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-size: 12px;
+    color: #689ead;
+    outline: none;
+    padding: 4px;
+    resize: none;
+    width: 100%;
+}
+
+textarea:hover{
+    border: 1px dashed #689ead;
+}
+
+::placeholder { 
+    color: #618c97;
+}
+
+.number-hours{
+    text-align: center;
+    width: 20px;
+}
 .d-none{
     display: none;
 }
