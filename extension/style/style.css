@@ -7,18 +7,21 @@
 body{
     width: 400px;
     height: 200px;
-    background-color: #164755;
+    background-color: var(--color-main);
     margin: 0;
     padding: 0;
 }
 
 h1{
-    color: #689ead;
+    color: var(--color-font-headline);
     margin-block-start: 0;
     margin-block-end: 0;
-    padding:10px;
     font-size: 20px;
     user-select: none;
+}
+
+.dFlex {
+    display: flex;
 }
 
 .header-headline{
@@ -29,17 +32,19 @@ h1{
 }
 
 header{
-    background-color: #164755;
+    background-color: var(--color-main);
     position:fixed;
-    width: 100%;
+    width: calc(100% - 40px);
+    padding: 0 20px;
     height: 60px;
     align-items: center;
     display: flex;
+    justify-content: space-between;
 }
 
 main {
     padding: 60px 10px;
-    height: calc(100% - 80px);
+    /* height: calc(100% - 80px); */
     display: flex;
     justify-content: center;
 }
@@ -51,7 +56,7 @@ footer {
     position: fixed;
     align-items: center;
     display: flex;
-    background-color: #255b6a;
+    background-color: var(--color-second);
 }
 
 .footer-container{
@@ -85,24 +90,36 @@ footer {
 }
 
 #configButton{
-    justify-self: flex-end;
+    display: flex;
+    
+}
+
+#configButton svg{
+    width: 20px;
+    height: 20px;
+    fill: var(--color-icon-default);
+    transition: .3s;
+}
+
+#configButton:hover svg{
+    fill: var(--color-highlight);
 }
 
 .button-primary{
-    width: 60px;
-    height: 35px;
+    /* height: 35px; */
     border-radius: 6px;
     border: 1px solid transparent;
     background-color: transparent;
     font-size: 12px;
-    color: #3bd7d0;
+    color: #759291;
     cursor: pointer;
     transition: 0.3s;
+    padding: 10px;
 }
 
 .button-primary:hover{
-    background-color: #ffffff55;
-    color: #fefefe;
+    background-color: var(--color-icon-default);
+    color: var(--color-highlight);
 }
 
 .button-secondary {
@@ -152,7 +169,7 @@ footer {
 .board-item-logo {
     width: 40px;
     height: 40px;
-    background-image: url(../libraries/amag-protime/logo/logo.png);
+    background-image: url(../libraries/bookingsheets/amag-protime/logo/logo.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -211,4 +228,9 @@ textarea:hover{
 }
 .d-none{
     display: none;
+}
+
+.label-version {
+    font-size: 12px;
+    color: var(--color-font-subtext);
 }
