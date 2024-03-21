@@ -4,20 +4,23 @@
   "description": "Copy Timesheet Values",
   "version": "0.5.1",
   "permissions": [
-    "clipboardRead","storage","activeTab","declarativeContent"
+    "clipboardRead","storage", "declarativeContent", "activeTab", "scripting"
   ],
   "icons": {
-    "16": "icons/Project-Icon.png",
-    "48": "icons/Project-Icon.png",
-    "128": "icons/Project-Icon.png"
+    "16": "icons/Logo/Logo-1200.png",
+    "48": "icons/Logo/Logo-1200.png",
+    "128": "icons/Logo/Logo-1200.png"
   },
-  "homepage_url": "https://*/*",
   "action": {
       "default_title": "Time Copy",
       "default_popup": "index.html",
-      "default_icon": "icons/Project-Icon.png"
+      "default_icon": "icons/Logo/Logo-1200.png"
   },
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "content_scripts": [ {
+    "matches": ["https://*/*", "http://*/*"],
+    "js": ["extension.js"]
+  } ]
 }
