@@ -6,7 +6,7 @@ const testButton = document.querySelector('button#pasteTicketData');
 const fillButton = document.querySelector('button#fillButton');
 const configButton = document.querySelector('button#configButton');
 // PupUp Button Trigger
-// fillButton.addEventListener('click', readClipboardText);
+fillButton.addEventListener('click', readClipboardText);
 testButton.addEventListener('click', testProTime);
 configButton.addEventListener('click', openConfigs);
 
@@ -31,46 +31,30 @@ function testFunction () {
     keyCode: 13,
   })
 
-  
-  let protime_Innenauftrag =  document.getElementById('WD0170')
-
-  if(protime_Innenauftrag.children.length > 0){
-   protime_Innenauftrag = protime_Innenauftrag.childNodes[0].childNodes[0]
-   // alert(protime_Innenauftrag)
-  }else {
-   protime_Innenauftrag = document.getElementById('WD017A')
-   protime_Innenauftrag = protime_Innenauftrag.childNodes[0].childNodes[0]
    
-  } 
+    let protime_Innenauftrag = document.getElementById('WD0172')
+    // if dropdown shows, the "Innenauftrag" field has different ids -> check if they are here
+    !protime_Innenauftrag? protime_Innenauftrag= document.getElementById('WD02B1')?? document.getElementById('WD0205') : null
 
-  if(protime_Innenauftrag){
-    protime_Innenauftrag.value = "21348"
-    protime_Innenauftrag.dispatchEvent(keyEventEnter)
-  }else {
-    alert('TimeCopy   ERROR: unable to get Order-Input')
+    if(protime_Innenauftrag){
+      protime_Innenauftrag.value = "21037"
+      protime_Innenauftrag.dispatchEvent(keyEventEnter)
+    }else {
+      alert('TimeCopy   ERROR: unable to get Order-Input')
+    }
+
+    setTimeout(function(){
+      let protime_Leistung = document.getElementById('WD02B3-r')?? document.getElementById('WD0207-r')
+      const protime_Leistungen_CSITExtST = document.querySelector("[data-itemkey='ZCHN0730070']")
+      const protime_Leistungen_CSITExtNT = document.querySelector("[data-itemkey='ZCHN0730080']")
+      const protime_Leistungen_ITDNT = document.querySelector("[data-itemkey='ZCHN0730005']")
+      const protime_Leistungen_ITD = document.querySelector("[data-itemkey='ZCHN0730001']")
+
+      protime_Leistung.click()
+      setTimeout(function(){ protime_Leistungen_CSITExtST.click() }, 200 );
+    },300)
+  
   }
-
-  setTimeout(function(){
-    // so we get here the td which contains the services dropdown and click it
-    let protime_Leistung = document.getElementById('WD0180').childNodes[0]
-    const protime_Leistungen_CSITExtST = document.querySelector("[data-itemkey='ZCHN0730070']")
-    const protime_Leistungen_CSITExtNT = document.querySelector("[data-itemkey='ZCHN0730080']")
-    const protime_Leistungen_ITDNT = document.querySelector("[data-itemkey='ZCHN0730005']")
-    const protime_Leistungen_ITD = document.querySelector("[data-itemkey='ZCHN0730001']")
-    protime_Leistung.click()
-    setTimeout(function(){ protime_Leistungen_CSITExtST.click()
-      let protime_hours = document.getElementById('WD019A').childNodes[0].childNodes[0]
-      protime_hours.value = "0.5"
-    
-      let protime_ticketNumber = document.getElementById('WD01AC').childNodes[0].childNodes[0]
-      protime_ticketNumber.value = "Test-Ticket"
-    
-      let protime_ticketText = document.getElementById('WD01B7').childNodes[0].childNodes[0]
-      protime_ticketText.value = "Test-Ticket-Text"
-    
-    }, 200 );
-  },300)
-}
 
 
 function openConfigs(){

@@ -2,26 +2,25 @@
   "manifest_version": 3,
   "name": "Time Copy",
   "description": "Copy Timesheet Values",
-  "version": "0.5.6",
+  "version": "0.5.1",
   "permissions": [
     "clipboardRead","storage", "declarativeContent", "activeTab", "scripting"
   ],
   "icons": {
-    "16": "icon/icon16.png",
-    "32": "icon/icon32.png",
-    "48": "icon/icon48.png",
-    "128": "icon/icon128.png"
+    "16": "icons/Logo/Logo-1200.png",
+    "48": "icons/Logo/Logo-1200.png",
+    "128": "icons/Logo/Logo-1200.png"
   },
   "action": {
       "default_title": "Time Copy",
       "default_popup": "index.html",
-      "default_icon": "icon/icon128.png"
+      "default_icon": "icons/Logo/Logo-1200.png"
   },
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [ {
-    "matches": ["<all_urls>"],
+    "matches": ["https://*/*", "http://*/*"],
     "js": ["extension.js"]
   } ]
 }
