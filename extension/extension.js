@@ -31,17 +31,8 @@ function testFunction () {
     keyCode: 13,
   })
 
-  
-  let protime_Innenauftrag =  document.getElementById('WD0170')
-
-  if(protime_Innenauftrag.children.length > 0){
-   protime_Innenauftrag = protime_Innenauftrag.childNodes[0].childNodes[0]
-   // alert(protime_Innenauftrag)
-  }else {
-   protime_Innenauftrag = document.getElementById('WD017A')
-   protime_Innenauftrag = protime_Innenauftrag.childNodes[0].childNodes[0]
-   
-  } 
+  // get booking number field
+  let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0].childNodes[0]
 
   if(protime_Innenauftrag){
     protime_Innenauftrag.value = "21348"
@@ -52,33 +43,40 @@ function testFunction () {
 
   setTimeout(function(){
     // so we get here the td which contains the services dropdown and click it
-    let protime_Leistung = document.getElementById('WD0180').childNodes[0]
+    let protime_Leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0]
     const protime_Leistungen_CSITExtST = document.querySelector("[data-itemkey='ZCHN0730070']")
     const protime_Leistungen_CSITExtNT = document.querySelector("[data-itemkey='ZCHN0730080']")
     const protime_Leistungen_ITDNT = document.querySelector("[data-itemkey='ZCHN0730005']")
     const protime_Leistungen_ITD = document.querySelector("[data-itemkey='ZCHN0730001']")
     protime_Leistung.click()
-    setTimeout(function(){ protime_Leistungen_CSITExtST.click()
-      let protime_hours = document.getElementById('WD019A').childNodes[0].childNodes[0]
-      protime_hours.value = "0.5"
-    
-      let protime_ticketNumber = document.getElementById('WD01AC').childNodes[0].childNodes[0]
-      protime_ticketNumber.value = "Test-Ticket"
-    
-      let protime_ticketText = document.getElementById('WD01B7').childNodes[0].childNodes[0]
-      protime_ticketText.value = "Test-Ticket-Text"
-    
-    }, 200 );
-  },300)
+    protime_Leistungen_CSITExtST.click()
+  },500)
+
+  setTimeout(function(){ 
+    let protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
+    protime_hours.value = "0.5"
+    // ggf ein await für dieses element
+    let protime_ticketNumber = document.getElementsByClassName('lsField--empty')[2].childNodes[0]
+    protime_ticketNumber.value = "Test-Ticket"
+  
+    let protime_ticketText = document.getElementsByTagName('textarea')[0]
+    protime_ticketText.value = "Test-Ticket-Text"
+  
+  }, 700 );
+
 }
 
 
 function openConfigs(){
   if(configOpen) {
     main.classList.remove('main-extended')
+    configButton.classList.remove('button--active')
+    fillButton.classList.remove('button--hidden')
     configOpen = false
   }else{
     main.classList.add('main-extended')
+    configButton.classList.add('button--active')
+    fillButton.classList.add('button--hidden')
     configOpen = true
   }
   

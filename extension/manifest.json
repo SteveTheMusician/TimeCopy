@@ -15,7 +15,7 @@
   "action": {
       "default_title": "Time Copy",
       "default_popup": "index.html",
-      "default_icon": "icon/icon128.png"
+      "default_icon": "icon/icon1200.png"
   },
   "background": {
     "service_worker": "background.js"

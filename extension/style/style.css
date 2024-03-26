@@ -23,6 +23,10 @@ h1{
     display: flex;
 }
 
+.dNone {
+    display: none;
+}
+
 .header-headline{
     height: 40px;
     text-align: center;
@@ -99,8 +103,6 @@ footer {
 #configButton svg{
     width: 20px;
     height: 20px;
-    fill: var(--color-icon-default);
-    transition: .3s;
 }
 
 #configButton:hover svg{
@@ -114,8 +116,6 @@ footer {
 #fillButton svg{
     width: 20px;
     height: 20px;
-    fill: var(--color-icon-default);
-    transition: .3s;
 }
 
 #fillButton:hover svg{
@@ -132,6 +132,11 @@ footer {
     cursor: pointer;
     transition: 0.3s;
     padding: 10px;
+}
+
+.button-primary svg {
+    fill: var(--color-icon-default);
+    transition: .3s;
 }
 
 .button-primary:hover{
@@ -153,6 +158,15 @@ footer {
 
 .button-secondary:hover{
     color: #acafd6;
+}
+
+.button--active svg{
+    fill: var(--color-highlight);
+}
+
+.button--hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .board-item{
