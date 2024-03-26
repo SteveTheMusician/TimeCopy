@@ -1,5 +1,20 @@
 // PopUp Elements
 const main = document.querySelector('main');
+const configurations = document.querySelector('div.configurations');
+const configurationsContainer = document.getElementById('config-container')
+const configWindow_getAll = document.getElementsByClassName('configuration-window');
+const configWindow_General = document.getElementById('config-win-general');
+const configWindow_Timesheets = document.getElementById('config-win-timesheets');
+const configWindow_Bookingsheets = document.getElementById('config-win-bookingsheet');
+const configWindow_Projects = document.getElementById('config-win-projects');
+
+// tab buttons
+const buttonsTab_getAll = document.getElementsByClassName('button-config-tab');
+const buttonTab_General = document.querySelector('button#button-tab-general');
+const buttonTab_Timesheets = document.querySelector('button#button-tab-timesheets');
+const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookingsheets');
+const buttonTab_Projects = document.querySelector('button#button-tab-projects');
+
 
 // PupUp Buttons
 const testButton = document.querySelector('button#pasteTicketData');
@@ -9,6 +24,13 @@ const configButton = document.querySelector('button#configButton');
 // fillButton.addEventListener('click', readClipboardText);
 testButton.addEventListener('click', testProTime);
 configButton.addEventListener('click', openConfigs);
+
+// configuration tabs listener
+buttonTab_General.addEventListener('click', configTabOpenGeneral);
+buttonTab_Projects.addEventListener('click', configTabOpenProjects);
+buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets);
+buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
+
 
 // some vars
 let configOpen = false
@@ -72,15 +94,61 @@ function openConfigs(){
     main.classList.remove('main-extended')
     configButton.classList.remove('button--active')
     fillButton.classList.remove('button--hidden')
+    configurations.classList.add('dNone')
     configOpen = false
   }else{
     main.classList.add('main-extended')
     configButton.classList.add('button--active')
     fillButton.classList.add('button--hidden')
+    configurations.classList.remove('dNone')
     configOpen = true
   }
-  
 }
+
+// config tabs functions
+
+function removeTabActiveClass(){
+  [].forEach.call(buttonsTab_getAll, function(buttonsTab_getAll) {
+    buttonsTab_getAll.classList.remove('button-tab--active');
+  });
+  [].forEach.call(configWindow_getAll, function(configWindow_getAll) {
+    configWindow_getAll.classList.add('dNone');
+  });
+}
+
+function configTabOpenGeneral(){
+  // buttonsTab_getAll configWindow_getAll
+  removeTabActiveClass()
+  buttonTab_General.classList.add('button-tab--active')
+  configWindow_General.classList.remove('dNone')
+  configurationsContainer.classList.add('configuration-container-first-tab-selected')
+
+}
+
+function configTabOpenProjects(){
+  removeTabActiveClass()
+  buttonTab_Projects.classList.add('button-tab--active')
+  configWindow_Projects.classList.remove('dNone')
+  configurationsContainer.classList.remove('configuration-container-first-tab-selected')
+}
+
+function configTabOpenTimesheets(){
+  removeTabActiveClass()
+  buttonTab_Timesheets.classList.add('button-tab--active')
+  configWindow_Timesheets.classList.remove('dNone')
+  configurationsContainer.classList.remove('configuration-container-first-tab-selected')
+}
+
+function configTabOpenBookingsheets(){
+  removeTabActiveClass()
+  buttonTab_Bookingsheets.classList.add('button-tab--active')
+  configWindow_Bookingsheets.classList.remove('dNone')
+  configurationsContainer.classList.remove('configuration-container-first-tab-selected')
+}
+
+
+
+
 
 async function readClipboardText() {
   let clipboarsString = await navigator.clipboard.readText();

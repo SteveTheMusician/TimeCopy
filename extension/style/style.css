@@ -19,6 +19,14 @@ h1{
     user-select: none;
 }
 
+h2{
+    color: var(--color-font-headlabel);
+    font-size: 16px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin: 10px;
+}
+
 .dFlex {
     display: flex;
 }
@@ -264,4 +272,75 @@ textarea:hover{
 .label-version {
     font-size: 12px;
     color: var(--color-font-subtext);
+}
+
+.configurations {
+    width: -webkit-fill-available;
+}
+
+.configuration-container {
+    width: -webkit-fill-available;
+    margin-bottom:10px;
+    border-radius: 6px;
+    background-color: var(--color-second);
+}
+
+.configuration-container-first-tab-selected {
+    border-top-left-radius: 0;
+}
+
+.configuration-tab-container {
+    flex-direction: column;
+    width: 36px;
+}
+
+.button-config-tab {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.button-tab--active {
+    background-color: var(--color-second);
+    color: var(--color-highlight);
+}
+
+.button-tab--active svg{
+    color: var(--color-highlight);
+}
+
+.configuration-window {
+/* sime style */
+}
+
+.configuration-window-content {
+    padding: 10px;
+}
+
+.config-item {
+    border-radius: 6px;
+    background-color: var(--color-third);
+    padding:10px;
+    margin: 10px;
+}
+
+input[type=text] {
+    background-color: var(--color-second);
+    color: var(--color-font);
+    outline: 1px solid var(--color-none);
+    border: 1px solid var(--color-none);
+    margin: 5px;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+input[type=text]:focus{
+    outline: 1px solid var(--color-icon-default);
+}
+
+.text-ticketPrefix {
+    width: 110px;
+}
+
+.text-projectNomber {
+    width: 80px;
 }

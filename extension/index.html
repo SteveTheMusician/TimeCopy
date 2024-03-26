@@ -8,13 +8,52 @@
   <body>
     <header>
       <h1 class="header-headline">Time Copy</h1>
-      <p class="label-version dFlex">V 0.5.6</p>
+      <p class="label-version dFlex">V 0.6.0</p>
     </header>
     <main>
-     <div class="configurations dNone">
-      
+     <div class="configurations dFlex dNone">
+      <div class="configuration-tab-container dFlex">
+        <button class="button-primary button-config-tab button-tab--active" id="button-tab-general">G</button>
+        <button class="button-primary button-config-tab" id="button-tab-projects">P</button>
+        <button class="button-primary button-config-tab" id="button-tab-timesheets">T</button>
+        <button class="button-primary button-config-tab" id="button-tab-bookingsheets">B</button>
+      </div>
+      <div class="configuration-container configuration-container-first-tab-selected" id="config-container">
+        <div class="configuration-window" id="config-win-general">
+          <h2>General</h2>
+          <div class="configuration-window-content">
+   
+          </div>
+        </div>
+        <div class="configuration-window dNone" id="config-win-projects">
+          <h2>Project Detection</h2>
+          <div class="configuration-window-content">
+            <div class="config-item dFlex">
+              <div class="config-item-main-container">
+                <input type="text" class="text-ticketPrefix" placeholder="Ticket Prefix" />
+                <input type="text" class="text-projectNomber" placeholder="Project Nomber" />
+              </div>
+              <div class="config-item-action-container">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="configuration-window dNone" id="config-win-timesheets">
+          <h2>Timesheet Formats</h2>
+          <div class="configuration-window-content">
+            Some Content
+          </div>
+        </div>
+        <div class="configuration-window dNone" id="config-win-bookingsheet">
+          <h2>Booking Platforms</h2>
+          <div class="configuration-window-content">
+            Some Content
+          </div>
+        </div>
+
+      </div>
      </div>
-    
     </main>
     <footer>
       <div class="footer-container">
