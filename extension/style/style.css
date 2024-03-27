@@ -24,7 +24,83 @@ h2{
     font-size: 16px;
     margin-block-start: 0;
     margin-block-end: 0;
-    margin: 10px;
+    margin: 10px;user-select: none;
+}
+
+p {
+    user-select: none;
+}
+
+img {
+    user-select: none;
+}
+
+button svg{
+    width: 20px;
+    height: 20px;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio-custom-container input {
+    display: none;
+    user-select: none;
+}
+
+.radio-custom-container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    padding-right: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.subtext {
+    font-size: 10px;
+    color: var(--color-font-subtext);
+}
+
+.subtext-container {
+    padding: 10px;
+    padding-top: 0;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    height: 30px;
+    width: 6px;
+    background-color: var(--color-icon-default);
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.radio-custom-container:hover input ~ .checkmark {
+    background-color: var(--color-highlight);
+}
+
+.radio-custom-container input:checked ~ .checkmark {
+    background-color: var(--color-active);
+    /* background: linear-gradient(180deg, rgba(1,171,130,1) 0%, rgba(31,254,172,1) 42%, rgba(89,255,196,1) 47%, rgba(14,144,83,1) 83%, rgba(2,92,64,1) 100%); */
+    box-shadow: 0 0 6px 2px var(--color-active);
+}
+
+.config-item:hover input ~ .checkmark{
+    background-color: var(--color-highlight);
+}
+
+.config-item:hover input:checked ~ .checkmark{
+    background-color: var(--color-active);
+}
+
+.text-label {
+    color: var(--color-font-second);
+    font-size: 12px;
 }
 
 .dFlex {
@@ -40,6 +116,14 @@ h2{
     text-align: center;
     align-items: center;
     display: flex;
+}
+
+.object--hidden {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
 }
 
 header{
@@ -113,10 +197,6 @@ footer {
     height: 20px;
 }
 
-#configButton:hover svg{
-    fill: var(--color-highlight);
-}
-
 #fillButton{
     display: flex;
 }
@@ -126,20 +206,17 @@ footer {
     height: 20px;
 }
 
-#fillButton:hover svg{
-    fill: var(--color-highlight);
-}
-
 .button-primary{
     /* height: 35px; */
     border-radius: 6px;
-    border: 1px solid transparent;
+    border: 0px solid;
     background-color: transparent;
     font-size: 12px;
     color: #759291;
     cursor: pointer;
     transition: 0.3s;
     padding: 10px;
+    display: flex;
 }
 
 .button-primary svg {
@@ -147,9 +224,8 @@ footer {
     transition: .3s;
 }
 
-.button-primary:hover{
-    background-color: var(--color-icon-default);
-    color: var(--color-highlight);
+.button-primary:hover svg{
+    fill: var(--color-highlight);
 }
 
 .button-secondary {
@@ -169,12 +245,23 @@ footer {
 }
 
 .button--active svg{
-    fill: var(--color-highlight);
+    fill: var(--color-active);
+}
+
+.button--active:hover svg{
+    fill: var(--color-active);
 }
 
 .button--hidden {
     opacity: 0;
     pointer-events: none;
+}
+
+.footer-active-label {
+    font-size: 16px;
+    color: var(--color-font-subtext);
+    padding-left:10px;
+    user-select: none;
 }
 
 .board-item{
@@ -305,7 +392,11 @@ textarea:hover{
 }
 
 .button-tab--active svg{
-    color: var(--color-highlight);
+    fill: var(--color-active);
+}
+
+.button-tab--active:hover svg{
+    fill: var(--color-active);
 }
 
 .configuration-window {
@@ -321,6 +412,19 @@ textarea:hover{
     background-color: var(--color-third);
     padding:10px;
     margin: 10px;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.config-item-main {
+    padding: 0 10px;
+    padding-left: 20px;
+}
+
+.config-item-radio-container {
+    justify-content: center;
+    align-items: center;
+    max-width: 20px;
 }
 
 input[type=text] {
@@ -337,10 +441,46 @@ input[type=text]:focus{
     outline: 1px solid var(--color-icon-default);
 }
 
-.text-ticketPrefix {
-    width: 110px;
+.input-size--small {
+    width: 80px;
+}
+
+.input-size--default {
+    width: 120px;
+}
+
+.input-size--large {
+    width: 215px;
 }
 
 .text-projectNomber {
     width: 80px;
+}
+
+.icon-bookingItem {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.config-item-logo-container {
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    
+}
+
+.config-item-logo-container--amag {
+    background-color: #000;
+}
+
+select {
+    border-radius: 6px;
+    background-color: var(--color-second);
+    color: var(--color-font);
+    outline: none;
+    padding: 5px;
+    font-size: 12px;
+    border: 0px solid;
+    margin: 5px;
 }

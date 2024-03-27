@@ -7,6 +7,24 @@
     /* color palette */
     --blue-pale: #5d7b83;
     --white_e: #EEEEEE;
+    --color-none: transparent;
+    --gray: #131c21;
+    --blue-gray: #8a99a2;
+    --lightgray: #2d3840;
+    --lightgray-31: #313142;
+    --lightgray-a: #aaaaaa;
+    --lightgray-5f: #5f5f6c;
+    --gray-disabled: #263138;
+    --dark-gray: #0f1117;
+    --blue-gray-1d:#1d2930;
+    --blue-gray-54: #548793;
+    --white: #fefefe;
+    --smooth-red: #ad3156;
+    --green: #28b28d;
+    --light-green: #00ffa7;
+    --turquoise: #00ffd5;
+    --lightyellow: #e6d1ab;
+    --lightblue: #0088ee;
   
     /* theme colors */
     --color-main: #031a21;
@@ -15,6 +33,7 @@
     --color-third: #042e3a;
     --color-darker: #010e12;
     --color-highlight: #5ecac3;
+    --color-active: var(--turquoise);
     --color-close: #e37d4a;
     --color-edit: var(--lightyellow);
     --color-disabled: var(--color-third);
