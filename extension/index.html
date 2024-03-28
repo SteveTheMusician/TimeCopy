@@ -9,7 +9,7 @@
   <body>
     <header>
       <h1 class="header-headline">Time Copy</h1>
-      <p class="label-version dFlex">V 0.7.0</p>
+      <p class="label-version dFlex">V 0.7.5</p>
     </header>
     <main>
      <div class="configurations dFlex dNone">
@@ -87,7 +87,67 @@
             </p>
           </div>
           <div class="configuration-window-content">
-   
+            <div class="config-item dFlex">
+              <div class="config-item-main-container">
+                <div class="config-item-title-row flex">
+                  <div class="config-item-icon-container flex">
+                    <p class="text-label label-emoji">👤</p>
+                  </div> 
+                  <div class="config-item-main flex"> 
+                    <p class="text-label">Time Copy Profiles</p>
+                  </div>  
+                </div>
+                <div class="config-item-content-row flex">
+                  <button class="button-primary" id="button_importConfigs">Import</button>
+                  <button class="button-primary" id="button_exportConfigs">Export</button>
+                </div>
+              </div>
+            </div>
+            <div class="config-item dFlex">
+              <div class="config-item-main-container">
+                <div class="config-item-title-row flex">
+                  <div class="config-item-icon-container flex">
+                    <p class="text-label label-emoji">🔄</p>
+                  </div> 
+                  <div class="config-item-main flex"> 
+                    <p class="text-label">Software update / download</p>
+                  </div>  
+                </div>
+              </div>
+            </div>
+            <div class="config-item dFlex">
+              <div class="config-item-main-container flex">
+                <div class="config-item-title-row flex">
+                  <div class="config-item-icon-container flex">
+                    <p class="text-label label-emoji">🖌️</p>
+                  </div> 
+                  <div class="config-item-main flex"> 
+                    <p class="text-label">Themes</p>
+                  </div>
+                </div>
+                <select class="input-size--default" name="select_themes">
+                  <option value="" selected>Ocean Weave</option>
+                  <option value="">Trueinnovation</option>
+                  <option value="" >Jaime's Rot</option>
+                  <option value="">Yosha's Coffee Mug</option>
+                  <option value="">Steve's Black</option>
+                  <option value="">Tobias will es schön</option>
+                  <option value="">Johannes alles Pink</option>
+                </select> 
+              </div>
+            </div>
+            <div class="config-item dFlex">
+              <div class="config-item-main-container">
+                <div class="config-item-title-row flex">
+                  <div class="config-item-icon-container flex">
+                    <p class="text-label label-emoji">🛟</p>
+                  </div> 
+                  <div class="config-item-main flex"> 
+                    <p class="text-label">Help and Informations</p>
+                  </div>  
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="configuration-window dNone" id="config-win-projects">
@@ -98,7 +158,10 @@
             </p>
           </div>
           <div class="configuration-window-content">
-            <div class="config-item dFlex">
+            <div class="config-item">
+              <div class="config-item-title-row flex">
+                <p class="subtext subtext-top">Detection parameters</p>
+              </div>
               <div class="config-item-main-container">
                 <div>
                   <select class="input-size--small" name="select_bookingPlatform">
@@ -109,6 +172,9 @@
                 <div>
                   <input type="text" class="input-size--large" placeholder="Additional (Title-)Prefix" />
                 </div>
+                <div class="config-item-title-row flex">
+                  <p class="subtext subtext-top">Booking properties</p>
+                </div>
                 <div>
                   <select class="input-size--default" name="select_proTimeService">
                     <option value="select_proTime_service_ITD">IT Dienstleistungen</option>
@@ -117,7 +183,12 @@
                     <option value="select_proTime_service_CSITENT">Corporate Service IT Ext NT</option>
                   </select>
                   <input type="text" class="input-size--small" placeholder="Project No." />
-                </div>                
+                </div>
+                <select class="input-size--large" name="select_activity">
+                  <option value="">No Activity</option>
+                  <option value="">- WP2 - AEM Dashboard</option>
+
+                </select>                
               </div>
               <div class="config-item-action-container">
               </div>
