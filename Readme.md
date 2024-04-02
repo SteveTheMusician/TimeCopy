@@ -1,11 +1,9 @@
 # Time Copy
-#### V 0.5.1
+#### V 0.7.6
 ### By Steve P.
 ### 04.07.2023
 
-ToDo:
-Erweiterung pinned default machen
-mit allemn policies packen, sodass chrome kein error schmeißt (CRX_REQUIERED_PROOF_IS_MISSING)
+
 
 Temp:
 // opens a communication port
