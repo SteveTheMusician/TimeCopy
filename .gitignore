@@ -1,0 +1,42 @@
+# Build folder and files #
+##########################
+
+
+# Development folders and files #
+#################################
+.tmp/
+dist/
+node_modules/
+*.compiled.*
+
+# Folder config file #
+######################
+Desktop.ini
+
+# Folder notes #
+################
+_ignore/
+
+# Log files & folders #
+#######################
+logs/
+*.log
+npm-debug.log*
+.npm
+
+
+# Photoshop & Illustrator files #
+#################################
+*.ai
+*.eps
+*.psd
+
+# Windows & Mac file caches #
+#############################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Windows shortcuts #
+#####################
+*.lnk

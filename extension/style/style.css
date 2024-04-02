@@ -1,0 +1,559 @@
+/* Global Style */
+
+
+@import url('fonts/Roboto.css');
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+body{
+    width: 400px;
+    background-color: var(--color-main);
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    color: var(--color-font-headline);
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-size: 20px;
+    user-select: none;
+    font-family: Roboto;
+}
+
+h2{
+    color: var(--color-font-headlabel);
+    font-size: 16px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin: 10px;user-select: none;
+    font-family: Roboto;
+    font-weight: 700;
+}
+
+p {
+    user-select: none;
+    font-family: Roboto;
+    font-weight: 400;
+}
+
+img {
+    user-select: none;
+}
+
+button {
+    font-family: Roboto;
+    font-weight: 400;
+    color: var(--color-icon-default);
+}
+
+input {
+    font-family: Roboto;
+    font-weight: 400;
+}
+
+select {
+    font-family: Roboto;
+    font-weight: 400;
+}
+
+input::placeholder {
+    color: var(--color-font-subtext);
+}
+
+
+button svg{
+    width: 20px;
+    height: 20px;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dFlex {
+    display: flex;
+}
+
+.dNone {
+    display: none;
+}
+
+.object--hidden {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+}
+
+.radio-custom-container input {
+    display: none;
+    user-select: none;
+}
+
+.radio-custom-container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    padding-right: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.subtext {
+    font-size: 10px;
+    color: var(--color-font-subtext);
+}
+
+.subtext-container {
+    padding: 10px;
+    padding-top: 0;
+}
+
+.subtext-top {
+    padding-left: 10px;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    height: 30px;
+    width: 6px;
+    background-color: var(--color-icon-default);
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.radio-custom-container:hover input ~ .checkmark {
+    background-color: var(--color-highlight);
+}
+
+.radio-custom-container input:checked ~ .checkmark {
+    background-color: var(--color-active);
+    /* background: linear-gradient(180deg, rgba(1,171,130,1) 0%, rgba(31,254,172,1) 42%, rgba(89,255,196,1) 47%, rgba(14,144,83,1) 83%, rgba(2,92,64,1) 100%); */
+    box-shadow: 0 0 6px 2px var(--color-active);
+}
+
+.config-item:hover input ~ .checkmark{
+    background-color: var(--color-highlight);
+}
+
+.config-item:hover input:checked ~ .checkmark{
+    background-color: var(--color-active);
+}
+
+.text-label {
+    color: var(--color-font-second);
+    font-size: 12px;
+}
+
+.dFlex {
+    display: flex;
+}
+
+.dNone {
+    display: none;
+}
+
+.header-headline{
+    height: 40px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+}
+
+.object--hidden {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+}
+
+header{
+    background-color: var(--color-main);
+    position:fixed;
+    width: calc(100% - 40px);
+    padding: 0 20px;
+    height: 60px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
+    padding: 60px 10px;
+    /* height: calc(100% - 80px); */
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    width: 100%;
+    height: 60px;
+    bottom:0;
+    position: fixed;
+    align-items: center;
+    display: flex;
+    background-color: var(--color-second);
+}
+
+.main-extended {
+    height: 400px;
+}
+
+.footer-container{
+    padding: 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.board{
+    width: 100%;
+    overflow-y: scroll;
+    max-height: 220px;
+    border-radius:6px;
+    display: grid;
+    justify-items: center;
+}
+
+.noboard-text{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #4c6b77;
+    font-size: 12px;
+    user-select: none;
+}
+
+#configButton{
+    display: flex;
+}
+
+#configButton svg{
+    width: 20px;
+    height: 20px;
+}
+
+#fillButton{
+    display: flex;
+}
+
+#fillButton svg{
+    width: 20px;
+    height: 20px;
+}
+
+.button-primary{
+    /* height: 35px; */
+    border-radius: 6px;
+    border: 0px solid;
+    background-color: transparent;
+    font-size: 12px;
+    color: var(--color-icon-default);
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-primary svg {
+    fill: var(--color-icon-default);
+    transition: .3s;
+}
+
+.button-primary:hover svg{
+    fill: var(--color-highlight);
+}
+
+.button-primary:hover{
+    color: var(--color-highlight);
+}
+
+.button-secondary {
+    width: 120px;
+    height: 35px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-size: 12px;
+    color: #89b4c1;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.button-secondary:hover{
+    color: #acafd6;
+}
+
+.button--active svg{
+    fill: var(--color-active);
+}
+
+.button--active:hover svg{
+    fill: var(--color-active);
+}
+
+.button--active:hover {
+    color: var(--color-active);
+}
+
+.button--hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.footer-active-label {
+    font-size: 16px;
+    color: var(--color-font-subtext);
+    padding-left:10px;
+    user-select: none;
+}
+
+.board-item{
+    width: 90%;
+    height: 100px;
+    border-radius: 6px;
+    background-color: #255b6a;
+    overflow: hidden;
+    display: flex;
+    margin-bottom:20px;
+}
+
+.board-item-container{
+    width: -webkit-fill-available;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.board-item-logo-container{
+    padding: 10px;
+    background-color: #000000;
+    width: 80px;
+    height: calc(100% - 20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-item-logo {
+    width: 40px;
+    height: 40px;
+    background-image: url(../libraries/bookingsheets/amag-protime/logo/logo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.board-item-container-last {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-text{
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-size: 12px;
+    color: #689ead;
+    outline: none;
+    padding: 4px;
+}
+
+.input-text:hover {
+ border: 1px dashed #689ead;
+}
+
+.input-ordernumber {
+    width: 76px;
+}
+
+.input-services {
+    width: 180px;
+}
+
+textarea{
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-size: 12px;
+    color: #689ead;
+    outline: none;
+    padding: 4px;
+    resize: none;
+    width: 100%;
+}
+
+textarea:hover{
+    border: 1px dashed #689ead;
+}
+
+.number-hours{
+    text-align: center;
+    width: 20px;
+}
+
+.label-version {
+    font-size: 12px;
+    color: var(--color-font-subtext);
+}
+
+.configurations {
+    width: -webkit-fill-available;
+}
+
+.configuration-container {
+    width: -webkit-fill-available;
+    margin-bottom:10px;
+    border-radius: 6px;
+    background-color: var(--color-second);
+}
+
+.configuration-container-first-tab-selected {
+    border-top-left-radius: 0;
+}
+
+.configuration-tab-container {
+    flex-direction: column;
+    width: 36px;
+}
+
+.button-config-tab {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.button-tab--active {
+    background-color: var(--color-second);
+    color: var(--color-highlight);
+}
+
+.button-tab--active svg{
+    fill: var(--color-active);
+}
+
+.button-tab--active:hover svg{
+    fill: var(--color-active);
+}
+
+.configuration-window {
+/* sime style */
+}
+
+.configuration-window-content {
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.config-item {
+    border-radius: 6px;
+    background-color: var(--color-third);
+    padding:10px;
+    margin: 10px;
+    justify-content: space-between;
+}
+
+label.config-item {
+    cursor: pointer;
+}
+
+.config-item-main {
+    padding: 0 10px;
+    padding-left: 20px;
+}
+
+.config-item-main-container {
+    width: 100%;
+}
+
+.config-item-radio-container {
+    justify-content: center;
+    align-items: center;
+    max-width: 20px;
+}
+
+.config-item-title-row {
+    width: 100%;
+    justify-content: flex-start;
+}
+
+input[type=text] {
+    background-color: var(--color-second);
+    color: var(--color-font);
+    outline: 1px solid var(--color-none);
+    border: 1px solid var(--color-none);
+    margin: 5px;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+input[type=text]:focus{
+    outline: 1px solid var(--color-icon-default);
+}
+
+.input-size--small {
+    width: 80px;
+}
+
+.input-size--default {
+    width: 120px;
+}
+
+.input-size--large {
+    width: 215px;
+}
+
+.text-projectNomber {
+    width: 80px;
+}
+
+.icon-bookingItem {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.config-item-logo-container {
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+    
+}
+
+.config-item-logo-container--amag {
+    background-color: #000;
+}
+
+select {
+    border-radius: 6px;
+    background-color: var(--color-second);
+    color: var(--color-font);
+    outline: none;
+    padding: 5px;
+    font-size: 12px;
+    border: 0px solid;
+    margin: 5px;
+}
+
+.label-emoji {
+    font-size: 20px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 5px;
+}

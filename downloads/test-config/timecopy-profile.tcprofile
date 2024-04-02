@@ -1,0 +1,9 @@
+{
+    "tcprofile":{
+        "author": "steve",
+        "version": "0.1",
+        "configs": {
+            "theme": "trueinnovation"
+        }
+    }
+}

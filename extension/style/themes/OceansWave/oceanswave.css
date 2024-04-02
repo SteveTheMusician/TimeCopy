@@ -1,0 +1,53 @@
+
+:root{
+    /* ---- Ocean Wave Theme (MyBackup5)---- */
+    /* Basic props */
+    --color-none: transparent;
+  
+    /* color palette */
+    --blue-pale: #5d7b83;
+    --white_e: #EEEEEE;
+    --color-none: transparent;
+    --gray: #131c21;
+    --blue-gray: #8a99a2;
+    --lightgray: #2d3840;
+    --lightgray-31: #313142;
+    --lightgray-a: #aaaaaa;
+    --lightgray-5f: #5f5f6c;
+    --gray-disabled: #263138;
+    --dark-gray: #0f1117;
+    --blue-gray-1d:#1d2930;
+    --blue-gray-54: #548793;
+    --white: #fefefe;
+    --smooth-red: #ad3156;
+    --green: #28b28d;
+    --light-green: #00ffa7;
+    --turquoise: #00ffd5;
+    --lightyellow: #e6d1ab;
+    --lightblue: #0088ee;
+    --blue-pale-dark: #759291;
+  
+    /* theme colors */
+    --color-main: #031a21;
+    --color-second: #04242e;
+    --color-third: #042e3a;
+    --color-darker: #010e12;
+    --color-highlight: #5ecac3;
+    --color-active: var(--turquoise);
+    --color-close: #e37d4a;
+    --color-edit: var(--lightyellow);
+    --color-disabled: var(--color-third);
+   
+   /* Font colors */
+    --color-font: var(--white_e);
+    --color-font-navigation: var(--color-font-second);
+    --color-font-headline: #739f9c;
+    --color-font-second: var(--lightgray-a);
+    --color-font-headlabel:#2a5f69;
+    --color-font-subtext: #79908e;
+    /* Icon colors */
+    --color-icon-default: var(--blue-pale);
+    --color-icon-light: var(--blue-pale);  
+  }
+  
+  
