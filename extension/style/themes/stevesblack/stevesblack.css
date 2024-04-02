@@ -1,0 +1,43 @@
+
+:root{
+    /* ---- Trueinnovation Theme (MyBackup5)---- */
+    /* Basic props */
+    --color-none: transparent;
+  
+    /* color palette */
+    --black: #121212;
+    --black-17: #17181a;
+    --black-1e: #1e1f22;
+    --silver-gray: #d3dcdc;
+    --dark-gray-6: #6b6b6b;
+    --deep-sea-green: #2eb097;
+    --gold: #e2daa7;
+    --gold-dark: #b5af8e;
+    --rotten-blood: #3b2b2e;
+
+    --color-none: transparent;
+    --white: #fefefe;
+
+
+  
+    /* theme colors */
+    --color-main: var(--black);
+    --color-second: var(--black-17);
+    --color-third: var(--black-1e);
+    --color-highlight: var(--gold-dark);
+    --color-active: var(--gold);
+    --color-disabled: var(--rotten-blood);
+   
+   /* Font colors */
+    --color-font: var(--silver-gray);
+    --color-font-navigation: var(--color-font-second);
+    --color-font-headline: var(--white);
+    --color-font-second: var(--silver-gray);
+    --color-font-headlabel:var(--white);
+    --color-font-subtext: var(--dark-gray-6);
+    /* Icon colors */
+    --color-icon-default: var(--silver-gray);
+    --color-icon-light: var(--white);  
+  }
+  
+  

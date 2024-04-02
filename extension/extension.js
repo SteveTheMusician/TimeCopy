@@ -1,4 +1,5 @@
 // PopUp Elements
+const link_cssTheme = document.querySelector('link#link-theme'); 
 const main = document.querySelector('main');
 const configurations = document.querySelector('div.configurations');
 const configurationsContainer = document.getElementById('config-container')
@@ -16,12 +17,16 @@ const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookin
 const buttonTab_Projects = document.querySelector('button#button-tab-projects');
 
 
-// PupUp Buttons
+// Main Buttons
 // const testButton = document.querySelector('button#pasteTicketData');
 const fillButton = document.querySelector('button#fillButton');
 const configButton = document.querySelector('button#configButton');
 const configFooterLabel = document.getElementById('footer-label-config');
-// PupUp Button Trigger
+
+// Configuration Buttons
+const themeSelect = document.querySelector('select#select-themes');
+
+// Main Button Trigger
 fillButton.addEventListener('click', readClipboardText);
 // testButton.addEventListener('click', testProTime);
 configButton.addEventListener('click', openConfigs);
@@ -32,13 +37,39 @@ buttonTab_Projects.addEventListener('click', configTabOpenProjects);
 buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets);
 buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
 
+// configurations listener
+themeSelect.addEventListener('change', switchTheme);
 
 // some vars
 let configOpen = false
 
+// local storages
+let lstorage_cThemes = localStorage.getItem('tc_c_theme')
+
 // some app specific text templates
 const alertWarning = "WARNING: "
 
+
+// load up functions
+window.addEventListener("load", (event) => {
+  loadTheme()
+});
+
+function loadTheme() {  
+  let defaultTheme = "oceanswave"
+  if (lstorage_cThemes){
+    themeSelect.value = lstorage_cThemes
+    link_cssTheme.setAttribute('href', 'style/themes/'+lstorage_cThemes+'/'+lstorage_cThemes+'.css' )
+  } else {
+    themeSelect.value = defaultTheme
+    link_cssTheme.setAttribute('href', 'style/themes/'+defaultTheme+'/'+defaultTheme+'.css' )
+  }
+  
+}
+
+
+
+// Test functions protime
 async function testProTime(){
 
 let [tab] = await chrome.tabs.query ({active: true, currentWindow: true});
@@ -127,7 +158,6 @@ function configTabOpenGeneral(){
   buttonTab_General.classList.add('button-tab--active')
   configWindow_General.classList.remove('dNone')
   configurationsContainer.classList.add('configuration-container-first-tab-selected')
-
 }
 
 function configTabOpenProjects(){
@@ -150,6 +180,31 @@ function configTabOpenBookingsheets(){
   configWindow_Bookingsheets.classList.remove('dNone')
   configurationsContainer.classList.remove('configuration-container-first-tab-selected')
 }
+
+// configuration functions
+ function switchTheme() {
+  let currentThemeValue = themeSelect.value
+  link_cssTheme.setAttribute('href', 'style/themes/'+currentThemeValue+'/'+currentThemeValue+'.css' )
+  localStorage.setItem('tc_c_theme', currentThemeValue)
+ }
+// load json config (not ready - chrome.extension.getURL
+ let button_importConfigs = document.getElementById('button_importConfigs');
+ button_importConfigs.addEventListener('change', (event) => {
+  // let selectedProfileFile = button_importConfigs.value  
+  if (button_importConfigs.files.length > 0) 
+      {
+        var reader = new FileReader(); // File reader to read the file 
+        // This event listener will happen when the reader has read the file
+        reader.addEventListener('load', function() {
+          var result = JSON.parse(reader.result); // Parse the result into an object 
+          
+          alert(result);
+        });
+        
+        // reader.readAsText(result); // Read the uploaded file
+      }
+
+ });
 
 
 

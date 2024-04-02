@@ -4,7 +4,11 @@
     <title>Time Copy</title>
     <meta charset="UTF-8">
     <link href="style/style.css" rel="stylesheet">
-    <link href="style/themes/OceansWave/oceanswave.css" rel="stylesheet">
+    <link href="style/themes/oceanswave/oceanswave.css" rel="stylesheet" id="link-theme">
+    <!-- <link href="style/themes/Trueinnovation/trueinnovation.css" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   </head>
   <body>
     <header>
@@ -98,7 +102,9 @@
                   </div>  
                 </div>
                 <div class="config-item-content-row flex">
-                  <button class="button-primary" id="button_importConfigs">Import</button>
+                  <label class="button-primary">Import
+                    <input type="file" class="object--hidden" id="button_importConfigs" accept=".tcprofile"/>
+                  </label>
                   <button class="button-primary" id="button_exportConfigs">Export</button>
                 </div>
               </div>
@@ -125,14 +131,14 @@
                     <p class="text-label">Themes</p>
                   </div>
                 </div>
-                <select class="input-size--default" name="select_themes">
-                  <option value="" selected>Ocean Weave</option>
-                  <option value="">Trueinnovation</option>
-                  <option value="" >Jaime's Rot</option>
-                  <option value="">Yosha's Coffee Mug</option>
-                  <option value="">Steve's Black</option>
-                  <option value="">Tobias will es schön</option>
-                  <option value="">Johannes alles Pink</option>
+                <select class="input-size--default" name="select_themes" id="select-themes">
+                  <option value="oceanswave" selected>Ocean Weave</option>
+                  <option value="trueinnovation">Trueinnovation</option>
+                  <option value="jaimesrot" >Jaime's Rot</option>
+                  <option value="yoshascoffeemug">Yosha's Coffee Mug</option>
+                  <option value="stevesblack">Steve's Black</option>
+                  <option value="tobiaswillesschoen">Tobias will es schön</option>
+                  <option value="johannesallespink">Johannes alles Pink</option>
                 </select> 
               </div>
             </div>
@@ -144,6 +150,18 @@
                   </div> 
                   <div class="config-item-main flex"> 
                     <p class="text-label">Help and Informations</p>
+                  </div>  
+                </div>
+              </div>
+            </div>
+            <div class="config-item dFlex">
+              <div class="config-item-main-container">
+                <div class="config-item-title-row flex">
+                  <div class="config-item-icon-container flex">
+                    <p class="text-label label-emoji">👩🏼‍💻</p>
+                  </div> 
+                  <div class="config-item-main flex"> 
+                    <p class="text-label">Developer Tools</p>
                   </div>  
                 </div>
               </div>

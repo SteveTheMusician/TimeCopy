@@ -1,0 +1,54 @@
+
+:root{
+    /* ---- Trueinnovation Theme (MyBackup5)---- */
+    /* Basic props */
+    --color-none: transparent;
+  
+    /* color palette */
+    --color-none: transparent;
+    --white: #fefefe;
+    --purple: #6c44b7;
+    --purple-pale: #985fd2;
+    --mud-purple-8: #8364a3;
+    --mud-purple: #5a4e6f;
+    --white-transparent: #fefefe55;
+    --white-transparent-d: #d8d8d88f;
+    --black: #121212;
+    --black-3: #343434;
+    --dark-gray: #4e4e4e;
+    --dark-gray-3: #343434;
+  
+    /* theme colors */
+    --color-main: var(--black);
+    --color-second: var(--white-transparent);
+    --color-third: var(--white-transparent-d);
+    --color-highlight: var(--mud-purple-8);
+    --color-active: var(--purple-pale);
+    --color-disabled: var(--dark-gray);
+   
+   /* Font colors */
+    --color-font: var(--black);
+    --color-font-navigation: var(--color-font-second);
+    --color-font-headline: var(--mud-purple);
+    --color-font-second: var(--dark-gray);
+    --color-font-headlabel:var(--dark-gray-3);
+    --color-font-subtext: var(--dark-gray);
+    /* Icon colors */
+    --color-icon-default: var(--black);
+    --color-icon-light: var(--white);  
+  }
+
+  body {
+    background: url('wallpaper.jpg')no-repeat center;
+    background-size: cover;;
+  }
+
+  header {
+    background-color: var(--color-none);
+  }
+
+  footer {
+    backdrop-filter: blur(4px);
+  }
+  
+  

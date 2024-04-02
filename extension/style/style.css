@@ -1,5 +1,8 @@
 /* Global Style */
 
+
+@import url('fonts/Roboto.css');
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -17,6 +20,7 @@ h1{
     margin-block-end: 0;
     font-size: 20px;
     user-select: none;
+    font-family: Roboto;
 }
 
 h2{
@@ -25,15 +29,40 @@ h2{
     margin-block-start: 0;
     margin-block-end: 0;
     margin: 10px;user-select: none;
+    font-family: Roboto;
+    font-weight: 700;
 }
 
 p {
     user-select: none;
+    font-family: Roboto;
+    font-weight: 400;
 }
 
 img {
     user-select: none;
 }
+
+button {
+    font-family: Roboto;
+    font-weight: 400;
+    color: var(--color-icon-default);
+}
+
+input {
+    font-family: Roboto;
+    font-weight: 400;
+}
+
+select {
+    font-family: Roboto;
+    font-weight: 400;
+}
+
+input::placeholder {
+    color: var(--color-font-subtext);
+}
+
 
 button svg{
     width: 20px;
@@ -44,6 +73,22 @@ button svg{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dFlex {
+    display: flex;
+}
+
+.dNone {
+    display: none;
+}
+
+.object--hidden {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
 }
 
 .radio-custom-container input {
@@ -216,7 +261,7 @@ footer {
     border: 0px solid;
     background-color: transparent;
     font-size: 12px;
-    color: #759291;
+    color: var(--color-icon-default);
     cursor: pointer;
     transition: 0.3s;
     padding: 10px;
@@ -358,16 +403,9 @@ textarea:hover{
     border: 1px dashed #689ead;
 }
 
-::placeholder { 
-    color: #618c97;
-}
-
 .number-hours{
     text-align: center;
     width: 20px;
-}
-.d-none{
-    display: none;
 }
 
 .label-version {
