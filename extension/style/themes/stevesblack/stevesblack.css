@@ -27,6 +27,7 @@
     --color-highlight: var(--gold-dark);
     --color-active: var(--gold);
     --color-disabled: var(--rotten-blood);
+    --color-close: #c71154;
    
    /* Font colors */
     --color-font: var(--silver-gray);

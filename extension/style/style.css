@@ -283,6 +283,14 @@ footer {
     color: var(--color-highlight);
 }
 
+.button-reset:hover{
+    color: var(--color-close);
+}
+
+.button-reset:hover svg{
+    fill: var(--color-close);
+}
+
 .button-secondary {
     width: 120px;
     height: 35px;

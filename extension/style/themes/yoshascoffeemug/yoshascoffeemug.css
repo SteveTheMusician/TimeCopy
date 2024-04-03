@@ -25,6 +25,7 @@
     --color-highlight: var(--silver-gray);
     --color-active: var(--white);
     --color-disabled: var(--pale-green-5);
+    --color-close: #e4e78f;
    
    /* Font colors */
     --color-font: var(--silver-gray);
