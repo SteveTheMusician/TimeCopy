@@ -25,6 +25,8 @@ const configFooterLabel = document.getElementById('footer-label-config');
 
 // Configuration Buttons
 const themeSelect = document.querySelector('select#select-themes');
+const button_clearConfigs = document.getElementById('button_clearConfigs')
+const radios_filter = document.getElementsByName('timesheet-filter');
 
 // Main Button Trigger
 fillButton.addEventListener('click', readClipboardText);
@@ -39,12 +41,18 @@ buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
 
 // configurations listener
 themeSelect.addEventListener('change', switchTheme);
+// filter radios listener
+for (var i=0, iLen=radios_filter.length; i<iLen; i++) {
+  radios_filter[i].addEventListener('click', switchFilter);
+}
+button_clearConfigs.addEventListener('click', clearLocalStorage);
 
 // some vars
 let configOpen = false
 
 // local storages
 let lstorage_cThemes = localStorage.getItem('tc_c_theme')
+let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 
 // some app specific text templates
 const alertWarning = "WARNING: "
@@ -52,11 +60,13 @@ const alertWarning = "WARNING: "
 
 // load up functions
 window.addEventListener("load", (event) => {
-  loadTheme()
+  loadStorage()
 });
 
-function loadTheme() {  
+function loadStorage() {  
   let defaultTheme = "oceanswave"
+  let defaultFilter = ""
+
   if (lstorage_cThemes){
     themeSelect.value = lstorage_cThemes
     link_cssTheme.setAttribute('href', 'style/themes/'+lstorage_cThemes+'/'+lstorage_cThemes+'.css' )
@@ -64,7 +74,15 @@ function loadTheme() {
     themeSelect.value = defaultTheme
     link_cssTheme.setAttribute('href', 'style/themes/'+defaultTheme+'/'+defaultTheme+'.css' )
   }
-  
+  if (lstorage_cFilter){
+    document.querySelector('input[value="'+lstorage_cFilter+'"]').checked = true
+  }
+}
+
+function clearLocalStorage(){
+  localStorage.removeItem('tc_c_theme')
+  localStorage.removeItem('tc_c_filter')
+  alert('Data deleted')
 }
 
 
@@ -205,60 +223,75 @@ function configTabOpenBookingsheets(){
       }
 
  });
-
+ function switchFilter(e) {
+  localStorage.setItem('tc_c_filter', e.target.value)
+ }
 
 
 
 async function readClipboardText() {
   let clipboarsString = await navigator.clipboard.readText();
-  timesheetTobias(clipboarsString)
+  // check whitch filter to use
+  if(lstorage_cFilter === 'filter-tobiasexcel'){
+    timesheetTobias(clipboarsString)
+  }else if(lstorage_cFilter === 'filter-stevegoogleexcel'){
+    timesheetSteve(clipboarsString)
+  }else {
+    alert('No filter selected')
+  }
 }
+
+function timesheetSteve(){
+  alert('Steve')
+}
+
 
 function timesheetTobias(clipboarsString) {
 
   let fullDateString = clipboarsString.split('"')[0];
   let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
 
-  var regex = /\[(.*?)\h/g;
+  // get all tickets before and after a line break
+  let regex = /([^\n]+)/g
   var matches = []
   var match
-
+  // push into matches
   while ((match = regex.exec(allTickets)) !== null) {
     matches.push(match[1]);
   }
 
   let forEachTimer = "100"
-
+ 
   matches.forEach(function(ticket, index){
     setTimeout(function(){
-      let item_ticketNumber = ticket.split(']')[0];
-      let item_ticketDisc = ticket.split(/\](.*?)\:/g)[1];
+      let item_ticketNumber = ticket.split('[').pop().split(']')[0];
+      let item_ticketDisc = ticket.split(']').pop().split(':')[0];
       let item_ticketTime = ticket.split(':')[1];
       
       let item_bookingNumber = ""
       let item_service = ""
 
-      let item_ticketCustomBookingNumber = item_ticketNumber.split('-')[2];
+      let item_ticketCustomBookingNumber = item_ticketNumber.split('#').pop();
+      
       if(item_ticketCustomBookingNumber) {
         item_bookingNumber = item_ticketCustomBookingNumber;
-        item_ticketNumber = item_ticketNumber.split('-')[0] + "-"+ item_ticketNumber.split('-')[1]
+        item_ticketNumber = item_ticketNumber.split('#')[0]
       }
 
       item_bookingNumber = bookingNumbers(item_bookingNumber, item_ticketNumber)
 
       if(!item_bookingNumber){
         alert(alertWarning+ 'No order number @ '+item_ticketNumber)
-      } else {
+      } else if(!item_ticketDisc){
+        alert(alertWarning+ 'Unable to get Ticket discription @ '+item_ticketNumber)
+      } else if(!item_ticketTime){
+        alert(alertWarning+ 'Unable to get working time @ '+item_ticketNumber)
+      }else{
         execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc)
       }
     },forEachTimer * (index + 1))
     // set intervall after first run
     forEachTimer = "300"
-    
-    // alert("Ticketnummer: "+item_ticketNumber+" Beschreibung: "+item_ticketDisc+" Zeit: "+item_ticketTime + " BuchungsNummer: "+item_bookingNumber)
-    // async function waitTillBooked (){
-      // await bookTicket()
-    // }
   })
 }
 
@@ -282,8 +315,9 @@ function bookingNumbers(item_bookingNumber, item_ticketNumber){
   }
 }
 // function to pass variables from extension to tab
-async function execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc){
 
+async function execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc){
+  // alert(item_bookingNumber+item_ticketTime+item_ticketNumber+item_ticketDisc)
   let [tab] = await chrome.tabs.query ({active: true, currentWindow: true});
     // Execute script to parse emails on page
     chrome.scripting.executeScript({

@@ -1,6 +1,5 @@
 /* Global Style */
 
-
 @import url('fonts/Roboto.css');
 
 ::-webkit-scrollbar {
@@ -281,6 +280,14 @@ footer {
 
 .button-primary:hover{
     color: var(--color-highlight);
+}
+
+.button-reset:hover{
+    color: var(--color-close);
+}
+
+.button-reset:hover svg{
+    fill: var(--color-close);
 }
 
 .button-secondary {
