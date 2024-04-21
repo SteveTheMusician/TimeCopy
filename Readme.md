@@ -4,6 +4,8 @@
 ### 04.07.2023
 
 
+TODO:
+Stern für entwickler / tester im dev mode, die immer aktuellen stand bekommen
 
 Temp:
 // opens a communication port
