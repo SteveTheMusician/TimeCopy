@@ -1,12 +1,12 @@
 # Time Copy
-#### V 0.7.9
+#### V 0.8.0
 ### By Steve P.
 ### 04.07.2023
 
 
-TODO:
-Stern für entwickler / tester im dev mode, die immer aktuellen stand bekommen
+### Before Build
 
+Delete script link to developer js and also the file itselfs
 Temp:
 // opens a communication port
 chrome.runtime.onConnect.addListener(function(port) {

@@ -13,7 +13,7 @@
   <body>
     <header>
       <h1 class="header-headline">Time Copy</h1>
-      <p class="label-version dFlex">V 0.7.9</p>
+      <p class="label-version dFlex" id="label_version">V 0.8.0</p>
     </header>
     <main>
      <div class="configurations dFlex dNone">
@@ -90,7 +90,7 @@
               Adjust the Time Copy plugin here
             </p>
           </div>
-          <div class="configuration-window-content">
+          <div class="configuration-window-content" id="config-win-general--content">
             <div class="config-item dFlex">
               <div class="config-item-main-container">
                 <div class="config-item-title-row flex">
@@ -155,7 +155,7 @@
                 </div>
               </div>
             </div>
-            <div class="config-item dFlex">
+            <!-- <div class="config-item dFlex">
               <div class="config-item-main-container">
                 <div class="config-item-title-row flex">
                   <div class="config-item-icon-container flex">
@@ -166,7 +166,7 @@
                   </div>  
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="configuration-window dNone" id="config-win-projects">
@@ -177,6 +177,7 @@
             </p>
           </div>
           <div class="configuration-window-content">
+            <button class="button-primary button-add" id="button_add_projectDetection">+</button>
             <div class="config-item flex">
               <div class="config-item-main-container">
                 <div class="config-item-title-row flex">
@@ -352,7 +353,7 @@
             </svg>
           </button>
           <!-- <button class="button-primary" id='copyTime'>Copy</button> -->
-          <!-- <button class="button-primary" id="pasteTicketData">🧪 PT Test</button> -->
+          <button class="button-primary dNone" id="pasteTicketData">🧪 PT Test</button>
           <p class="footer-active-label object--hidden" id="footer-label-config">Configurations</p>
         </div>
         <div class="footer-container-buttons">
@@ -411,5 +412,8 @@
       </div>
     </footer>
     <script src='extension.js'></script>
+    <script src='components/projectDetection/projectDetection.js'></script>
+    <!-- exclude this script for main / builded version -->
+    <script src='developer/developer.js'></script>
   </body>
 </html>
