@@ -1,10 +1,12 @@
 # Time Copy
-#### V 0.7.6
+#### V 0.8.01
 ### By Steve P.
 ### 04.07.2023
 
 
+### Before Build
 
+Delete script link to developer js and also the file itselfs
 Temp:
 // opens a communication port
 chrome.runtime.onConnect.addListener(function(port) {

@@ -13,7 +13,7 @@
   <body>
     <header>
       <h1 class="header-headline">Time Copy</h1>
-      <p class="label-version dFlex">V 0.7.6</p>
+      <p class="label-version dFlex" id="label_version">V 0.8.01</p>
     </header>
     <main>
      <div class="configurations dFlex dNone">
@@ -84,13 +84,15 @@
       </div>
       <div class="configuration-container configuration-container-first-tab-selected" id="config-container">
         <div class="configuration-window" id="config-win-general">
-          <h2>General</h2>
-          <div class="subtext-container">
-            <p class="subtext">
-              Adjust the Time Copy plugin here
-            </p>
+          <div class="configuration-window-headline-container">
+            <h2>General</h2>
+            <div class="subtext-container">
+              <p class="subtext">
+                Adjust the Time Copy plugin here
+              </p>
+            </div>
           </div>
-          <div class="configuration-window-content">
+          <div class="configuration-window-content" id="config-win-general--content">
             <div class="config-item dFlex">
               <div class="config-item-main-container">
                 <div class="config-item-title-row flex">
@@ -98,7 +100,7 @@
                     <p class="text-label label-emoji">👤</p>
                   </div> 
                   <div class="config-item-main flex"> 
-                    <p class="text-label">Time Copy Profiles</p>
+                    <p class="text-label">Time Copy Data</p>
                   </div>  
                 </div>
                 <div class="config-item-content-row flex">
@@ -106,6 +108,7 @@
                     <input type="file" class="object--hidden" id="button_importConfigs" accept=".tcprofile"/>
                   </label>
                   <button class="button-primary" id="button_exportConfigs">Export</button>
+                  <button class="button-primary" id="button_clearConfigs">Clear</button>
                 </div>
               </div>
             </div>
@@ -132,7 +135,7 @@
                   </div>
                 </div>
                 <select class="input-size--default" name="select_themes" id="select-themes">
-                  <option value="oceanswave" selected>Ocean Weave</option>
+                  <option value="oceanswave" selected>Oceans Weave</option>
                   <option value="trueinnovation">Trueinnovation</option>
                   <option value="jaimesrot" >Jaime's Rot</option>
                   <option value="yoshascoffeemug">Yosha's Coffee Mug</option>
@@ -154,7 +157,7 @@
                 </div>
               </div>
             </div>
-            <div class="config-item dFlex">
+            <!-- <div class="config-item dFlex">
               <div class="config-item-main-container">
                 <div class="config-item-title-row flex">
                   <div class="config-item-icon-container flex">
@@ -165,68 +168,40 @@
                   </div>  
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="configuration-window dNone" id="config-win-projects">
-          <h2>Project Detection</h2>
-          <div class="subtext-container">
-            <p class="subtext">
-              To be able to book tickets automatically, enter their prefixes and the corresponding booking number here.
-            </p>
-          </div>
-          <div class="configuration-window-content">
-            <div class="config-item">
-              <div class="config-item-title-row flex">
-                <p class="subtext subtext-top">Detection parameters</p>
-              </div>
-              <div class="config-item-main-container">
-                <div>
-                  <select class="input-size--small" name="select_bookingPlatform">
-                    <option value="select_bookingPlatform_AmagProTime">ProTime</option>
-                  </select>
-                  <input type="text" class="input-size--default" placeholder="Ticket Prefix" />
-                </div>
-                <div>
-                  <input type="text" class="input-size--large" placeholder="Additional (Title-)Prefix" />
-                </div>
-                <div class="config-item-title-row flex">
-                  <p class="subtext subtext-top">Booking properties</p>
-                </div>
-                <div>
-                  <select class="input-size--default" name="select_proTimeService">
-                    <option value="select_proTime_service_ITD">IT Dienstleistungen</option>
-                    <option value="select_proTime_service_ITDST">IT Dienstleistungen ST</option>
-                    <option value="select_proTime_service_CSITEST" selected >Corporate Service IT Ext ST</option>
-                    <option value="select_proTime_service_CSITENT">Corporate Service IT Ext NT</option>
-                  </select>
-                  <input type="text" class="input-size--small" placeholder="Project No." />
-                </div>
-                <select class="input-size--large" name="select_activity">
-                  <option value="">No Activity</option>
-                  <option value="">- WP2 - AEM Dashboard</option>
-
-                </select>                
-              </div>
-              <div class="config-item-action-container">
-              </div>
+          <div class="configuration-window-headline-container">
+            <h2>Project Detection</h2>
+            <div class="subtext-container">
+              <p class="subtext">
+                To be able to book tickets automatically, enter their prefixes and the corresponding booking number here.
+              </p>
+              <button class="button-primary button-add" id="button_add_projectDetection">+</button>
             </div>
+          </div> 
+          <div class="configuration-window-content" id="window_detection">
+
+            <!-- Detection Items here -->
           </div>
         </div>
         <div class="configuration-window dNone" id="config-win-timesheets">
-          <h2>Timesheet Filter</h2>
-          <div class="subtext-container">
-            <p class="subtext">
-              Choose which format your copied data will be filtered and pasted into. (Depending on your table)
-            </p>
+          <div class="configuration-window-headline-container">
+            <h2>Timesheet Filter</h2>
+            <div class="subtext-container">
+              <p class="subtext">
+                Choose which format your copied data will be filtered and pasted into. (Depending on your table)
+              </p>
+            </div>
           </div>
-
+          
           <div class="configuration-window-content">
             <label class="config-item dFlex">
               <div class="config-item-main-container dFlex">
                 <div class="config-item-radio-container dFlex">
                   <label class="radio-custom-container dFlex">
-                    <input type="radio" class="radio-default" name="timesheet-filter" checked="checked"/>
+                    <input type="radio" class="radio-default" value="filter-tobiasexcel" name="timesheet-filter"/>
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -247,7 +222,7 @@
               <div class="config-item-main-container dFlex">
                 <div class="config-item-radio-container dFlex">
                   <label class="radio-custom-container dFlex">
-                    <input type="radio" class="radio-default" name="timesheet-filter"/>
+                    <input type="radio" class="radio-default" value="filter-stevegoogleexcel" name="timesheet-filter"/>
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -267,12 +242,14 @@
           </div>
         </div>
         <div class="configuration-window dNone" id="config-win-bookingsheet">
-          <h2>Booking Platforms</h2>
-          <div class="subtext-container">
-            <p class="subtext">
-              So that the plugin knows how to carry out the bookings, a booking platform must be selected here
-            </p>
-          </div>
+          <div class="configuration-window-headline-container">
+            <h2>Booking Platforms</h2>
+            <div class="subtext-container">
+              <p class="subtext">
+                So that the plugin knows how to carry out the bookings, a booking platform must be selected here
+              </p>
+            </div>
+          </div>  
           <div class="configuration-window-content">
           <div class="configuration-window-content">
             <label class="config-item dFlex">
@@ -310,22 +287,23 @@
         <div class="footer-container-buttons dFlex">
           <button class="button-primary" id="fillButton" alt="Paste Data">
             <?xml version="1.0" encoding="utf-8"?>
-            <svg version="1.1" id="entry" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            	 viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
-            <g>
-            	<path d="M747.2,850c-5.1,39.7-39.2,70.5-80.2,70.5H162c-44.6,0-80.9-36.3-80.9-80.9V161.4c0-44.6,36.3-80.9,80.9-80.9h505
-            		c40.8,0,74.6,30.3,80.1,69.5h80.4C821.6,66.6,751.9,0.5,667,0.5H162C73.3,0.5,1.1,72.7,1.1,161.4v678.2
-            		c0,88.7,72.2,160.9,160.9,160.9h505c85.2,0,155.2-66.6,160.6-150.5H747.2z"/>
-            </g>
-            <g>
-            	<polygon points="1000,540.5 345.4,540.5 488.7,683.8 432.2,740.4 248.6,556.8 192,500.2 248.6,443.7 432.2,260.1 488.7,316.6 
-            		344.9,460.5 1000,460.5 	"/>
-            </g>
-            <path class="st0" d="M380,500.5"/>
+            <svg version="1.1" id="Configs-3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            	 viewBox="0 0 1200 1200" style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
+            <path d="M918.6,303.5v-223c0-44.4-36-80.4-80.4-80.4H719L629,81H409L319,0.1H199.8c-44.4,0-80.4,36-80.4,80.4v904.8
+            	c0,44.4,36,80.4,80.4,80.4h205.8v53.7c0,44.4,36,80.4,80.4,80.4h514.2c44.4,0,80.4-36,80.4-80.4V500.1
+            	C1080.6,402.6,1010.9,321.4,918.6,303.5z M405.6,380.3v605.5H199.7c-0.1,0-0.2-0.2-0.2-0.2c0,0,0-0.1,0-0.2V80.5c0-0.1,0-0.1,0-0.1
+            	c0.1-0.1,0.2-0.2,0.2-0.2c0,0,0,0,0.2,0h88.5l67.2,60.4l22.8,20.5h281.4l22.8-20.5l67.2-60.4h88.7c0.1,0,0.2,0.2,0.2,0.2
+            	c0,0,0,0.1,0,0.2v219.4H486C441.6,299.9,405.6,335.9,405.6,380.3z M785.7,539.9c0,11-4.5,21-11.7,28.3c-7.2,7.2-17.2,11.7-28.3,11.7
+            	H525.6c-22.1,0-40-17.9-40-40c0-11,4.5-21,11.7-28.3c7.2-7.2,17.2-11.7,28.3-11.7h220.1C767.8,499.9,785.7,517.8,785.7,539.9z
+            	 M988.9,1048.2c-7.2,7.2-17.2,11.7-28.3,11.7h-435c-22.1,0-40-17.9-40-40c0-11,4.5-21,11.7-28.3c7.2-7.2,17.2-11.7,28.3-11.7h435
+            	c22.1,0,40,17.9,40,40C1000.6,1030.9,996.1,1040.9,988.9,1048.2z M485.9,859.9c0-11,4.5-21,11.7-28.3c7.2-7.2,17.2-11.7,28.3-11.7
+            	h320c22.1,0,40,17.9,40,40c0,11-4.5,21-11.7,28.3c-7.2,7.2-17.2,11.7-28.3,11.7h-320C503.8,899.9,485.9,882,485.9,859.9z
+            	 M988.9,728.2c-7.2,7.2-17.2,11.7-28.3,11.7h-435c-22.1,0-40-17.9-40-40c0-11,4.5-21,11.7-28.3c7.2-7.2,17.2-11.7,28.3-11.7h435
+            	c22.1,0,40,17.9,40,40C1000.6,710.9,996.2,720.9,988.9,728.2z"/>
             </svg>
           </button>
           <!-- <button class="button-primary" id='copyTime'>Copy</button> -->
-          <!-- <button class="button-primary" id="pasteTicketData">🧪 PT Test</button> -->
+          <button class="button-primary dNone" id="pasteTicketData">🧪 PT Test</button>
           <p class="footer-active-label object--hidden" id="footer-label-config">Configurations</p>
         </div>
         <div class="footer-container-buttons">
@@ -384,5 +362,8 @@
       </div>
     </footer>
     <script src='extension.js'></script>
+    <script src='components/projectDetection/projectDetection.js'></script>
+    <!-- exclude this script for main / builded version -->
+    <script src='developer/developer.js'></script>
   </body>
 </html>

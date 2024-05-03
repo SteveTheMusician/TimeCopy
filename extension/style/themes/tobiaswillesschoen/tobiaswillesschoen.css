@@ -25,6 +25,7 @@
     --color-highlight: var(--mud-purple-8);
     --color-active: var(--purple-pale);
     --color-disabled: var(--dark-gray);
+    --color-close: #e34a66;
    
    /* Font colors */
     --color-font: var(--black);
