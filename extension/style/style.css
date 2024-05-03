@@ -477,6 +477,8 @@ textarea:hover{
 
 .configuration-window {
 /* sime style */
+height: 390px;
+display: grid;
 }
 
 .configuration-window-content {
