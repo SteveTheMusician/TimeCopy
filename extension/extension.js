@@ -53,7 +53,7 @@ let configOpen = false
 // mock detection - ramove later
 let mockDetectionItems = [
   {id:"di01", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21344", protimeactivity: "select_proTime_activity_none" },
-  {id:"di02", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "[Schadensmeldung]", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21348", protimeactivity: "select_proTime_activity_none"},
+  {id:"di02", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "Schadensmeldung", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21348", protimeactivity: "select_proTime_activity_none"},
   {id:"di03", bookingsheet: "amag_protime", ticketprefix:"BBP", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21037", protimeactivity: "select_proTime_activity_none"}
 ]
 localStorage.setItem('tc_c_projectDetection',JSON.stringify(mockDetectionItems))
@@ -282,7 +282,7 @@ function timesheetTobias(clipboarsString) {
         item_ticketNumber = item_ticketNumber.split('#')[0]
       }
 
-      item_bookingNumber = bookingNumbers(item_bookingNumber, item_ticketNumber)
+      item_bookingNumber = bookingNumbers(item_bookingNumber, item_ticketNumber, item_ticketDisc)
 
       if(!item_bookingNumber){
         alert(alertWarning+ 'No order number @ '+item_ticketNumber)
@@ -300,16 +300,24 @@ function timesheetTobias(clipboarsString) {
 }
 
 // Call the correct booking numbers for the specific tickets
-function bookingNumbers(item_bookingNumber, item_ticketNumber){
+function bookingNumbers(item_bookingNumber, item_ticketNumber, item_ticketDisc){
   // All Known Booking Numbers
   let booking_BBP3 = "21037"
   let booking_AMAG43 = "21344"
   let allDetectionFilter = JSON.parse(lstorage_cDetectionItems)
-
+  alert(item_ticketDisc)
   let new_bookingNumber = ""
-
+  // let found = allDetectionFilter.some(item => item.addprefix === 'Schadensmeldung');
+  let found = allDetectionFilter.some(item => item.addprefix.includes(item_ticketDisc) );
+  if(found){
+    alert('includes')
+  }else{
+    alert('NO includes '+x)
+  }
   if(!item_bookingNumber) {
     // booking nomber detection
+   
+
     if(item_ticketNumber.includes("BBP")){
       new_bookingNumber = booking_BBP3
       // alert(new_bookingNumber)
