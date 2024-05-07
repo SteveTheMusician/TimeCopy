@@ -26,3 +26,8 @@ chrome.runtime.onConnect.addListener(function(port) {
         }
     });
 });
+
+logic info:
+Projekt erkennung
+wenn erkanntes wort existiert, checke prefix = buche unter eingetragene nummer
+wenn keine erkennung vorhanden ist, nehme ticket mit #buchungsnummer

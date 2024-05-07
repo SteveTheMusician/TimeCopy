@@ -50,13 +50,21 @@ button_clearConfigs.addEventListener('click', clearLocalStorage);
 // some vars
 let configOpen = false
 
+// mock detection - ramove later
+let mockDetectionItems = [
+  {id:"di01", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21344", protimeactivity: "select_proTime_activity_none" },
+  {id:"di02", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "[Schadensmeldung]", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21348", protimeactivity: "select_proTime_activity_none"},
+  {id:"di03", bookingsheet: "amag_protime", ticketprefix:"BBP", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21037", protimeactivity: "select_proTime_activity_none"}
+]
+localStorage.setItem('tc_c_projectDetection',JSON.stringify(mockDetectionItems))
+
 // local storages
 let lstorage_cThemes = localStorage.getItem('tc_c_theme')
 let lstorage_cFilter = localStorage.getItem('tc_c_filter')
+let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
 
 // some app specific text templates
 const alertWarning = "WARNING: "
-
 
 // load up functions
 window.addEventListener("load", (event) => {
@@ -84,8 +92,6 @@ function clearLocalStorage(){
   localStorage.removeItem('tc_c_filter')
   alert('Data deleted')
 }
-
-
 
 // Test functions protime
 async function testProTime(){
@@ -137,9 +143,7 @@ function testFunction () {
     protime_ticketText.value = "Test-Ticket-Text"
   
   }, 700 );
-
 }
-
 
 function openConfigs(){
   if(configOpen) {
@@ -300,10 +304,12 @@ function bookingNumbers(item_bookingNumber, item_ticketNumber){
   // All Known Booking Numbers
   let booking_BBP3 = "21037"
   let booking_AMAG43 = "21344"
+  let allDetectionFilter = JSON.parse(lstorage_cDetectionItems)
 
   let new_bookingNumber = ""
 
   if(!item_bookingNumber) {
+    // booking nomber detection
     if(item_ticketNumber.includes("BBP")){
       new_bookingNumber = booking_BBP3
       // alert(new_bookingNumber)
