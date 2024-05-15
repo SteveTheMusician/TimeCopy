@@ -1,13 +1,15 @@
 
 :root{
-    /* ---- Trueinnovation Theme (MyBackup5)---- */
+    /* ---- Tobias will alles schön Theme (experimentell)---- */
     /* Basic props */
     --color-none: transparent;
   
     /* color palette */
     --color-none: transparent;
     --white: #fefefe;
-    --purple: #6c44b7;
+    --dark-blue: #283d45;
+    --light-blue: #1576be;
+    --purple: #8168e4;
     --purple-pale: #985fd2;
     --mud-purple-8: #8364a3;
     --mud-purple: #5a4e6f;
@@ -22,8 +24,8 @@
     --color-main: var(--black);
     --color-second: var(--white-transparent);
     --color-third: var(--white-transparent-d);
-    --color-highlight: var(--mud-purple-8);
-    --color-active: var(--purple-pale);
+    --color-highlight: var(--light-blue);
+    --color-active: var(--light-blue);
     --color-disabled: var(--dark-gray);
     --color-close: #e34a66;
    
@@ -35,13 +37,14 @@
     --color-font-headlabel:var(--dark-gray-3);
     --color-font-subtext: var(--dark-gray);
     /* Icon colors */
-    --color-icon-default: var(--black);
+    --color-icon-default: var(--dark-blue);
     --color-icon-light: var(--white);  
   }
 
   body {
     background: url('wallpaper.jpg')no-repeat center;
-    background-size: cover;;
+    background-size: cover;
+    backdrop-filter: blur(10px);
   }
 
   header {
@@ -49,7 +52,7 @@
   }
 
   footer {
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px) contrast(0.7);
   }
   
   

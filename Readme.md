@@ -1,5 +1,5 @@
 # Time Copy
-#### V 0.8.01
+#### V 0.8.30
 ### By Steve P.
 ### 04.07.2023
 
@@ -26,3 +26,8 @@ chrome.runtime.onConnect.addListener(function(port) {
         }
     });
 });
+
+logic info:
+Projekt erkennung
+wenn erkanntes wort existiert, checke prefix = buche unter eingetragene nummer
+wenn keine erkennung vorhanden ist, nehme ticket mit #buchungsnummer
