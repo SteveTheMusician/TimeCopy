@@ -27,6 +27,8 @@ const configFooterLabel = document.getElementById('footer-label-config');
 const themeSelect = document.querySelector('select#select-themes');
 const button_clearConfigs = document.getElementById('button_clearConfigs')
 const radios_filter = document.getElementsByName('timesheet-filter');
+const button_openHelp = document.getElementById('button_openHelp')
+const button_openHelpTimesheetTobias = document.getElementById('tobiasFilterInfo')
 
 // Main Button Trigger
 fillButton.addEventListener('click', readClipboardText);
@@ -39,24 +41,25 @@ buttonTab_Projects.addEventListener('click', configTabOpenProjects);
 buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets);
 buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
 
-// configurations listener
-themeSelect.addEventListener('change', switchTheme);
-// filter radios listener
-for (var i=0, iLen=radios_filter.length; i<iLen; i++) {
-  radios_filter[i].addEventListener('click', switchFilter);
-}
-button_clearConfigs.addEventListener('click', clearLocalStorage);
+button_openHelp.addEventListener('click', openHelp)
+button_openHelpTimesheetTobias.addEventListener('click', openHelp_timesheet_tobias)
+
+
 
 // some vars
 let configOpen = false
+let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Help.md"
+let helpUrl_timesheet_tobias = helpUrl+"#timesheet-tobias"
+let helpUrl_timesheet_steve = helpUrl+"#timesheet-steve-google-excel"
 
 // mock detection - ramove later
-let mockDetectionItems = [
-  {id:"di01", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21344", protimeactivity: "select_proTime_activity_none" },
-  {id:"di02", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "Schadensmeldung", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21348", protimeactivity: "select_proTime_activity_none"},
-  {id:"di03", bookingsheet: "amag_protime", ticketprefix:"BBP", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21037", protimeactivity: "select_proTime_activity_none"}
-]
-localStorage.setItem('tc_c_projectDetection',JSON.stringify(mockDetectionItems))
+// let mockDetectionItems = [
+  // {id:"di01", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21344", protimeactivity: "select_proTime_activity_none" },
+  // {id:"di02", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "Schadensmeldung", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21348", protimeactivity: "select_proTime_activity_none"},
+  // {id:"di03", bookingsheet: "amag_protime", ticketprefix:"BBP", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21037", protimeactivity: "select_proTime_activity_none"},
+  // {id:"di04", bookingsheet: "amag_protime", ticketprefix:"TEST", addprefix: "Schadensmeldung", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21037", protimeactivity: "select_proTime_activity_none"}
+// ]
+// localStorage.setItem('tc_c_projectDetection',JSON.stringify(mockDetectionItems))
 
 // local storages
 let lstorage_cThemes = localStorage.getItem('tc_c_theme')
@@ -90,7 +93,16 @@ function loadStorage() {
 function clearLocalStorage(){
   localStorage.removeItem('tc_c_theme')
   localStorage.removeItem('tc_c_filter')
+  localStorage.removeItem('tc_c_projectDetection')
   alert('Data deleted')
+}
+
+function openHelp() {
+  window.open(helpUrl)
+}
+
+function openHelp_timesheet_tobias() {
+  window.open(helpUrl_timesheet_tobias)
 }
 
 // Test functions protime
@@ -203,34 +215,6 @@ function configTabOpenBookingsheets(){
   configurationsContainer.classList.remove('configuration-container-first-tab-selected')
 }
 
-// configuration functions
- function switchTheme() {
-  let currentThemeValue = themeSelect.value
-  link_cssTheme.setAttribute('href', 'style/themes/'+currentThemeValue+'/'+currentThemeValue+'.css' )
-  localStorage.setItem('tc_c_theme', currentThemeValue)
- }
-// load json config (not ready - chrome.extension.getURL
- let button_importConfigs = document.getElementById('button_importConfigs');
- button_importConfigs.addEventListener('change', (event) => {
-  // let selectedProfileFile = button_importConfigs.value  
-  if (button_importConfigs.files.length > 0) 
-      {
-        var reader = new FileReader(); // File reader to read the file 
-        // This event listener will happen when the reader has read the file
-        reader.addEventListener('load', function() {
-          var result = JSON.parse(reader.result); // Parse the result into an object 
-          
-          alert(result);
-        });
-        
-        // reader.readAsText(result); // Read the uploaded file
-      }
-
- });
- function switchFilter(e) {
-  localStorage.setItem('tc_c_filter', e.target.value)
- }
-
 
 
 async function readClipboardText() {
@@ -305,15 +289,36 @@ function bookingNumbers(item_bookingNumber, item_ticketNumber, item_ticketDisc){
   let booking_BBP3 = "21037"
   let booking_AMAG43 = "21344"
   let allDetectionFilter = JSON.parse(lstorage_cDetectionItems)
-  alert(item_ticketDisc)
+
   let new_bookingNumber = ""
-  // let found = allDetectionFilter.some(item => item.addprefix === 'Schadensmeldung');
-  let found = allDetectionFilter.some(item => item.addprefix.includes(item_ticketDisc) );
-  if(found){
-    alert('includes')
-  }else{
-    alert('NO includes '+x)
-  }
+
+
+  allDetectionFilter.forEach((obj) => {
+    // Object.keys(obj).forEach((key) => {
+        // alert("key : " + key + " - value : " + obj[key]);
+    // });
+    let currentFilterObject_addprefix = obj.addprefix
+    let filterMatches = []
+    let ticketMatch = []
+    
+    if(currentFilterObject_addprefix.length <= 0){
+      // alert('kein length')
+      if(currentFilterObject_addprefix.ticketprefix = item_ticketNumber) {
+        alert('MATCH Ohne length'+item_ticketNumber)
+      }
+    }else if(item_ticketDisc.includes(currentFilterObject_addprefix)){
+      // filterMatches.push(obj);
+      if(currentFilterObject_addprefix.ticketprefix = item_ticketNumber) {
+        alert('MATCH mit Add prefix'+item_ticketNumber)
+      }
+
+      alert('includes'+ filterMatches)
+    }else {
+      alert('no includes')
+    }
+  });
+
+  
   if(!item_bookingNumber) {
     // booking nomber detection
    
