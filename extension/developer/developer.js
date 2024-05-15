@@ -1,6 +1,6 @@
 const configWindow_General_WindowContent = document.getElementById('config-win-general--content');
 const label_version = document.getElementById('label_version');
-const button_pasteTicketData = document.getElementById('pasteTicketData')
+const button_pasteTicketData = document.getElementById('button_test_pasteTicketData')
 
 let config_bar_dev = `
 <div class="config-item dFlex">
