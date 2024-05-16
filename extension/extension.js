@@ -8,6 +8,7 @@ const configWindow_General = document.getElementById('config-win-general');
 const configWindow_Timesheets = document.getElementById('config-win-timesheets');
 const configWindow_Bookingsheets = document.getElementById('config-win-bookingsheet');
 const configWindow_Projects = document.getElementById('config-win-projects');
+const configProfileName = document.getElementById('configProfileName')
 
 // tab buttons
 const buttonsTab_getAll = document.getElementsByClassName('button-config-tab');
@@ -16,6 +17,7 @@ const buttonTab_Timesheets = document.querySelector('button#button-tab-timesheet
 const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookingsheets');
 const buttonTab_Projects = document.querySelector('button#button-tab-projects');
 
+// WAS SCHAUST DU IN MEIN CODE REIN?? DER WIRD NOCH AUFGERÄUMT!!
 
 // Main Buttons
 const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData');
@@ -40,6 +42,7 @@ buttonTab_General.addEventListener('click', configTabOpenGeneral);
 buttonTab_Projects.addEventListener('click', configTabOpenProjects);
 buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets);
 buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
+configProfileName.addEventListener('change', configSetProfileName)
 
 button_clearConfigs.addEventListener('click', clearLocalStorage);
 button_openHelp.addEventListener('click', openHelp)
@@ -70,6 +73,7 @@ let helpUrl_timesheet_steve = helpUrl+"#timesheet-steve-google-excel"
 let lstorage_cThemes = localStorage.getItem('tc_c_theme')
 let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
+let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
 
 // some app specific text templates
 const alertWarning = "WARNING: "
@@ -82,6 +86,7 @@ window.addEventListener("load", (event) => {
 function loadStorage() {  
   let defaultTheme = "oceanswave"
   let defaultFilter = ""
+  let defaultProfileName = "Steve Default"
 
   if (lstorage_cThemes){
     themeSelect.value = lstorage_cThemes
@@ -93,12 +98,18 @@ function loadStorage() {
   if (lstorage_cFilter){
     document.querySelector('input[value="'+lstorage_cFilter+'"]').checked = true
   }
+  if (lstorage_cProfileName){
+    configProfileName.value = lstorage_cProfileName
+  } else {
+    configProfileName.value = defaultProfileName
+  }
 }
 
 function clearLocalStorage(){
   localStorage.removeItem('tc_c_theme')
   localStorage.removeItem('tc_c_filter')
   localStorage.removeItem('tc_c_projectDetection')
+  localStorage.removeItem('tc_c_profileName')
   alert('Data deleted')
 }
 
@@ -224,6 +235,12 @@ function configTabOpenBookingsheets(){
 
 
 // configuration functions
+function configSetProfileName(){
+  
+  localStorage.setItem('tc_c_profileName', configProfileName.value)
+
+}
+
 function switchTheme() {
   let currentThemeValue = themeSelect.value
   link_cssTheme.setAttribute('href', 'style/themes/'+currentThemeValue+'/'+currentThemeValue+'.css' )
@@ -242,28 +259,34 @@ function importFile(event){
   var files = event.target.files,
   reader = new FileReader();
   reader.addEventListener("load", function() {
-  let fileData = this.result;
-  fileData = JSON.parse(fileData)
-  // set data
-  localStorage.setItem('tc_c_theme', fileData.cfg.theme)
-  localStorage.setItem('tc_c_projectDetection',JSON.stringify(fileData.cfg.detection_filter))
-});
+    let fileData = this.result;
+    fileData = JSON.parse(fileData)
+    // set data
+    localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
+    localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.timesheet_filter)
+    // alert(fileData.tcprofile.profile_name)
+    localStorage.setItem('tc_c_projectDetection',JSON.stringify(fileData.tcprofile.cfg.detection_filter))
+    localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
+  });
   reader.readAsText(files[0])
   alert('To apply the changes, please reopen the extension.')
+  loadStorage()
 }
 
 // Export Configs as Json
 let button_exportConfigs = document.getElementById('button_exportConfigs');
+
 button_exportConfigs.addEventListener('click', (event) => {
   let detectionItems = localStorage.getItem('tc_c_projectDetection')
   detectionItems = JSON.parse(detectionItems)
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
   let lstorage_cFilter = localStorage.getItem('tc_c_filter')
+  let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
 
-  let saveObj = {"tcprofile":{"author":"steve","version":"1.0"}}
+  let saveObj = {"tcprofile":{"author":"steve","version":"1.1","profile_name":configProfileName.value}}
 
   // apply values
-  saveObj = {...saveObj, "cfg":{"theme": lstorage_cThemes, "detection_filter": detectionItems}}
+  Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "detection_filter": detectionItems}})
   // file setting
   const data = JSON.stringify(saveObj);
   const name = "TimeCopy-Profile.tcprofile";
@@ -278,8 +301,9 @@ button_exportConfigs.addEventListener('click', (event) => {
   a.remove();
  });
  
- 
- async function readClipboardText(dev_pttest) {
+
+// Main Functions
+async function readClipboardText(dev_pttest) {
   let clipboarsString = await navigator.clipboard.readText();
   // check whitch filter to use
   if(lstorage_cFilter === 'filter-tobiasexcel'){
