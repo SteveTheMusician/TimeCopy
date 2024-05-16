@@ -286,7 +286,7 @@ button_exportConfigs.addEventListener('click', (event) => {
   let saveObj = {"tcprofile":{"author":"steve","version":"1.1","profile_name":configProfileName.value}}
 
   // apply values
-  Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "detection_filter": detectionItems}})
+  Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platforms":"NoVALUE","detection_filter": detectionItems}})
   // file setting
   const data = JSON.stringify(saveObj);
   const name = "TimeCopy-Profile.tcprofile";
