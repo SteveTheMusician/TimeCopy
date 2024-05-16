@@ -8,6 +8,7 @@ const configWindow_General = document.getElementById('config-win-general');
 const configWindow_Timesheets = document.getElementById('config-win-timesheets');
 const configWindow_Bookingsheets = document.getElementById('config-win-bookingsheet');
 const configWindow_Projects = document.getElementById('config-win-projects');
+const configProfileName = document.getElementById('configProfileName')
 
 // tab buttons
 const buttonsTab_getAll = document.getElementsByClassName('button-config-tab');
@@ -16,9 +17,10 @@ const buttonTab_Timesheets = document.querySelector('button#button-tab-timesheet
 const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookingsheets');
 const buttonTab_Projects = document.querySelector('button#button-tab-projects');
 
+// WAS SCHAUST DU IN MEIN CODE REIN?? DER WIRD NOCH AUFGERÄUMT!!
 
 // Main Buttons
-// const testButton = document.querySelector('button#pasteTicketData');
+const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData');
 const fillButton = document.querySelector('button#fillButton');
 const configButton = document.querySelector('button#configButton');
 const configFooterLabel = document.getElementById('footer-label-config');
@@ -32,7 +34,7 @@ const button_openHelpTimesheetTobias = document.getElementById('tobiasFilterInfo
 
 // Main Button Trigger
 fillButton.addEventListener('click', readClipboardText);
-// testButton.addEventListener('click', testProTime);
+button_dev_pttest.addEventListener('click', testProTime);
 configButton.addEventListener('click', openConfigs);
 
 // configuration tabs listener
@@ -40,14 +42,20 @@ buttonTab_General.addEventListener('click', configTabOpenGeneral);
 buttonTab_Projects.addEventListener('click', configTabOpenProjects);
 buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets);
 buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
+configProfileName.addEventListener('change', configSetProfileName)
 
+button_clearConfigs.addEventListener('click', clearLocalStorage);
 button_openHelp.addEventListener('click', openHelp)
 button_openHelpTimesheetTobias.addEventListener('click', openHelp_timesheet_tobias)
-
-
+themeSelect.addEventListener('change', switchTheme);
+// filter radios listener
+for (var i=0, iLen=radios_filter.length; i<iLen; i++) {
+  radios_filter[i].addEventListener('click', switchFilter);
+}
 
 // some vars
 let configOpen = false
+let dev_pttest = false
 let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Help.md"
 let helpUrl_timesheet_tobias = helpUrl+"#timesheet-tobias"
 let helpUrl_timesheet_steve = helpUrl+"#timesheet-steve-google-excel"
@@ -65,6 +73,7 @@ let helpUrl_timesheet_steve = helpUrl+"#timesheet-steve-google-excel"
 let lstorage_cThemes = localStorage.getItem('tc_c_theme')
 let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
+let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
 
 // some app specific text templates
 const alertWarning = "WARNING: "
@@ -77,6 +86,7 @@ window.addEventListener("load", (event) => {
 function loadStorage() {  
   let defaultTheme = "oceanswave"
   let defaultFilter = ""
+  let defaultProfileName = "Steve Default"
 
   if (lstorage_cThemes){
     themeSelect.value = lstorage_cThemes
@@ -88,12 +98,18 @@ function loadStorage() {
   if (lstorage_cFilter){
     document.querySelector('input[value="'+lstorage_cFilter+'"]').checked = true
   }
+  if (lstorage_cProfileName){
+    configProfileName.value = lstorage_cProfileName
+  } else {
+    configProfileName.value = defaultProfileName
+  }
 }
 
 function clearLocalStorage(){
   localStorage.removeItem('tc_c_theme')
   localStorage.removeItem('tc_c_filter')
   localStorage.removeItem('tc_c_projectDetection')
+  localStorage.removeItem('tc_c_profileName')
   alert('Data deleted')
 }
 
@@ -107,11 +123,13 @@ function openHelp_timesheet_tobias() {
 
 // Test functions protime
 async function testProTime(){
-
-let [tab] = await chrome.tabs.query ({active: true, currentWindow: true});
-  chrome.scripting.executeScript({
-   target: {tabId: tab.id}, func: testFunction,
-  });
+  dev_pttest = true
+  alert(dev_pttest)
+  readClipboardText(dev_pttest)
+// let [tab] = await chrome.tabs.query ({active: true, currentWindow: true});
+  // chrome.scripting.executeScript({
+  //  target: {tabId: tab.id}, func: testFunction,
+  // });
 }
 // test Function triggered by test button to check if protime works
 function testFunction () {
@@ -216,14 +234,82 @@ function configTabOpenBookingsheets(){
 }
 
 
+// configuration functions
+function configSetProfileName(){
+  
+  localStorage.setItem('tc_c_profileName', configProfileName.value)
 
-async function readClipboardText() {
+}
+
+function switchTheme() {
+  let currentThemeValue = themeSelect.value
+  link_cssTheme.setAttribute('href', 'style/themes/'+currentThemeValue+'/'+currentThemeValue+'.css' )
+  localStorage.setItem('tc_c_theme', currentThemeValue)
+ }
+
+ function switchFilter(e) {
+  localStorage.setItem('tc_c_filter', e.target.value)
+ }
+
+// import time copy profile
+let button_importConfigs = document.getElementById('button_importConfigs');
+button_importConfigs.addEventListener("change", importFile, false);
+
+function importFile(event){
+  var files = event.target.files,
+  reader = new FileReader();
+  reader.addEventListener("load", function() {
+    let fileData = this.result;
+    fileData = JSON.parse(fileData)
+    // set data
+    localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
+    localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.timesheet_filter)
+    // alert(fileData.tcprofile.profile_name)
+    localStorage.setItem('tc_c_projectDetection',JSON.stringify(fileData.tcprofile.cfg.detection_filter))
+    localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
+  });
+  reader.readAsText(files[0])
+  alert('To apply the changes, please reopen the extension.')
+  loadStorage()
+}
+
+// Export Configs as Json
+let button_exportConfigs = document.getElementById('button_exportConfigs');
+
+button_exportConfigs.addEventListener('click', (event) => {
+  let detectionItems = localStorage.getItem('tc_c_projectDetection')
+  detectionItems = JSON.parse(detectionItems)
+  let lstorage_cThemes = localStorage.getItem('tc_c_theme')
+  let lstorage_cFilter = localStorage.getItem('tc_c_filter')
+  let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
+
+  let saveObj = {"tcprofile":{"author":"steve","version":"1.1","profile_name":configProfileName.value}}
+
+  // apply values
+  Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "detection_filter": detectionItems}})
+  // file setting
+  const data = JSON.stringify(saveObj);
+  const name = "TimeCopy-Profile.tcprofile";
+  const type = "text/plain";
+  // create file
+  const a = document.createElement("a");
+  const file = new Blob([data], { type: type });
+  a.href = URL.createObjectURL(file);
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+ });
+ 
+
+// Main Functions
+async function readClipboardText(dev_pttest) {
   let clipboarsString = await navigator.clipboard.readText();
   // check whitch filter to use
   if(lstorage_cFilter === 'filter-tobiasexcel'){
-    timesheetTobias(clipboarsString)
+    timesheetTobias(clipboarsString,dev_pttest)
   }else if(lstorage_cFilter === 'filter-stevegoogleexcel'){
-    timesheetSteve(clipboarsString)
+    timesheetSteve(clipboarsString,dev_pttest)
   }else {
     alert('No filter selected')
   }
@@ -234,7 +320,7 @@ function timesheetSteve(){
 }
 
 
-function timesheetTobias(clipboarsString) {
+function timesheetTobias(clipboarsString,dev_pttest) {
 
   let fullDateString = clipboarsString.split('"')[0];
   let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
@@ -275,7 +361,7 @@ function timesheetTobias(clipboarsString) {
       } else if(!item_ticketTime){
         alert(alertWarning+ 'Unable to get working time @ '+item_ticketNumber)
       }else{
-        execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc)
+        execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest)
       }
     },forEachTimer * (index + 1))
     // set intervall after first run
@@ -335,13 +421,13 @@ function bookingNumbers(item_bookingNumber, item_ticketNumber, item_ticketDisc){
 }
 // function to pass variables from extension to tab
 
-async function execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc){
+async function execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest){
   // alert(item_bookingNumber+item_ticketTime+item_ticketNumber+item_ticketDisc)
   let [tab] = await chrome.tabs.query ({active: true, currentWindow: true});
     // Execute script to parse emails on page
     chrome.scripting.executeScript({
     target: {tabId: tab.id},
-    args: [item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc],
+    args: [item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest],
     func: (...args) => bookTicket(...args),
     });
 }
@@ -387,6 +473,13 @@ function bookTicket(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ti
     protime_ticketText.value = item_ticketDisc
   
   }, 700 );
+
+  if(dev_pttest === true)
+    {
+      console.log('PT Test -- dev: true')
+    }else{
+      // click booking button here!
+    }
 
   // sleep(2000)
   // return new Promise((resolve) => {

@@ -15,7 +15,8 @@ function addNewProjectDetection(){
  let detectionItems = localStorage.getItem('tc_c_projectDetection')
  detectionItems = JSON.parse(detectionItems)
 
-document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem => 
+ if(detectionItems) {
+  document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem => 
     `<div class="config-item flex" id="`+detectionItem.id+`">
   <div class="config-item-main-container">
     <div class="config-item-title-row flex">
@@ -75,4 +76,8 @@ document.getElementById('window_detection').innerHTML = detectionItems.map(detec
     </button>
   </div>
   </div>` ).join('')
+ }else {
+  console.log('Project Detection: No Items found')
+ }
+
 
