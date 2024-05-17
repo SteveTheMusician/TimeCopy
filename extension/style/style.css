@@ -1,6 +1,7 @@
 /* Global Style */
 
 @import url('fonts/Roboto.css');
+@import url('var/var.css');
 
 ::-webkit-scrollbar {
     display: none;
@@ -82,6 +83,10 @@ button svg{
     display: none !important;
 }
 
+.dGrid {
+    display: grid;
+}
+
 .object--hidden {
     width: 0;
     height: 0;
@@ -124,7 +129,7 @@ button svg{
     height: 30px;
     width: 6px;
     background-color: var(--color-icon-default);
-    border-radius: 6px;
+    border-radius: var(--border-radius-default);
     transition: 0.3s;
 }
 
@@ -228,7 +233,7 @@ footer {
     width: 100%;
     overflow-y: scroll;
     max-height: 220px;
-    border-radius:6px;
+    border-radius: var(--border-radius-default);
     display: grid;
     justify-items: center;
 }
@@ -264,7 +269,7 @@ footer {
 
 .button-primary{
     /* height: 35px; */
-    border-radius: 6px;
+    border-radius: var(--border-radius-default);
     border: 0px solid;
     background-color: transparent;
     font-size: 12px;
@@ -301,7 +306,7 @@ footer {
 .button-secondary {
     width: 120px;
     height: 35px;
-    border-radius: 6px;
+    border-radius: var(--border-radius-default);
     border: 1px solid transparent;
     background-color: transparent;
     font-size: 12px;
@@ -350,7 +355,7 @@ footer {
 .board-item{
     width: 90%;
     height: 100px;
-    border-radius: 6px;
+    border-radius: var(--border-radius-default);
     background-color: #255b6a;
     overflow: hidden;
     display: flex;
@@ -443,8 +448,8 @@ textarea:hover{
 
 .configuration-container {
     width: -webkit-fill-available;
-    margin-bottom:10px;
-    border-radius: 6px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius-default);
     background-color: var(--color-second);
 }
 
@@ -478,7 +483,6 @@ textarea:hover{
 .configuration-window {
 /* sime style */
 height: 390px;
-display: grid;
 }
 
 .configuration-window-content {
@@ -488,7 +492,7 @@ display: grid;
 }
 
 .config-item {
-    border-radius: 6px;
+    border-radius: var(--border-radius-default);
     background-color: var(--color-third);
     padding:10px;
     margin: 10px;
@@ -526,7 +530,7 @@ input[type=text] {
     border: 1px solid var(--color-none);
     margin: 5px;
     padding: 5px;
-    border-radius: 6px;
+    border-radius: var(--border-radius-default);
 }
 
 input[type=text]:focus{
@@ -558,7 +562,7 @@ input[type=text]:focus{
 .config-item-logo-container {
     padding: 10px;
     margin-left: 10px;
-    border-radius: 6px;
+    border-radius: var(--border-radius-default);
     
 }
 
@@ -567,7 +571,7 @@ input[type=text]:focus{
 }
 
 select {
-    border-radius: 6px;
+    border-radius: var(--border-radius-default);
     background-color: var(--color-second);
     color: var(--color-font);
     outline: none;
@@ -589,30 +593,29 @@ select {
     display: inline-block;
     width: 40px;
     height: 24px;
-  }
+}
   
-  .switch input { 
+.switch input { 
     opacity: 0;
     width: 0;
     height: 0;
-  }
-
-  input:checked + .switch_slider {
+}
+input:checked + .switch_slider {    
     background-color: var(--color-active);
-  }
-  
-  input:focus + .switch_slider {
+}
+
+input:focus + .switch_slider {
     box-shadow: 0 0 1px var(--color-active);
-  }
-  
-  input:checked + .switch_slider:before {
+}
+
+input:checked + .switch_slider:before {
     -webkit-transform: translateX(16px);
     -ms-transform: translateX(16px);
     transform: translateX(16px);
-  }
-  
-  /* Rounded sliders */
-  .switch_slider{
+}
+
+/* Rounded sliders */
+.switch_slider{
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -623,9 +626,9 @@ select {
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 34px;
-  }
-  
-  .switch_slider:before {
+}
+
+.switch_slider:before {
     position: absolute;
     content: "";
     height: 16px;
@@ -636,4 +639,36 @@ select {
     -webkit-transition: .4s;
     transition: .4s;
     border-radius: 50%;
-  }
+}
+
+.notification {
+    width: -webkit-fill-available;
+    padding: 10px;
+    position: fixed;
+    background-color: var(--color-close);
+    bottom: 60px;
+    opacity: 1;
+    border-radius: var(--border-radius-default);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    justify-content: space-between;
+    transition: var(--transition-mid);
+}
+
+.text-notification {
+    color: var(--color-close);
+    filter: brightness(0.5);
+    padding: 0px 10px;
+}
+
+.notification .button-primary svg{
+    fill: var(--color-close);
+    filter: brightness(0.5);
+    width: 12px;
+    height: 12px;
+}
+
+.notification--hidden {
+    bottom: 0;
+    opacity: 0;
+}

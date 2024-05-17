@@ -13,7 +13,7 @@
   <body>
     <header>
       <h1 class="header-headline">Time Copy</h1>
-      <p class="label-version dFlex" id="label_version">V 0.8.32</p>
+      <p class="label-version dFlex" id="label_version">V </p>
     </header>
     <main>
      <div class="configurations dFlex dNone">
@@ -175,7 +175,7 @@
             </div> -->
           </div>
         </div>
-        <div class="configuration-window dNone" id="config-win-projects">
+        <div class="configuration-window dGrid dNone" id="config-win-projects">
           <div class="configuration-window-headline-container">
             <h2>Project Detection</h2>
             <div class="subtext-container">
@@ -205,7 +205,7 @@
               <div class="config-item-main-container dFlex">
                 <div class="config-item-radio-container dFlex">
                   <label class="radio-custom-container dFlex">
-                    <input type="radio" class="radio-default" value="filter-tobiasexcel" name="timesheet-filter"/>
+                    <input type="radio" class="radio-default" value="timesheetfilter-tobiasexcel" name="timesheet-filter"/>
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -226,7 +226,7 @@
               <div class="config-item-main-container dFlex">
                 <div class="config-item-radio-container dFlex">
                   <label class="radio-custom-container dFlex">
-                    <input type="radio" class="radio-default" value="filter-stevegoogleexcel" name="timesheet-filter"/>
+                    <input type="radio" class="radio-default" value="timesheetfilter-stevegoogleexcel" name="timesheet-filter"/>
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -255,7 +255,6 @@
             </div>
           </div>  
           <div class="configuration-window-content">
-          <div class="configuration-window-content">
             <label class="config-item dFlex">
               <div class="config-item-main-container dFlex">
                 <div class="config-item-radio-container dFlex">
@@ -265,7 +264,7 @@
                   </label>
                 </div>
                 <div class="config-item-logo-container flex config-item-logo-container--amag">
-                  <img src="libraries/bookingsheets/amag-protime/logo/logo.png" class="icon-bookingItem"/>
+                  <img src="libraries/bookingsheets/amagProtime/logo/logo.png" class="icon-bookingItem"/>
                 </div> 
                 <div class="config-item-main flex"> 
                   <p class="text-label">ProTime</p>
@@ -282,9 +281,7 @@
             </label>
           </div>
         </div>
-
       </div>
-     </div>
     </main>
     <footer>
       <div class="footer-container">
@@ -365,9 +362,8 @@
         </div>
       </div>
     </footer>
-    <script src='extension.js'></script>
+    <script src='extension.js' type="module"></script>
     <script src='components/projectDetection/projectDetection.js'></script>
-    <script src='components/general/general.js'></script>
     <!-- exclude this script for main / builded version -->
     <script src='developer/developer.js'></script>
   </body>

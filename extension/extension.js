@@ -1,4 +1,7 @@
-// PopUp Elements
+import data_version from "./version.json" with { type: "json" };
+import { timesheetFilter } from "./libraries/timesheets/timesheets.js";
+import { notification } from "./components/notification/notification.js";
+
 const link_cssTheme = document.querySelector('link#link-theme'); 
 const main = document.querySelector('main');
 const configurations = document.querySelector('div.configurations');
@@ -31,43 +34,7 @@ const button_clearConfigs = document.getElementById('button_clearConfigs')
 const radios_filter = document.getElementsByName('timesheet-filter');
 const button_openHelp = document.getElementById('button_openHelp')
 const button_openHelpTimesheetTobias = document.getElementById('tobiasFilterInfo')
-
-// Main Button Trigger
-fillButton.addEventListener('click', readClipboardText);
-button_dev_pttest.addEventListener('click', testProTime);
-configButton.addEventListener('click', openConfigs);
-
-// configuration tabs listener
-buttonTab_General.addEventListener('click', configTabOpenGeneral);
-buttonTab_Projects.addEventListener('click', configTabOpenProjects);
-buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets);
-buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
-configProfileName.addEventListener('change', configSetProfileName)
-
-button_clearConfigs.addEventListener('click', clearLocalStorage);
-button_openHelp.addEventListener('click', openHelp)
-button_openHelpTimesheetTobias.addEventListener('click', openHelp_timesheet_tobias)
-themeSelect.addEventListener('change', switchTheme);
-// filter radios listener
-for (var i=0, iLen=radios_filter.length; i<iLen; i++) {
-  radios_filter[i].addEventListener('click', switchFilter);
-}
-
-// some vars
-let configOpen = false
-let dev_pttest = false
-let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Help.md"
-let helpUrl_timesheet_tobias = helpUrl+"#timesheet-tobias"
-let helpUrl_timesheet_steve = helpUrl+"#timesheet-steve-google-excel"
-
-// mock detection - ramove later
-// let mockDetectionItems = [
-  // {id:"di01", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21344", protimeactivity: "select_proTime_activity_none" },
-  // {id:"di02", bookingsheet: "amag_protime", ticketprefix:"RELAUNCHAM", addprefix: "Schadensmeldung", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21348", protimeactivity: "select_proTime_activity_none"},
-  // {id:"di03", bookingsheet: "amag_protime", ticketprefix:"BBP", addprefix: "", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21037", protimeactivity: "select_proTime_activity_none"},
-  // {id:"di04", bookingsheet: "amag_protime", ticketprefix:"TEST", addprefix: "Schadensmeldung", protimeservice: "select_proTime_service_CSITEST", projectnomber: "21037", protimeactivity: "select_proTime_activity_none"}
-// ]
-// localStorage.setItem('tc_c_projectDetection',JSON.stringify(mockDetectionItems))
+const buttons_timesheetFilters = document.getElementsByName('timesheet-filter')
 
 // local storages
 let lstorage_cThemes = localStorage.getItem('tc_c_theme')
@@ -75,18 +42,54 @@ let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
 
-// some app specific text templates
-const alertWarning = "WARNING: "
+// Some vars
+let configOpen = false
+let dev_pttest = false
+let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Help.md"
+let helpUrl_timesheet_tobias = helpUrl+"#timesheet-tobias"
+let helpUrl_timesheet_steve = helpUrl+"#timesheet-steve-google-excel"
+let extensionVersion = data_version.extension_version
 
-// load up functions
+
+// Extension load up
 window.addEventListener("load", (event) => {
+  // Display version
+  label_version.insertAdjacentHTML('beforeend', extensionVersion);
+  // Main Buttons Listener
+  fillButton.addEventListener('click', readClipboardText);
+  button_dev_pttest.addEventListener('click', testProTime);
+  configButton.addEventListener('click', openConfigs);
+  // Configuration tabs listener
+  buttonTab_General.addEventListener('click', configTabOpenGeneral);
+  buttonTab_Projects.addEventListener('click', configTabOpenProjects);
+  buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets);
+  buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
+  configProfileName.addEventListener('change', configSetProfileName)
+  // Configs Listener
+  button_clearConfigs.addEventListener('click', clearLocalStorage);
+  button_openHelp.addEventListener('click', openHelp)
+  button_openHelpTimesheetTobias.addEventListener('click', openHelp_timesheet_tobias)
+  themeSelect.addEventListener('change', switchTheme);
+  // filter radios listener
+  for (var i=0, iLen=radios_filter.length; i<iLen; i++) {
+    radios_filter[i].addEventListener('click', switchFilter);
+  }
+  for (var index=0, indexLen=buttons_timesheetFilters.length; index<indexLen; index++) {
+    buttons_timesheetFilters[index].addEventListener('click', timesheetFilterChange);
+  }
+  // Load local storages
   loadStorage()
 });
 
+function timesheetFilterChange(){
+  notification(true,'Please reopen extension so the filters can be applied.')
+}
+
+// Load localstorage
 function loadStorage() {  
   let defaultTheme = "oceanswave"
   let defaultFilter = ""
-  let defaultProfileName = "Steve Default"
+  let defaultProfileName = "Default"
 
   if (lstorage_cThemes){
     themeSelect.value = lstorage_cThemes
@@ -104,7 +107,7 @@ function loadStorage() {
     configProfileName.value = defaultProfileName
   }
 }
-
+// Clear local storage
 function clearLocalStorage(){
   localStorage.removeItem('tc_c_theme')
   localStorage.removeItem('tc_c_filter')
@@ -269,8 +272,8 @@ function importFile(event){
     localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
   });
   reader.readAsText(files[0])
-  alert('To apply the changes, please reopen the extension.')
   loadStorage()
+  notification(true,'Please reopen extension to load profile.')
 }
 
 // Export Configs as Json
@@ -283,13 +286,13 @@ button_exportConfigs.addEventListener('click', (event) => {
   let lstorage_cFilter = localStorage.getItem('tc_c_filter')
   let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
 
-  let saveObj = {"tcprofile":{"author":"steve","version":"1.1","profile_name":configProfileName.value}}
+  let saveObj = {"tcprofile":{"author":"steve","version":"1.1","extension_version":extensionVersion,"profile_name":configProfileName.value}}
 
   // apply values
   Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platforms":"NoVALUE","detection_filter": detectionItems}})
   // file setting
   const data = JSON.stringify(saveObj);
-  const name = "TimeCopy-Profile.tcprofile";
+  const name = configProfileName.value+"-TimeCopy.tcprofile";
   const type = "text/plain";
   // create file
   const a = document.createElement("a");
@@ -305,184 +308,28 @@ button_exportConfigs.addEventListener('click', (event) => {
 // Main Functions
 async function readClipboardText(dev_pttest) {
   let clipboarsString = await navigator.clipboard.readText();
+  let filter = lstorage_cFilter
   // check whitch filter to use
-  if(lstorage_cFilter === 'filter-tobiasexcel'){
-    timesheetTobias(clipboarsString,dev_pttest)
-  }else if(lstorage_cFilter === 'filter-stevegoogleexcel'){
-    timesheetSteve(clipboarsString,dev_pttest)
-  }else {
-    alert('No filter selected')
+  if(filter === '' || filter === null){
+    notification(true,'Please select a Timesheet Filter first!')
+  } else {
+    timesheetFilter(filter,clipboarsString,dev_pttest)
   }
+  
+  // if(lstorage_cFilter === 'filter-tobiasexcel'){
+    // timesheetTobias(clipboarsString,dev_pttest)
+  // }else if(lstorage_cFilter === 'filter-stevegoogleexcel'){
+    // timesheetSteve(clipboarsString,dev_pttest)
+  // }else {
+    // alert('No filter selected')
+  // }
 }
 
 function timesheetSteve(){
-  alert('Steve')
-}
-
-
-function timesheetTobias(clipboarsString,dev_pttest) {
-
-  let fullDateString = clipboarsString.split('"')[0];
-  let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
-
-  // get all tickets before and after a line break
-  let regex = /([^\n]+)/g
-  var matches = []
-  var match
-  // push into matches
-  while ((match = regex.exec(allTickets)) !== null) {
-    matches.push(match[1]);
-  }
-
-  let forEachTimer = "100"
- 
-  matches.forEach(function(ticket, index){
-    setTimeout(function(){
-      let item_ticketNumber = ticket.split('[').pop().split(']')[0];
-      let item_ticketDisc = ticket.split(']').pop().split(':')[0];
-      let item_ticketTime = ticket.split(':')[1];
-      
-      let item_bookingNumber = ""
-      let item_service = ""
-
-      let item_ticketCustomBookingNumber = item_ticketNumber.split('#').pop();
-      
-      if(item_ticketCustomBookingNumber) {
-        item_bookingNumber = item_ticketCustomBookingNumber;
-        item_ticketNumber = item_ticketNumber.split('#')[0]
-      }
-
-      item_bookingNumber = bookingNumbers(item_bookingNumber, item_ticketNumber, item_ticketDisc)
-
-      if(!item_bookingNumber){
-        alert(alertWarning+ 'No order number @ '+item_ticketNumber)
-      } else if(!item_ticketDisc){
-        alert(alertWarning+ 'Unable to get Ticket discription @ '+item_ticketNumber)
-      } else if(!item_ticketTime){
-        alert(alertWarning+ 'Unable to get working time @ '+item_ticketNumber)
-      }else{
-        execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest)
-      }
-    },forEachTimer * (index + 1))
-    // set intervall after first run
-    forEachTimer = "300"
-  })
-}
-
-// Call the correct booking numbers for the specific tickets
-function bookingNumbers(item_bookingNumber, item_ticketNumber, item_ticketDisc){
-  // All Known Booking Numbers
-  let booking_BBP3 = "21037"
-  let booking_AMAG43 = "21344"
-  let allDetectionFilter = JSON.parse(lstorage_cDetectionItems)
-
-  let new_bookingNumber = ""
-
-
-  allDetectionFilter.forEach((obj) => {
-    // Object.keys(obj).forEach((key) => {
-        // alert("key : " + key + " - value : " + obj[key]);
-    // });
-    let currentFilterObject_addprefix = obj.addprefix
-    let filterMatches = []
-    let ticketMatch = []
-    
-    if(currentFilterObject_addprefix.length <= 0){
-      // alert('kein length')
-      if(currentFilterObject_addprefix.ticketprefix = item_ticketNumber) {
-        alert('MATCH Ohne length'+item_ticketNumber)
-      }
-    }else if(item_ticketDisc.includes(currentFilterObject_addprefix)){
-      // filterMatches.push(obj);
-      if(currentFilterObject_addprefix.ticketprefix = item_ticketNumber) {
-        alert('MATCH mit Add prefix'+item_ticketNumber)
-      }
-
-      alert('includes'+ filterMatches)
-    }else {
-      alert('no includes')
-    }
-  });
-
   
-  if(!item_bookingNumber) {
-    // booking nomber detection
-   
-
-    if(item_ticketNumber.includes("BBP")){
-      new_bookingNumber = booking_BBP3
-      // alert(new_bookingNumber)
-      return new_bookingNumber
-    }
-  } else {
-    new_bookingNumber = item_bookingNumber
-    return new_bookingNumber
-  }
-}
-// function to pass variables from extension to tab
-
-async function execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest){
-  // alert(item_bookingNumber+item_ticketTime+item_ticketNumber+item_ticketDisc)
-  let [tab] = await chrome.tabs.query ({active: true, currentWindow: true});
-    // Execute script to parse emails on page
-    chrome.scripting.executeScript({
-    target: {tabId: tab.id},
-    args: [item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest],
-    func: (...args) => bookTicket(...args),
-    });
+  timesheetFilter()
 }
 
-function bookTicket(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc) {
-  //Enter Key 
-  const keyEventEnter = new KeyboardEvent('keydown', {
-    key: 'Enter',
-    code: 'Enter',
-    which: 13,
-    keyCode: 13,
-  })
 
-  // get booking number field
-  let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0].childNodes[0]
 
-  if(protime_Innenauftrag){
-    protime_Innenauftrag.value = item_bookingNumber
-    protime_Innenauftrag.dispatchEvent(keyEventEnter)
-  }else {
-    alert('TimeCopy   ERROR: unable to get Order-Input')
-  }
 
-  setTimeout(function(){
-    // service dropdown
-    let protime_Leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0]
-    const protime_Leistungen_CSITExtST = document.querySelector("[data-itemkey='ZCHN0730070']")
-    const protime_Leistungen_CSITExtNT = document.querySelector("[data-itemkey='ZCHN0730080']")
-    const protime_Leistungen_ITDNT = document.querySelector("[data-itemkey='ZCHN0730005']")
-    const protime_Leistungen_ITD = document.querySelector("[data-itemkey='ZCHN0730001']")
-    protime_Leistung.click()
-    protime_Leistungen_CSITExtST.click()
-  },500)
-
-  setTimeout(function(){ 
-    let protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
-    protime_hours.value = item_ticketTime
-    // ggf ein await für dieses element
-    let protime_ticketNumber = document.getElementsByClassName('lsField--empty')[2].childNodes[0]
-    protime_ticketNumber.value = item_ticketNumber
-  
-    let protime_ticketText = document.getElementsByTagName('textarea')[0]
-    protime_ticketText.value = item_ticketDisc
-  
-  }, 700 );
-
-  if(dev_pttest === true)
-    {
-      console.log('PT Test -- dev: true')
-    }else{
-      // click booking button here!
-    }
-
-  // sleep(2000)
-  // return new Promise((resolve) => {
-    // resolve('resolved')
-  // })
-}
