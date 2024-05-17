@@ -304,7 +304,6 @@ button_exportConfigs.addEventListener('click', (event) => {
   a.remove();
  });
  
-
 // Main Functions
 async function readClipboardText(dev_pttest) {
   let clipboarsString = await navigator.clipboard.readText();
