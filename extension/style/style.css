@@ -570,6 +570,14 @@ input[type=text]:focus{
     background-color: #000;
 }
 
+.config-item-logo-container--dzbank {
+    background-color: #ffffff;
+}
+
+.config-item-logo-container--automatic {
+    background-color: #5ecab7;
+}
+
 select {
     border-radius: var(--border-radius-default);
     background-color: var(--color-second);
