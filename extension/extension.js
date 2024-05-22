@@ -34,13 +34,15 @@ const button_clearConfigs = document.getElementById('button_clearConfigs')
 const radios_filter = document.getElementsByName('timesheet-filter');
 const button_openHelp = document.getElementById('button_openHelp')
 const button_openHelpTimesheetTobias = document.getElementById('tobiasFilterInfo')
-const buttons_timesheetFilters = document.getElementsByName('timesheet-filter')
+const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
+const radio_bookingPlattforms = document.getElementsByName('booking-plattform')
 
 // local storages
 let lstorage_cThemes = localStorage.getItem('tc_c_theme')
 let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
+let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
 
 // Some vars
 let configOpen = false
@@ -74,22 +76,22 @@ window.addEventListener("load", (event) => {
   for (var i=0, iLen=radios_filter.length; i<iLen; i++) {
     radios_filter[i].addEventListener('click', switchFilter);
   }
-  for (var index=0, indexLen=buttons_timesheetFilters.length; index<indexLen; index++) {
-    buttons_timesheetFilters[index].addEventListener('click', timesheetFilterChange);
+  for (var index=0, indexLen=radio_timesheetFilters.length; index<indexLen; index++) {
+    radio_timesheetFilters[index].addEventListener('click', timesheetFilterChange);
+  }
+  for (var index=0, indexLen=radio_bookingPlattforms.length; index<indexLen; index++) {
+    radio_bookingPlattforms[index].addEventListener('click', bookingPlattformsChange);
   }
   // Load local storages
   loadStorage()
 });
-
-function timesheetFilterChange(){
-  notification(true,'Please reopen extension so the filters can be applied.')
-}
 
 // Load localstorage
 function loadStorage() {  
   let defaultTheme = "oceanswave"
   let defaultFilter = ""
   let defaultProfileName = "Default"
+  let defaultBookingPlattform = "bookingplattform-automatic"
 
   if (lstorage_cThemes){
     themeSelect.value = lstorage_cThemes
@@ -106,6 +108,11 @@ function loadStorage() {
   } else {
     configProfileName.value = defaultProfileName
   }
+  if (lstorage_cBookingPlattform){
+    document.querySelector('input[value="'+lstorage_cBookingPlattform+'"]').checked = true
+  } else {
+    document.querySelector('input[value="'+defaultBookingPlattform+'"]').checked = true
+  }
 }
 // Clear local storage
 function clearLocalStorage(){
@@ -113,7 +120,8 @@ function clearLocalStorage(){
   localStorage.removeItem('tc_c_filter')
   localStorage.removeItem('tc_c_projectDetection')
   localStorage.removeItem('tc_c_profileName')
-  alert('Data deleted')
+  localStorage.removeItem('tc_c_BookingPlattform')
+  notification(true,'Data deleted! Please restart.')
 }
 
 function openHelp() {
@@ -238,10 +246,16 @@ function configTabOpenBookingsheets(){
 
 
 // configuration functions
-function configSetProfileName(){
-  
-  localStorage.setItem('tc_c_profileName', configProfileName.value)
+function timesheetFilterChange(){
+  notification(true,'Please reopen extension so the filters can be applied.')
+}
 
+function bookingPlattformsChange(e) {
+  localStorage.setItem('tc_c_bookingPlattform', e.target.value)
+}
+
+function configSetProfileName(){
+  localStorage.setItem('tc_c_profileName', configProfileName.value)
 }
 
 function switchTheme() {
@@ -270,6 +284,7 @@ function importFile(event){
     // alert(fileData.tcprofile.profile_name)
     localStorage.setItem('tc_c_projectDetection',JSON.stringify(fileData.tcprofile.cfg.detection_filter))
     localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
+    localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.booking_platforms)
   });
   reader.readAsText(files[0])
   loadStorage()
@@ -284,12 +299,12 @@ button_exportConfigs.addEventListener('click', (event) => {
   detectionItems = JSON.parse(detectionItems)
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
   let lstorage_cFilter = localStorage.getItem('tc_c_filter')
-  let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
+  let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
 
   let saveObj = {"tcprofile":{"author":"steve","version":"1.1","extension_version":extensionVersion,"profile_name":configProfileName.value}}
 
   // apply values
-  Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platforms":"NoVALUE","detection_filter": detectionItems}})
+  Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platforms":lstorage_cBookingPlattform,"detection_filter": detectionItems}})
   // file setting
   const data = JSON.stringify(saveObj);
   const name = configProfileName.value+"-TimeCopy.tcprofile";
@@ -308,11 +323,14 @@ button_exportConfigs.addEventListener('click', (event) => {
 async function readClipboardText(dev_pttest) {
   let clipboarsString = await navigator.clipboard.readText();
   let filter = lstorage_cFilter
+  let bookingPlattform = lstorage_cBookingPlattform
   // check whitch filter to use
   if(filter === '' || filter === null){
     notification(true,'Please select a Timesheet Filter first!')
+  } else if(bookingPlattform === '' || bookingPlattform === null) {
+    notification(true,'Please select a booking plattform first!')
   } else {
-    timesheetFilter(filter,clipboarsString,dev_pttest)
+    timesheetFilter(bookingPlattform,filter,clipboarsString,dev_pttest)
   }
   
   // if(lstorage_cFilter === 'filter-tobiasexcel'){

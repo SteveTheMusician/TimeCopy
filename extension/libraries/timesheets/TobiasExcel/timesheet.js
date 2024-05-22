@@ -1,5 +1,5 @@
-import { bookingsheets } from "../../bookingsheets/bookingsheets.js";
-export function timesheet_TobiasExcel(clipboarsString,dev_pttest) {
+import { bookingsheets } from "../../bookingplattforms/bookingplattforms.js";
+export function timesheet_TobiasExcel(bookingPlattform,clipboarsString,dev_pttest) {
 
    let fullDateString = clipboarsString.split('"')[0];
    let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
@@ -31,14 +31,14 @@ export function timesheet_TobiasExcel(clipboarsString,dev_pttest) {
          item_ticketNumber = item_ticketNumber.split('#')[0]
        }
  
-       item_bookingNumber = bookingsheets("amag-protime",{item_bookingNumber, item_ticketNumber, item_ticketDisc})
+       item_bookingNumber = bookingsheets(bookingPlattform,{item_bookingNumber, item_ticketNumber, item_ticketDisc})
  
        if(!item_bookingNumber){
-         alert(alertWarning+ 'No order number @ '+item_ticketNumber)
+         alert('No order number @ '+item_ticketNumber)
        } else if(!item_ticketDisc){
-         alert(alertWarning+ 'Unable to get Ticket discription @ '+item_ticketNumber)
+         alert('Unable to get Ticket discription @ '+item_ticketNumber)
        } else if(!item_ticketTime){
-         alert(alertWarning+ 'Unable to get working time @ '+item_ticketNumber)
+         alert('Unable to get working time @ '+item_ticketNumber)
        }else{
          execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest)
        }
