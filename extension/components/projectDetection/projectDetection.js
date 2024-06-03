@@ -92,8 +92,13 @@ for (var i=0, iLen=buttons_removeDetection.length; i<iLen; i++) {
 
 function removeProjectDetectionItem(i) {
   
-  var currentItemID = i.target.closest("div").parentNode.id
-  document.getElementById(currentItemID).remove()
-  detectionItems = detectionItems.filter(detectionItems => detectionItems.id !== currentItemID);
-  localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
+  let currentItemID = i.target.closest("div").parentNode.id
+  let currentItem = document.getElementById(currentItemID)
+  currentItem.classList.add('config-item--remove')
+  setTimeout(function(){
+    currentItem.remove()
+    detectionItems = detectionItems.filter(detectionItems => detectionItems.id !== currentItemID);
+    localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
+  },500)
+
 }

@@ -497,6 +497,7 @@ height: 390px;
     padding:10px;
     margin: 10px;
     justify-content: space-between;
+    transition: var(--transition-default);
 }
 
 label.config-item {
@@ -576,6 +577,12 @@ input[type=text]:focus{
 
 .config-item-logo-container--automatic {
     background-color: #5ecab7;
+}
+
+.config-item--remove {
+    transform: translateX(100%);
+    opacity: 0;
+    transition: .5s;
 }
 
 select {
