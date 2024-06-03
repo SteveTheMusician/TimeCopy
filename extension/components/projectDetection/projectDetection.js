@@ -1,10 +1,15 @@
 const button_addDetection = document.getElementById('button_add_projectDetection')
 
-button_addDetection.addEventListener('click', addNewProjectDetection);
+
 
 function addNewProjectDetection(){
     alert('click')
 }
+
+{/* <select class="input-size--large" name="select_activity"> */}
+{/* <option value="select_proTime_activity_none" `+("select_proTime_activity_none" === detectionItem.protimeactivity ? "selected":"")+`>No Activity</option> */}
+{/*  <option value="select_proTime_activity_wp2AemDashboard" `+("select_proTime_activity_wp2AemDashboard" === detectionItem.protimeactivity ? "selected":"")+`>- WP2 - AEM Dashboard</option> */}
+{/* </select> */}
 
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
 detectionItems = JSON.parse(detectionItems)
@@ -18,6 +23,7 @@ if(detectionItems) {
    <div>
      <select class="input-size--small" name="select_bookingPlatform">
        <option value="select_bookingPlatform_AmagProTime">ProTime</option>
+       <option value="select_bookingPlatform_DzBankProRes">ProRes</option>
      </select>
      <input type="text" class="input-size--default" placeholder="Ticket Prefix" value="`+detectionItem.ticketprefix+`" />
    </div>
@@ -27,19 +33,23 @@ if(detectionItems) {
    <div class="config-item-title-row flex">
      <p class="subtext subtext-top">Booking properties</p>
    </div>
-   <div>
-     <select class="input-size--default" name="select_proTimeService" id="select_proTimeService_`+detectionItem.id+`">
-       <option value="select_proTime_service_ITD" `+("select_proTime_service_ITD" === detectionItem.protimeservice ? "selected":"")+`>IT Dienstleistungen</option>
-       <option value="select_proTime_service_ITDST" `+("select_proTime_service_ITDST" === detectionItem.protimeservice ? "selected":"")+`>IT Dienstleistungen ST</option>
-       <option value="select_proTime_service_CSITEST" `+("select_proTime_service_CSITEST" === detectionItem.protimeservice ? "selected":"")+`>Corporate Service IT Ext ST</option>
-       <option value="select_proTime_service_CSITENT" `+("select_proTime_service_CSITENT" === detectionItem.protimeservice ? "selected":"")+`>Corporate Service IT Ext NT</option>
-     </select>
-     <input type="text" class="input-size--small" placeholder="Project No." value="`+detectionItem.projectnomber+`"/>
-   </div>
-   <select class="input-size--large" name="select_activity">
-     <option value="select_proTime_activity_none" `+("select_proTime_activity_none" === detectionItem.protimeactivity ? "selected":"")+`>No Activity</option>
-     <option value="select_proTime_activity_wp2AemDashboard" `+("select_proTime_activity_wp2AemDashboard" === detectionItem.protimeactivity ? "selected":"")+`>- WP2 - AEM Dashboard</option>
-   </select>             
+   <div class="project-detection-item--amagprotime">
+      <div>
+        <select class="input-size--default" name="select_proTimeService" id="select_proTimeService_`+detectionItem.id+`">
+          <option value="select_proTime_service_ITD" `+("select_proTime_service_ITD" === detectionItem.protimeservice ? "selected":"")+`>IT Dienstleistungen</option>
+          <option value="select_proTime_service_ITDST" `+("select_proTime_service_ITDST" === detectionItem.protimeservice ? "selected":"")+`>IT Dienstleistungen ST</option>
+          <option value="select_proTime_service_CSITEST" `+("select_proTime_service_CSITEST" === detectionItem.protimeservice ? "selected":"")+`>Corporate Service IT Ext ST</option>
+          <option value="select_proTime_service_CSITENT" `+("select_proTime_service_CSITENT" === detectionItem.protimeservice ? "selected":"")+`>Corporate Service IT Ext NT</option>
+        </select>
+        <input type="text" class="input-size--small" placeholder="Project No." value="`+detectionItem.projectnomber+`"/>
+      </div>
+      
+      <input type="text" class="input-size--large" name="select_activity" list="amagprotimeActivity" placeholder="Activity"/>
+      <datalist id="amagprotimeActivity">
+        <option>- WP2 - AEM Dashboard</option>
+        <option>AP01 - Front-end</option>
+      </datalist>
+    </div>
  </div>
  <div class="config-item-action-container">
    <button class="button-primary button-reset button_deleteDetection">
@@ -73,4 +83,17 @@ if(detectionItems) {
  console.log('Project Detection: No Items found')
 }
 
+let buttons_removeDetection = document.getElementsByClassName('button_deleteDetection');
 
+button_addDetection.addEventListener('click', addNewProjectDetection);
+for (var i=0, iLen=buttons_removeDetection.length; i<iLen; i++) {
+  buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem);
+}
+
+function removeProjectDetectionItem(i) {
+  
+  var currentItemID = i.target.closest("div").parentNode.id
+  document.getElementById(currentItemID).remove()
+  detectionItems = detectionItems.filter(detectionItems => detectionItems.id !== currentItemID);
+  localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
+}

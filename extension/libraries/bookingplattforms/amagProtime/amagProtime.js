@@ -1,6 +1,6 @@
 // Call the correct booking numbers for the specific tickets
-export function amagProtime(bookingsheet,bookingData){
-  alert("Bookingsheet: "+bookingsheet+" Data: "+bookingData+" ExampleData: "+bookingData.item_bookingNumber)
+export function amagProtime(bookingData){
+  alert("Data: "+bookingData+" ExampleData: "+bookingData.item_bookingNumber)
 }
 
 
