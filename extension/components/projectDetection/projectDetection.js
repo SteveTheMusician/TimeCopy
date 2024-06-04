@@ -24,7 +24,7 @@ function addNewProjectDetection(){
   document.getElementById(newDetectionItemId).classList.add('item--new')
   window_detection.scroll({top:0,behavior:'smooth'})
 }
-
+// dublicate IDS löschen
 function generateDetectionItem(){
 
   if(detectionItems) {
@@ -117,6 +117,7 @@ function removeProjectDetectionItem(i) {
   setTimeout(function(){
     currentItem.remove()
   },500)
+  i.target.closest("button").removeEventListener('click',removeProjectDetectionItem );
   detectionItems = detectionItems.filter(detectionItems => detectionItems.id !== currentItemID);
   localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
 }
