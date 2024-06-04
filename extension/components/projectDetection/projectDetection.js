@@ -104,6 +104,12 @@ function generateDetectionItem(){
 
 function addDetectionItemsEventListener(){
   let buttons_removeDetection = document.getElementsByClassName('button_deleteDetection');
+  // Remove Listeners fist
+  button_addDetection.removeEventListener('click', addNewProjectDetection);
+  for (var i=0, iLen=buttons_removeDetection.length; i<iLen; i++) {
+    buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem);
+  }
+  // add new listener
   button_addDetection.addEventListener('click', addNewProjectDetection);
   for (var i=0, iLen=buttons_removeDetection.length; i<iLen; i++) {
     buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem);
