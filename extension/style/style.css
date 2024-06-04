@@ -489,6 +489,7 @@ height: 390px;
     padding: 10px;
     max-height: 300px;
     overflow-y: scroll;
+    flex-direction: column;
 }
 
 .config-item {
@@ -498,6 +499,20 @@ height: 390px;
     margin: 10px;
     justify-content: space-between;
     transition: var(--transition-default);
+}
+
+.item--new {
+    animation-name: item--new-animation;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    animation-direction: normal;
+    order: -1;
+}
+
+@keyframes item--new-animation {
+    0%{ outline: 2px solid var(--color-none)}
+    30%{ outline: 2px solid var(--color-highlight)}
+    100%{ outline: 2px solid var(--color-none)}
 }
 
 label.config-item {

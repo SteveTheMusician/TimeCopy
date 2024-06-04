@@ -300,7 +300,9 @@ button_exportConfigs.addEventListener('click', (event) => {
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
   let lstorage_cFilter = localStorage.getItem('tc_c_filter')
   let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
-
+  if(detectionItems === null) {
+    detectionItems = []
+  }
   let saveObj = {"tcprofile":{"author":"steve","version":"1.1","extension_version":extensionVersion,"profile_name":configProfileName.value}}
 
   // apply values
