@@ -7,7 +7,10 @@ const detectionItemID_Prefix = "deci"
 
 window.addEventListener("load", (event) => {
   generateDetectionItem()
-  addDetectionItemsEventListener()
+  loadDetectionItems()
+
+  button_addDetection.removeEventListener('click', addNewProjectDetection)
+  button_addDetection.addEventListener('click', addNewProjectDetection)
 })
 
 function addNewProjectDetection(){
@@ -20,7 +23,7 @@ function addNewProjectDetection(){
   detectionItems.push(detectionItemMainObject)
   localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
   generateDetectionItem()
-  addDetectionItemsEventListener()
+  loadDetectionItems()
   document.getElementById(newDetectionItemId).classList.add('item--new')
   window_detection.scroll({top:0,behavior:'smooth'})
 }
@@ -29,26 +32,26 @@ function generateDetectionItem(){
 
   if(detectionItems) {
    document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem => 
-     `<div class="config-item flex" id="`+detectionItem.id+`">
+     `<div class="config-item flex" name="item_detection" id="`+detectionItem.id+`">
    <div class="config-item-main-container">
      <div class="config-item-title-row flex">
        <p class="subtext subtext-top">Detection parameters</p>
      </div>
      <div>
-       <select class="input-size--small" name="select_bookingPlatform">
-         <option value="select_bookingPlatform_None" selected disabled>none</option>
+       <select class="input-size--small" id="select_bookingPlatform_`+detectionItem.id+`">
+         <option value="select_bookingPlatform_None" disabled>none</option>
          <option value="select_bookingPlatform_AmagProTime" >ProTime</option>
          <option value="select_bookingPlatform_DzBankProRes">ProRes</option>
        </select>
-       <input type="text" id ="input_ticketprefix" class="input-size--default" placeholder="Ticket Prefix" value="`+detectionItem.ticketprefix+`" hidden="`+(detectionItem.ticketprefix ? false : true)+`"/>
+       <input type="text" class="input-size--default `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_ticketPrefix" placeholder="Ticket Prefix" value="`+detectionItem.ticketprefix+`" />
      </div>
      <div>
-       <input type="text" class="input-size--large" placeholder="Additional (Title-)Prefix" value="`+detectionItem.addprefix+`" hidden="`+(detectionItem.addprefix ? false : true)+`"/>
+       <input type="text" class="input-size--large `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_additionalPrefix" placeholder="Additional (Title-)Prefix" value="`+detectionItem.addprefix+`"/>
      </div>
-     <div class="config-item-title-row flex `+(detectionItem.bookingsheet === "amag_protime" ? null : "dNone")+`">
+     <div class="config-item-title-row flex `+(detectionItem.bookingsheet === "select_bookingPlatform_AmagProTime" ? null : "dNone")+`">
        <p class="subtext subtext-top">Booking properties</p>
      </div>
-     <div class="project-detection-item--amagprotime dNone">
+     <div class="project-detection-item--amagprotime `+(detectionItem.bookingsheet === "select_bookingPlatform_AmagProTime" ? null : "dNone")+`">
         <div>
           <select class="input-size--default" name="select_proTimeService" id="select_proTimeService_`+detectionItem.id+`">
             <option value="select_proTime_service_ITD" `+("select_proTime_service_ITD" === detectionItem.protimeservice ? "selected":"")+`>IT Dienstleistungen</option>
@@ -56,11 +59,11 @@ function generateDetectionItem(){
             <option value="select_proTime_service_CSITEST" `+("select_proTime_service_CSITEST" === detectionItem.protimeservice ? "selected":"")+`>Corporate Service IT Ext ST</option>
             <option value="select_proTime_service_CSITENT" `+("select_proTime_service_CSITENT" === detectionItem.protimeservice ? "selected":"")+`>Corporate Service IT Ext NT</option>
           </select>
-          <input type="text" class="input-size--small" placeholder="Project No." value="`+detectionItem.projectnomber+`"/>
+          <input type="text" class="input-size--small" name="input_projectNomber" placeholder="Project No." value="`+detectionItem.projectnomber+`"/>
         </div>
 
         <input type="text" class="input-size--large" name="select_activity" list="amagprotimeActivity" placeholder="Activity"/>
-        <datalist id="amagprotimeActivity">
+        <datalist>
           <option>- WP2 - AEM Dashboard</option>
           <option>AP01 - Front-end</option>
         </datalist>
@@ -73,7 +76,7 @@ function generateDetectionItem(){
      <button class="button-primary button-reset button_deleteDetection">
        <?xml version="1.0" encoding="utf-8"?>
        <!-- Designed by Empty Soul  -->
-       <svg version="1.1" id="TrashIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
           viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
        <g>
          <path d="M200.3,269.8v602.4c0,71.7,58.3,130,130,130h333.6c71.7,0,130-58.3,130-130V269.8H200.3z M733.9,872.2
@@ -102,18 +105,30 @@ function generateDetectionItem(){
   }
 }
 
-function addDetectionItemsEventListener(){
-  let buttons_removeDetection = document.getElementsByClassName('button_deleteDetection');
-  // Remove Listeners fist
-  button_addDetection.removeEventListener('click', addNewProjectDetection);
-  for (var i=0, iLen=buttons_removeDetection.length; i<iLen; i++) {
-    buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem);
+function loadDetectionItems(){
+  let buttons_removeDetection = document.getElementsByClassName('button_deleteDetection')
+ 
+  // Remove Deletion Listeners fist
+  for (let i = 0, iLen=buttons_removeDetection.length; i<iLen; i++) {
+    buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem)
   }
-  // add new listener
-  button_addDetection.addEventListener('click', addNewProjectDetection);
-  for (var i=0, iLen=buttons_removeDetection.length; i<iLen; i++) {
-    buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem);
+  // add new deletion listener
+  for (let i = 0, iLen=buttons_removeDetection.length; i<iLen; i++) {
+    buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem)
   }
+
+  let detectionItemsHtml = document.getElementsByName('item_detection')
+  for (let i = 0, iLength = detectionItemsHtml.length; i<iLength; i++){
+    let select_bookingPlatform = document.getElementById("select_bookingPlatform_"+detectionItemsHtml[i].id)
+    let loaded_select_bookingPlatform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
+    select_bookingPlatform.value = loaded_select_bookingPlatform
+    select_bookingPlatform.addEventListener('change', () => {test(detectionItemsHtml[i].id)});
+  }
+
+}
+
+function test(itemId){
+// set here value to booking sheet and save it in to local storage
 }
 
 function removeProjectDetectionItem(i) {
