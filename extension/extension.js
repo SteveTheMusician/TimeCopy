@@ -51,6 +51,7 @@ let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documenta
 let helpUrl_timesheet_tobias = helpUrl+"#timesheet-tobias"
 let helpUrl_timesheet_steve = helpUrl+"#timesheet-steve-google-excel"
 let extensionVersion = data_version.extension_version
+let extensionBuild = data_version.extension_build
 
 
 // Extension load up
@@ -303,7 +304,7 @@ button_exportConfigs.addEventListener('click', (event) => {
   if(detectionItems === null) {
     detectionItems = []
   }
-  let saveObj = {"tcprofile":{"author":"steve","version":"1.1","extension_version":extensionVersion,"profile_name":configProfileName.value}}
+  let saveObj = {"tcprofile":{"author":"steve","version":"1.1","extension_version":extensionVersion,"extension_build":extensionBuild,"profile_name":configProfileName.value}}
 
   // apply values
   Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platforms":lstorage_cBookingPlattform,"detection_filter": detectionItems}})
