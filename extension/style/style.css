@@ -492,6 +492,11 @@ height: 390px;
     flex-direction: column;
 }
 
+.configuration-window-content-inner {
+    flex-direction: column-reverse;
+    flex-grow: 1;
+}
+
 .config-item {
     border-radius: var(--border-radius-default);
     background-color: var(--color-third);
@@ -506,7 +511,7 @@ height: 390px;
     animation-duration: 5s;
     animation-fill-mode: forwards;
     animation-direction: normal;
-    order: -1;
+    /* order: -1; */
 }
 
 @keyframes item--new-animation {

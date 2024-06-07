@@ -1,14 +1,13 @@
 const button_addDetection = document.getElementById('button_add_projectDetection')
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
-const window_detection = document.getElementById('window_detection')
 detectionItems = JSON.parse(detectionItems)
+const window_detection = document.getElementById('window_detection')
 // Some vars
 const detectionItemID_Prefix = "deci"
 
 window.addEventListener("load", (event) => {
   generateDetectionItem()
   loadDetectionItems()
-
   button_addDetection.removeEventListener('click', addNewProjectDetection)
   button_addDetection.addEventListener('click', addNewProjectDetection)
 })
@@ -25,11 +24,10 @@ function addNewProjectDetection(){
   generateDetectionItem()
   loadDetectionItems()
   document.getElementById(newDetectionItemId).classList.add('item--new')
-  window_detection.scroll({top:0,behavior:'smooth'})
+  window_detection.parentElement.scroll({top:0,behavior:'smooth'})
 }
 // dublicate IDS löschen
 function generateDetectionItem(){
-
   if(detectionItems) {
    document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem => 
      `<div class="config-item flex" name="item_detection" id="`+detectionItem.id+`">
@@ -122,13 +120,26 @@ function loadDetectionItems(){
     let select_bookingPlatform = document.getElementById("select_bookingPlatform_"+detectionItemsHtml[i].id)
     let loaded_select_bookingPlatform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
     select_bookingPlatform.value = loaded_select_bookingPlatform
-    select_bookingPlatform.addEventListener('change', () => {test(detectionItemsHtml[i].id)});
+    select_bookingPlatform.addEventListener('change', () => {setDetectionBookingPlattform(detectionItemsHtml[i].id,loaded_select_bookingPlatform,select_bookingPlatform.value)});
   }
 
 }
 
-function test(itemId){
-// set here value to booking sheet and save it in to local storage
+function setDetectionBookingPlattform(itemId,loaded_select_bookingPlatform,selected_bookingPlatform){
+  let currentObject = detectionItems.find(x => x.id === itemId)
+  let newData = {}
+  if(selected_bookingPlatform === "select_bookingPlatform_AmagProTime") {
+    newData = {"ticketprefix": "","addprefix": "","protimeservice":"select_proTime_service_CSITEST","projectnomber":"","protimeactivity":""}
+  } else if(selected_bookingPlatform === "select_bookingPlatform_DzBankProRes") {
+    newData = {"ticketprefix": "","addprefix": ""}
+  }
+  let newObject = {...currentObject, "bookingsheet": selected_bookingPlatform,...newData}
+  console.log(newObject)
+  let indexOfObject = detectionItems.indexOf(currentObject)
+  detectionItems[indexOfObject] = newObject
+  localStorage.setItem('tc_c_projectDetection',JSON.stringify(detectionItems))
+  generateDetectionItem()
+  loadDetectionItems()
 }
 
 function removeProjectDetectionItem(i) {
@@ -140,5 +151,4 @@ function removeProjectDetectionItem(i) {
   },500)
   i.target.closest("button").removeEventListener('click',removeProjectDetectionItem );
   detectionItems = detectionItems.filter(detectionItems => detectionItems.id !== currentItemID);
-  localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
 }
