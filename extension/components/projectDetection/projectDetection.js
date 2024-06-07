@@ -12,6 +12,10 @@ window.addEventListener("load", (event) => {
   button_addDetection.addEventListener('click', addNewProjectDetection)
 })
 
+function updateDetectionItems(detectionItems){
+  localStorage.setItem('tc_c_projectDetection',JSON.stringify(detectionItems))
+}
+
 function addNewProjectDetection(){
   let currentDate = new Date().getTime().toString()
   let newDetectionItemId = detectionItemID_Prefix+currentDate
@@ -20,7 +24,7 @@ function addNewProjectDetection(){
     detectionItems = []
   }
   detectionItems.push(detectionItemMainObject)
-  localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
+  updateDetectionItems(detectionItems)
   generateDetectionItem()
   loadDetectionItems()
   document.getElementById(newDetectionItemId).classList.add('item--new')
@@ -137,13 +141,14 @@ function setDetectionBookingPlattform(itemId,loaded_select_bookingPlatform,selec
   console.log(newObject)
   let indexOfObject = detectionItems.indexOf(currentObject)
   detectionItems[indexOfObject] = newObject
-  localStorage.setItem('tc_c_projectDetection',JSON.stringify(detectionItems))
+  updateDetectionItems(detectionItems)
   generateDetectionItem()
   loadDetectionItems()
 }
 
 function removeProjectDetectionItem(i) {
   let currentItemID = i.target.closest("div").parentNode.id
+  console.log(currentItemID)
   let currentItem = document.getElementById(currentItemID)
   currentItem.classList.add('config-item--remove')
   setTimeout(function(){
@@ -151,4 +156,5 @@ function removeProjectDetectionItem(i) {
   },500)
   i.target.closest("button").removeEventListener('click',removeProjectDetectionItem );
   detectionItems = detectionItems.filter(detectionItems => detectionItems.id !== currentItemID);
+  updateDetectionItems(detectionItems)
 }
