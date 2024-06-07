@@ -37,7 +37,7 @@ function generateDetectionItem(){
      `<div class="config-item flex" name="item_detection" id="`+detectionItem.id+`">
    <div class="config-item-main-container">
      <div class="config-item-title-row flex">
-       <p class="subtext subtext-top">Detection parameters</p>
+       <p class="subtext subtext-top">Erkennung</p>
      </div>
      <div>
        <select class="input-size--small" id="select_bookingPlatform_`+detectionItem.id+`">
@@ -51,7 +51,7 @@ function generateDetectionItem(){
        <input type="text" class="input-size--large `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_additionalPrefix" placeholder="Additional (Title-)Prefix" value="`+detectionItem.addprefix+`"/>
      </div>
      <div class="config-item-title-row flex `+(detectionItem.bookingsheet === "select_bookingPlatform_AmagProTime" ? null : "dNone")+`">
-       <p class="subtext subtext-top">Booking properties</p>
+       <p class="subtext subtext-top">Buchung</p>
      </div>
      <div class="project-detection-item--amagprotime `+(detectionItem.bookingsheet === "select_bookingPlatform_AmagProTime" ? null : "dNone")+`">
         <div>
