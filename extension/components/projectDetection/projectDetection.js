@@ -45,10 +45,10 @@ function generateDetectionItem(){
          <option value="select_bookingPlatform_AmagProTime" >ProTime</option>
          <option value="select_bookingPlatform_DzBankProRes">ProRes</option>
        </select>
-       <input type="text" class="input-size--default `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_ticketPrefix" placeholder="Ticket Prefix" value="`+detectionItem.ticketprefix+`" />
+       <input type="text" class="input-size--default `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_ticketPrefix" id="input_ticketPrefix`+detectionItem.id+`" placeholder="Ticket Prefix" value="`+detectionItem.ticketprefix+`" />
      </div>
      <div>
-       <input type="text" class="input-size--large `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_additionalPrefix" placeholder="Additional (Title-)Prefix" value="`+detectionItem.addprefix+`"/>
+       <input type="text" class="input-size--large `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_additionalPrefix" id="input_additionalPrefix`+detectionItem.id+`" placeholder="Additional (Title-)Prefix" value="`+detectionItem.addprefix+`"/>
      </div>
      <div class="config-item-title-row flex `+(detectionItem.bookingsheet === "select_bookingPlatform_AmagProTime" ? null : "dNone")+`">
        <p class="subtext subtext-top">Buchung</p>
@@ -118,19 +118,35 @@ function loadDetectionItems(){
   for (let i = 0, iLen=buttons_removeDetection.length; i<iLen; i++) {
     buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem)
   }
-
+  // add Item change-listeners
   let detectionItemsHtml = document.getElementsByName('item_detection')
   for (let i = 0, iLength = detectionItemsHtml.length; i<iLength; i++){
     let select_bookingPlatform = document.getElementById("select_bookingPlatform_"+detectionItemsHtml[i].id)
     let loaded_select_bookingPlatform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
     select_bookingPlatform.value = loaded_select_bookingPlatform
     select_bookingPlatform.addEventListener('change', () => {setDetectionBookingPlattform(detectionItemsHtml[i].id,loaded_select_bookingPlatform,select_bookingPlatform.value)});
+    let input_ticketPrefix = document.getElementById("input_ticketPrefix"+detectionItemsHtml[i].id)
+    input_ticketPrefix.addEventListener('change', () => {setDetectionTicketPrefix(detectionItemsHtml[i].id,input_ticketPrefix.value)});
+    let input_additionalPrefix = document.getElementById("input_additionalPrefix"+detectionItemsHtml[i].id)
+    input_additionalPrefix.addEventListener('change', () => {setDetectionTicketAddPrefix(detectionItemsHtml[i].id,input_additionalPrefix.value)});
   }
 
 }
+// get Items current object to change
+function getCurrentObject(itemId){
+  let currentObject = detectionItems.find(x => x.id === itemId)
+  return currentObject
+}
+// change value in current item object
+function setDetectionItemValueToObject(itemId,objectKey,objectValue){
+  let currentObject = getCurrentObject(itemId)
+  let newObject = {...currentObject, [objectKey]: objectValue}
+  let indexOfObject = detectionItems.indexOf(currentObject)
+  detectionItems[indexOfObject] = newObject
+}
 
 function setDetectionBookingPlattform(itemId,loaded_select_bookingPlatform,selected_bookingPlatform){
-  let currentObject = detectionItems.find(x => x.id === itemId)
+  let currentObject = getCurrentObject(itemId)
   let newData = {}
   if(selected_bookingPlatform === "select_bookingPlatform_AmagProTime") {
     newData = {"ticketprefix": "","addprefix": "","protimeservice":"select_proTime_service_CSITEST","projectnomber":"","protimeactivity":""}
@@ -146,6 +162,21 @@ function setDetectionBookingPlattform(itemId,loaded_select_bookingPlatform,selec
   loadDetectionItems()
 }
 
+function setDetectionTicketPrefix(itemId,ticketPrefixValue){
+  setDetectionItemValueToObject(itemId,"ticketprefix",ticketPrefixValue)
+  updateDetectionItems(detectionItems)
+  generateDetectionItem()
+  loadDetectionItems()
+}
+
+function setDetectionTicketAddPrefix(itemId,ticketPrefixValue){
+  setDetectionItemValueToObject(itemId,"addprefix",ticketPrefixValue)
+  updateDetectionItems(detectionItems)
+  generateDetectionItem()
+  loadDetectionItems()
+}
+
+// Remove Item
 function removeProjectDetectionItem(i) {
   let currentItemID = i.target.closest("div").parentNode.id
   console.log(currentItemID)
