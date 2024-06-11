@@ -41,14 +41,14 @@ function generateDetectionItem(){
      </div>
      <div>
        <select class="input-size--small" id="select_bookingPlatform_`+detectionItem.id+`">
-         <option value="select_bookingPlatform_None" disabled>none</option>
+         <option value="" selected disabled hidden>Keine</option>
          <option value="select_bookingPlatform_AmagProTime" >ProTime</option>
          <option value="select_bookingPlatform_DzBankProRes">ProRes</option>
        </select>
        <input type="text" class="input-size--default `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_ticketPrefix" id="input_ticketPrefix`+detectionItem.id+`" placeholder="Ticket Prefix" value="`+detectionItem.ticketprefix+`" />
      </div>
      <div>
-       <input type="text" class="input-size--large `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_additionalPrefix" id="input_additionalPrefix`+detectionItem.id+`" placeholder="Additional (Title-)Prefix" value="`+detectionItem.addprefix+`"/>
+       <input type="text" class="input-size--large `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_additionalPrefix" id="input_additionalPrefix`+detectionItem.id+`" placeholder="Zusatz-Prefix (Optional)" value="`+detectionItem.addprefix+`"/>
      </div>
      <div class="config-item-title-row flex `+(detectionItem.bookingsheet === "select_bookingPlatform_AmagProTime" ? null : "dNone")+`">
        <p class="subtext subtext-top">Buchung</p>
@@ -61,11 +61,11 @@ function generateDetectionItem(){
             <option value="select_proTime_service_CSITEST" `+("select_proTime_service_CSITEST" === detectionItem.protimeservice ? "selected":"")+`>Corporate Service IT Ext ST</option>
             <option value="select_proTime_service_CSITENT" `+("select_proTime_service_CSITENT" === detectionItem.protimeservice ? "selected":"")+`>Corporate Service IT Ext NT</option>
           </select>
-          <input type="text" class="input-size--small" name="input_projectNomber" placeholder="Project No." value="`+detectionItem.projectnomber+`"/>
+          <input type="text" class="input-size--small" name="input_projectNomber" id="input_projectNomber`+detectionItem.id+`" placeholder="Projektnum." value="`+detectionItem.projectnomber+`"/>
         </div>
 
-        <input type="text" class="input-size--large" name="select_activity" list="amagprotimeActivity" placeholder="Activity"/>
-        <datalist>
+        <input type="text" class="input-size--large" name="input_activity" id="input_activity`+detectionItem.id+`" list="datalist_activity`+detectionItem.id+`" placeholder="Aktivität (Wenn vorhanden)"/>
+        <datalist id="datalist_activity`+detectionItem.id+`">
           <option>- WP2 - AEM Dashboard</option>
           <option>AP01 - Front-end</option>
         </datalist>
@@ -124,11 +124,23 @@ function loadDetectionItems(){
     let select_bookingPlatform = document.getElementById("select_bookingPlatform_"+detectionItemsHtml[i].id)
     let loaded_select_bookingPlatform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
     select_bookingPlatform.value = loaded_select_bookingPlatform
-    select_bookingPlatform.addEventListener('change', () => {setDetectionBookingPlattform(detectionItemsHtml[i].id,loaded_select_bookingPlatform,select_bookingPlatform.value)});
+    select_bookingPlatform.addEventListener('change', () => {setDetectionBookingPlattform(detectionItemsHtml[i].id,select_bookingPlatform.value)});
     let input_ticketPrefix = document.getElementById("input_ticketPrefix"+detectionItemsHtml[i].id)
-    input_ticketPrefix.addEventListener('change', () => {setDetectionTicketPrefix(detectionItemsHtml[i].id,input_ticketPrefix.value)});
+    input_ticketPrefix.addEventListener('change', () => {changeDetectionItemData(detectionItemsHtml[i].id,"ticketprefix",input_ticketPrefix.value)});
     let input_additionalPrefix = document.getElementById("input_additionalPrefix"+detectionItemsHtml[i].id)
-    input_additionalPrefix.addEventListener('change', () => {setDetectionTicketAddPrefix(detectionItemsHtml[i].id,input_additionalPrefix.value)});
+    input_additionalPrefix.addEventListener('change', () => {changeDetectionItemData(detectionItemsHtml[i].id,"addprefix",input_additionalPrefix.value)});
+    let select_proTimeService = document.getElementById("select_proTimeService_"+detectionItemsHtml[i].id)
+    let loaded_select_proTimeService = detectionItems.find(x => x.id === detectionItemsHtml[i].id).protimeservice
+    select_proTimeService.value = loaded_select_proTimeService
+    select_proTimeService.addEventListener('change', () => {changeDetectionItemData(detectionItemsHtml[i].id,"protimeservice",select_proTimeService.value)});
+    let input_projectNomber = document.getElementById("input_projectNomber"+detectionItemsHtml[i].id)
+    input_projectNomber.addEventListener('change', () => {changeDetectionItemData(detectionItemsHtml[i].id,"projectnomber",input_projectNomber.value)});
+
+    let input_activity = document.getElementById("input_activity"+detectionItemsHtml[i].id)
+    let loaded_input_activity = detectionItems.find(x => x.id === detectionItemsHtml[i].id).protimeactivity
+    input_activity.value = loaded_input_activity
+    input_activity.addEventListener('change', () => {changeDetectionItemData(detectionItemsHtml[i].id,"protimeactivity",input_activity.value)});
+
   }
 
 }
@@ -145,7 +157,7 @@ function setDetectionItemValueToObject(itemId,objectKey,objectValue){
   detectionItems[indexOfObject] = newObject
 }
 
-function setDetectionBookingPlattform(itemId,loaded_select_bookingPlatform,selected_bookingPlatform){
+function setDetectionBookingPlattform(itemId,selected_bookingPlatform){
   let currentObject = getCurrentObject(itemId)
   let newData = {}
   if(selected_bookingPlatform === "select_bookingPlatform_AmagProTime") {
@@ -162,15 +174,8 @@ function setDetectionBookingPlattform(itemId,loaded_select_bookingPlatform,selec
   loadDetectionItems()
 }
 
-function setDetectionTicketPrefix(itemId,ticketPrefixValue){
-  setDetectionItemValueToObject(itemId,"ticketprefix",ticketPrefixValue)
-  updateDetectionItems(detectionItems)
-  generateDetectionItem()
-  loadDetectionItems()
-}
-
-function setDetectionTicketAddPrefix(itemId,ticketPrefixValue){
-  setDetectionItemValueToObject(itemId,"addprefix",ticketPrefixValue)
+function changeDetectionItemData(itemId,objectKey,objectValue) {
+  setDetectionItemValueToObject(itemId,objectKey,objectValue)
   updateDetectionItems(detectionItems)
   generateDetectionItem()
   loadDetectionItems()

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Time Copy",
   "description": "Copy Timesheet Values",
-  "version": "0.8.43",
+  "version": "0.8.44",
   "permissions": [
     "clipboardRead","storage", "declarativeContent", "activeTab", "scripting"
   ],
