@@ -1,6 +1,6 @@
-# Time Copy Help
+# Time Copy Hilfe
 
-## Project Detection
+## Projekt Erkennung
 
 ## Timesheet Filter
 
