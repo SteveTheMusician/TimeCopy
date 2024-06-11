@@ -13,7 +13,7 @@
   <body>
     <header>
       <h1 class="header-headline">Time Copy</h1>
-      <p class="label-version dFlex" id="label_version">V 0.8.32</p>
+      <p class="label-version dFlex" id="label_version">V </p>
     </header>
     <main>
      <div class="configurations dFlex dNone">
@@ -85,10 +85,10 @@
       <div class="configuration-container configuration-container-first-tab-selected" id="config-container">
         <div class="configuration-window" id="config-win-general">
           <div class="configuration-window-headline-container">
-            <h2>General</h2>
+            <h2>Allgemein</h2>
             <div class="subtext-container">
               <p class="subtext">
-                Adjust the Time Copy plugin here
+                Hier kannst du die Erweiterung nach deinen Wünschen anpassen.
               </p>
             </div>
           </div>
@@ -97,10 +97,18 @@
               <div class="config-item-main-container">
                 <div class="config-item-title-row flex">
                   <div class="config-item-icon-container flex">
-                    <p class="text-label label-emoji">👤</p>
+                    <p class="text-label label-emoji"><?xml version="1.0" encoding="utf-8"?>
+                      <svg version="1.1" id="Profile" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         viewBox="0 0 1200 1200" style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
+                      <path d="M600,678.8L600,678.8c-154.3,0-279.4-125.1-279.4-279.4v0C320.6,245.1,445.7,120,600,120h0c154.3,0,279.4,125.1,279.4,279.4
+                        v0C879.4,553.7,754.3,678.8,600,678.8z"/>
+                      <path d="M920,1198.8H280c-154.6,0-280-125.4-280-280v0c0-66.3,53.7-120,120-120h960c66.3,0,120,53.7,120,120v0
+                        C1200,1073.4,1074.6,1198.8,920,1198.8z"/>
+                      </svg>
+                      </p>
                   </div> 
                   <div class="config-item-main flex"> 
-                    <p class="text-label" style="padding-right: 10px;">Profile: </p>
+                    <p class="text-label" style="padding-right: 10px;">Profil </p>
                     <input type="text" class="text-label" id="configProfileName" value="none"/>
                   </div>  
                 </div>
@@ -109,7 +117,7 @@
                     <input type="file" class="object--hidden" id="button_importConfigs" accept=".tcprofile"/>
                   </label>
                   <button class="button-primary" id="button_exportConfigs">Export</button>
-                  <button class="button-primary" id="button_clearConfigs">Clear</button>
+                  <button class="button-primary" id="button_clearConfigs">Löschen</button>
                 </div>
               </div>
             </div>
@@ -117,10 +125,23 @@
               <div class="config-item-main-container">
                 <div class="config-item-title-row flex">
                   <div class="config-item-icon-container flex">
-                    <p class="text-label label-emoji">🔄</p>
+                    <p class="text-label label-emoji"><?xml version="1.0" encoding="utf-8"?>
+                      <svg version="1.1" id="mybackuplogo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                         y="0px" viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
+                      <path d="M225.7,81.8c-0.7,0.5-1.4,0.9-2.1,1.4c-40,26.6-76,58.8-106.8,95.4c-31.8,37.9-58.1,80.5-77.7,126.8
+                        C14.4,364,0.5,428.3-0.1,495.7c0,1.4,0,2.9,0,4.3c0,161.8,76.9,305.7,196.1,397.1c0.1,0.1,0.2,0.1,0.2,0.2
+                        c58.7,45,127.7,77.2,202.8,92.6c0.1,0,0.1,0,0.2,0c29.5,5.6,60.1,8.6,91.9,8.6c51.5,0,105.7-7.8,162.2-24.8
+                        c-3.6-4.9-157-211.9-166.7-225.1v90.7c-270.3-8-422.8-327.1-259.3-542.6c0,0,0,0,0,0c25.9-34.7,59.1-65,95.9-87.4l-3.6-4.7
+                        C318.4,203.3,228,84.8,225.7,81.8L225.7,81.8z"/>
+                      <path d="M500,0c-54.1,0-106.2,8.6-155,24.5c3.1,4.4,155.9,210.5,166.7,225.1V155c332,5,460.5,474,164.6,635.4c0.7,1,2.6,3.4,3.3,4.3
+                        c0.5,0.7,93.7,122.7,94.1,123.3c0.3-0.2,0.6-0.4,1-0.6c0,0,0,0,0,0c94.3-62.5,165.5-155.8,200.7-261.8l1.2-3.8
+                        c14.8-46.7,23-96.3,23.4-147.8c0-1.3,0-2.5,0-3.8c0-1.2,0-2.3,0-3.5v-0.3c-0.9-124.5-47.3-238.2-123.5-325.2
+                        C827.1,114.4,765,69,694.6,39.3c-9.2-3.9-18.6-7.5-28.1-10.9c-0.1,0-0.2-0.1-0.4-0.1C614.2,10,558.2,0,500,0L500,0z"/>
+                      </svg>
+                      </p>
                   </div> 
                   <div class="config-item-main flex"> 
-                    <p class="text-label">Software update / download</p>
+                    <p class="text-label">Update</p>
                   </div>  
                 </div>
               </div>
@@ -129,10 +150,16 @@
               <div class="config-item-main-container flex">
                 <div class="config-item-title-row flex">
                   <div class="config-item-icon-container flex">
-                    <p class="text-label label-emoji">🖌️</p>
+                    <p class="text-label label-emoji"><?xml version="1.0" encoding="utf-8"?>
+                      <svg version="1.1" id="pancil2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
+                      <path d="M701.7,411.2l-462,462C208.5,904.4,37.5,1024.7,6.3,993.5l0,0C-25,962.3,95.4,791.3,126.6,760l462-462L701.7,411.2z"/>
+                      <path d="M974.3,138.7L814.9,298L701.7,184.9L861.1,25.5c31.2-31.2,81.9-31.2,113.1,0l0,0C1005.5,56.8,1005.5,107.4,974.3,138.7z"/>
+                      </svg>
+                      </p>
                   </div> 
                   <div class="config-item-main flex"> 
-                    <p class="text-label">Themes</p>
+                    <p class="text-label">Farbthemen</p>
                   </div>
                 </div>
                 <select class="input-size--default" name="select_themes" id="select-themes">
@@ -149,34 +176,50 @@
               </div>
             </div>
             <div class="config-item dFlex">
-              <div class="config-item-main-container">
+              <div class="config-item-main-container flex">
                 <div class="config-item-title-row flex">
                   <div class="config-item-icon-container flex">
-                    <p class="text-label label-emoji">🛟</p>
+                    <p class="text-label label-emoji"><?xml version="1.0" encoding="utf-8"?>
+                      <svg version="1.1" id="questmark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         viewBox="0 0 1200 1200" style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
+                      <g>
+                        <path d="M600,979.1L600,979.1c-33.1,0-60-26.9-60-60V747.2c0-58.6,24.2-104.7,72-137.1c35.5-24.1,78.3-37.1,123.5-50.8
+                          c52-15.7,105.8-32,143.7-65.3c18.8-16.5,32.7-36.2,42.5-60.4c12.1-29.8,18.3-67.2,18.3-111.2c0-104.5-27.1-136.8-56.5-156.2
+                          c-23.2-15.3-55.8-26.4-99.9-33.9c-34.2-5.8-75.6-9.5-125.4-11c-32.4-1-58.2-27.5-58.2-60v0c0-33.8,28-61,61.8-60
+                          c139,4.3,226.9,24.4,287.9,64.8c40.3,26.6,69.7,63.3,87.4,109c15.4,39.5,22.8,87.7,22.8,147.4c0,59.6-9.1,112.2-27.2,156.4
+                          c-16.8,41.2-41.9,76.7-74.5,105.3c-57.4,50.4-126.9,71.5-188.1,90c-36.2,11-70.5,21.3-90.9,35.2c-12.6,8.5-19.4,17.1-19.4,37.8
+                          v171.9C660,952.3,633.1,979.1,600,979.1z"/>
+                      </g>
+                      <path d="M600,1200L600,1200c-33.1,0-60-26.9-60-60v-40c0-33.1,26.9-60,60-60h0c33.1,0,60,26.9,60,60v40
+                        C660,1173.1,633.1,1200,600,1200z"/>
+                      </svg>
+                      
+                      </p>
                   </div> 
                   <div class="config-item-main flex"> 
-                    <p class="text-label">Help and Informations</p>
-                    <button class="button-primary" id="button_openHelp">Open</button>
+                    <p class="text-label">Hilfe</p>
                   </div>  
                 </div>
+                <button class="button-primary" id="button_openHelp">Öffnen</button>
               </div>
             </div>
 
           </div>
         </div>
-        <div class="configuration-window dNone" id="config-win-projects">
+        <div class="configuration-window dGrid dNone" id="config-win-projects">
           <div class="configuration-window-headline-container">
-            <h2>Project Detection</h2>
+            <h2>Projekt Erkennung</h2>
             <div class="subtext-container">
               <p class="subtext">
-                To be able to book tickets automatically enter their prefixes and the corresponding booking number here.
+                Erstelle hier neue Erkennungsmerkmale und fülle die dazu gehörigen Buchungsangaben aus, damit deine Tickets automatisch gebucht werden können.
               </p>
               <button class="button-primary button-add" id="button_add_projectDetection">+</button>
             </div>
           </div> 
-          <div class="configuration-window-content" id="window_detection">
-
-            <!-- Detection Items here -->
+          <div class="configuration-window-content dFlex" >
+            <div class="configuration-window-content-inner dFlex" id="window_detection">
+                          <!-- Detection Items here -->
+            </div>
           </div>
         </div>
         <div class="configuration-window dNone" id="config-win-timesheets">
@@ -184,7 +227,7 @@
             <h2>Timesheet Filter</h2>
             <div class="subtext-container">
               <p class="subtext">
-                Choose which format your copied data will be filtered and pasted into. (Depending on your table)
+                Wähle aus, welches Excel-Tabellen-Format du verwendest, damit die Erweiterung die Daten beim kopieren richtig zuordnen kann.
               </p>
             </div>
           </div>
@@ -194,7 +237,7 @@
               <div class="config-item-main-container dFlex">
                 <div class="config-item-radio-container dFlex">
                   <label class="radio-custom-container dFlex">
-                    <input type="radio" class="radio-default" value="filter-tobiasexcel" name="timesheet-filter"/>
+                    <input type="radio" class="radio-default" value="timesheetfilter-tobiasexcel" name="timesheet-filter"/>
                     <span class="checkmark"></span>
                   </label>
                 </div>
@@ -215,12 +258,12 @@
               <div class="config-item-main-container dFlex">
                 <div class="config-item-radio-container dFlex">
                   <label class="radio-custom-container dFlex">
-                    <input type="radio" class="radio-default" value="filter-stevegoogleexcel" name="timesheet-filter"/>
+                    <input type="radio" class="radio-default" value="timesheetfilter-stevegoogleexcel" name="timesheet-filter"/>
                     <span class="checkmark"></span>
                   </label>
                 </div>
                 <div class="config-item-main flex">
-                  <p class="text-label">Steve Google Excel</p>
+                  <p class="text-label">Steve Google Excel (V 6.0.X)</p>
                 </div>  
               </div>
               <div class="config-item-action-container flex">
@@ -236,25 +279,50 @@
         </div>
         <div class="configuration-window dNone" id="config-win-bookingsheet">
           <div class="configuration-window-headline-container">
-            <h2>Booking Platforms</h2>
+            <h2>Buchungs Plattformen</h2>
             <div class="subtext-container">
               <p class="subtext">
-                So that the plugin knows how to carry out the bookings, a booking platform must be selected here
+               Wähle hier eine Buchungsplattform aus, damit die Erweiterung weiß, wo du deine Daten eintragen willst.
+               Du kannst auch einfach "automatisch" wählen,
+               dann sucht dir die Erweiterung je nach Web-Page das Richtige aus.
               </p>
             </div>
           </div>  
-          <div class="configuration-window-content">
           <div class="configuration-window-content">
             <label class="config-item dFlex">
               <div class="config-item-main-container dFlex">
                 <div class="config-item-radio-container dFlex">
                   <label class="radio-custom-container dFlex">
-                    <input type="radio" class="radio-default" name="booking-plattform" checked="checked"/>
+                    <input type="radio" class="radio-default" name="booking-plattform" value="bookingplattform-automatic"/>
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="config-item-logo-container flex config-item-logo-container--automatic">
+                  <img src="libraries/bookingplattforms/automatic/logo/logo.png" class="icon-bookingItem"/>
+                </div> 
+                <div class="config-item-main flex"> 
+                  <p class="text-label">Automatisch</p>
+                </div>  
+              </div>
+              <div class="config-item-action-container flex">
+                <button class="button-primary" id="bookingPlatform_AmagProTime">
+                  <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                  <svg width="100%" height="100%" viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                      <path id="information_2" d="M499.925,1000C224.002,999.959 0,775.933 0,500C0,224.042 224.042,0 500,0C775.958,0 1000,224.042 1000,500C1000,775.958 775.958,1000 500,1000L499.925,1000ZM589.925,900.09C773.016,859.053 910,695.397 910,500C910,273.715 726.285,90 500,90C273.715,90 90,273.715 90,500C90,695.344 226.909,858.963 409.925,900.056L409.925,540C409.925,490.328 450.253,450 499.925,450C549.597,450 589.925,490.328 589.925,540L589.925,900.09ZM590.075,270C590.075,319.672 549.747,360 500.075,360C450.403,360 410.075,319.672 410.075,270C410.075,220.328 450.403,180 500.075,180C549.747,180 590.075,220.328 590.075,270Z"/>
+                  </svg>
+                </button>
+              </div>
+            </label>
+            <label class="config-item dFlex">
+              <div class="config-item-main-container dFlex">
+                <div class="config-item-radio-container dFlex">
+                  <label class="radio-custom-container dFlex">
+                    <input type="radio" class="radio-default" name="booking-plattform" value="bookingplattform-protime"/>
                     <span class="checkmark"></span>
                   </label>
                 </div>
                 <div class="config-item-logo-container flex config-item-logo-container--amag">
-                  <img src="libraries/bookingsheets/amag-protime/logo/logo.png" class="icon-bookingItem"/>
+                  <img src="libraries/bookingplattforms/amagProtime/logo/logo.png" class="icon-bookingItem"/>
                 </div> 
                 <div class="config-item-main flex"> 
                   <p class="text-label">ProTime</p>
@@ -269,11 +337,33 @@
                 </button>
               </div>
             </label>
+            <label class="config-item dFlex">
+              <div class="config-item-main-container dFlex">
+                <div class="config-item-radio-container dFlex">
+                  <label class="radio-custom-container dFlex">
+                    <input type="radio" class="radio-default" name="booking-plattform" value="bookingplattform-prores"/>
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="config-item-logo-container flex config-item-logo-container--dzbank">
+                  <img src="libraries/bookingplattforms/dzBankProRes/logo/logo.png" class="icon-bookingItem"/>
+                </div> 
+                <div class="config-item-main flex"> 
+                  <p class="text-label">ProRes</p>
+                </div>  
+              </div>
+              <div class="config-item-action-container flex">
+                <button class="button-primary" id="bookingPlatform_dzBankProRes">
+                  <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+                  <svg width="100%" height="100%" viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                      <path id="information_2" d="M499.925,1000C224.002,999.959 0,775.933 0,500C0,224.042 224.042,0 500,0C775.958,0 1000,224.042 1000,500C1000,775.958 775.958,1000 500,1000L499.925,1000ZM589.925,900.09C773.016,859.053 910,695.397 910,500C910,273.715 726.285,90 500,90C273.715,90 90,273.715 90,500C90,695.344 226.909,858.963 409.925,900.056L409.925,540C409.925,490.328 450.253,450 499.925,450C549.597,450 589.925,490.328 589.925,540L589.925,900.09ZM590.075,270C590.075,319.672 549.747,360 500.075,360C450.403,360 410.075,319.672 410.075,270C410.075,220.328 450.403,180 500.075,180C549.747,180 590.075,220.328 590.075,270Z"/>
+                  </svg>
+                </button>
+              </div>
+            </label>
           </div>
         </div>
-
       </div>
-     </div>
     </main>
     <footer>
       <div class="footer-container">
@@ -297,7 +387,7 @@
           </button>
           <!-- <button class="button-primary" id='copyTime'>Copy</button> -->
           <button class="button-primary dNone" id="button_test_pasteTicketData">🧪 PT Test</button>
-          <p class="footer-active-label object--hidden" id="footer-label-config">Configurations</p>
+          <p class="footer-active-label object--hidden" id="footer-label-config">Einstellungen</p>
         </div>
         <div class="footer-container-buttons">
           <button class="button-primary" id="configButton">
@@ -354,7 +444,7 @@
         </div>
       </div>
     </footer>
-    <script src='extension.js'></script>
+    <script src='extension.js' type="module"></script>
     <script src='components/projectDetection/projectDetection.js'></script>
     <script src='components/general/general.js'></script>
   </body>

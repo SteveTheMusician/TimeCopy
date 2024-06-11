@@ -1,9 +1,51 @@
 {
-    "tcprofile":{
+    "tcprofile": {
         "author": "steve",
-        "version": "0.1",
-        "configs": {
-            "theme": "trueinnovation"
+        "version": "1.1",
+        "extension_version": "0.8.32",
+        "profile_name": "Steve Default",
+        "cfg": {
+            "theme": "oceanswave",
+            "timesheet_filter": "timesheetfilter-tobiasexcel",
+            "booking_platforms": "NoVALUE",
+            "detection_filter": [
+                {
+                    "id": "di01",
+                    "bookingsheet": "amag_protime",
+                    "ticketprefix": "RELAUNCHAM",
+                    "addprefix": "",
+                    "protimeservice": "select_proTime_service_CSITEST",
+                    "projectnomber": "21344",
+                    "protimeactivity": "select_proTime_activity_none"
+                },
+                {
+                    "id": "di02",
+                    "bookingsheet": "amag_protime",
+                    "ticketprefix": "RELAUNCHAM",
+                    "addprefix": "Schadensmeldung",
+                    "protimeservice": "select_proTime_service_CSITEST",
+                    "projectnomber": "21348",
+                    "protimeactivity": "select_proTime_activity_none"
+                },
+                {
+                    "id": "di03",
+                    "bookingsheet": "amag_protime",
+                    "ticketprefix": "BBP",
+                    "addprefix": "",
+                    "protimeservice": "select_proTime_service_CSITEST",
+                    "projectnomber": "21037",
+                    "protimeactivity": "select_proTime_activity_none"
+                },
+                {
+                    "id": "di04",
+                    "bookingsheet": "amag_protime",
+                    "ticketprefix": "TEST",
+                    "addprefix": "Schadensmeldung",
+                    "protimeservice": "select_proTime_service_CSITEST",
+                    "projectnomber": "21037",
+                    "protimeactivity": "select_proTime_activity_none"
+                }
+            ]
         }
     }
 }
