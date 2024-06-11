@@ -46,7 +46,7 @@ function showProTimeTestButton(){
 
 }
 
-window.addEventListener("load", (event) => {
+window.addEventListener("load", () => {
   loadStorage_dev()
 });
 
