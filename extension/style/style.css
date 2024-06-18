@@ -442,6 +442,10 @@ textarea:hover{
     color: var(--color-font-subtext);
 }
 
+#label_version {
+    min-width: 60px;
+}
+
 .configurations {
     width: -webkit-fill-available;
 }
@@ -495,6 +499,22 @@ height: 390px;
 .configuration-window-content-inner {
     flex-direction: column-reverse;
     flex-grow: 1;
+}
+
+.config-item[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: blur(2px);
+    opacity:0.5;
+}
+
+.config-item[disabled]:hover input ~ .checkmark{
+    background-color: var(--color-icon-default);
+}
+
+.config-item[disabled] * {
+    pointer-events: none;
+    user-select: none;
 }
 
 .config-item {
