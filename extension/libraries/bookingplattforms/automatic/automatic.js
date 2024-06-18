@@ -12,7 +12,7 @@ export function automatic(bookingData){
         }else if(url.includes('DZBANK')) {
             // something
         }else {
-            notification(true,"Unable to use a Booking-Plattform: Unknown URL")
+            notification(true,"Buchung abgebrochen: Unbekannte URL")
         }
     });
     

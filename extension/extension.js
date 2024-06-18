@@ -53,7 +53,6 @@ let helpUrl_timesheet_steve = helpUrl+"#timesheet-steve-google-excel"
 let extensionVersion = data_version.extension_version
 let extensionBuild = data_version.extension_build
 
-
 // Extension load up
 window.addEventListener("load", (event) => {
   // Display version
@@ -89,8 +88,8 @@ window.addEventListener("load", (event) => {
 
 // Load localstorage
 function loadStorage() {  
+  // Default variables
   let defaultTheme = "oceanswave"
-  let defaultFilter = ""
   let defaultProfileName = "Default"
   let defaultBookingPlattform = "bookingplattform-automatic"
 
@@ -115,76 +114,15 @@ function loadStorage() {
     document.querySelector('input[value="'+defaultBookingPlattform+'"]').checked = true
   }
 }
+
 // Clear local storage
 function clearLocalStorage(){
   localStorage.removeItem('tc_c_theme')
   localStorage.removeItem('tc_c_filter')
   localStorage.removeItem('tc_c_projectDetection')
   localStorage.removeItem('tc_c_profileName')
-  localStorage.removeItem('tc_c_BookingPlattform')
-  notification(true,'Data deleted! Please restart.')
-}
-
-function openHelp() {
-  window.open(helpUrl)
-}
-
-function openHelp_timesheet_tobias() {
-  window.open(helpUrl_timesheet_tobias)
-}
-
-// Test functions protime
-async function testProTime(){
-  dev_pttest = true
-  alert(dev_pttest)
-  readClipboardText(dev_pttest)
-// let [tab] = await chrome.tabs.query ({active: true, currentWindow: true});
-  // chrome.scripting.executeScript({
-  //  target: {tabId: tab.id}, func: testFunction,
-  // });
-}
-// test Function triggered by test button to check if protime works
-function testFunction () {
-
-  const keyEventEnter = new KeyboardEvent('keydown', {
-    key: 'Enter',
-    code: 'Enter',
-    which: 13,
-    keyCode: 13,
-  })
-
-  // get booking number field
-  let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0].childNodes[0]
-
-  if(protime_Innenauftrag){
-    protime_Innenauftrag.value = "21348"
-    protime_Innenauftrag.dispatchEvent(keyEventEnter)
-  }else {
-    alert('TimeCopy   ERROR: unable to get Order-Input')
-  }
-
-  setTimeout(function(){
-    // so we get here the td which contains the services dropdown and click it
-    let protime_Leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0]
-    const protime_Leistungen_CSITExtST = document.querySelector("[data-itemkey='ZCHN0730070']")
-    const protime_Leistungen_CSITExtNT = document.querySelector("[data-itemkey='ZCHN0730080']")
-    const protime_Leistungen_ITDNT = document.querySelector("[data-itemkey='ZCHN0730005']")
-    const protime_Leistungen_ITD = document.querySelector("[data-itemkey='ZCHN0730001']")
-    protime_Leistung.click()
-    protime_Leistungen_CSITExtST.click()
-  },500)
-
-  setTimeout(function(){ 
-    let protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
-    protime_hours.value = "0.5"
-    // ggf ein await für dieses element
-    let protime_ticketNumber = document.getElementsByClassName('lsField--empty')[2].childNodes[0]
-    protime_ticketNumber.value = "Test-Ticket"
-  
-    let protime_ticketText = document.getElementsByTagName('textarea')[0]
-    protime_ticketText.value = "Test-Ticket-Text"
-  
-  }, 700 );
+  localStorage.removeItem('tc_c_bookingPlattform')
+  notification(true,'Daten wurden gelöscht. Bitte PlugIn neustarten.')
 }
 
 function openConfigs(){
@@ -206,7 +144,6 @@ function openConfigs(){
 }
 
 // config tabs functions
-
 function removeTabActiveClass(){
   [].forEach.call(buttonsTab_getAll, function(buttonsTab_getAll) {
     buttonsTab_getAll.classList.remove('button-tab--active');
@@ -245,10 +182,9 @@ function configTabOpenBookingsheets(){
   configurationsContainer.classList.remove('configuration-container-first-tab-selected')
 }
 
-
 // configuration functions
 function timesheetFilterChange(){
-  notification(true,'Please reopen extension so the filters can be applied.')
+  notification(true,'Bitte öffne das PlugIn erneut, um die Filter zu übernehmen')
 }
 
 function bookingPlattformsChange(e) {
@@ -268,6 +204,14 @@ function switchTheme() {
  function switchFilter(e) {
   localStorage.setItem('tc_c_filter', e.target.value)
  }
+
+ function openHelp() {
+  window.open(helpUrl)
+}
+
+function openHelp_timesheet_tobias() {
+  window.open(helpUrl_timesheet_tobias)
+}
 
 // import time copy profile
 let button_importConfigs = document.getElementById('button_importConfigs');
@@ -289,12 +233,11 @@ function importFile(event){
   });
   reader.readAsText(files[0])
   loadStorage()
-  notification(true,'Please reopen extension to load profile.')
+  notification(true,'Bitte öffne das PlugIn erneut, um das Profil zu laden')
 }
 
 // Export Configs as Json
 let button_exportConfigs = document.getElementById('button_exportConfigs');
-
 button_exportConfigs.addEventListener('click', (event) => {
   let detectionItems = localStorage.getItem('tc_c_projectDetection')
   detectionItems = JSON.parse(detectionItems)
@@ -305,7 +248,6 @@ button_exportConfigs.addEventListener('click', (event) => {
     detectionItems = []
   }
   let saveObj = {"tcprofile":{"author":"steve","version":"1.1","extension_version":extensionVersion,"extension_build":extensionBuild,"profile_name":configProfileName.value}}
-
   // apply values
   Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platforms":lstorage_cBookingPlattform,"detection_filter": detectionItems}})
   // file setting
@@ -329,25 +271,19 @@ async function readClipboardText(dev_pttest) {
   let bookingPlattform = lstorage_cBookingPlattform
   // check whitch filter to use
   if(filter === '' || filter === null){
-    notification(true,'Please select a Timesheet Filter first!')
+    notification(true,'Bitte wähle ein Timesheet!')
   } else if(bookingPlattform === '' || bookingPlattform === null) {
-    notification(true,'Please select a booking plattform first!')
+    notification(true,'Bitte wähle eine Buchungsplattform!')
   } else {
     timesheetFilter(bookingPlattform,filter,clipboarsString,dev_pttest)
   }
-  
-  // if(lstorage_cFilter === 'filter-tobiasexcel'){
-    // timesheetTobias(clipboarsString,dev_pttest)
-  // }else if(lstorage_cFilter === 'filter-stevegoogleexcel'){
-    // timesheetSteve(clipboarsString,dev_pttest)
-  // }else {
-    // alert('No filter selected')
-  // }
 }
 
-function timesheetSteve(){
-  
-  timesheetFilter()
+// Test protime function
+async function testProTime(){
+  dev_pttest = true
+  alert(dev_pttest)
+  readClipboardText(dev_pttest)
 }
 
 

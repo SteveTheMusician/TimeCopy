@@ -442,6 +442,10 @@ textarea:hover{
     color: var(--color-font-subtext);
 }
 
+#label_version {
+    min-width: 60px;
+}
+
 .configurations {
     width: -webkit-fill-available;
 }
@@ -495,6 +499,22 @@ height: 390px;
 .configuration-window-content-inner {
     flex-direction: column-reverse;
     flex-grow: 1;
+}
+
+.config-item[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: blur(2px);
+    opacity:0.5;
+}
+
+.config-item[disabled]:hover input ~ .checkmark{
+    background-color: var(--color-icon-default);
+}
+
+.config-item[disabled] * {
+    pointer-events: none;
+    user-select: none;
 }
 
 .config-item {
@@ -584,7 +604,6 @@ input[type=text]:focus{
     padding: 10px;
     margin-left: 10px;
     border-radius: var(--border-radius-default);
-    
 }
 
 .config-item-logo-container--amag {
@@ -641,6 +660,7 @@ select {
     width: 0;
     height: 0;
 }
+
 input:checked + .switch_slider {    
     background-color: var(--color-active);
 }
