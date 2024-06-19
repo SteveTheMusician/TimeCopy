@@ -34,7 +34,7 @@ function addNewProjectDetection(){
 function generateDetectionItem(){
   if(detectionItems) {
    document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem => 
-     `<div class="config-item flex" name="item_detection" id="`+detectionItem.id+`">
+     `<div class="config-item detection-item flex" name="item_detection" id="`+detectionItem.id+`">
    <div class="config-item-main-container">
      <div class="config-item-title-row flex">
        <p class="subtext subtext-top">Erkennung</p>
@@ -43,7 +43,7 @@ function generateDetectionItem(){
        <select class="input-size--small" id="select_bookingPlatform_`+detectionItem.id+`">
          <option value="" selected disabled hidden>Keine</option>
          <option value="select_bookingPlatform_AmagProTime" >ProTime</option>
-         <option value="select_bookingPlatform_DzBankProRes">ProRes</option>
+         <option value="select_bookingPlatform_DzBankProRes">ProRes ⭐️</option>
        </select>
        <input type="text" class="input-size--default `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_ticketPrefix" id="input_ticketPrefix`+detectionItem.id+`" placeholder="Ticket Prefix" value="`+detectionItem.ticketprefix+`" />
      </div>
@@ -135,7 +135,6 @@ function loadDetectionItems(){
     select_proTimeService.addEventListener('change', () => {changeDetectionItemData(detectionItemsHtml[i].id,"protimeservice",select_proTimeService.value)});
     let input_projectNomber = document.getElementById("input_projectNomber"+detectionItemsHtml[i].id)
     input_projectNomber.addEventListener('change', () => {changeDetectionItemData(detectionItemsHtml[i].id,"projectnomber",input_projectNomber.value)});
-
     let input_activity = document.getElementById("input_activity"+detectionItemsHtml[i].id)
     let loaded_input_activity = detectionItems.find(x => x.id === detectionItemsHtml[i].id).protimeactivity
     input_activity.value = loaded_input_activity

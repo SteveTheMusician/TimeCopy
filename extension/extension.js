@@ -1,6 +1,7 @@
 import data_version from "./version.json" with { type: "json" };
 import { timesheetFilter } from "./libraries/timesheets/timesheets.js";
 import { notification } from "./components/notification/notification.js";
+import { bookingplattforms } from "./libraries/bookingplattforms/bookingplattforms.js";
 
 const link_cssTheme = document.querySelector('link#link-theme'); 
 const main = document.querySelector('main');
@@ -244,6 +245,7 @@ button_exportConfigs.addEventListener('click', (event) => {
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
   let lstorage_cFilter = localStorage.getItem('tc_c_filter')
   let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
+  const fileNameFixed = "-TimeCopy.tcprofile"
   if(detectionItems === null) {
     detectionItems = []
   }
@@ -252,7 +254,7 @@ button_exportConfigs.addEventListener('click', (event) => {
   Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platforms":lstorage_cBookingPlattform,"detection_filter": detectionItems}})
   // file setting
   const data = JSON.stringify(saveObj);
-  const name = configProfileName.value+"-TimeCopy.tcprofile";
+  const name = configProfileName.value+fileNameFixed;
   const type = "text/plain";
   // create file
   const a = document.createElement("a");
@@ -275,7 +277,10 @@ async function readClipboardText(dev_pttest) {
   } else if(bookingPlattform === '' || bookingPlattform === null) {
     notification(true,'Bitte wähle eine Buchungsplattform!')
   } else {
-    timesheetFilter(bookingPlattform,filter,clipboarsString,dev_pttest)
+    // get all boocking relevant data as array
+    let bookingData = timesheetFilter(filter,clipboarsString)
+    console.log(bookingData)
+    // bookingplattforms(bookingData)
   }
 }
 

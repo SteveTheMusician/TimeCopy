@@ -1,6 +1,11 @@
 import { bookingplattforms } from "../../bookingplattforms/bookingplattforms.js"
 
-export function timesheet_SteveGoogleExcel(bookingPlattform,clipboarsString,dev_pttest) {
-    alert('Steve Google Excel'+bookingPlattform)
-    bookingplattforms(bookingPlattform,"some data")
+export function timesheet_SteveGoogleExcel(clipboarsString) {
+    alert('Steve Google Excel: '+clipboarsString)
+    
+    let bdOk = true
+    let bsp = "beispielData"
+    let bookingData = {"ok": bdOk, "data": bsp}
+
+    return bookingData
 }
