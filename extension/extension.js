@@ -287,7 +287,6 @@ async function readClipboardText(dev_pttest) {
 // Test protime function
 async function testProTime(){
   dev_pttest = true
-  alert(dev_pttest)
   readClipboardText(dev_pttest)
 }
 
