@@ -1,12 +1,16 @@
-import { amagProtime } from "./amagProtime/amagProtime.js";
 import { automatic } from "./automatic/automatic.js";
+import { amagProTime } from "./amagProtime/amagProtime.js";
+import { dzbankProRes } from "./dzBankProRes/dzBankProres.js";
 
-export function bookingplattforms(bookingplattform,bookingData) {
-    if(bookingplattform === 'bookingplattform-protime') {
-        return amagProtime(bookingData)
-    } else if(bookingplattform === 'bookingplattform-automatic') {
-        automatic(bookingData)
-    } else if(bookingplattform === '' || bookingplattform === null){
-        console.log('No bookingsheet')
-    }
+export function bookingplattforms(bookingPlattform,bookingData) {
+    // alert entfernen
+    console.log("Plattform: "+bookingPlattform,bookingData)
+    let bookingFunctionName = bookingPlattform.split("_").pop()
+    let bookingFunctions = {
+        automatic: function (bookingData){return automatic(bookingData)},
+        amagProTime: function (bookingData){return amagProTime(bookingData)},
+        dzbankProRes: function (bookingData){return dzbankProRes(bookingData)}
+    };
+    return bookingFunctions[bookingFunctionName](bookingData);
 }
+

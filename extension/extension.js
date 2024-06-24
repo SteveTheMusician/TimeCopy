@@ -279,8 +279,9 @@ async function readClipboardText(dev_pttest) {
   } else {
     // get all boocking relevant data as array
     let bookingData = timesheetFilter(filter,clipboarsString)
-    console.log(bookingData)
-    bookingplattforms(bookingData)
+    console.log("Data input: "+bookingData)
+    let testArray = bookingplattforms(bookingPlattform,bookingData)
+    console.log(testArray)
   }
 }
 

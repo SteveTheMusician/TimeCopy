@@ -1,6 +1,11 @@
 // Call the correct booking numbers for the specific tickets
-export function amagProtime(bookingData){
-  console.log("Protime-Data: "+bookingData+" ExampleData: "+bookingData)
+export function amagProTime(bookingData){
+
+  // let result = Object.filter(allDetectionFilter => {
+    // return allDetectionFilter.bookingsheet === "amag_protime"
+  // })
+
+  return "ProTime Ok"
 }
 
 function detectionItem_ProTime() {
