@@ -43,7 +43,7 @@ function generateDetectionItem(){
        <select class="input-size--small" id="select_bookingPlattform_`+detectionItem.id+`">
          <option value="" selected disabled hidden>Keine</option>
          <option value="select_bookingPlattform_amagProTime" >ProTime</option>
-         <option value="select_bookingPlattform_dzBankProRes">ProRes ⭐️</option>
+         <option value="select_bookingPlattform_dzBankProRes" disabled>ProRes ⭐️</option>
        </select>
        <input type="text" class="input-size--default `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_ticketPrefix" id="input_ticketPrefix`+detectionItem.id+`" placeholder="Ticket Prefix" value="`+detectionItem.ticketprefix+`" />
      </div>
