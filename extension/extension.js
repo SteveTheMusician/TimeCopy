@@ -248,7 +248,7 @@ button_exportConfigs.addEventListener('click', (event) => {
   if(detectionItems === null) {
     detectionItems = []
   }
-  let saveObj = {"tcprofile":{"author":"steve","version":"1.1","extension_version":extensionVersion,"extension_build":extensionBuild,"profile_name":configProfileName.value}}
+  let saveObj = {"tcprofile":{"author":"steve","version":"1.2","extension_version":extensionVersion,"extension_build":extensionBuild,"profile_name":configProfileName.value}}
   // apply values
   Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platform":lstorage_cBookingPlattform,"detection_filter": detectionItems}})
   // file setting
