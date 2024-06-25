@@ -443,7 +443,15 @@ textarea:hover{
 }
 
 #label_version {
-    min-width: 60px;
+    min-width: 100px;
+    justify-content: end;
+    user-select: text;
+}
+
+#label_build_version {
+    justify-content: end;
+    font-size: 10px;
+    user-select: text;
 }
 
 .configurations {
@@ -520,11 +528,12 @@ height: 390px;
 .config-item {
     border-radius: var(--border-radius-default);
     background-color: var(--color-third);
-    padding:10px;
+    padding: 10px 15px;
     margin: 10px;
     justify-content: space-between;
     transition: var(--transition-default);
 }
+
 
 .item--new {
     animation-name: item--new-animation;
@@ -632,6 +641,10 @@ select {
     padding: 5px;
     font-size: 12px;
     border: 0px solid;
+    /* margin: 5px; */
+}
+
+.detection-item select {
     margin: 5px;
 }
 
@@ -639,7 +652,7 @@ select {
     font-size: 20px;
     margin-block-start: 0;
     margin-block-end: 0;
-    padding-left: 5px;
+    /* padding-left: 5px; */
 }
 
 .label-emoji svg {

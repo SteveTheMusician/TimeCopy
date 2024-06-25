@@ -1,19 +1,22 @@
-import { bookingplattforms } from "../../bookingplattforms/bookingplattforms.js";
-export function timesheet_TobiasExcel(bookingPlattform,clipboarsString,dev_pttest) {
+import { timesheetFilterDefaults } from "../timesheets.js";
+export function timesheet_TobiasExcel(clipboarsString) {
+
+  let tfdData = timesheetFilterDefaults()
 
    let fullDateString = clipboarsString.split('"')[0];
    let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
  
    // get all tickets before and after a line break
    let regex = /([^\n]+)/g
-   var matches = []
-   var match
+   let matches = []
+   let match
+   let bookingData = []
    // push into matches
    while ((match = regex.exec(allTickets)) !== null) {
      matches.push(match[1]);
    }
  
-   let forEachTimer = "100"
+   let forEachTimer = tfdData.foreachtimer_default
   
    matches.forEach(function(ticket, index){
       setTimeout(function(){
@@ -30,8 +33,8 @@ export function timesheet_TobiasExcel(bookingPlattform,clipboarsString,dev_pttes
           item_bookingNumber = item_ticketCustomBookingNumber;
           item_ticketNumber = item_ticketNumber.split('#')[0]
         }
-        let platformData = {item_bookingNumber, item_ticketNumber, item_ticketDisc}
-        bookingplattforms(bookingPlattform,platformData)
+        let itemObject = {"item_bookingnumber":"", "item_ticketnumber":item_ticketNumber, "item_ticketdisc":item_ticketDisc, "item_tickettime":item_ticketTime}
+        bookingData.push(itemObject)
  
       //  item_bookingNumber = bookingsheets(bookingPlattform,{item_bookingNumber, item_ticketNumber, item_ticketDisc})
 //  
@@ -46,6 +49,7 @@ export function timesheet_TobiasExcel(bookingPlattform,clipboarsString,dev_pttes
       //  }
      },forEachTimer * (index + 1))
      // set intervall after first run
-     forEachTimer = "300"
+     forEachTimer = tfdData.foreachtimer_after
    })
+   return bookingData
  }

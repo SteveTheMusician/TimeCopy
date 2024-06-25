@@ -1,6 +1,7 @@
 import data_version from "./version.json" with { type: "json" };
 import { timesheetFilter } from "./libraries/timesheets/timesheets.js";
 import { notification } from "./components/notification/notification.js";
+import { bookingplattforms } from "./libraries/bookingplattforms/bookingplattforms.js";
 
 const link_cssTheme = document.querySelector('link#link-theme'); 
 const main = document.querySelector('main');
@@ -57,6 +58,7 @@ let extensionBuild = data_version.extension_build
 window.addEventListener("load", (event) => {
   // Display version
   label_version.insertAdjacentHTML('beforeend', extensionVersion);
+  label_build_version.insertAdjacentHTML('beforeend', extensionBuild);
   // Main Buttons Listener
   fillButton.addEventListener('click', readClipboardText);
   button_dev_pttest.addEventListener('click', testProTime);
@@ -91,7 +93,7 @@ function loadStorage() {
   // Default variables
   let defaultTheme = "oceanswave"
   let defaultProfileName = "Default"
-  let defaultBookingPlattform = "bookingplattform-automatic"
+  let defaultBookingPlattform = "bookingPlattform-automatic"
 
   if (lstorage_cThemes){
     themeSelect.value = lstorage_cThemes
@@ -189,6 +191,7 @@ function timesheetFilterChange(){
 
 function bookingPlattformsChange(e) {
   localStorage.setItem('tc_c_bookingPlattform', e.target.value)
+  notification(true,'Bitte öffne das PlugIn erneut, um die Buchungs Plattform zu übernehmen')
 }
 
 function configSetProfileName(){
@@ -229,7 +232,7 @@ function importFile(event){
     // alert(fileData.tcprofile.profile_name)
     localStorage.setItem('tc_c_projectDetection',JSON.stringify(fileData.tcprofile.cfg.detection_filter))
     localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-    localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.booking_platforms)
+    localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.booking_platform)
   });
   reader.readAsText(files[0])
   loadStorage()
@@ -239,20 +242,18 @@ function importFile(event){
 // Export Configs as Json
 let button_exportConfigs = document.getElementById('button_exportConfigs');
 button_exportConfigs.addEventListener('click', (event) => {
-  let detectionItems = localStorage.getItem('tc_c_projectDetection')
+  let detectionItems = lstorage_cDetectionItems
   detectionItems = JSON.parse(detectionItems)
-  let lstorage_cThemes = localStorage.getItem('tc_c_theme')
-  let lstorage_cFilter = localStorage.getItem('tc_c_filter')
-  let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
+  const fileNameFixed = "-TimeCopy.tcprofile"
   if(detectionItems === null) {
     detectionItems = []
   }
-  let saveObj = {"tcprofile":{"author":"steve","version":"1.1","extension_version":extensionVersion,"extension_build":extensionBuild,"profile_name":configProfileName.value}}
+  let saveObj = {"tcprofile":{"author":"steve","version":"1.2","extension_version":extensionVersion,"extension_build":extensionBuild,"profile_name":configProfileName.value}}
   // apply values
-  Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platforms":lstorage_cBookingPlattform,"detection_filter": detectionItems}})
+  Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platform":lstorage_cBookingPlattform,"detection_filter": detectionItems}})
   // file setting
   const data = JSON.stringify(saveObj);
-  const name = configProfileName.value+"-TimeCopy.tcprofile";
+  const name = configProfileName.value+fileNameFixed;
   const type = "text/plain";
   // create file
   const a = document.createElement("a");
@@ -275,14 +276,17 @@ async function readClipboardText(dev_pttest) {
   } else if(bookingPlattform === '' || bookingPlattform === null) {
     notification(true,'Bitte wähle eine Buchungsplattform!')
   } else {
-    timesheetFilter(bookingPlattform,filter,clipboarsString,dev_pttest)
+    // get all boocking relevant data as array
+    let bookingData = timesheetFilter(filter,clipboarsString)
+
+    let testArray = await bookingplattforms(bookingPlattform,bookingData,lstorage_cDetectionItems)
+    console.log(testArray)
   }
 }
 
 // Test protime function
 async function testProTime(){
   dev_pttest = true
-  alert(dev_pttest)
   readClipboardText(dev_pttest)
 }
 

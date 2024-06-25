@@ -1,6 +1,10 @@
 // Call the correct booking numbers for the specific tickets
-export function amagProtime(bookingData){
-  console.log("Protime-Data: "+bookingData+" ExampleData: "+bookingData)
+export function amagProTime(bookingData,detectionItemsProTime){
+
+console.log(bookingData)
+console.log(detectionItemsProTime)
+
+  return "ProTime OK"
 }
 
 function detectionItem_ProTime() {
