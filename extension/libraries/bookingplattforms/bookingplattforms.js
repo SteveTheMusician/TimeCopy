@@ -5,14 +5,16 @@ import { dzbankProRes } from "./dzBankProRes/dzBankProres.js";
 export async function bookingplattforms(bookingPlattformSelectValue,bookingData,detectionItems) {
 
     let bookingFunctionName = bookingPlattformSelectValue.split("_").pop()
+    let functionNameAutomatic = 'automatic'
     let bookingFunctions = {
         // automatic: function (bookingData){return automatic(bookingData)},
         amagProTime: function (bookingData,detectionItems){return amagProTime(bookingData,detectionItems)},
         dzbankProRes: function (bookingData,detectionItems){return dzbankProRes(bookingData,detectionItems)}
     };
 
-    if(bookingFunctionName === 'automatic') {
+    if(bookingFunctionName === functionNameAutomatic) {
         bookingFunctionName = await automatic()
+        bookingPlattformSelectValue = bookingPlattformSelectValue.replace(functionNameAutomatic ,bookingFunctionName )
     }
     // filter detection items for booking plattforms
     let allDetectionFilters = JSON.parse(detectionItems)

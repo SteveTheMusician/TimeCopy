@@ -1,0 +1,53 @@
+{
+    "tcprofile": {
+        "author": "steve",
+        "version": "1.2",
+        "extension_version": "0.8.49",
+        "extension_build": "24.06252221",
+        "profile_name": "Steve Default",
+        "cfg": {
+            "theme": null,
+            "timesheet_filter": "timesheetfilter-tobiasexcel",
+            "booking_platform": "bookingPlattform_amagProTime",
+            "detection_filter": [
+                {
+                    "id": "deci1719346286944",
+                    "bookingsheet": "select_bookingPlattform_dzBankProRes",
+                    "ticketprefix": "PRORESTEST",
+                    "addprefix": ""
+                },
+                {
+                    "id": "deci1719346287357",
+                    "bookingsheet": ""
+                },
+                {
+                    "id": "deci1719346287687",
+                    "bookingsheet": "select_bookingPlattform_amagProTime",
+                    "ticketprefix": "AEM",
+                    "addprefix": "",
+                    "protimeservice": "select_proTime_service_CSITEST",
+                    "projectnomber": "*",
+                    "protimeactivity": ""
+                },
+                {
+                    "id": "deci1719346327732",
+                    "bookingsheet": "select_bookingPlattform_amagProTime",
+                    "ticketprefix": "RELAUNCHAM",
+                    "addprefix": "[Schadensmeldung]",
+                    "protimeservice": "select_proTime_service_CSITEST",
+                    "projectnomber": "",
+                    "protimeactivity": ""
+                },
+                {
+                    "id": "deci1719346765005",
+                    "bookingsheet": "select_bookingPlattform_amagProTime",
+                    "ticketprefix": "BBP",
+                    "addprefix": "",
+                    "protimeservice": "select_proTime_service_CSITEST",
+                    "projectnomber": "10103",
+                    "protimeactivity": "- WP2 - AEM Dashboard"
+                }
+            ]
+        }
+    }
+}
