@@ -40,20 +40,20 @@ function generateDetectionItem(){
        <p class="subtext subtext-top">Erkennung</p>
      </div>
      <div>
-       <select class="input-size--small" id="select_bookingPlatform_`+detectionItem.id+`">
+       <select class="input-size--small" id="select_bookingPlattform_`+detectionItem.id+`">
          <option value="" selected disabled hidden>Keine</option>
-         <option value="select_bookingPlatform_AmagProTime" >ProTime</option>
-         <option value="select_bookingPlatform_DzBankProRes">ProRes ⭐️</option>
+         <option value="select_bookingPlattform_amagProTime" >ProTime</option>
+         <option value="select_bookingPlattform_dzBankProRes">ProRes ⭐️</option>
        </select>
        <input type="text" class="input-size--default `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_ticketPrefix" id="input_ticketPrefix`+detectionItem.id+`" placeholder="Ticket Prefix" value="`+detectionItem.ticketprefix+`" />
      </div>
      <div>
        <input type="text" class="input-size--large `+(detectionItem.bookingsheet ? '' : 'dNone')+`" name="input_additionalPrefix" id="input_additionalPrefix`+detectionItem.id+`" placeholder="Zusatz-Prefix (Optional)" value="`+detectionItem.addprefix+`"/>
      </div>
-     <div class="config-item-title-row flex `+(detectionItem.bookingsheet === "select_bookingPlatform_AmagProTime" ? null : "dNone")+`">
+     <div class="config-item-title-row flex `+(detectionItem.bookingsheet === "select_bookingPlattform_amagProTime" ? null : "dNone")+`">
        <p class="subtext subtext-top">Buchung</p>
      </div>
-     <div class="project-detection-item--amagprotime `+(detectionItem.bookingsheet === "select_bookingPlatform_AmagProTime" ? null : "dNone")+`">
+     <div class="project-detection-item--amagprotime `+(detectionItem.bookingsheet === "select_bookingPlattform_amagProTime" ? null : "dNone")+`">
         <div>
           <select class="input-size--default" name="select_proTimeService" id="select_proTimeService_`+detectionItem.id+`">
             <option value="select_proTime_service_ITD" `+("select_proTime_service_ITD" === detectionItem.protimeservice ? "selected":"")+`>IT Dienstleistungen</option>
@@ -121,10 +121,10 @@ function loadDetectionItems(){
   // add Item change-listeners
   let detectionItemsHtml = document.getElementsByName('item_detection')
   for (let i = 0, iLength = detectionItemsHtml.length; i<iLength; i++){
-    let select_bookingPlatform = document.getElementById("select_bookingPlatform_"+detectionItemsHtml[i].id)
-    let loaded_select_bookingPlatform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
-    select_bookingPlatform.value = loaded_select_bookingPlatform
-    select_bookingPlatform.addEventListener('change', () => {setDetectionBookingPlattform(detectionItemsHtml[i].id,select_bookingPlatform.value)});
+    let select_bookingPlattform = document.getElementById("select_bookingPlattform_"+detectionItemsHtml[i].id)
+    let loaded_select_bookingPlattform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
+    select_bookingPlattform.value = loaded_select_bookingPlattform
+    select_bookingPlattform.addEventListener('change', () => {setDetectionBookingPlattform(detectionItemsHtml[i].id,select_bookingPlattform.value)});
     let input_ticketPrefix = document.getElementById("input_ticketPrefix"+detectionItemsHtml[i].id)
     input_ticketPrefix.addEventListener('change', () => {changeDetectionItemData(detectionItemsHtml[i].id,"ticketprefix",input_ticketPrefix.value)});
     let input_additionalPrefix = document.getElementById("input_additionalPrefix"+detectionItemsHtml[i].id)
@@ -156,15 +156,15 @@ function setDetectionItemValueToObject(itemId,objectKey,objectValue){
   detectionItems[indexOfObject] = newObject
 }
 
-function setDetectionBookingPlattform(itemId,selected_bookingPlatform){
+function setDetectionBookingPlattform(itemId,selected_bookingPlattform){
   let currentObject = getCurrentObject(itemId)
   let newData = {}
-  if(selected_bookingPlatform === "select_bookingPlatform_AmagProTime") {
+  if(selected_bookingPlattform === "select_bookingPlattform_amagProTime") {
     newData = {"ticketprefix": "","addprefix": "","protimeservice":"select_proTime_service_CSITEST","projectnomber":"","protimeactivity":""}
-  } else if(selected_bookingPlatform === "select_bookingPlatform_DzBankProRes") {
+  } else if(selected_bookingPlattform === "select_bookingPlattform_dzBankProRes") {
     newData = {"ticketprefix": "","addprefix": ""}
   }
-  let newObject = {...currentObject, "bookingsheet": selected_bookingPlatform,...newData}
+  let newObject = {...currentObject, "bookingsheet": selected_bookingPlattform,...newData}
   console.log(newObject)
   let indexOfObject = detectionItems.indexOf(currentObject)
   detectionItems[indexOfObject] = newObject

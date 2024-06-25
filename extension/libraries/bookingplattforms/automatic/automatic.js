@@ -1,35 +1,23 @@
 // automatic functions
 import { notification } from "../../../components/notification/notification.js";
-import { bookingplattforms } from "../bookingplattforms.js";
 
-export async function automatic(bookingData){
-    console.log('automatic')
-    let automatic_bookingPlattform = ""
+export async function automatic(){
 
-    
-    async function getCurrentTab() {
-        let queryOptions = { active: true, currentWindow: true };
-        let [tab] = await chrome.tabs.query(queryOptions);
-        return tab.url;
-    }
-    let currentURL = await getCurrentTab()
-    
-    console.log(currentURL)
-      
-  
+    let currentURL
+    let automaticValue
+    let queryOptions = { active: true, lastFocusedWindow: true };
+    let [tab] = await chrome.tabs.query(queryOptions);
+    currentURL = tab.url
+
     if(currentURL.includes('s4.amag.ch/protime')){
-        automatic_bookingPlattform = "bookingplattform_amagProTime"
-    }else if(currentURL.includes('DZBANK')) {
+        automaticValue = "amagProTime"
+    }else if(currentURL.includes('DZBANK-TEST')) {
+        automaticValue = "DZ Bank TEST"
         // something
     }else {
         notification(true,"Buchung abgebrochen: Unbekannte URL")
-    }     
-    // x wert returnen herausfinden
-    console.log("SELECTED: "+automatic_bookingPlattform)
-
-    let bookingFunctions = {
-        callplattforms: function (automatic_bookingPlattform,bookingData){return bookingplattforms(automatic_bookingPlattform,bookingData)},
-    };
-    return bookingFunctions['callplattforms'](automatic_bookingPlattform,bookingData);
-       
+        automaticValue = null
+    } 
+    return automaticValue  
 }
+

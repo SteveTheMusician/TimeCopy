@@ -445,6 +445,13 @@ textarea:hover{
 #label_version {
     min-width: 100px;
     justify-content: end;
+    user-select: text;
+}
+
+#label_build_version {
+    justify-content: end;
+    font-size: 10px;
+    user-select: text;
 }
 
 .configurations {
