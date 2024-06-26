@@ -13,24 +13,22 @@ export function timesheet_TobiasExcel(clipboarsString) {
     matches.push(match[1]);
   }
    
-  matches.forEach(function(ticket, index) {
+  matches.forEach(function(ticket, i) {
 
     let item_ticketNumber = ticket.split('[').pop().split(']')[0];
     let item_ticketDisc = ticket.split(']').pop().split(':')[0];
     let item_ticketTime = ticket.split(':')[1];
-    let item_bookingNumber
+    let item_bookingNumber = ""
     let item_service
 
-    let item_ticketCustomBookingNumber = item_ticketNumber.split('#').pop();
-    
+    let item_ticketCustomBookingNumber = item_ticketNumber.split('#')[1]
+   
     if(item_ticketCustomBookingNumber) {
       item_bookingNumber = item_ticketCustomBookingNumber;
       item_ticketNumber = item_ticketNumber.split('#')[0]
-    }else{
-      item_bookingNumber = ''
     }
     let itemObject = {"item_bookingnumber":item_bookingNumber, "item_ticketnumber":item_ticketNumber, "item_ticketdisc":item_ticketDisc, "item_tickettime":item_ticketTime}
     bookingData.push(itemObject)  
-})
-   return bookingData
- }
+  })
+  return bookingData
+}
