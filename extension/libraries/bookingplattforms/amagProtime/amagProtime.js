@@ -1,9 +1,11 @@
 // Call the correct booking numbers for the specific tickets
-export function amagProTime(bookingData,detectionItemsProTime){
+export async function amagProTime(bookingData,detectionItemsProTime){
 
-console.log(bookingData)
-console.log(detectionItemsProTime)
+let ticketPrefix_Match = []
 
+bookingData.forEach((element) => {
+  console.log(element)
+});
   return "ProTime OK"
 }
 

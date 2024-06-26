@@ -8,8 +8,8 @@ export async function bookingplattforms(bookingPlattformSelectValue,bookingData,
     let functionNameAutomatic = 'automatic'
     let bookingFunctions = {
         // automatic: function (bookingData){return automatic(bookingData)},
-        amagProTime: function (bookingData,detectionItems){return amagProTime(bookingData,detectionItems)},
-        dzbankProRes: function (bookingData,detectionItems){return dzbankProRes(bookingData,detectionItems)}
+        amagProTime: async function (bookingData,detectionItems){return await amagProTime(bookingData,detectionItems)},
+        dzbankProRes: async function (bookingData,detectionItems){return await dzbankProRes(bookingData,detectionItems)}
     };
 
     if(bookingFunctionName === functionNameAutomatic) {
@@ -22,11 +22,10 @@ export async function bookingplattforms(bookingPlattformSelectValue,bookingData,
     let bookingsheetSearchValue = "select_"+bookingPlattformSelectValue
 
     for (let i= 0; i<allDetectionFilters.length; i++) {
-        console.log(allDetectionFilters[i].bookingsheet)
         if (allDetectionFilters[i].bookingsheet ===  bookingsheetSearchValue) {
             detectionFiltersMatch_booking = [...detectionFiltersMatch_booking, allDetectionFilters[i]];
         }
-    } 
+    }
  
     return bookingFunctionName ? bookingFunctions[bookingFunctionName](bookingData,detectionFiltersMatch_booking): null
 }
