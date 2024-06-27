@@ -276,23 +276,24 @@ async function readClipboardText(dev_pttest) {
   } else if(bookingPlattform === '' || bookingPlattform === null) {
     notification(true,'Bitte wähle eine Buchungsplattform!')
   } else {
-    processData(filter,clipboarsString,bookingPlattform)
+    processData(filter,clipboarsString,bookingPlattform,dev_pttest)
   }
 }
 
-async function processData(filter,clipboarsString,bookingPlattform){
+async function processData(filter,clipboarsString,bookingPlattform,dev_pttest){
   
-  let bookingData = []
+  let timesheetData = []
   // get all boocking relevant data as array
   try {
-    bookingData = await timesheetFilter(filter,clipboarsString) // Angenommen, getBookingData ist eine asynchrone Funktion, die ein Array zurückgibt
+    timesheetData = await timesheetFilter(filter,clipboarsString) // Angenommen, getBookingData ist eine asynchrone Funktion, die ein Array zurückgibt
+    console.log("Timesheet Data: ",timesheetData)
   } catch (error) {
     console.error("Unable to call bookingData: ", error);
     notification(true,'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
 }
     
-let testArray = await bookingplattforms(bookingPlattform,bookingData,lstorage_cDetectionItems)
-console.log(testArray)
+let bookEntries = await bookingplattforms(bookingPlattform,timesheetData,lstorage_cDetectionItems,dev_pttest)
+console.log(bookEntries)
 }
 
 // Test protime function

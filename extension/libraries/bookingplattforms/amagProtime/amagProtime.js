@@ -1,17 +1,14 @@
 import { notification } from "../../../components/notification/notification.js"
 
 // Call the correct booking numbers for the specific tickets
-export async function amagProTime(bookingData,detectionItemsProTime){
+export async function amagProTime(bookingData,detectionItemsProTime,dev_pttest){
 
 let ticketPrefix_Match = []
 let validTickets = []
 let errorArray = []
 let validateTicketValue
 
-
-console.log(bookingData)
 bookingData.forEach((ticket) => {
-
     // Wenn es Tickets gibt, die schon in der Tabelle Buchnungsnummern haben, führe direkt die validation aus
     // Diese brauchen auch keine Ticketnummer
     if(ticket.item_bookingnumber ){
@@ -27,13 +24,14 @@ bookingData.forEach((ticket) => {
 });
   console.log(validTickets)
   console.log(errorArray)
+  if(dev_pttest){
+    console.log('protime test '+dev_pttest)
+  }
   return "ProTime OK"
 }
 
 function validateTicket(ticket){
   let ticketValidated = true
-  let validationCount = 0
-console.log(ticket.item_ticketnumber.length)
   if(ticket.item_ticketdisc.includes(ticket.item_ticketnumber) & ticket.item_ticketnumber.toString().length > 0)
   {
     ticketValidated = "Verarbeitungsfehler: Ticketnummer befindet sich in der Beschreibung"
@@ -43,8 +41,7 @@ console.log(ticket.item_ticketnumber.length)
   }
   if(ticket.item_tickettime === '' || ticket.item_tickettime === null) {
     ticketValidated = "Zeitangabe fehlt"
-  }
-  
+  }  
   return ticketValidated
 }
 
