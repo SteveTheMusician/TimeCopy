@@ -2,17 +2,19 @@ import { automatic } from "./automatic/automatic.js";
 import { amagProTime } from "./amagProtime/amagProtime.js";
 import { dzbankProRes } from "./dzBankProRes/dzBankProres.js";
 
-export async function bookingplattforms(bookingPlattformSelectValue,bookingData,detectionItems) {
+export async function bookingplattforms(bookingPlattformSelectValue,bookingData,detectionItems,dev_pttest) {
 
     let bookingFunctionName = bookingPlattformSelectValue.split("_").pop()
+    let functionNameAutomatic = 'automatic'
     let bookingFunctions = {
         // automatic: function (bookingData){return automatic(bookingData)},
-        amagProTime: function (bookingData,detectionItems){return amagProTime(bookingData,detectionItems)},
-        dzbankProRes: function (bookingData,detectionItems){return dzbankProRes(bookingData,detectionItems)}
+        amagProTime: async function (bookingData,detectionItems,dev_pttest){return await amagProTime(bookingData,detectionItems,dev_pttest)},
+        dzbankProRes: async function (bookingData,detectionItems,dev_pttest){return await dzbankProRes(bookingData,detectionItems,dev_pttest)}
     };
 
-    if(bookingFunctionName === 'automatic') {
+    if(bookingFunctionName === functionNameAutomatic) {
         bookingFunctionName = await automatic()
+        bookingPlattformSelectValue = bookingPlattformSelectValue.replace(functionNameAutomatic ,bookingFunctionName)
     }
     // filter detection items for booking plattforms
     let allDetectionFilters = JSON.parse(detectionItems)
@@ -20,11 +22,10 @@ export async function bookingplattforms(bookingPlattformSelectValue,bookingData,
     let bookingsheetSearchValue = "select_"+bookingPlattformSelectValue
 
     for (let i= 0; i<allDetectionFilters.length; i++) {
-        console.log(allDetectionFilters[i].bookingsheet)
         if (allDetectionFilters[i].bookingsheet ===  bookingsheetSearchValue) {
             detectionFiltersMatch_booking = [...detectionFiltersMatch_booking, allDetectionFilters[i]];
         }
-    } 
+    }
  
-    return bookingFunctionName ? bookingFunctions[bookingFunctionName](bookingData,detectionFiltersMatch_booking): null
+    return bookingFunctionName ? bookingFunctions[bookingFunctionName](bookingData,detectionFiltersMatch_booking,dev_pttest): null
 }

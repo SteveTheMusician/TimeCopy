@@ -1,55 +1,44 @@
-import { timesheetFilterDefaults } from "../timesheets.js";
 export function timesheet_TobiasExcel(clipboarsString) {
 
-  let tfdData = timesheetFilterDefaults()
-
-   let fullDateString = clipboarsString.split('"')[0];
-   let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
- 
-   // get all tickets before and after a line break
-   let regex = /([^\n]+)/g
-   let matches = []
-   let match
-   let bookingData = []
-   // push into matches
-   while ((match = regex.exec(allTickets)) !== null) {
-     matches.push(match[1]);
-   }
- 
-   let forEachTimer = tfdData.foreachtimer_default
+  let fullDateString = ""
+  if(clipboarsString.includes('	')) {
+    fullDateString = clipboarsString.split('	')[0];
+  }
   
-   matches.forEach(function(ticket, index){
-      setTimeout(function(){
-        let item_ticketNumber = ticket.split('[').pop().split(']')[0];
-        let item_ticketDisc = ticket.split(']').pop().split(':')[0];
-        let item_ticketTime = ticket.split(':')[1];
-        
-        let item_bookingNumber = ""
-        let item_service = ""
+  let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
+  // get all tickets before and after a line break
+  let regex_Ticket = /([^\n]+)/g
+  let matches = []
+  let match
+  let bookingData = []
+  
+  // push into matches
+  while ((match = regex_Ticket.exec(allTickets)) !== null) {
+    matches.push(match[1]);
+  }
+   
+  matches.forEach(function(ticket, i) {
 
-        let item_ticketCustomBookingNumber = item_ticketNumber.split('#').pop();
-        
-        if(item_ticketCustomBookingNumber) {
-          item_bookingNumber = item_ticketCustomBookingNumber;
-          item_ticketNumber = item_ticketNumber.split('#')[0]
-        }
-        let itemObject = {"item_bookingnumber":"", "item_ticketnumber":item_ticketNumber, "item_ticketdisc":item_ticketDisc, "item_tickettime":item_ticketTime}
-        bookingData.push(itemObject)
- 
-      //  item_bookingNumber = bookingsheets(bookingPlattform,{item_bookingNumber, item_ticketNumber, item_ticketDisc})
-//  
-      //  if(!item_bookingNumber){
-        //  alert('Keine Buchungsnummer @ '+item_ticketNumber)
-      //  } else if(!item_ticketDisc){
-        //  alert('Keine Ticketbeschreibung @ '+item_ticketNumber)
-      //  } else if(!item_ticketTime){
-        //  alert('Arbeitszeit nicht gefunden @ '+item_ticketNumber)
-      //  }else{
-        //  execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest)
-      //  }
-     },forEachTimer * (index + 1))
-     // set intervall after first run
-     forEachTimer = tfdData.foreachtimer_after
-   })
-   return bookingData
- }
+    var regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
+    var regExp_ticketDiscription = /(?<=\]).*?(?=\:)/g;
+    let item_ticketNumber = ticket.match(regExp_squareBrakets)[0];
+    item_ticketNumber = item_ticketNumber.trim()
+    let item_ticketDisc = ticket.match(regExp_ticketDiscription)[0];
+    item_ticketDisc = item_ticketDisc.trim()
+    let item_ticketTime = ticket.split(':')[1];
+    item_ticketTime = item_ticketTime.trim()
+    let item_bookingNumber = ''
+    let item_ticketCustomBookingNumber = item_ticketNumber.split('#')[1]
+    let item_date = fullDateString.trim()
+   
+    if(item_ticketCustomBookingNumber) {
+      item_bookingNumber = item_ticketCustomBookingNumber;
+      item_ticketNumber = item_ticketNumber.split('#')[0]
+    }
+
+    let itemObject = {"item_bookingnumber":item_bookingNumber, "item_ticketnumber":item_ticketNumber, "item_ticketdisc":item_ticketDisc, "item_tickettime":item_ticketTime, "item_date":item_date}
+    bookingData.push(itemObject)
+
+  })
+  return bookingData
+}
