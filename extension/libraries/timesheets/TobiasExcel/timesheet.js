@@ -27,8 +27,10 @@ export function timesheet_TobiasExcel(clipboarsString) {
       item_bookingNumber = item_ticketCustomBookingNumber;
       item_ticketNumber = item_ticketNumber.split('#')[0]
     }
+    // TODO: checken ob strings mit leerzeichen anfangen
+    
     let itemObject = {"item_bookingnumber":item_bookingNumber, "item_ticketnumber":item_ticketNumber, "item_ticketdisc":item_ticketDisc, "item_tickettime":item_ticketTime}
-    bookingData.push(itemObject)  
+    bookingData.push(itemObject)
   })
   return bookingData
 }

@@ -1,12 +1,51 @@
+import { notification } from "../../../components/notification/notification.js"
+
 // Call the correct booking numbers for the specific tickets
 export async function amagProTime(bookingData,detectionItemsProTime){
 
 let ticketPrefix_Match = []
+let validTickets = []
+let errorArray = []
+let validateTicketValue
 
-bookingData.forEach((element) => {
-  console.log(element)
+
+console.log(bookingData)
+bookingData.forEach((ticket) => {
+
+    // Wenn es Tickets gibt, die schon in der Tabelle Buchnungsnummern haben, führe direkt die validation aus
+    // Diese brauchen auch keine Ticketnummer
+    if(ticket.item_bookingnumber ){
+      validateTicketValue = validateTicket(ticket)
+      if(validateTicketValue === true){
+        validTickets.push(ticket)
+      }else {
+        // errorArray.push({"ticket" : ticket, "error" : validateTicketValue})
+        notification(true,"Abgebrochen: "+ticket.item_bookingnumber+", "+ticket.item_ticketnumber+", "+ticket.item_ticketdisc+" ["+validateTicketValue + "] ")
+        return
+      }
+    }
 });
+  console.log(validTickets)
+  console.log(errorArray)
   return "ProTime OK"
+}
+
+function validateTicket(ticket){
+  let ticketValidated = true
+  let validationCount = 0
+console.log(ticket.item_ticketnumber.length)
+  if(ticket.item_ticketdisc.includes(ticket.item_ticketnumber) & ticket.item_ticketnumber.toString().length > 0)
+  {
+    ticketValidated = "Verarbeitungsfehler: Ticketnummer befindet sich in der Beschreibung"
+  }
+  if(!ticket.item_ticketdisc || ticket.item_ticketdisc === null) {
+    ticketValidated = "Beschreibung fehlt"
+  }
+  if(ticket.item_tickettime === '' || ticket.item_tickettime === null) {
+    ticketValidated = "Zeitangabe fehlt"
+  }
+  
+  return ticketValidated
 }
 
 function detectionItem_ProTime() {
