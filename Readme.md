@@ -26,3 +26,13 @@ chrome.runtime.onConnect.addListener(function(port) {
         }
     });
 });
+
+function clearEmptyMatches(ticketPrefix_Match){
+  let newObject = []
+  ticketPrefix_Match.forEach((Object) => {
+    if(!Object.prefixmatches.length){
+      newObject = ticketPrefix_Match.filter(Object => Object.prefixmatches != '')
+    }
+  })
+  return newObject
+}

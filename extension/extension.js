@@ -53,6 +53,7 @@ let helpUrl_timesheet_tobias = helpUrl+"#timesheet-tobias"
 let helpUrl_timesheet_steve = helpUrl+"#timesheet-steve-google-excel"
 let extensionVersion = data_version.extension_version
 let extensionBuild = data_version.extension_build
+let tcprofileVersion = data_version.profile_version
 
 // Extension load up
 window.addEventListener("load", (event) => {
@@ -124,7 +125,7 @@ function clearLocalStorage(){
   localStorage.removeItem('tc_c_projectDetection')
   localStorage.removeItem('tc_c_profileName')
   localStorage.removeItem('tc_c_bookingPlattform')
-  notification(true,'Daten wurden gelöscht. Bitte PlugIn neustarten.')
+  notification(true,true,'Daten wurden gelöscht. Bitte PlugIn neustarten.')
 }
 
 function openConfigs(){
@@ -186,12 +187,12 @@ function configTabOpenBookingsheets(){
 
 // configuration functions
 function timesheetFilterChange(){
-  notification(true,'Bitte öffne das PlugIn erneut, um die Filter zu übernehmen')
+  notification(true,true,'Bitte öffne das PlugIn erneut, um die Filter zu übernehmen')
 }
 
 function bookingPlattformsChange(e) {
   localStorage.setItem('tc_c_bookingPlattform', e.target.value)
-  notification(true,'Bitte öffne das PlugIn erneut, um die Buchungs Plattform zu übernehmen')
+  notification(true,true,'Bitte öffne das PlugIn erneut, um die Buchungs Plattform zu übernehmen')
 }
 
 function configSetProfileName(){
@@ -221,22 +222,39 @@ let button_importConfigs = document.getElementById('button_importConfigs');
 button_importConfigs.addEventListener("change", importFile, false);
 
 function importFile(event){
+  let fileData
   var files = event.target.files,
-  reader = new FileReader();
-  reader.addEventListener("load", function() {
-    let fileData = this.result;
+    reader = new FileReader();
+  reader.addEventListener("load", function(validateFileVersion) {
+    fileData = this.result;
     fileData = JSON.parse(fileData)
-    // set data
-    localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
-    localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.timesheet_filter)
-    // alert(fileData.tcprofile.profile_name)
-    localStorage.setItem('tc_c_projectDetection',JSON.stringify(fileData.tcprofile.cfg.detection_filter))
-    localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-    localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.booking_platform)
+    validateFileVersion = checkImportFileVersion(fileData)
+    console.log(validateFileVersion)
+    if(validateFileVersion){
+      // set data
+      localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
+      localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.timesheet_filter)
+      localStorage.setItem('tc_c_projectDetection',JSON.stringify(fileData.tcprofile.cfg.detection_filter))
+      localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
+      localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.booking_platform)
+      loadStorage()
+      notification(true,true,'Bitte öffne das PlugIn erneut, um das Profil zu laden')
+    }else {
+      notification(true,false,'File-Version stimmt nicht überein.')
+      return
+    }
   });
   reader.readAsText(files[0])
-  loadStorage()
-  notification(true,'Bitte öffne das PlugIn erneut, um das Profil zu laden')
+}
+
+function checkImportFileVersion(fileData){
+  let versionValidated
+  if(fileData.tcprofile.version === tcprofileVersion){
+    versionValidated = true
+  }else {
+    versionValidated = false
+  }
+  return versionValidated
 }
 
 // Export Configs as Json
@@ -248,7 +266,7 @@ button_exportConfigs.addEventListener('click', (event) => {
   if(detectionItems === null) {
     detectionItems = []
   }
-  let saveObj = {"tcprofile":{"author":"steve","version":"1.2","extension_version":extensionVersion,"extension_build":extensionBuild,"profile_name":configProfileName.value}}
+  let saveObj = {"tcprofile":{"author":"steve","version":tcprofileVersion,"extension_version":extensionVersion,"extension_build":extensionBuild,"profile_name":configProfileName.value}}
   // apply values
   Object.assign(saveObj.tcprofile, {"cfg":{"theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platform":lstorage_cBookingPlattform,"detection_filter": detectionItems}})
   // file setting
@@ -272,9 +290,9 @@ async function readClipboardText(dev_pttest) {
   let bookingPlattform = lstorage_cBookingPlattform
   // check whitch filter to use
   if(filter === '' || filter === null){
-    notification(true,'Bitte wähle ein Timesheet!')
+    notification(true,fasle,'Bitte wähle ein Timesheet!')
   } else if(bookingPlattform === '' || bookingPlattform === null) {
-    notification(true,'Bitte wähle eine Buchungsplattform!')
+    notification(true,false,'Bitte wähle eine Buchungsplattform!')
   } else {
     processData(filter,clipboarsString,bookingPlattform,dev_pttest)
   }
@@ -289,7 +307,7 @@ async function processData(filter,clipboarsString,bookingPlattform,dev_pttest){
     console.log("Timesheet Data: ",timesheetData)
   } catch (error) {
     console.error("Unable to call bookingData: ", error);
-    notification(true,'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
+    notification(true,fasle,'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
 }
     
 let bookEntries = await bookingplattforms(bookingPlattform,timesheetData,lstorage_cDetectionItems,dev_pttest)

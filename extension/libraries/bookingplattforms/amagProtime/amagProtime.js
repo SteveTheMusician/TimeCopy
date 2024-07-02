@@ -4,6 +4,7 @@ import { notification } from "../../../components/notification/notification.js"
 export async function amagProTime(bookingData,detectionItemsProTime,dev_pttest){
 
 let ticketPrefix_Match = []
+let temp_prefixMatch = []
 let validTickets = []
 let errorArray = []
 let validateTicketValue
@@ -17,11 +18,20 @@ bookingData.forEach((ticket) => {
         validTickets.push(ticket)
       }else {
         // errorArray.push({"ticket" : ticket, "error" : validateTicketValue})
-        notification(true,"Abgebrochen: "+ticket.item_bookingnumber+", "+ticket.item_ticketnumber+", "+ticket.item_ticketdisc+" ["+validateTicketValue + "] ")
+        notification(true,fasle,"Abgebrochen: "+ticket.item_bookingnumber+", "+ticket.item_ticketnumber+", "+ticket.item_ticketdisc+" ["+validateTicketValue + "] ")
         return
       }
     }
+
+  console.log("Items: ",detectionItemsProTime)
+  
+ temp_prefixMatch = getDetectionItemsPrefix(detectionItemsProTime,ticket)
+
+  ticketPrefix_Match.push({"ticket":ticket,"prefixmatches" : temp_prefixMatch})
+
 });
+let x  = clearEmptyMatches(ticketPrefix_Match)
+console.log("PrefixMatches: ", x)
   console.log(validTickets)
   console.log(errorArray)
   if(dev_pttest){
@@ -29,6 +39,32 @@ bookingData.forEach((ticket) => {
   }
   return "ProTime OK"
 }
+
+function getDetectionItemsPrefix(detectionItemsProTime,ticket){
+  let temp_prefixMatch = []
+  detectionItemsProTime.forEach((detectionItem) => {
+    if(ticket.item_ticketnumber.includes(detectionItem.ticketprefix)){
+      temp_prefixMatch.push(detectionItem)
+    }
+  })
+  return temp_prefixMatch
+}
+
+function clearEmptyMatches(ticketPrefix_Match){
+  let newObject = []
+  ticketPrefix_Match.forEach((Object) => {
+    console.log(Object)
+    if(!Object.prefixmatches.length){
+      newObject = ticketPrefix_Match.filter(Object => Object.prefixmatches != '')
+    }
+  })
+  return newObject
+}
+
+function extractKeyValue(obj, value) {
+  return Object.keys(obj)[Object.values(obj).indexOf(value)];
+}
+
 
 function validateTicket(ticket){
   let ticketValidated = true

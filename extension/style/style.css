@@ -742,6 +742,15 @@ input:checked + .switch_slider:before {
     height: 12px;
 }
 
+.notification--ok {
+    background-color: var(--color-highlight);
+}
+
+.notification--ok .text-notification, .notification--ok .button-primary svg{
+    color: var(--color-highlight);
+    fill: var(--color-highlight);
+}
+
 .notification--hidden {
     bottom: 0;
     opacity: 0;

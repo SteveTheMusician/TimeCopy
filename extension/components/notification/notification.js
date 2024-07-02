@@ -1,4 +1,4 @@
-export function notification(notificationShow, notificationText) {
+export function notification(notificationShow, notificationStatus,notificationText) {
     const main = document.getElementsByTagName('main')[0]
     const notificationHTML = `<div class="notification flex notification--hidden" id="notification">
                                 <p class="text-label text-notification" id="notification-text"></p>
@@ -17,6 +17,11 @@ export function notification(notificationShow, notificationText) {
     let text_notification = document.getElementById('notification-text')
     if(notificationShow === true) {
         text_notification.innerHTML = notificationText
+        if(notificationStatus){
+            notification.classList.add('notification--ok')
+        } else {
+            notification.classList.remove('notification--ok')
+        }
         setTimeout(function(){
             notification.classList.remove('notification--hidden')
         },300)
