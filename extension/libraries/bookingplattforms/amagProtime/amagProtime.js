@@ -173,9 +173,8 @@ function bookTicket(validTicket, dev_pttest) {
 
   if(dev_pttest === true)
     {
-      alert('PT Test -- dev: true')
+      console.log("PTTestMode :"+dev_pttest)
     }else{
-      alert('Gebucht *CLICK*')
       // click booking button here!
     }
 
