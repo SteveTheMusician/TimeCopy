@@ -290,7 +290,7 @@ async function readClipboardText(dev_pttest) {
   let bookingPlattform = lstorage_cBookingPlattform
   // check whitch filter to use
   if(filter === '' || filter === null){
-    notification(true,fasle,'Bitte wähle ein Timesheet!')
+    notification(true,false,'Bitte wähle ein Timesheet!')
   } else if(bookingPlattform === '' || bookingPlattform === null) {
     notification(true,false,'Bitte wähle eine Buchungsplattform!')
   } else {
@@ -307,7 +307,7 @@ async function processData(filter,clipboarsString,bookingPlattform,dev_pttest){
     console.log("Timesheet Data: ",timesheetData)
   } catch (error) {
     console.error("Unable to call bookingData: ", error);
-    notification(true,fasle,'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
+    notification(true,false,'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
 }
     
 let bookEntries = await bookingplattforms(bookingPlattform,timesheetData,lstorage_cDetectionItems,dev_pttest)
