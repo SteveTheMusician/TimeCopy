@@ -27,6 +27,7 @@ export function timesheet_TobiasExcel(clipboarsString) {
     item_ticketDisc = item_ticketDisc.trim()
     let item_ticketTime = ticket.split(':')[1];
     item_ticketTime = item_ticketTime.trim()
+    item_ticketTime = item_ticketTime.replace("h","")
     let item_bookingNumber = ''
     let item_ticketCustomBookingNumber = item_ticketNumber.split('#')[1]
     let item_date = fullDateString.trim()

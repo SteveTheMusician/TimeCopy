@@ -4,7 +4,8 @@ let anyProjectNomber = "*"
 
 // Call the correct booking numbers for the specific tickets
 export async function amagProTime(bookingData,detectionItemsProTime,dev_pttest){
-  let ticketFilterMatch = []
+  let valideTickets = []
+  let failedTickets = []
   bookingData.forEach((ticket) => {
 
     let ticketPrefixMatches = filterPrefix(ticket,detectionItemsProTime)
@@ -16,16 +17,43 @@ export async function amagProTime(bookingData,detectionItemsProTime,dev_pttest){
       notification(true, false, "Abgebrochen: Ticket hat mehrfache Matches | "+ticket.item_ticketnumber+" "+ticket.item_ticketdisc)
       return
     } else if(ticketRefineBookingNomber.length === 1) {
-      ticketFilterMatch.push([ticket,ticketRefineBookingNomber[0]])
+      valideTickets.push([ticket,ticketRefineBookingNomber[0]])
+    } else if(ticketRefineBookingNomber.length === 0){
+      failedTickets.push(ticket)
     }
 
     console.log("ticket filter matches ",ticket, ticketRefineBookingNomber)
   });
-
-  console.log("match ",ticketFilterMatch)
-  if(dev_pttest){
-    console.log('protime test '+dev_pttest)
+  
+  if(failedTickets.length) {
+    notification(true,false,failedTickets.length+`<span id="fail-link">Ticket(s)</span> wurden nicht übernommen.`)
+    console.log("failed tickets ",failedTickets)
+    var logFailedTicketList = []
+    failedTickets.forEach((failedTicketItem) => {
+      let ticketnumber
+      let ticketdisc
+      if(!failedTicketItem.item_ticketnumber.length){
+        ticketnumber = "NO NOMBER"
+      }else {
+        ticketnumber = failedTicketItem.item_ticketnumber
+      }
+      if(!failedTicketItem.item_ticketdisc.length){
+        ticketdisc = "NO DISCRIPTION"
+      }else {
+        ticketdisc = failedTicketItem.item_ticketdisc
+      }
+      logFailedTicketList.push(" -> ",ticketnumber,": ",ticketdisc," ")
+    })
+    let logFailedTicketsString = JSON.stringify(logFailedTicketList)
+    let failedTicketsLink = document.getElementById('fail-link')
+    failedTicketsLink.addEventListener('click', () => alert('Ignorierte Tickets: '+logFailedTicketsString.replace(/]|[[",]/g, '')))
   }
+  console.log("valide ",valideTickets)
+ if(valideTickets.length) {
+  valideTickets.forEach((validTicket) => {
+    execBookingScript(validTicket,dev_pttest)
+  })
+ }
   return "ProTime OK"
 }
 
@@ -83,20 +111,19 @@ function filterBookingNomber(ticket, ticketRefinePrefixesMatches){
 }
 
 
-// function to pass variables from extension to tab
-
-async function execBookingScript(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest){
-  // alert(item_bookingNumber+item_ticketTime+item_ticketNumber+item_ticketDisc)
+async function execBookingScript(validTicket,dev_pttest){
   let [tab] = await chrome.tabs.query ({active: true, currentWindow: true});
-    // Execute script to parse emails on page
-    chrome.scripting.executeScript({
-    target: {tabId: tab.id},
-    args: [item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc,dev_pttest],
-    func: (...args) => bookTicket(...args),
+   chrome.scripting.executeScript({
+     target: {tabId: tab.id},
+     func: bookTicket,
+     args: [validTicket, dev_pttest]
     });
 }
 
-function bookTicket(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ticketDisc) {
+function bookTicket(validTicket, dev_pttest) {
+  // alert('book ticket',dev_pttest)
+  let ticketObject = validTicket[0]
+  let detectionObject = validTicket[1]
   //Enter Key 
   const keyEventEnter = new KeyboardEvent('keydown', {
     key: 'Enter',
@@ -104,15 +131,20 @@ function bookTicket(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ti
     which: 13,
     keyCode: 13,
   })
-
   // get booking number field
   let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0].childNodes[0]
 
   if(protime_Innenauftrag){
-    protime_Innenauftrag.value = item_bookingNumber
-    protime_Innenauftrag.dispatchEvent(keyEventEnter)
+    if(ticketObject.item_bookingnumber || detectionObject.projectnomber) {
+      protime_Innenauftrag.value = ticketObject.item_bookingnumber
+      protime_Innenauftrag.dispatchEvent(keyEventEnter)
+    }else {
+      notification(true, false, 'No Bookingnomber found in '+ticketObject.item_ticketnumber+" "+ticketObject.item_ticketdisc)
+      return
+    }
   }else {
-    alert('TimeCopy   ERROR: unable to get Order-Input')
+    notification(true, false, 'Unable to get ProTime Element: Order-Input')
+    return
   }
 
   setTimeout(function(){
@@ -128,20 +160,22 @@ function bookTicket(item_bookingNumber,item_ticketTime,item_ticketNumber,item_ti
 
   setTimeout(function(){ 
     let protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
-    protime_hours.value = item_ticketTime
+    protime_hours.value = ticketObject.item_tickettime
+
     // ggf ein await für dieses element
     let protime_ticketNumber = document.getElementsByClassName('lsField--empty')[2].childNodes[0]
-    protime_ticketNumber.value = item_ticketNumber
+    protime_ticketNumber.value = ticketObject.item_ticketnumber ?? ""
   
     let protime_ticketText = document.getElementsByTagName('textarea')[0]
-    protime_ticketText.value = item_ticketDisc
+    protime_ticketText.value = ticketObject.item_ticketdisc
   
   }, 700 );
 
   if(dev_pttest === true)
     {
-      console.log('PT Test -- dev: true')
+      alert('PT Test -- dev: true')
     }else{
+      alert('Gebucht *CLICK*')
       // click booking button here!
     }
 

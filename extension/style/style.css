@@ -39,6 +39,11 @@ p {
     font-weight: 400;
 }
 
+.fail-link, #fail-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 img {
     user-select: none;
 }
