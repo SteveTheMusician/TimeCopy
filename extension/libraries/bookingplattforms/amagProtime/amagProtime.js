@@ -1,4 +1,5 @@
-import { notification } from "../../../components/notification/notification.js"
+import { waitTimer } from "../../../utils/waitTimer.js";
+import { notification } from "../../../components/notification/notification.js";
 
 let anyProjectNomber = "*"
 // Call the correct booking numbers for the specific tickets
@@ -117,7 +118,7 @@ function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
 }
 
 async function chromeTabScript(ticket, dev_pttest) {
-  console.log('--chrome script')
+  console.log('--chrome script');
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   await chrome.scripting.executeScript({
     target: { tabId: tab.id },
@@ -134,36 +135,64 @@ async function bookTicket(ticket, dev_pttest) {
     keyCode: 13,
   });
 
-  let ticketObject = ticket[0];
-  let detectionObject = ticket[1];
-  let protime_hours;
-  let protime_ticketNumber;
-  let protime_activityDropdown;
-  let protime_activityDropdownList;
-  let protime_ticketElemNom;
+  const ticketObject = ticket[0];
+  const detectionObject = ticket[1];
+  let protime_hours
+  let protime_ticketNumber
+  let protime_activityDropdown
+  let protime_activityDropdownList
+  let protime_ticketElemNom
+  //This function has to be defined here, cuz we are in the chrome script 
+  // If u want to use it in other components, just import them from utils
+  function waitTimer() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Timer done");
+      }, 2000);  // Set the appropriate delay
+    });
+  }
+  function waitForElm(selector) {
+    alert(selector)
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
 
-  await new Promise((resolve, reject) => {
-    setTimeout(function () {
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                observer.disconnect();
+                resolve(document.querySelector(selector));
+            }
+        });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+  }
+    
       let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0];
       if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
         let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber;
         if (proTime_projectNomber) {
           protime_Innenauftrag.childNodes[0].value = proTime_projectNomber;
           protime_Innenauftrag.childNodes[0].dispatchEvent(keyEventEnter);
-          resolve();
         } else {
-          reject();
           return;
         }
       } else {
-        reject();
         return;
       }
-    }, 100);
-  });
+      try {
+        const result = await waitTimer();  // Await the waitTimer function
+          console.log(result)
+      } catch (error) {
+        alert(error)
+        console.error("Error in waitTimer: ", error);  // Handle any potential errors
+        return;  // Early return in case of error
+      }
+
   // service dropdown
-  await new Promise((resolve3, reject) => {
-    setTimeout(function () {
       let protime_leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0];
       let protime_leistungenOption;
       const protime_leistungenArray = [{
@@ -175,12 +204,18 @@ async function bookTicket(ticket, dev_pttest) {
       protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
       protime_leistung.click();
       protime_leistungenOption.click();
-      resolve3();
-    }, 200);
-  });
 
-  await new Promise((resolve, reject) => {
-    setTimeout(function () {
+
+      try {
+        const result = await waitTimer();  // Await the waitTimer function
+          console.log(result)
+      } catch (error) {
+        alert(error)
+        console.error("Error in waitTimer: ", error);  // Handle any potential errors
+        return;  // Early return in case of error
+      }
+
+
       //if detection item has activity book it
       if (detectionObject.protimeactivity.length > 1) {
         protime_activityDropdown = document.getElementsByClassName('lsField--list')[2].childNodes[0];
@@ -197,31 +232,82 @@ async function bookTicket(ticket, dev_pttest) {
       } else {
         protime_ticketElemNom = 3  
       }
-      resolve();
-    }, 300);
-  });
+      try {
+        const result = await waitTimer();  // Await the waitTimer function
+          console.log(result)
+      } catch (error) {
+        alert(error)
+        console.error("Error in waitTimer: ", error);  // Handle any potential errors
+        return;  // Early return in case of error
+      }
   // Entry Ticket Data
-  await new Promise((resolve2, reject) => {
-    setTimeout(function () {
-      protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0];
-      protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0];
-      protime_hours.value = ticketObject.item_tickettime;
-      let protime_ticketText = document.getElementsByTagName('textarea')[0];
-      protime_ticketText.value = ticketObject.item_ticketdisc;
-      protime_ticketNumber.value = ticketObject.item_ticketnumber ?? "";
-    resolve2();
-    }, 200)
-  })
-  // If Test Mode is deactivated, book it
+
+    
+    protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
+    protime_hours.focus()
+    protime_hours.click()
+    protime_hours.value = ticketObject.item_tickettime;
+    protime_hours.dispatchEvent(keyEventEnter)
+    // protime_hours.dispatchEvent(keyEventEnter);
+    try {
+      const result = await waitTimer();  // Await the waitTimer function
+        console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error);  // Handle any potential errors
+      return;  // Early return in case of error
+    }
+    protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
+    protime_ticketNumber.focus()
+    protime_ticketNumber.click()
+    protime_ticketNumber.value = ticketObject.item_ticketnumber
+    protime_ticketNumber.dispatchEvent(keyEventEnter)
+    try {
+      const result = await waitTimer();  // Await the waitTimer function
+        console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error);  // Handle any potential errors
+      return;  // Early return in case of error
+    } 
+    let protime_ticketText = document.getElementsByTagName('textarea')[0];
+    
+    document.getElementsByTagName('textarea')[0].select()
+    try {
+      const result = await waitTimer();  // Await the waitTimer function
+        console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error);  // Handle any potential errors
+      return;  // Early return in case of error
+    } 
+    document.getElementsByTagName('textarea')[0].value = ticketObject.item_ticketdisc;
+  
+    
+    try {
+      const result = await waitTimer();  // Await the waitTimer function
+        console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error);  // Handle any potential errors
+      return;  // Early return in case of error
+    } 
   if (!dev_pttest) {
-    await new Promise((resolveBooking, reject) => {
-      setTimeout(function () {
-        let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
-        bookingButton.click()
-      resolveBooking();
-      }, 100)
-    })
+    let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
+    bookingButton.focus()
+    bookingButton.click()
   }
-  return
+
+  // If Test Mode is deactivated, book it
+  // if (!dev_pttest) {
+    // await new Promise((resolveBooking, reject) => {
+      // setTimeout(function () {
+        // let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
+        // bookingButton.click()
+      // resolveBooking();
+      // }, 400)
+    // })
+  // }
+
 }
 
