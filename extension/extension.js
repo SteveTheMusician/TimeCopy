@@ -284,7 +284,8 @@ button_exportConfigs.addEventListener('click', (event) => {
  });
  
 // Main Functions
-async function readClipboardText(dev_pttest) {
+async function readClipboardText() {
+
   let clipboarsString = await navigator.clipboard.readText();
   let filter = lstorage_cFilter
   let bookingPlattform = lstorage_cBookingPlattform
@@ -317,7 +318,7 @@ console.log(bookEntries)
 // Test protime function
 async function testProTime(){
   dev_pttest = true
-  readClipboardText(dev_pttest)
+  readClipboardText()
 }
 
 

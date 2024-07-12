@@ -15,6 +15,7 @@
     --lightgray-c: #cccccc;
     --dark-gray: #3b3e42;
     --light-blue: #3e69b5;
+    --gray-92: #929292;
 
 
   
@@ -28,12 +29,12 @@
     --color-close: #ff0000;
    
    /* Font colors */
-    --color-font: var(--lightgray-c);
+    --color-font: var(--white);
     --color-font-navigation: var(--color-font-second);
     --color-font-headline: var(--white);
     --color-font-second: var(--lightgray-c);
     --color-font-headlabel:var(--white);
-    --color-font-subtext: var(--color-font);
+    --color-font-subtext: var(--gray-92);
     /* Icon colors */
     --color-icon-default: var(--red-8);
     --color-icon-light: var(--white);  

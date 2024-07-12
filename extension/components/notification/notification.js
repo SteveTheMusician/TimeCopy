@@ -1,6 +1,6 @@
 export function notification(notificationShow, notificationStatus,notificationText) {
-    const main = document.getElementsByTagName('main')[0]
-    const notificationHTML = `<div class="notification flex notification--hidden" id="notification">
+    let main = document.getElementsByTagName('main')[0]
+    let notificationHTML = `<div class="notification flex notification--hidden" id="notification">
                                 <p class="text-label text-notification" id="notification-text"></p>
                                 <button class="button-primary" id="button_close-notification">
                                     <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -13,7 +13,7 @@ export function notification(notificationShow, notificationStatus,notificationTe
                                 </button>
                             </div>`
     main.insertAdjacentHTML('beforeend', notificationHTML);
-    const notification = document.getElementById('notification')
+    let notification = document.getElementById('notification')
     let text_notification = document.getElementById('notification-text')
     if(notificationShow === true) {
         text_notification.innerHTML = notificationText
@@ -30,7 +30,7 @@ export function notification(notificationShow, notificationStatus,notificationTe
             notification.classList.add('notification--hidden')
         },300)
     }
-    const button_notificationClose = document.getElementById('button_close-notification')
+    let button_notificationClose = document.getElementById('button_close-notification')
     button_notificationClose.addEventListener('click', function(){
         notification.classList.add('notification--hidden')
         notificationShow = false

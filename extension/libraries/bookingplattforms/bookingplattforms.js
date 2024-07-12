@@ -1,5 +1,5 @@
 import { automatic } from "./automatic/automatic.js";
-import { amagProTime } from "./amagProtime/amagProtime.js";
+import { amagProTime } from "./amagProTime/amagProTime.js";
 import { dzbankProRes } from "./dzBankProRes/dzBankProres.js";
 
 export async function bookingplattforms(bookingPlattformSelectValue,bookingData,detectionItems,dev_pttest) {
