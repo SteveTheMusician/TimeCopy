@@ -4,3 +4,4 @@ chrome.action.onClicked.addListener(currentTab => {
     });
   });
 
+  alert('ok')

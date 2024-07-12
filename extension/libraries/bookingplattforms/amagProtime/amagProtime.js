@@ -1,4 +1,3 @@
-import { waitTimer } from "../../../utils/waitTimer.js";
 import { notification } from "../../../components/notification/notification.js";
 
 let anyProjectNomber = "*"
@@ -134,6 +133,7 @@ async function bookTicket(ticket, dev_pttest) {
     which: 13,
     keyCode: 13,
   });
+  const eventChange = new Event("change");
 
   const ticketObject = ticket[0];
   const detectionObject = ticket[1];
@@ -271,8 +271,9 @@ async function bookTicket(ticket, dev_pttest) {
       return;  // Early return in case of error
     } 
     let protime_ticketText = document.getElementsByTagName('textarea')[0];
-    
-    document.getElementsByTagName('textarea')[0].select()
+      protime_ticketText.focus()
+      protime_ticketText.value = ticketObject.item_ticketdisc;
+
     try {
       const result = await waitTimer();  // Await the waitTimer function
         console.log(result)
@@ -280,10 +281,13 @@ async function bookTicket(ticket, dev_pttest) {
       alert(error)
       console.error("Error in waitTimer: ", error);  // Handle any potential errors
       return;  // Early return in case of error
-    } 
-    document.getElementsByTagName('textarea')[0].value = ticketObject.item_ticketdisc;
-  
-    
+    }
+    document.getElementsByTagName('textarea')[0].dispatchEvent(eventChange)
+
+    document.getElementsByTagName('textarea')[1].focus();
+        // Set the cursor position to the end of the text
+        document.getElementsByTagName('textarea')[1].setSelectionRange(document.getElementsByTagName('textarea')[1].value.length, document.getElementsByTagName('textarea')[1].value.length);
+
     try {
       const result = await waitTimer();  // Await the waitTimer function
         console.log(result)
@@ -291,7 +295,9 @@ async function bookTicket(ticket, dev_pttest) {
       alert(error)
       console.error("Error in waitTimer: ", error);  // Handle any potential errors
       return;  // Early return in case of error
-    } 
+    }
+
+    document.getElementsByClassName('lsToolbar--item-button')[9].click()
   if (!dev_pttest) {
     let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
     bookingButton.focus()
