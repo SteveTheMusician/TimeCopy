@@ -302,8 +302,8 @@
                     <span class="checkmark"></span>
                   </label>
                 </div>
-                <div class="config-item-main flex">
-                  <p class="text-label">Steve Google Excel (V 6.0.X)</p>
+                <div class="config-item-main flex" disabled>
+                  <p class="text-label">⭐️ Steve Google Excel (V 7a)</p>
                 </div>  
               </div>
               <div class="config-item-action-container flex">
@@ -389,7 +389,7 @@
                   <img src="libraries/bookingplattforms/dzBankProRes/logo/logo.png" class="icon-bookingItem"/>
                 </div> 
                 <div class="config-item-main flex"> 
-                  <p class="text-label">ProRes ⭐️</p>
+                  <p class="text-label">⭐️ ProRes</p>
                 </div>  
               </div>
               <div class="config-item-action-container flex">
@@ -426,8 +426,8 @@
             </svg>
           </button>
           <!-- <button class="button-primary" id='copyTime'>Copy</button> -->
-          <button class="button-primary dNone" id="button_test_pasteTicketData">🧪 PT Test</button>
           <p class="footer-active-label object--hidden" id="footer-label-config">Einstellungen</p>
+          <button class="button-primary dNone" id="button_test_pasteTicketData">🧪 PT Test</button>
         </div>
         <div class="footer-container-buttons">
           <button class="button-primary" id="configButton">
@@ -485,7 +485,8 @@
       </div>
     </footer>
     <script src='extension.js' type="module"></script>
-    <script src='components/projectDetection/projectDetection.js'></script>
-    <script src='components/general/general.js'></script>
+    <script src='components/projectDetection/projectDetection.js' type="module"></script>
+    <!-- exclude this script for main / builded version -->
+    <script src='developer/developer.js' type="module"></script>
   </body>
 </html>

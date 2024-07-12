@@ -15,7 +15,7 @@ export async function automatic(){
         automaticValue = "DZ Bank TEST"
         // something
     }else {
-        notification(true,"Buchung abgebrochen: Unbekannte URL")
+        notification(true,false,"Buchung abgebrochen: Unbekannte URL")
         automaticValue = null
     } 
     return automaticValue  

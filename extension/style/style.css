@@ -39,6 +39,11 @@ p {
     font-weight: 400;
 }
 
+.fail-link, #fail-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 img {
     user-select: none;
 }
@@ -740,6 +745,15 @@ input:checked + .switch_slider:before {
     filter: brightness(0.5);
     width: 12px;
     height: 12px;
+}
+
+.notification--ok {
+    background-color: var(--color-highlight);
+}
+
+.notification--ok .text-notification, .notification--ok .button-primary svg{
+    color: var(--color-highlight);
+    fill: var(--color-highlight);
 }
 
 .notification--hidden {
