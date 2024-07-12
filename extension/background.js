@@ -3,5 +3,3 @@ chrome.action.onClicked.addListener(currentTab => {
       'url': chrome.runtime.getURL("index.html")
     });
   });
-
-  alert('ok')
