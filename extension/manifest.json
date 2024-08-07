@@ -4,8 +4,14 @@
   "description": "Copy Timesheet Values",
   "version": "0.8.70",
   "permissions": [
-    "clipboardRead","storage", "declarativeContent", "activeTab", "scripting", "sidePanel"
+    "clipboardRead",
+    "storage",
+    "declarativeContent",
+    "activeTab",
+    "scripting",
+    "sidePanel"
   ],
+  "host_permissions": ["<all_urls>"],
   "commands": {
     "_execute_action": {
       "suggested_key": {

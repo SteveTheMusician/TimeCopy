@@ -56,12 +56,14 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
         await chromeTabScript(ticket, dev_pttest); // async/await hier hinzufügen
         console.log('--> valid tickets loop');
       } catch (err) {
-        return Promise.reject(new Error(400));
+        console.error("Error in chromeTabScript: ", err);
+        return Promise.reject(new Error(400)); // Hier wird der Fehler ausgelöst
       }
     }
   }
   return "ProTime Booked";
 }
+
 
 function filterPrefix(ticket, detectionItemsProTime) {
   let filterPrefix_prefixMatches = [];
@@ -116,14 +118,21 @@ function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
 }
 
 async function chromeTabScript(ticket, dev_pttest) {
-  console.log('--chrome script');
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: bookTicket,
-    args: [ticket, dev_pttest]
-  });
+  console.log('--chrome script', ticket, dev_pttest);
+  try {
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: bookTicket,
+      args: [ticket, dev_pttest]
+    });
+    console.log('--script executed');
+  } catch (err) {
+    console.error("Error in chromeTabScript execution: ", err);
+    throw err; // Fehler weitergeben, damit amagProTime diesen behandeln kann
+  }
 }
+
 
 async function bookTicket(ticket, dev_pttest) {
   const keyEventEnter = new KeyboardEvent('keydown', {
@@ -142,18 +151,7 @@ async function bookTicket(ticket, dev_pttest) {
   let protime_activityDropdownList;
   let protime_ticketElemNom;
 
-  // Function to close the popup
-  function closePopup() {
-    chrome.runtime.sendMessage({ action: 'closePopup' });
-  }
-
-  // Function to open the popup
-  function openPopup() {
-    chrome.runtime.sendMessage({ action: 'openPopup' });
-  }
-
-  //--close popup
-  closePopup();
+  //--update side panel content here, instead of trying to close/open popup
 
   function waitTimer() {
     return new Promise((resolve) => {
@@ -209,13 +207,20 @@ async function bookTicket(ticket, dev_pttest) {
   let protime_leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0];
   let protime_leistungenOption;
   const protime_leistungenArray = [{
-    "select_proTime_service_CSITEST": "[data-itemkey='ZCHN0730070']",
-    "select_proTime_service_CSITENT": "[data-itemkey='ZCHN0730080']",
-    "select_proTime_service_ITDNT": "[data-itemkey='ZCHN0730005']",
-    "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
-  }];
-  protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
+    "select_proTime_service_Internes": "[data-itemkey='ZCHN0730000']",
+    "select_proTime_service_Externes": "[data-itemkey='ZCHN0730010']",
+    "select_proTime_service_Sonder": "[data-itemkey='ZCHN0730020']",
+    "select_proTime_service_Korrektur": "[data-itemkey='ZCHN0730030']",
+    "select_proTime_service_ITDENT": "[data-itemkey='ZCHN0730040']"
+  }]
+
   protime_leistung.click();
+  protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
+
+  if (!protime_leistungenOption) {
+    return;
+  }
+
   protime_leistungenOption.click();
 
   try {
@@ -318,6 +323,5 @@ async function bookTicket(ticket, dev_pttest) {
     bookingButton.click();
   }
 
-  //--open popup
-  openPopup();
+  //--update side panel content here, instead of trying to close/open popup
 }
