@@ -1,31 +1,23 @@
+:root {
+  /* ---- Mr. White Theme ---- */
 
-:root{
-    /* ---- Mr. White Theme ---- */
-    /* Basic props */
-    --color-none: transparent;
-  
-    /* color palette */
-    --color-none: transparent;
-  
-    /* theme colors */
-    --color-main: #fff;
-    --color-second: #fff;
-    --color-third: #eee;
-    --color-highlight: #111;
-    --color-active: #09153e;
-    --color-disabled: #909090;
-    --color-close: #d10000;
-   
-   /* Font colors */
-    --color-font: #111;
-    --color-font-navigation: #323232;
-    --color-font-headline: #111;
-    --color-font-second: #111;
-    --color-font-headlabel:#111;
-    --color-font-subtext: #6b6b6b;
-    /* Icon colors */
-    --color-icon-default: #111;
-    --color-icon-light: #111;  
-  }
-  
-  
+  /* theme colors */
+  --color-main: #fff;
+  --color-second: #fff;
+  --color-third: #eee;
+  --color-highlight: #111;
+  --color-active: #09153e;
+  --color-disabled: #909090;
+  --color-close: #d10000;
+
+  /* Font colors */
+  --color-font: #111;
+  --color-font-navigation: #323232;
+  --color-font-headline: #111;
+  --color-font-second: #111;
+  --color-font-headlabel: #111;
+  --color-font-subtext: #6b6b6b;
+  /* Icon colors */
+  --color-icon-default: #111;
+  --color-icon-light: #111;
+}

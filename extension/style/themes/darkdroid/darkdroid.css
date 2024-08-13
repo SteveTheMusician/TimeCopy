@@ -1,45 +1,35 @@
+:root {
+  /* ---- Dark Droid Theme ---- */
 
-:root{
-    /* ---- Dark Droid Theme ---- */
-    /* Basic props */
-    --color-none: transparent;
-  
-    /* color palette */
-    --black: #161616;
-    --black-1b: #1b1b1b;
-    --black-16: #161616;
-    --silver-gray: #d3dcdc;
-    --dark-gray-6: #6b6b6b;
-    --deep-sea-green: #2eb097;
-    --red: #800000;
-    --red-2:#bc0000;
-    --red-3:#ff0000;
-    --rotten-blood: #3b2b2e;
+  /* color palette */
+  --black: #161616;
+  --black-1b: #1b1b1b;
+  --black-16: #161616;
+  --silver-gray: #d3dcdc;
+  --dark-gray-6: #6b6b6b;
+  --red: #800000;
+  --red-2: #bc0000;
+  --red-3: #ff0000;
+  --rotten-blood: #3b2b2e;
+  --white: #b7b7b7;
 
-    --color-none: transparent;
-    --white: #b7b7b7;
+  /* theme colors */
+  --color-main: var(--black);
+  --color-second: var(--black-1b);
+  --color-third: var(--black-16);
+  --color-highlight: var(--red-2);
+  --color-active: var(--red-3);
+  --color-disabled: var(--rotten-blood);
+  --color-close: #ff4343;
 
-
-  
-    /* theme colors */
-    --color-main: var(--black);
-    --color-second: var(--black-1b);
-    --color-third: var(--black-16);
-    --color-highlight: var(--red-2);
-    --color-active: var(--red-3);
-    --color-disabled: var(--rotten-blood);
-    --color-close: #ff4343;
-   
-   /* Font colors */
-    --color-font: var(--red);
-    --color-font-navigation: var(--color-font-second);
-    --color-font-headline: var(--white);
-    --color-font-second: var(--silver-gray);
-    --color-font-headlabel:var(--white);
-    --color-font-subtext: var(--dark-gray-6);
-    /* Icon colors */
-    --color-icon-default: var(--red);
-    --color-icon-light: var(--red);  
-  }
-  
-  
+  /* Font colors */
+  --color-font: var(--red);
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: var(--white);
+  --color-font-second: var(--silver-gray);
+  --color-font-headlabel: var(--white);
+  --color-font-subtext: var(--dark-gray-6);
+  /* Icon colors */
+  --color-icon-default: var(--red);
+  --color-icon-light: var(--red);
+}

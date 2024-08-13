@@ -1,7 +1,5 @@
-:root{
+:root {
   /* ---- Sebastian Drip Chicken Theme (nicht von mir veröffentlicht)---- */
-  /* Basic props */
-  --color-none: transparent;
 
   /* color palette */
   --braun: #67544c;
@@ -13,11 +11,8 @@
   --white: #e3dfdb;
   --pink: #db6667;
   --blue: #006ea9;
-
   --color-none: transparent;
   --white: #fefefe;
-
-
 
   /* theme colors */
   --color-main: var(--braun);
@@ -27,15 +22,15 @@
   --color-active: var(--white);
   --color-disabled: var(--blue);
   --color-close: #67544c;
- 
- /* Font colors */
+
+  /* Font colors */
   --color-font: var(--silver-gray);
   --color-font-navigation: var(--color-font-second);
   --color-font-headline: var(--white);
   --color-font-second: var(--silver-gray);
-  --color-font-headlabel:var(--white);
+  --color-font-headlabel: var(--white);
   --color-font-subtext: var(--dark-gray-6);
   /* Icon colors */
   --color-icon-default: var(--silver-gray);
-  --color-icon-light: var(--white);  
+  --color-icon-light: var(--white);
 }
