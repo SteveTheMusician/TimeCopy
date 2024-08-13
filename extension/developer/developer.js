@@ -24,7 +24,7 @@ let config_bar_dev = `
 </div>
 </div>`;
 
-let label_version_devmode = "⭐️ "
+let label_version_devmode = "🧪 "
 
 label_version.insertAdjacentHTML('afterbegin', label_version_devmode);
 configWindow_General_WindowContent.insertAdjacentHTML('beforeend', config_bar_dev);

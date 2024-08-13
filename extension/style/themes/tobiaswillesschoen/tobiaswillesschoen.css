@@ -1,58 +1,143 @@
+:root {
+  /* ---- Tobias will alles schön Theme (experimentell)---- */
 
-:root{
-    /* ---- Tobias will alles schön Theme (experimentell)---- */
-    /* Basic props */
-    --color-none: transparent;
-  
-    /* color palette */
-    --color-none: transparent;
-    --white: #fefefe;
-    --dark-blue: #283d45;
-    --light-blue: #1576be;
-    --purple: #8168e4;
-    --purple-pale: #985fd2;
-    --mud-purple-8: #8364a3;
-    --mud-purple: #5a4e6f;
-    --white-transparent: #fefefe55;
-    --white-transparent-d: #d8d8d88f;
-    --black: #121212;
-    --black-3: #343434;
-    --dark-gray: #4e4e4e;
-    --dark-gray-3: #343434;
-  
-    /* theme colors */
-    --color-main: var(--black);
-    --color-second: var(--white-transparent);
-    --color-third: var(--white-transparent-d);
-    --color-highlight: var(--light-blue);
-    --color-active: var(--light-blue);
-    --color-disabled: var(--dark-gray);
-    --color-close: #e34a66;
-   
-   /* Font colors */
-    --color-font: var(--black);
-    --color-font-navigation: var(--color-font-second);
-    --color-font-headline: var(--mud-purple);
-    --color-font-second: var(--dark-gray);
-    --color-font-headlabel:var(--dark-gray-3);
-    --color-font-subtext: var(--dark-gray);
-    /* Icon colors */
-    --color-icon-default: var(--dark-blue);
-    --color-icon-light: var(--white);  
-  }
+  /* vars */
+  --blur-default: blur(8px);
+  /* color palette */
+  --color-none: transparent;
+  --white: #fefefe;
+  --white-df: #dfdfdf;
+  --dark-blue: #283d45;
+  --light-blue: #1576be;
+  --purple: #8168e4;
+  --purple-pale: #985fd2;
+  --mud-purple-8: #8364a3;
+  --mud-purple: #5a4e6f;
+  --white-transparent: #fefefe55;
+  --white-transparent-d: #d8d8d88f;
+  --black: #121212;
+  --black-3: #343434;
+  --dark-gray: #4e4e4e;
+  --dark-gray-3: #343434;
 
-  body {
-    background: url('wallpaper.jpg')no-repeat center;
-    background-size: cover;
-    backdrop-filter: blur(10px);
-  }
+  /* theme colors */
+  --color-main: var(--black);
+  --color-second: var(--white-transparent);
+  --color-third: var(--white-transparent-d);
+  --color-highlight: #465b87cc;
+  --color-active: var(--white);
+  --color-disabled: var(--dark-gray);
+  --color-close: #e34a66cc;
 
-  header {
-    background-color: var(--color-none);
-  }
+  /* Font colors */
+  --color-font: #121212;
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: #3b4953;
+  --color-font-second: #262626;
+  --color-font-headlabel: var(--dark-gray-3);
+  --color-font-subtext: var(--dark-gray);
+  /* Icon colors */
+  --color-icon-default: #121212;
+  --color-icon-light: var(--white);
+}
 
-  footer {
-    backdrop-filter: blur(4px) contrast(0.7);
-  }
-  
-  
+body {
+  background: url(wallpaper.jpg) no-repeat center center fixed;
+  background-size: cover;
+  /* backdrop-filter: blur(10px); */
+}
+
+body:before {
+  content: "";
+  position: fixed;
+  top: 0; bottom: 0; left: 0; right: 0; 
+  background: hsl(0deg 17.47% 28.76% / 34%);
+  pointer-events: none;
+}
+
+header {
+  background-color: var(--color-none);
+}
+
+.button-mainAction, #buttonBackToMain {
+  backdrop-filter: var(--blur-default);
+  background-color: var(--white-transparent);
+}
+
+#buttonBackToMain {
+  margin-right: 10px;
+}
+
+.button-mainAction:hover {
+  backdrop-filter: var(--blur-default) brightness(1.2);
+  background-color: var(--white-transparent);
+}
+
+.configuration-container {
+  backdrop-filter: var(--blur-default);
+}
+
+.main-window .text-label {
+  backdrop-filter: var(--blur-default);
+  background-color: var(--white-transparent);
+  padding: 10px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border-radius: 20px;
+}
+
+.configuration-tab-container {
+  backdrop-filter: var(--blur-default) brightness(1.2);
+  border-radius: var(--border-radius-default);
+  margin-bottom: 10px;
+}
+
+.button-config-tab {
+  border-radius: var(--border-radius-default);
+}
+
+.configuration-container-first-tab-selected {
+  border-radius: var(--border-radius-default);
+}
+
+.label-emoji {
+  display: flex;
+}
+
+input[type=text], select {
+  padding: 10px;
+  border-radius: 100px;
+}
+
+.input-size--small {
+  width: calc(35% - 20px);
+}
+
+.input-size--default {
+  width: calc(65% - 40px);
+}
+
+.input-size--large {
+  width: calc(100% - 45px);
+}
+
+.notification--ok {
+  backdrop-filter: var(--blur-default);
+  background-color: var(--white-transparent);
+}
+
+.switch {
+  margin: 0px 10px;
+}
+
+.switch_slider:before {
+  background-color: var(--color-icon-default);
+}
+
+input:checked + .switch_slider {
+  background-color: var(--color-highlight);
+}
+
+.switch_slider {
+  background-color: var(--color-second);
+}
