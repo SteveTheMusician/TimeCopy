@@ -86,6 +86,11 @@ header {
   border-radius: 20px;
 }
 
+.config-item-content-row .text-label {
+  backdrop-filter: unset;
+  background-color: transparent;
+}
+
 .configuration-tab-container {
   backdrop-filter: var(--blur-default) brightness(1.2);
   border-radius: var(--border-radius-default);
