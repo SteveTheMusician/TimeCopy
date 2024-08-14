@@ -2,6 +2,7 @@ import { notification } from "../../../components/notification/notification.js";
 import { waitTimer } from "../../../utils/waitTimer.js";
 
 let anyProjectNomber = "*"
+let bookingLoopCount = 0
 
 // Call the correct booking numbers for the specific tickets
 export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest) {
@@ -60,7 +61,9 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
     for (let i = 0; i < valideTickets.length; i++) {
       let ticket = valideTickets[i]
       try {
-        await chromeTabScript(ticket, dev_pttest) // async/await hier hinzufügen
+        await chromeTabScript(ticket, dev_pttest, bookingLoopCount)
+        bookingLoopCount++
+         // async/await hier hinzufügen
         console.log('--> valid tickets loop')
       } catch (err) {
         console.error("Error in chromeTabScript: ", err)
@@ -124,7 +127,7 @@ function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
   return refineBookingNomber_Matches
 }
 
-async function chromeTabScript(ticket, dev_pttest) {
+async function chromeTabScript(ticket, dev_pttest,bookingLoopCount) {
   chrome.windows.getCurrent(function (window) {
     chrome.windows.update(window.id, { focused: true })
   });
@@ -134,7 +137,7 @@ async function chromeTabScript(ticket, dev_pttest) {
     await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: bookTicket,
-      args: [ticket, dev_pttest]
+      args: [ticket, dev_pttest, bookingLoopCount]
     })
     // console.log('--script executed')
   } catch (err) {
@@ -143,33 +146,59 @@ async function chromeTabScript(ticket, dev_pttest) {
   }
 }
 
+async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
 
-async function bookTicket(ticket, dev_pttest) {
+  function waitTimer() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Timer done")
+      }, 250)
+    })
+  }
+  
+  function checkFirstBookingLoop(bookingLoopCount) {
+    // !document.getElementById('timeCopyProTimeClick')
+    return new Promise((resolve) => {
+      if (bookingLoopCount === 0) {
+        // alert(bookingLoopCount)
+        let dom_clickContainer = document.createElement("div")
+        let dom_clickContainerInner = document.createElement("div")
+        dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
+        dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
+        dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
+        dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
+        dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
+        dom_clickContainerInner.innerHTML = "Click here to focus window"
+        dom_clickContainer.appendChild(dom_clickContainerInner)
+        document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
+        dom_clickContainer.addEventListener("click", test);
+      }else {
+        test()
+      }
 
-  if (!document.getElementById('timeCopyProTimeClick')) {
-    let dom_clickContainer = document.createElement("div")
-    let dom_clickContainerInner = document.createElement("div")
-    dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
-    dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
-    dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
-    dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
-    dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
-    dom_clickContainerInner.innerHTML = "Click here to focus window"
-    dom_clickContainer.appendChild(dom_clickContainerInner)
-    document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
-    dom_clickContainer.addEventListener("click", startBooking);
+      function test(){
+        // alert('testfunc')
+        resolve('ok')
+      }
+    })
   }
 
-  async function startBooking() {
-
+  try {
+    let firstBookingLoop = await checkFirstBookingLoop(bookingLoopCount)
+    console.log(firstBookingLoop)
+  } catch (error) {
+    alert(error)
+    console.error("Error in checkFirstBookingLoop: ", error);
+    return
+  }
     const keyEventEnter = new KeyboardEvent('keydown', {
       key: 'Enter',
       code: 'Enter',
       which: 13,
       keyCode: 13,
     })
-    const eventChange = new Event("change")
 
+    const eventChange = new Event("change")
     const ticketObject = ticket[0]
     const detectionObject = ticket[1]
     let protime_hours
@@ -177,14 +206,6 @@ async function bookTicket(ticket, dev_pttest) {
     let protime_activityDropdown
     let protime_activityDropdownList
     let protime_ticketElemNom
-
-    function waitTimer() {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve("Timer done")
-        }, 300)
-      })
-    }
     let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
     if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
       let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber
@@ -198,14 +219,6 @@ async function bookTicket(ticket, dev_pttest) {
       return
     }
 
-    try {
-      const result = await waitTimer()
-      // console.log(result)
-    } catch (error) {
-      alert(error)
-      console.error("Error in waitTimer: ", error);
-      return
-    }
     try {
       const result = await waitTimer()
       // console.log(result)
@@ -365,30 +378,5 @@ async function bookTicket(ticket, dev_pttest) {
       console.error("Error in waitTimer: ", error)
       return
     }
-    try {
-      const result = await waitTimer()
-      // console.log(result)
-    } catch (error) {
-      alert(error)
-      console.error("Error in waitTimer: ", error)
-      return
-    }
-    try {
-      const result = await waitTimer()
-      // console.log(result)
-    } catch (error) {
-      alert(error)
-      console.error("Error in waitTimer: ", error)
-      return
-    }
-    try {
-      const result = await waitTimer()
-      // console.log(result)
-    } catch (error) {
-      alert(error)
-      console.error("Error in waitTimer: ", error)
-      return
-    }
-    
-  }
+    return bookingLoopCount
 }
