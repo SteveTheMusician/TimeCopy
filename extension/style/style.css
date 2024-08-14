@@ -212,14 +212,13 @@ header{
 }
 
 main {
-    /* padding: 60px 10px; */
-    /* height: calc(100% - 80px); */
     display: flex;
     justify-content: center;
 }
 
 .main-window {
     padding: 20px 30px;
+    padding-bottom: 0px;
 }
 
 .mainSection {
@@ -548,7 +547,7 @@ textarea:hover{
 
 .configuration-window-content {
     padding: 10px;
-    max-height: calc(100vh - 256px);
+    max-height: calc(100vh - 224px);
     overflow-y: scroll;
     flex-direction: column;
 }

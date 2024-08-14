@@ -177,35 +177,9 @@ async function bookTicket(ticket, dev_pttest) {
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve("Timer done")
-        }, 250)
+        }, 300)
       })
     }
-    // some time for the user to focus the page
-    try {
-      const result = await waitTimer()
-      // console.log(result)
-    } catch (error) {
-      alert(error)
-      console.error("Error in waitTimer: ", error);
-      return
-    }
-    try {
-      const result = await waitTimer()
-      // console.log(result)
-    } catch (error) {
-      alert(error)
-      console.error("Error in waitTimer: ", error);
-      return
-    }
-    try {
-      const result = await waitTimer()
-      // console.log(result)
-    } catch (error) {
-      alert(error)
-      console.error("Error in waitTimer: ", error);
-      return
-    }
-    // begin
     let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
     if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
       let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber
@@ -219,6 +193,14 @@ async function bookTicket(ticket, dev_pttest) {
       return
     }
 
+    try {
+      const result = await waitTimer()
+      // console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error);
+      return
+    }
     try {
       const result = await waitTimer()
       // console.log(result)
