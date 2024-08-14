@@ -4,6 +4,11 @@ export function timesheet_TobiasExcel(clipboarsString) {
   if(clipboarsString.includes('	')) {
     fullDateString = clipboarsString.split('	')[0];
   }
+
+  if(clipboarsString.includes('""')) {
+    // replace ALL "" with empty
+    clipboarsString = clipboarsString.replace(/""/g, "")
+  }
   
   let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
   // get all tickets before and after a line break

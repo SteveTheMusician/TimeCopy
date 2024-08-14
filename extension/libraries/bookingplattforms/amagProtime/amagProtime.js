@@ -24,6 +24,11 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
       failedTickets.push(ticket);
     }
 
+    if(/\p{L}/u.test(ticket.item_tickettime)){
+      notification(true, false, "Abgebrochen: Ticket hat ungewöhnliche Zeit-Einheit | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc);
+      return;
+    }
+
     console.log("ticket filter matches ", ticket, ticketRefineBookingNomber);
   });
 
@@ -285,6 +290,7 @@ async function bookTicket(ticket, dev_pttest) {
     if (!dev_pttest) {
     protime_ticketNumber.dispatchEvent(keyEventEnter)
     }
+
     try {
       const result = await waitTimer()
       // console.log(result)
@@ -300,12 +306,18 @@ async function bookTicket(ticket, dev_pttest) {
       'bubbles': true,
       'cancelable': true
     });
+    // If ticket number is "Scrum" put "Scrum" also in the discription
+    let ticketItemDisc = ticketObject.item_ticketdisc
+    if(ticketObject.item_ticketnumber.includes("SCRUM")){
+      ticketItemDisc = "[SCRUM] " + ticketObject.item_ticketdisc
+    }
+
     let mdown = new Event('focus');
     protime_ticketText.dispatchEvent(mover)
     protime_ticketText.dispatchEvent(mdown)
     protime_ticketText.focus()
     protime_ticketText.click()
-    protime_ticketText.value = ticketObject.item_ticketdisc
+    protime_ticketText.value = ticketItemDisc
     document.getElementsByTagName('textarea')[0].dispatchEvent(eventChange);
     // set focus to other textarea to accept befores area text
     document.getElementsByTagName('textarea')[1].focus();
@@ -329,5 +341,54 @@ async function bookTicket(ticket, dev_pttest) {
     } else {
       // document.getElementsByClassName('lsToolbar--item-button')[9].click()
     }
+    try {
+      const result = await waitTimer()
+      // console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+    try {
+      const result = await waitTimer()
+      // console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+    try {
+      const result = await waitTimer()
+      // console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+    try {
+      const result = await waitTimer()
+      // console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+    try {
+      const result = await waitTimer()
+      // console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+    try {
+      const result = await waitTimer()
+      // console.log(result)
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+    
   }
 }
