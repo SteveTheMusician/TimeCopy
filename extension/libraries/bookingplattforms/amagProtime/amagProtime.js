@@ -71,7 +71,8 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
       }
     }
   }
-  return "ProTime Booked";
+  bookingLoopCount = 0
+  return "✅ ProTime booking complete";
 }
 
 
