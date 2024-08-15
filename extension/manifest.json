@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Time Copy",
   "description": "Copy Timesheet Values",
-  "version": "0.8.76",
+  "version": "0.8.77",
   "permissions": [
     "clipboardRead",
     "storage",
@@ -31,8 +31,7 @@
       "default_icon": "icon/icon1200.png"
   },
   "side_panel": {
-    "default_path": "index.html",
-    "default_popup": "index.html" 
+    "default_path": "index.html"
   },
   "background": {
     "service_worker": "background.js"
