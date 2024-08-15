@@ -1,5 +1,4 @@
 import { notification } from "../../../components/notification/notification.js";
-import { waitTimer } from "../../../utils/waitTimer.js";
 
 let anyProjectNomber = "*"
 let bookingLoopCount = 0
@@ -158,10 +157,8 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
   }
 
   function checkFirstBookingLoop(bookingLoopCount) {
-    // !document.getElementById('timeCopyProTimeClick')
     return new Promise((resolve) => {
       if (bookingLoopCount === 0) {
-        // alert(bookingLoopCount)
         let dom_clickContainer = document.createElement("div")
         let dom_clickContainerInner = document.createElement("div")
         dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
@@ -176,9 +173,7 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
       } else {
         test()
       }
-
       function test() {
-        // alert('testfunc')
         resolve('ok')
       }
     })
@@ -222,7 +217,6 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
 
   try {
     const result = await waitTimer()
-    // console.log(result)
   } catch (error) {
     alert(error)
     console.error("Error in waitTimer: ", error);
