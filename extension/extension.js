@@ -97,7 +97,7 @@ function loadStorage() {
   // Default variables
   let defaultTheme = "oceanswave"
   let defaultProfileName = "Default"
-  let defaultBookingPlattform = "bookingPlattform-automatic"
+  let defaultBookingPlattform = "bookingPlattform_automatic"
 
   if (lstorage_cThemes) {
     themeSelect.value = lstorage_cThemes
@@ -119,6 +119,7 @@ function loadStorage() {
   } else {
     document.querySelector('input[value="' + defaultBookingPlattform + '"]').checked = true
   }
+  console.log('✅ [extension] extension loaded')
 }
 
 // Clear local storage
