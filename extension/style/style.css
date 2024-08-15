@@ -507,7 +507,7 @@ textarea:hover{
 
 .configuration-container {
     width: -webkit-fill-available;
-    min-width: 304px;
+    min-width: 264px;
     margin-bottom: 10px;
     border-radius: var(--border-radius-default);
     background-color: var(--color-second);
