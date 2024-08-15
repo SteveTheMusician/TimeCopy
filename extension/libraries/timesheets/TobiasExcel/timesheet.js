@@ -34,7 +34,6 @@ export function timesheet_TobiasExcel(clipboarsString) {
     let item_ticketDisc = ticket.match(regExp_ticketDiscription)[0];
     item_ticketDisc = item_ticketDisc.trim()
     let item_ticketTime = ticket.match(regExp_ticketTime)[1];
-    console.log(item_ticketTime)
     item_ticketTime = item_ticketTime.trim()
     item_ticketTime = item_ticketTime.replaceAll(",",".")
     let item_bookingNumber = ''
