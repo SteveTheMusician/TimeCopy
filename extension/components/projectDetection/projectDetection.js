@@ -103,7 +103,7 @@ function generateDetectionItem(){
    </div>
    </div>` ).join('')
   }else{
-    console.log('Project Detection: No Items found')
+    console.log('[Project Detection] No Items set')
   }
 }
 

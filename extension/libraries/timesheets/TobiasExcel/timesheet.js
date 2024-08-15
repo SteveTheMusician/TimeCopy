@@ -1,8 +1,15 @@
+import {replaceAllTokensBetween} from '../../../utils/replaceAllTokensBetween.js'
+
 export function timesheet_TobiasExcel(clipboarsString) {
 
   let fullDateString = ""
   if(clipboarsString.includes('	')) {
     fullDateString = clipboarsString.split('	')[0];
+  }
+
+  if(clipboarsString.includes('""')) {
+    // replace ALL "" with empty
+    clipboarsString = clipboarsString.replace(/""/g, "")
   }
   
   let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
@@ -19,15 +26,17 @@ export function timesheet_TobiasExcel(clipboarsString) {
    
   matches.forEach(function(ticket, i) {
 
-    var regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
-    var regExp_ticketDiscription = /(?<=\]).*?(?=\:)/g;
+    let regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
+    let regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
+    let regExp_ticketTime = /.*[\s]*?:[\s]*?(\d{1,2}[\.\,]?[\d]{1,2})/
     let item_ticketNumber = ticket.match(regExp_squareBrakets)[0];
     item_ticketNumber = item_ticketNumber.trim()
     let item_ticketDisc = ticket.match(regExp_ticketDiscription)[0];
     item_ticketDisc = item_ticketDisc.trim()
-    let item_ticketTime = ticket.split(':')[1];
+    let item_ticketTime = ticket.match(regExp_ticketTime)[1];
+    console.log(item_ticketTime)
     item_ticketTime = item_ticketTime.trim()
-    item_ticketTime = item_ticketTime.replace("h","")
+    item_ticketTime = item_ticketTime.replaceAll(",",".")
     let item_bookingNumber = ''
     let item_ticketCustomBookingNumber = item_ticketNumber.split('#')[1]
     let item_date = fullDateString.trim()
