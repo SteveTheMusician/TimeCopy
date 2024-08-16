@@ -28,7 +28,7 @@ export function timesheet_TobiasExcel(clipboarsString) {
 
     let regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
     let regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
-    let regExp_ticketTime = /.*[\s]*?:[\s]*?(\d{1,2}[\.\,]?[\d]{1,2})/
+    let regExp_ticketTime = /.*[\s]*?:[\s]*?(\d{1,2}[\.\,]?[\d]{0,2})/
     let item_ticketNumber = ticket.match(regExp_squareBrakets)[0];
     item_ticketNumber = item_ticketNumber.trim()
     let item_ticketDisc = ticket.match(regExp_ticketDiscription)[0];
