@@ -315,11 +315,8 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
     'bubbles': true,
     'cancelable': true
   });
-  // If ticket number is "Scrum" put "Scrum" also in the discription
-  let ticketItemDisc = ticketObject.item_ticketdisc
-  if (ticketObject.item_ticketnumber.includes("SCRUM")) {
-    ticketItemDisc = "[SCRUM] " + ticketObject.item_ticketdisc
-  }
+  // Join tickent number and discription
+  let ticketItemDisc = "["+ticketObject.item_ticketnumber+"] "+ticketObject.item_ticketdisc
 
   let mdown = new Event('focus');
   protime_ticketText.dispatchEvent(mover)
