@@ -810,3 +810,18 @@ input:checked+.switch_slider:before {
     bottom: -60px;
     opacity: 0;
 }
+
+/* responsive */
+@media only screen and (max-width: 400px){
+    .overview .text-label {
+        padding-left: 10px;
+    }
+    
+    .text-label {
+        padding-left: 0px;
+    }
+
+    .config-item-main {
+        padding-left: 10px;
+    }
+}
