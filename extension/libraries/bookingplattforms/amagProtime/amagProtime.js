@@ -15,16 +15,22 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
       let ticketAddPrefixMatches = filterAddPrefix(ticket, ticketPrefixMatches);
       let ticketRefinePrefixesMatches = filterAllPrefixes(ticket, ticketAddPrefixMatches);
       let ticketRefineBookingNomber = filterBookingNomber(ticket, ticketRefinePrefixesMatches);
-
+      console.log(ticketRefineBookingNomber)
       if (ticketRefineBookingNomber.length > 1) {
-        throw new Error("Abgebrochen: Ticket hat mehrfache Matches | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc);
+        throw new Error("Ticket hat mehrfache Matches | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc);
       } else if (ticketRefineBookingNomber.length === 1) {
         valideTickets.push([ticket, ticketRefineBookingNomber[0]]);
       } else if (ticketRefineBookingNomber.length === 0) {
         failedTickets.push(ticket);
       }
       if (/\p{L}/u.test(ticket.item_tickettime)) {
-        throw new Error("Abgebrochen: Ticket hat ungewöhnliche Zeitangabe! | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc)
+        throw new Error("Ticket hat ungewöhnliche Zeitangabe! | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc)
+      }
+      console.log("Infos: ", ticketRefineBookingNomber)
+      if(ticket.item_bookingnumber.length < 1 && ticketRefineBookingNomber.length > 0 ){
+        if (ticketRefineBookingNomber[0].projectnomber.length < 1){
+          throw new Error("Buchungsnummer fehlt im Ticket/in der Erkennung | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc)
+        }
       }
       console.log("ticket filter matches ", ticket, ticketRefineBookingNomber);
     });
@@ -72,7 +78,7 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
     }
   }
   bookingLoopCount = 0
-  return "✅ ProTime booking complete";
+  return "ProTime Buchung abgeschlossen";
 }
 
 
@@ -116,7 +122,7 @@ function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
 
   if (ticketRefinePrefixesMatches.length > 1) {
     ticketRefinePrefixesMatches.forEach((detectionItemRefineBookingNomber) => {
-      if (ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber === ticket.item_bookingnumber || ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber === anyProjectNomber) {
+      if (ticket.item_bookingnumber.length && detectionItemRefineBookingNomber.projectnomber === ticket.item_bookingnumber || ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber === anyProjectNomber) {
         refineBookingNomber_Matches.push(detectionItemRefineBookingNomber)
       } else if (!ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber.length && detectionItemRefineBookingNomber.projectnomber !== anyProjectNomber) {
         refineBookingNomber_Matches.push(detectionItemRefineBookingNomber)
@@ -160,17 +166,19 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
   function checkFirstBookingLoop(bookingLoopCount) {
     return new Promise((resolve) => {
       if (bookingLoopCount === 0) {
-        let dom_clickContainer = document.createElement("div")
-        let dom_clickContainerInner = document.createElement("div")
-        dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
-        dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
-        dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
-        dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
-        dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
-        dom_clickContainerInner.innerHTML = "Click here to focus window"
-        dom_clickContainer.appendChild(dom_clickContainerInner)
-        document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
-        dom_clickContainer.addEventListener("click", test);
+        if(!document.getElementById('timeCopyProTimeClick')){
+          let dom_clickContainer = document.createElement("div")
+          let dom_clickContainerInner = document.createElement("div")
+          dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
+          dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
+          dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
+          dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
+          dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
+          dom_clickContainerInner.innerHTML = "Click here to focus window"
+          dom_clickContainer.appendChild(dom_clickContainerInner)
+          document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
+          dom_clickContainer.addEventListener("click", test);
+        }
       } else {
         test()
       }

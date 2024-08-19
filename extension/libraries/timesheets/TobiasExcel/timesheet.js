@@ -13,25 +13,24 @@ export function timesheet_TobiasExcel(clipboarsString) {
   }
   
   let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
-  // get all tickets before and after a line break
-  let regex_Ticket = /([^\n]+)/g
+  // the regExp to get all needed Informations
+  const regExp_Ticket = /([^\n]+)/g
+  const regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
+  const regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
+  const regExp_ticketTime = /.*[\s]*?:[\s]*?(\d{1,2}[\.\,]?[\d]{0,2})/
+  const regExp_ticketNumber = /^[^\s#°]+/
+  const regExp_ticketMasterNumber = /(?<=°)[^\s#°]+/
+  const regExp_ticketCutomBookingNumber = /(?<=#)[^\s#°]+/
   let matches = []
   let match
   let bookingData = []
   
   // push into matches
-  while ((match = regex_Ticket.exec(allTickets)) !== null) {
+  while ((match = regExp_Ticket.exec(allTickets)) !== null) {
     matches.push(match[1]);
   }
-   
+  
   matches.forEach(function(ticket, i) {
-
-    let regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
-    let regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
-    let regExp_ticketTime = /.*[\s]*?:[\s]*?(\d{1,2}[\.\,]?[\d]{0,2})/
-    let regExp_ticketNumber = /^[^\s#°]+/
-    let regExp_ticketMasterNumber = /(?<=°)[^\s#°]+/
-    let regExp_ticketCutomBookingNumber = /(?<=#)[^\s#°]+/
 
     let item_bookingNumber = ''
     let item_ticketNumberAll = ticket.match(regExp_squareBrakets)[0];
@@ -63,7 +62,6 @@ export function timesheet_TobiasExcel(clipboarsString) {
       "item_date":item_date
     }
     bookingData.push(itemObject)
-
   })
   return bookingData
 }

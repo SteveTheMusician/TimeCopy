@@ -19,8 +19,10 @@ export function notification(notificationShow, notificationStatus, notificationT
         text_notification.innerHTML = notificationText
         if (notificationStatus) {
             notification.classList.add('notification--ok')
+            autoHideNotification_timerDefault(notification,notificationShow,notificationText)
         } else {
             notification.classList.remove('notification--ok')
+            autoHideNotification_timerError(notification,notificationShow,notificationText)
         }
         setTimeout(function () {
             notification.classList.remove('notification--hidden')
@@ -32,8 +34,24 @@ export function notification(notificationShow, notificationStatus, notificationT
     }
     let button_notificationClose = document.getElementById('button_close-notification')
     button_notificationClose.addEventListener('click', function () {
-        notification.classList.add('notification--hidden')
-        notificationShow = false
-        notificationText = null
+        hideNotification(notification,notificationShow,notificationText)
     })
+}
+
+function hideNotification(notification,notificationShow,notificationText){
+    notification.classList.add('notification--hidden')
+    notificationShow = false
+    notificationText = null
+}
+
+function autoHideNotification_timerDefault(notification,notificationShow,notificationText) {
+    setTimeout(function(){
+        hideNotification(notification,notificationShow,notificationText)
+    },3000)
+}
+
+function autoHideNotification_timerError(notification,notificationShow,notificationText) {
+    setTimeout(function(){
+        hideNotification(notification,notificationShow,notificationText)
+    },4500)
 }
