@@ -8,9 +8,10 @@
 ## V 0.8.92
 - feature: reload plugin instantly on config-changes and show notification
 - feature: reload plugin before exporting file
+- feature: timesheet-filter icons
+- feature: notification timeout
 - fix: catch error, wehen booking number is missing in ticket and project-detection
 - fix: booking-platform automatic as default on "empty" profile in localStorage
-- feature: timesheet-filter icons
 - other: rewrite ifs to try and catch
 - other: timesheet-tobias - regExep varables optimization
 - other: demp profiles (downloads tcprofile)
