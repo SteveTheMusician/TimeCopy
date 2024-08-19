@@ -1,9 +1,11 @@
 # Time Copy
-#### V 0.8.7*
-### By Steve P.
-### start: 04.07.2023
+#### V 0.8.8*
+By Steve P.
+start: 04.07.2023
 
-### Plugin aus Git in Chrome importieren
+## Inhalt
+
+## Plugin aus Git in Chrome importieren
 - Git Projekt clonen
 - Das Projekt in den "test_version"-Branch auschecken (Stand 16.08.2024)
 - In Chrome oder Brave-Browser in die Erweiterungs-Einstellungen gehen und dort
@@ -15,7 +17,7 @@
 - Nun ist es per one-klick errreichbar.
 - Über das Shortcut "Strg+b" oder "cmd+b" kann es geöffnet bzw geschlossen werden
 
-### Plugin aus Chrome entfernen
+## Plugin aus Chrome entfernen
 - In den Erweiterungs-Einstellungen das plugin aufsuchen und über den kleinen Switch ausschalten.
 - Wenn du es komplett entfernen willst, dann auf den großen Button "Entfernen" in der 
   angezeigten Kachel klicken
