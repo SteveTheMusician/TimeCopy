@@ -1,4 +1,4 @@
-export function notification(notificationShow, notificationStatus,notificationText) {
+export function notification(notificationShow, notificationStatus, notificationText) {
     let main = document.getElementsByTagName('main')[0]
     let notificationHTML = `<div class="notification flex notification--hidden" id="notification">
                                 <p class="text-label text-notification" id="notification-text"></p>
@@ -15,23 +15,23 @@ export function notification(notificationShow, notificationStatus,notificationTe
     main.insertAdjacentHTML('beforeend', notificationHTML);
     let notification = document.getElementById('notification')
     let text_notification = document.getElementById('notification-text')
-    if(notificationShow === true) {
+    if (notificationShow === true) {
         text_notification.innerHTML = notificationText
-        if(notificationStatus){
+        if (notificationStatus) {
             notification.classList.add('notification--ok')
         } else {
             notification.classList.remove('notification--ok')
         }
-        setTimeout(function(){
+        setTimeout(function () {
             notification.classList.remove('notification--hidden')
-        },300)
-    }else if(notificationShow === false || notificationShow === null) {
-        setTimeout(function(){
+        }, 300)
+    } else if (notificationShow === false || notificationShow === null) {
+        setTimeout(function () {
             notification.classList.add('notification--hidden')
-        },300)
+        }, 300)
     }
     let button_notificationClose = document.getElementById('button_close-notification')
-    button_notificationClose.addEventListener('click', function(){
+    button_notificationClose.addEventListener('click', function () {
         notification.classList.add('notification--hidden')
         notificationShow = false
         notificationText = null

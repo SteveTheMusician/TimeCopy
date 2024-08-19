@@ -3,7 +3,19 @@
 ### By Steve P.
 ### start: 04.07.2023
 
+### Plugin aus Git in Chrome importieren
+- Git Projekt clonen
+- Das Projekt in den "test_version"-Branch auschecken (Stand 16.08.2024)
+- In Chrome oder Brave-Browser in die Erweiterungs-Einstellungen gehen und dort
+  oben "Entwicklermodus" einschalten.
+- Auf "Entpackte Erweiterung laden" klicken, in den geklonten Ordner navigieren und anschließend
+  in den "extension" Ordner gehen und diesen auswählen.
+- PlugIn erschein - ggf einschalten
+- Oben rechts im Browser auf das PlugIn Icon klicken und PlugIn über das Pin-Icon anpinnen
+- Nun ist es per one-klick errreichbar.
+- Über das Shortcut "Strg+b" oder "cmd+b" kann es geöffnet bzw geschlossen werden
 
-### Before Build
-
-Delete script link to developer js and also the file itselfs
+### Plugin aus Chrome entfernen
+- In den Erweiterungs-Einstellungen das plugin aufsuchen und über den kleinen Switch ausschalten.
+- Wenn du es komplett entfernen willst, dann auf den großen Button "Entfernen" in der 
+  angezeigten Kachel klicken

@@ -29,23 +29,39 @@ export function timesheet_TobiasExcel(clipboarsString) {
     let regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
     let regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
     let regExp_ticketTime = /.*[\s]*?:[\s]*?(\d{1,2}[\.\,]?[\d]{0,2})/
-    let item_ticketNumber = ticket.match(regExp_squareBrakets)[0];
-    item_ticketNumber = item_ticketNumber.trim()
+    let regExp_ticketNumber = /^[^\s#°]+/
+    let regExp_ticketMasterNumber = /(?<=°)[^\s#°]+/
+    let regExp_ticketCutomBookingNumber = /(?<=#)[^\s#°]+/
+
+    let item_bookingNumber = ''
+    let item_ticketNumberAll = ticket.match(regExp_squareBrakets)[0];
+    item_ticketNumberAll = item_ticketNumberAll.trim()
+    let item_ticketNumber = item_ticketNumberAll.match(regExp_ticketNumber)[0];
+    let item_ticketCustomBookingNumber = item_ticketNumberAll.match(regExp_ticketCutomBookingNumber) ? 
+                                          item_ticketNumberAll.match(regExp_ticketCutomBookingNumber)[0] 
+                                            : '';
+    let item_ticketMasterNomber = item_ticketNumberAll.match(regExp_ticketMasterNumber) ? 
+                                    item_ticketNumberAll.match(regExp_ticketMasterNumber)[0] 
+                                      : ''
     let item_ticketDisc = ticket.match(regExp_ticketDiscription)[0];
     item_ticketDisc = item_ticketDisc.trim()
     let item_ticketTime = ticket.match(regExp_ticketTime)[1];
     item_ticketTime = item_ticketTime.trim()
     item_ticketTime = item_ticketTime.replaceAll(",",".")
-    let item_bookingNumber = ''
-    let item_ticketCustomBookingNumber = item_ticketNumber.split('#')[1]
     let item_date = fullDateString.trim()
    
     if(item_ticketCustomBookingNumber) {
       item_bookingNumber = item_ticketCustomBookingNumber;
-      item_ticketNumber = item_ticketNumber.split('#')[0]
     }
 
-    let itemObject = {"item_bookingnumber":item_bookingNumber, "item_ticketnumber":item_ticketNumber, "item_ticketdisc":item_ticketDisc, "item_tickettime":item_ticketTime, "item_date":item_date}
+    let itemObject = {
+      "item_bookingnumber":item_bookingNumber,
+      "item_ticketmasternumber": item_ticketMasterNomber,
+      "item_ticketnumber":item_ticketNumber, 
+      "item_ticketdisc":item_ticketDisc,
+      "item_tickettime":item_ticketTime,
+      "item_date":item_date
+    }
     bookingData.push(itemObject)
 
   })

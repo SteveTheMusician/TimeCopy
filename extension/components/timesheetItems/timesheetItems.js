@@ -1,6 +1,6 @@
-export function timesheetItem (){
-    
-    let timesheetItem = `<label class="config-item dFlex">
+export function timesheetItem() {
+
+  let timesheetItem = `<label class="config-item dFlex">
     <div class="config-item-main-container dFlex">
       <div class="config-item-radio-container dFlex">
         <label class="radio-custom-container dFlex">

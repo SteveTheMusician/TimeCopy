@@ -34,12 +34,12 @@ const config_check_showProTimeTestButton = document.getElementById('check_showPr
 config_check_showProTimeTestButton.addEventListener('change', showProTimeTestButton);
 
 
-function showProTimeTestButton(){
+function showProTimeTestButton() {
 
-  if(config_check_showProTimeTestButton.checked ) {
+  if (config_check_showProTimeTestButton.checked) {
     button_pasteTicketData.classList.remove('dNone')
     localStorage.setItem('tc_c_dev_pttest', 'true')
-  }else {
+  } else {
     button_pasteTicketData.classList.add('dNone')
     localStorage.setItem('tc_c_dev_pttest', 'false')
   }
@@ -50,11 +50,10 @@ window.addEventListener("load", () => {
   loadStorage_dev()
 });
 
-function loadStorage_dev(){
+function loadStorage_dev() {
   let tccdevpttest = localStorage.getItem('tc_c_dev_pttest')
-  if(tccdevpttest == "true") {
+  if (tccdevpttest == "true") {
     config_check_showProTimeTestButton.checked = true
     showProTimeTestButton()
   }
-
 }
