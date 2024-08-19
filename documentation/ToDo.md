@@ -2,6 +2,7 @@
 ## Fixes / Reports
 
  - Steve Excel einfügen
+ - fix tobias style small screen
 
  ## Features
 
