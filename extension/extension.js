@@ -50,6 +50,9 @@ let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
 // Some vars
 let configOpen = false
 let dev_pttest = false
+// this variable activates tc reloading after pressing the back button when its set to true
+let configUserChanges = false
+
 let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Help.md"
 let helpUrl_timesheet_tobias = helpUrl + "#timesheet-tobias"
 let helpUrl_timesheet_steve = helpUrl + "#timesheet-steve-google-excel"
@@ -74,7 +77,7 @@ window.addEventListener("load", (event) => {
   buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
   configProfileName.addEventListener('change', configSetProfileName)
   // Configs Listener
-  button_clearConfigs.addEventListener('click', clearLocalStorage);
+  button_clearConfigs.addEventListener('click', removeProfile);
   button_openHelp.addEventListener('click', openHelp)
   button_openHelpTimesheetTobias.addEventListener('click', openHelp_timesheet_tobias)
   themeSelect.addEventListener('change', switchTheme);
@@ -90,7 +93,31 @@ window.addEventListener("load", (event) => {
   }
   // Load local storages
   loadStorage()
+  loadSessionStorages()
 });
+
+// some sessionstorages for temp-messages and data
+function loadSessionStorages() {
+  let sMessageImported = sessionStorage.getItem('tc_c_messageImported')
+  let sMessageProfileRemoved = sessionStorage.getItem('tc_c_messageProfileRemoved')
+  let  sExportFile_afterChange = sessionStorage.getItem('tc_c_exportFile_afterChange')
+  if (sMessageImported === 'true') {
+    notification(true, true, 'Profil wurde erfolgreich importiert!')
+    sessionStorage.removeItem('tc_c_messageImported')
+    configButton.click()
+  }
+  if (sMessageProfileRemoved === 'true') {
+    notification(true, true, 'Profil wurde zurückgesetzt.')
+    sessionStorage.removeItem('tc_c_messageProfileRemoved')
+    configButton.click()
+  }
+
+  if(sExportFile_afterChange === 'true') {
+    sessionStorage.removeItem('tc_c_exportFile_afterChange')
+    configButton.click()
+    exportFile()
+  }
+}
 
 // Load localstorage
 function loadStorage() {
@@ -118,6 +145,7 @@ function loadStorage() {
     document.querySelector('input[value="' + lstorage_cBookingPlattform + '"]').checked = true
   } else {
     document.querySelector('input[value="' + defaultBookingPlattform + '"]').checked = true
+    localStorage.setItem('tc_c_bookingPlattform',defaultBookingPlattform)
   }
   console.log('✅ [extension] extension loaded')
 }
@@ -129,20 +157,27 @@ function clearLocalStorage() {
   localStorage.removeItem('tc_c_projectDetection')
   localStorage.removeItem('tc_c_profileName')
   localStorage.removeItem('tc_c_bookingPlattform')
-  notification(true, true, 'Daten wurden gelöscht. Bitte PlugIn neustarten.')
+}
+
+function clearSessionStorage() {
+  sessionStorage.removeItem('tc_c_messageImported')
+  sessionStorage.removeItem('tc_c_messageProfileRemoved')
 }
 
 function openConfigs() {
   if (configOpen) {
-    main.classList.remove('main-extended')
+    // main.classList.remove('main-extended')
     configButton.classList.remove('button--active')
     fillButton.classList.remove('object--hidden')
     configurations.classList.add('dNone')
     overview.classList.remove('dNone')
     header.classList.add('dNone')
     configOpen = false
+    if(configUserChanges === true) {
+      window.location.reload()
+    }
   } else {
-    main.classList.add('main-extended')
+    // main.classList.add('main-extended')
     configButton.classList.add('button--active')
     fillButton.classList.add('object--hidden')
     configurations.classList.remove('dNone')
@@ -175,6 +210,8 @@ function configTabOpenProjects() {
   buttonTab_Projects.classList.add('button-tab--active')
   configWindow_Projects.classList.remove('dNone')
   configurationsContainer.classList.remove('configuration-container-first-tab-selected')
+  // set user changes to tro to make shure any changes are saved
+  configUserChanges = true
 }
 
 function configTabOpenTimesheets() {
@@ -193,26 +230,29 @@ function configTabOpenBookingsheets() {
 
 // configuration functions
 function timesheetFilterChange() {
-  notification(true, true, 'Bitte öffne das PlugIn erneut, um die Filter zu übernehmen')
+  // notification(true, true, 'Bitte öffne das PlugIn erneut, um die Filter zu übernehmen')
 }
 
 function bookingPlattformsChange(e) {
   localStorage.setItem('tc_c_bookingPlattform', e.target.value)
-  notification(true, true, 'Bitte öffne das PlugIn erneut, um die Buchungs Plattform zu übernehmen')
+  configUserChanges = true
 }
 
 function configSetProfileName() {
   localStorage.setItem('tc_c_profileName', configProfileName.value)
+  configUserChanges = true
 }
 
 function switchTheme() {
   let currentThemeValue = themeSelect.value
   link_cssTheme.setAttribute('href', 'style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
   localStorage.setItem('tc_c_theme', currentThemeValue)
+  configUserChanges = true
 }
 
 function switchFilter(e) {
   localStorage.setItem('tc_c_filter', e.target.value)
+  configUserChanges = true
 }
 
 function openHelp() {
@@ -244,9 +284,13 @@ function importFile(event) {
       localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
       localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.booking_platform)
       loadStorage()
-      notification(true, true, 'Bitte öffne das PlugIn erneut, um das Profil zu laden')
+      sessionStorage.setItem('tc_c_messageImported', 'true')
+      window.location.reload()
+      // notification(true, true, 'Profil wurde gerfolgreich geladen. Starte neu...')
+      setTimeout(function () {
+      }, 2000)
     } else {
-      notification(true, false, 'File-Version stimmt nicht überein.')
+      notification(true, false, 'Import fehlgeschlagen: Version stimmt nicht überein.')
       return
     }
   });
@@ -265,29 +309,46 @@ function checkImportFileVersion(fileData) {
 
 // Export Configs as Json
 let button_exportConfigs = document.getElementById('button_exportConfigs');
-button_exportConfigs.addEventListener('click', (event) => {
-  let detectionItems = lstorage_cDetectionItems
-  detectionItems = JSON.parse(detectionItems)
-  const fileNameFixed = "-TimeCopy.tcprofile"
-  if (detectionItems === null) {
-    detectionItems = []
+button_exportConfigs.addEventListener('click', exportFile)
+  
+function exportFile() {  
+  
+  if(configUserChanges === true) {
+    sessionStorage.setItem('tc_c_exportFile_afterChange', 'true')
+    window.location.reload()
+    return
+  } else {
+    let detectionItems = lstorage_cDetectionItems
+    detectionItems = JSON.parse(detectionItems)
+    const fileNameFixed = "-TimeCopy.tcprofile"
+    if (detectionItems === null) {
+      detectionItems = []
+    }
+    let saveObj = { "tcprofile": { "author": "steve", "version": tcprofileVersion, "extension_version": extensionVersion, "extension_build": extensionBuild, "profile_name": configProfileName.value } }
+    // apply values
+    Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platform": lstorage_cBookingPlattform, "detection_filter": detectionItems } })
+    // file setting
+    const data = JSON.stringify(saveObj);
+    const name = configProfileName.value + fileNameFixed;
+    const type = "text/plain";
+    // create file
+    const a = document.createElement("a");
+    const file = new Blob([data], { type: type });
+    a.href = URL.createObjectURL(file);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
   }
-  let saveObj = { "tcprofile": { "author": "steve", "version": tcprofileVersion, "extension_version": extensionVersion, "extension_build": extensionBuild, "profile_name": configProfileName.value } }
-  // apply values
-  Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platform": lstorage_cBookingPlattform, "detection_filter": detectionItems } })
-  // file setting
-  const data = JSON.stringify(saveObj);
-  const name = configProfileName.value + fileNameFixed;
-  const type = "text/plain";
-  // create file
-  const a = document.createElement("a");
-  const file = new Blob([data], { type: type });
-  a.href = URL.createObjectURL(file);
-  a.download = name;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-});
+}
+
+// delete configs
+function removeProfile() {
+  clearLocalStorage()
+  clearSessionStorage()
+  sessionStorage.setItem('tc_c_messageProfileRemoved', 'true')
+  window.location.reload()
+}
 
 // Main Functions
 async function readClipboardText() {
@@ -296,12 +357,21 @@ async function readClipboardText() {
   let filter = lstorage_cFilter
   let bookingPlattform = lstorage_cBookingPlattform
   // check whitch filter to use
-  if (filter === '' || filter === null) {
-    notification(true, false, 'Bitte wähle ein Timesheet!')
-  } else if (bookingPlattform === '' || bookingPlattform === null) {
-    notification(true, false, 'Bitte wähle eine Buchungsplattform!')
-  } else {
+  try {
+    if (filter === '' || filter === null) {
+      throw new Error("Bitte wähle ein Timesheet!")
+    }
+    if (bookingPlattform === '' || bookingPlattform === null) {
+      throw new Error("Bitte wähle eine Buchungsplattform!")
+    } 
+    if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null){
+      throw new Error("Bitte erstelle mindestens ein Erkennungs-Item !")
+    }
     processData(filter, clipboarsString, bookingPlattform, dev_pttest)
+
+  } catch(error) {
+    notification(true, false, error)
+    return
   }
 }
 
@@ -310,15 +380,18 @@ async function processData(filter, clipboarsString, bookingPlattform, dev_pttest
   let timesheetData = []
   // get all boocking relevant data as array
   try {
-    timesheetData = await timesheetFilter(filter, clipboarsString) // Angenommen, getBookingData ist eine asynchrone Funktion, die ein Array zurückgibt
+    timesheetData = await timesheetFilter(filter, clipboarsString)
     console.log("Timesheet Data: ", timesheetData)
   } catch (error) {
     console.error("Unable to call bookingData: ", error);
     notification(true, false, 'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
+    return
   }
-
   let bookEntries = await bookingplattforms(bookingPlattform, timesheetData, lstorage_cDetectionItems, dev_pttest)
-  console.log(bookEntries)
+  if(bookEntries) {
+    // notification(true, true, bookEntries) --> Buchungsbestätigung erst rein machen ,wenn alle anderen Notifications stehen
+    console.log("✅ bookEntries process complete | "+bookEntries)
+  }
 }
 
 // Test protime function

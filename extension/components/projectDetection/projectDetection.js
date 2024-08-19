@@ -2,7 +2,6 @@ const button_addDetection = document.getElementById('button_add_projectDetection
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
 detectionItems = JSON.parse(detectionItems)
 const window_detection = document.getElementById('window_detection')
-// Some vars
 const detectionItemID_Prefix = "deci"
 
 window.addEventListener("load", (event) => {
