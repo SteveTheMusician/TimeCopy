@@ -12,6 +12,7 @@
 - feature: notification timeout
 - fix: catch error, wehen booking number is missing in ticket and project-detection
 - fix: booking-platform automatic as default on "empty" profile in localStorage
+- fix: proTime double click overlay
 - other: rewrite ifs to try and catch
 - other: timesheet-tobias - regExep varables optimization
 - other: demp profiles (downloads tcprofile)
