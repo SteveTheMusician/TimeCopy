@@ -292,10 +292,13 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
     return
   }
 
+  // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
+  let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
+
   protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
   protime_ticketNumber.focus()
   protime_ticketNumber.click()
-  protime_ticketNumber.value = ticketObject.item_ticketnumber
+  protime_ticketNumber.value = bookingItem_TicketNumber
   if (!dev_pttest) {
     protime_ticketNumber.dispatchEvent(keyEventEnter)
   }
