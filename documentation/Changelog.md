@@ -1,4 +1,4 @@
-# Releases
+# Changelog
 
 ## V 0.8.80
 - fix: text-label styling on small resolution
