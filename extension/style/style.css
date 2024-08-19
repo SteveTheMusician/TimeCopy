@@ -2,19 +2,26 @@
 
 @import url('fonts/Roboto.css');
 @import url('var/var.css');
+@import url('var/colors-default.css');
 
 ::-webkit-scrollbar {
     display: none;
 }
 
-body{
-    width: 400px;
+body {
+    width: -webkit-fill-available;
     background-color: var(--color-main);
     margin: 0;
     padding: 0;
+    height: 100%;
+    position: absolute;
 }
 
-h1{
+.overview {
+    width: 100%;
+}
+
+h1 {
     color: var(--color-font-headline);
     margin-block-start: 0;
     margin-block-end: 0;
@@ -23,12 +30,13 @@ h1{
     font-family: Roboto;
 }
 
-h2{
+h2 {
     color: var(--color-font-headlabel);
     font-size: 16px;
     margin-block-start: 0;
     margin-block-end: 0;
-    margin: 10px;user-select: none;
+    margin: 10px;
+    user-select: none;
     font-family: Roboto;
     font-weight: 700;
 }
@@ -39,7 +47,8 @@ p {
     font-weight: 400;
 }
 
-.fail-link, #fail-link {
+.fail-link,
+#fail-link {
     text-decoration: underline;
     cursor: pointer;
 }
@@ -52,6 +61,7 @@ button {
     font-family: Roboto;
     font-weight: 400;
     color: var(--color-icon-default);
+    border: 0px solid;
 }
 
 input {
@@ -69,7 +79,7 @@ input::placeholder {
 }
 
 
-button svg{
+button svg {
     width: 20px;
     height: 20px;
 }
@@ -138,21 +148,21 @@ button svg{
     transition: 0.3s;
 }
 
-.radio-custom-container:hover input ~ .checkmark {
+.radio-custom-container:hover input~.checkmark {
     background-color: var(--color-highlight);
 }
 
-.radio-custom-container input:checked ~ .checkmark {
+.radio-custom-container input:checked~.checkmark {
     background-color: var(--color-active);
     /* background: linear-gradient(180deg, rgba(1,171,130,1) 0%, rgba(31,254,172,1) 42%, rgba(89,255,196,1) 47%, rgba(14,144,83,1) 83%, rgba(2,92,64,1) 100%); */
     box-shadow: 0 0 6px 2px var(--color-active);
 }
 
-.config-item:hover input ~ .checkmark{
+.config-item:hover input~.checkmark {
     background-color: var(--color-highlight);
 }
 
-.config-item:hover input:checked ~ .checkmark{
+.config-item:hover input:checked~.checkmark {
     background-color: var(--color-active);
 }
 
@@ -177,7 +187,7 @@ button svg{
     padding-left: 10px;
 }
 
-.header-headline{
+.header-headline {
     height: 40px;
     text-align: center;
     align-items: center;
@@ -192,39 +202,42 @@ button svg{
     position: absolute;
 }
 
-header{
+header {
     background-color: var(--color-main);
-    position:fixed;
+    position: fixed;
     width: calc(100% - 40px);
     padding: 0 20px;
     height: 60px;
     align-items: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 main {
-    padding: 60px 10px;
-    /* height: calc(100% - 80px); */
     display: flex;
     justify-content: center;
+}
+
+.main-window {
+    padding: 20px 30px;
+    padding-bottom: 0px;
+}
+
+.mainSection {
+    padding-bottom: 20px;
 }
 
 footer {
     width: 100%;
     height: 60px;
-    bottom:0;
+    bottom: 0;
     position: fixed;
     align-items: center;
     display: flex;
     background-color: var(--color-second);
 }
 
-.main-extended {
-    height: 400px;
-}
-
-.footer-container{
+.footer-container {
     padding: 10px;
     width: calc(100% - 20px);
     height: calc(100% - 20px);
@@ -234,7 +247,7 @@ footer {
 
 }
 
-.board{
+.board {
     width: 100%;
     overflow-y: scroll;
     max-height: 220px;
@@ -243,7 +256,7 @@ footer {
     justify-items: center;
 }
 
-.noboard-text{
+.noboard-text {
     width: 100%;
     height: 100%;
     display: flex;
@@ -254,25 +267,25 @@ footer {
     user-select: none;
 }
 
-#configButton{
+#configButton {
     display: flex;
 }
 
-#configButton svg{
+#configButton svg {
     width: 20px;
     height: 20px;
 }
 
-#fillButton{
+#fillButton {
     display: flex;
 }
 
-#fillButton svg{
+#fillButton svg {
     width: 20px;
     height: 20px;
 }
 
-.button-primary{
+.button-primary {
     /* height: 35px; */
     border-radius: var(--border-radius-default);
     border: 0px solid;
@@ -292,19 +305,19 @@ footer {
     transition: .3s;
 }
 
-.button-primary:hover svg{
+.button-primary:hover svg {
     fill: var(--color-highlight);
 }
 
-.button-primary:hover{
+.button-primary:hover {
     color: var(--color-highlight);
 }
 
-.button-reset:hover{
+.button-reset:hover {
     color: var(--color-close);
 }
 
-.button-reset:hover svg{
+.button-reset:hover svg {
     fill: var(--color-close);
 }
 
@@ -320,7 +333,7 @@ footer {
     transition: 0.3s;
 }
 
-.button-secondary:hover{
+.button-secondary:hover {
     color: #acafd6;
 }
 
@@ -333,11 +346,11 @@ footer {
     outline: 1px dashed var(--color-highlight);
 }
 
-.button--active svg{
+.button--active svg {
     fill: var(--color-active);
 }
 
-.button--active:hover svg{
+.button--active:hover svg {
     fill: var(--color-active);
 }
 
@@ -350,32 +363,57 @@ footer {
     pointer-events: none;
 }
 
+.button-mainAction {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border-radius: var(--border-radius-default);
+    background-color: var(--color-second);
+    font-size: 12px;
+    color: var(--color-icon-default);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.button-mainAction svg {
+    fill: var(--color-icon-default);
+    transition: .3s;
+}
+
+.button-mainAction:hover {
+    background: var(--color-third);
+}
+
+.button-mainAction:hover svg {
+    fill: var(--color-highlight);
+}
+
 .footer-active-label {
     font-size: 16px;
     color: var(--color-font-subtext);
-    padding-left:10px;
+    padding-left: 10px;
     user-select: none;
 }
 
-.board-item{
+.board-item {
     width: 90%;
     height: 100px;
     border-radius: var(--border-radius-default);
     background-color: #255b6a;
     overflow: hidden;
     display: flex;
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
 
-.board-item-container{
+.board-item-container {
     width: -webkit-fill-available;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     padding-left: 10px;
 }
 
-.board-item-logo-container{
+.board-item-logo-container {
     padding: 10px;
     background-color: #000000;
     width: 80px;
@@ -401,7 +439,7 @@ footer {
     align-items: center;
 }
 
-.input-text{
+.input-text {
     border: 1px solid transparent;
     background-color: transparent;
     font-size: 12px;
@@ -411,7 +449,7 @@ footer {
 }
 
 .input-text:hover {
- border: 1px dashed #689ead;
+    border: 1px dashed #689ead;
 }
 
 .input-ordernumber {
@@ -422,7 +460,7 @@ footer {
     width: 180px;
 }
 
-textarea{
+textarea {
     border: 1px solid transparent;
     background-color: transparent;
     font-size: 12px;
@@ -433,11 +471,11 @@ textarea{
     width: 100%;
 }
 
-textarea:hover{
+textarea:hover {
     border: 1px dashed #689ead;
 }
 
-.number-hours{
+.number-hours {
     text-align: center;
     width: 20px;
 }
@@ -461,10 +499,13 @@ textarea:hover{
 
 .configurations {
     width: -webkit-fill-available;
+    padding-right: 36px;
+    padding-top: 60px;
 }
 
 .configuration-container {
     width: -webkit-fill-available;
+    min-width: 264px;
     margin-bottom: 10px;
     border-radius: var(--border-radius-default);
     background-color: var(--color-second);
@@ -489,22 +530,17 @@ textarea:hover{
     color: var(--color-highlight);
 }
 
-.button-tab--active svg{
+.button-tab--active svg {
     fill: var(--color-active);
 }
 
-.button-tab--active:hover svg{
+.button-tab--active:hover svg {
     fill: var(--color-active);
-}
-
-.configuration-window {
-/* sime style */
-height: 390px;
 }
 
 .configuration-window-content {
     padding: 10px;
-    max-height: 300px;
+    max-height: calc(100vh - 224px);
     overflow-y: scroll;
     flex-direction: column;
 }
@@ -518,10 +554,10 @@ height: 390px;
     cursor: not-allowed;
     pointer-events: none;
     filter: blur(2px);
-    opacity:0.5;
+    opacity: 0.5;
 }
 
-.config-item[disabled]:hover input ~ .checkmark{
+.config-item[disabled]:hover input~.checkmark {
     background-color: var(--color-icon-default);
 }
 
@@ -549,9 +585,17 @@ height: 390px;
 }
 
 @keyframes item--new-animation {
-    0%{ outline: 2px solid var(--color-none)}
-    30%{ outline: 2px solid var(--color-highlight)}
-    100%{ outline: 2px solid var(--color-none)}
+    0% {
+        outline: 2px solid var(--color-none)
+    }
+
+    30% {
+        outline: 2px solid var(--color-highlight)
+    }
+
+    100% {
+        outline: 2px solid var(--color-none)
+    }
 }
 
 label.config-item {
@@ -588,20 +632,23 @@ input[type=text] {
     border-radius: var(--border-radius-default);
 }
 
-input[type=text]:focus{
+input[type=text]:focus {
     outline: 1px solid var(--color-icon-default);
 }
 
 .input-size--small {
-    width: 80px;
+    /* width: 80px; */
+    width: calc(35% - 20px);
 }
 
 .input-size--default {
-    width: 120px;
+    /* width: 120px; */
+    width: calc(65% - 20px);
 }
 
 .input-size--large {
-    width: 215px;
+    /* width: 215px; */
+    width: calc(100% - 25px);
 }
 
 .text-projectNomber {
@@ -617,7 +664,8 @@ input[type=text]:focus{
 .config-item-logo-container {
     padding: 10px;
     margin-left: 10px;
-    border-radius: var(--border-radius-default);
+    border-radius: var(--border-radius-round);
+    overflow: hidden;
 }
 
 .config-item-logo-container--amag {
@@ -630,6 +678,17 @@ input[type=text]:focus{
 
 .config-item-logo-container--automatic {
     background-color: #5ecab7;
+}
+
+.config-item-icon-container {
+    margin-left: 10px;
+    border-radius: var(--border-radius-round);
+    overflow: hidden;
+}
+
+.config-item-icon-container img {
+    width: 50px;
+    height: 50px;
 }
 
 .config-item--remove {
@@ -672,29 +731,29 @@ select {
     width: 40px;
     height: 24px;
 }
-  
-.switch input { 
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-input:checked + .switch_slider {    
+input:checked+.switch_slider {
     background-color: var(--color-active);
 }
 
-input:focus + .switch_slider {
+input:focus+.switch_slider {
     box-shadow: 0 0 1px var(--color-active);
 }
 
-input:checked + .switch_slider:before {
+input:checked+.switch_slider:before {
     -webkit-transform: translateX(16px);
     -ms-transform: translateX(16px);
     transform: translateX(16px);
 }
 
 /* Rounded sliders */
-.switch_slider{
+.switch_slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -723,13 +782,15 @@ input:checked + .switch_slider:before {
 .notification {
     width: -webkit-fill-available;
     padding: 10px;
+    margin: 20px;
+    max-height: 60px;
     position: fixed;
     background-color: var(--color-close);
-    bottom: 60px;
+    bottom: 0px;
     opacity: 1;
     border-radius: var(--border-radius-default);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    /* border-bottom-left-radius: 0; */
+    /* border-bottom-right-radius: 0; */
     justify-content: space-between;
     transition: var(--transition-mid);
 }
@@ -740,7 +801,7 @@ input:checked + .switch_slider:before {
     padding: 0px 10px;
 }
 
-.notification .button-primary svg{
+.notification .button-primary svg {
     fill: var(--color-close);
     filter: brightness(0.5);
     width: 12px;
@@ -751,12 +812,28 @@ input:checked + .switch_slider:before {
     background-color: var(--color-highlight);
 }
 
-.notification--ok .text-notification, .notification--ok .button-primary svg{
+.notification--ok .text-notification,
+.notification--ok .button-primary svg {
     color: var(--color-highlight);
     fill: var(--color-highlight);
 }
 
 .notification--hidden {
-    bottom: 0;
+    bottom: -60px;
     opacity: 0;
+}
+
+/* responsive */
+@media only screen and (max-width: 400px){
+    .overview .text-label {
+        padding-left: 10px;
+    }
+    
+    .text-label {
+        padding-left: 0px;
+    }
+
+    .config-item-main {
+        padding-left: 10px;
+    }
 }

@@ -2,14 +2,24 @@
   "manifest_version": 3,
   "name": "Time Copy",
   "description": "Copy Timesheet Values",
-  "version": "0.8.70",
+  "version": "0.8.92",
   "permissions": [
-    "clipboardRead","storage", "declarativeContent", "activeTab", "scripting"
+    "clipboardRead",
+    "storage",
+    "declarativeContent",
+    "activeTab",
+    "scripting",
+    "sidePanel"
   ],
-  "content_security_policy": {
-        "script-src": "self",
-        "object-src": "self"
-    },
+  "host_permissions": ["<all_urls>"],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+B",
+        "mac": "Command+B"
+      }
+    }
+  },
   "icons": {
     "16": "icon/icon16.png",
     "32": "icon/icon32.png",
@@ -18,8 +28,10 @@
   },
   "action": {
       "default_title": "Time Copy",
-      "default_popup": "index.html",
       "default_icon": "icon/icon1200.png"
+  },
+  "side_panel": {
+    "default_path": "index.html"
   },
   "background": {
     "service_worker": "background.js"

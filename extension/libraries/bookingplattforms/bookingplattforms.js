@@ -7,7 +7,6 @@ export async function bookingplattforms(bookingPlattformSelectValue,bookingData,
     let bookingFunctionName = bookingPlattformSelectValue.split("_").pop()
     let functionNameAutomatic = 'automatic'
     let bookingFunctions = {
-        // automatic: function (bookingData){return automatic(bookingData)},
         amagProTime: async function (bookingData,detectionItems,dev_pttest){return await amagProTime(bookingData,detectionItems,dev_pttest)},
         dzbankProRes: async function (bookingData,detectionItems,dev_pttest){return await dzbankProRes(bookingData,detectionItems,dev_pttest)}
     };
