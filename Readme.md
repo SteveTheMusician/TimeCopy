@@ -13,7 +13,7 @@ Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere bestimmte Plattfo
 > **Time Copy öffnen/schließen**: [Windows] Strg+b [MacOS] Cmd+b
 
 
-> [!TIP] Du kannst die Shortcuts in den Chrome-Einstellungen ändern
+> [!TIPP] Du kannst die Shortcuts in den Chrome-Einstellungen ändern
 > chrome://extensions/shortcuts
 
 ## Plugin aus Git in Chrome importieren
