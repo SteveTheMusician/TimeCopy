@@ -12,6 +12,7 @@ Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere bestimmte Plattfo
 > [!NOTE]
 > **Time Copy öffnen/schließen**: [Windows] Strg+b [MacOS] Cmd+b
 
+
 > [!TIP] Du kannst die Shortcuts in den Chrome-Einstellungen ändern
 > chrome://extensions/shortcuts
 
@@ -20,14 +21,10 @@ Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere bestimmte Plattfo
 - Das Projekt in den "test_version"-Branch auschecken (Stand 16.08.2024)
 - In Chrome oder Brave-Browser in die Erweiterungs-Einstellungen (chrome://extensions/) gehen und dort
   oben "Entwicklermodus" einschalten.
-  ![chrome extension turn on dev](./documentation/images/chromeextension_devMode.png)
 - Auf "Entpackte Erweiterung laden" klicken, in den geklonten Ordner navigieren und anschließend
-![alt text](./documentation/images/chromeextension_loadplugin.png)
   in den "extension" Ordner gehen und diesen auswählen.
-  ![alt text](./documentation/images/chromeextension_selPlugIn.png)
 - PlugIn erschein - ggf einschalten
 - Oben rechts im Browser auf das PlugIn Icon klicken und PlugIn über das Pin-Icon anpinnen
-![alt text](./documentation/images/chromeextension_pinPlugIn.png)
 - Nun ist es per one-klick errreichbar.
 - Über das Shortcut "Strg+b" oder "cmd+b" kann es geöffnet bzw geschlossen werden
 
