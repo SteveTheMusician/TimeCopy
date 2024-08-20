@@ -5,6 +5,14 @@ start: 04.07.2023
 
 ## Inhalt
 
+## Allgemein
+Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere bestimmte Plattformen zu übertragen.
+
+> [!TIP]
+> **Shortcuts**
+> Time Copy öffnen/schließen: [Windows] Strg+b [MacOS] Cmd+b
+
+
 ## Plugin aus Git in Chrome importieren
 - Git Projekt clonen
 - Das Projekt in den "test_version"-Branch auschecken (Stand 16.08.2024)
@@ -21,3 +29,14 @@ start: 04.07.2023
 - In den Erweiterungs-Einstellungen das plugin aufsuchen und über den kleinen Switch ausschalten.
 - Wenn du es komplett entfernen willst, dann auf den großen Button "Entfernen" in der 
   angezeigten Kachel klicken
+
+## Time Copy Berechtigungen
+- <b>clipboardRead</b> : Daten die du am Rechner über die Kopieren-Funktion kopiert hast,  
+                  kann das Plugin beim klicken auf Einfügen oder Test-Funktion lesen
+- <b>storage</b> : Um deine Einstellungen zu speichern/exportieren, 
+            wird der Zugriff auf dein Browser-Storage benötigt (localStorage und SessionStorage)
+- <b>declarativeContent</b> : Erlaubt Time Copy das lesen deiner Web-URL, 
+                       damit diese z.B. automatisch erkennen kann, ob du dich auf der richtigen Buchungsseite befindest (Plattform: automatisch) 
+- <b>activeTab</b> : Erlaubt dem Plugin deinen Aktiven Tab zu leses, um z.B. die Zeiten auf einer Webseite einzutragen.
+- <b>scripting</b> : Erlaubt das Ausführen von Scripts auf Webseiten, die du in deinem aktuellen Tab offen hast.
+- <b>sidePane</b> : Dadurch kann das PlugIn als Side-Window angezeigt werden.

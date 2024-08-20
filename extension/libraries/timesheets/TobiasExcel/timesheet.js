@@ -1,5 +1,3 @@
-import {replaceAllTokensBetween} from '../../../utils/replaceAllTokensBetween.js'
-
 export function timesheet_TobiasExcel(clipboarsString) {
 
   let fullDateString = ""
