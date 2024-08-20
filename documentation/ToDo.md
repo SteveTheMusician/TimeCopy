@@ -2,7 +2,7 @@
 ## Fixes / Reports
 
  - Steve Excel einfügen
- - fix tobias style small screen
+ - doku pdf
 
  ## Features
 

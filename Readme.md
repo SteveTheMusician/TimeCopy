@@ -3,18 +3,25 @@
 By Steve P.
 start: 04.07.2023
 
-## Inhalt
-
 ## Allgemein
 Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere bestimmte Plattformen zu übertragen.
+
+## Kurzeinweisung
+- Öffne die Extension und gehe in die Einstellungen.
+- 👁️ **Erkennungs-Items** : Ertselle hier neue Erkennungsmerkmale.
+Diese dienen dazu, deine Daten richtig zu zu ordnen und anschließend Buchen zu können.
+Wähle unte
+- ▽ **Timesheet Filter** : Wähle aus, welche Excel-Tabelle / Input-Daten du selbst verwendest.
+- 📆 **Buchungsplattform** : Sagt dem PlugIn, auf welche Seite/Programm diene Daten eingefügt werden. Hier finden die essenziellen Buchungs-Funktionen statt.
+
+> [!TIP] Um Änderungen zu übernehmen, klicke nach einem Change einfach auf den Zurück-Button oben Links oder Re-Open das PlugIn
 
 ## Shortcuts
 > [!NOTE]
 > **Time Copy öffnen/schließen**: [Windows] Strg+b [MacOS] Cmd+b
 
-
-> [!TIPP] Du kannst die Shortcuts in den Chrome-Einstellungen ändern
-> chrome://extensions/shortcuts
+Du kannst die Shortcuts in den Chrome-Einstellungen ändern.
+chrome://extensions/shortcuts
 
 ## Plugin aus Git in Chrome importieren
 - Git Projekt clonen
@@ -43,3 +50,11 @@ Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere bestimmte Plattfo
 - <b>activeTab</b> : Erlaubt dem Plugin deinen Aktiven Tab zu leses, um z.B. die Zeiten auf einer Webseite einzutragen.
 - <b>scripting</b> : Erlaubt das Ausführen von Scripts auf Webseiten, die du in deinem aktuellen Tab offen hast.
 - <b>sidePane</b> : Dadurch kann das PlugIn als Side-Window angezeigt werden.
+
+## Hilfe
+Für detailierte Hilfe findest du Hier:
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Help.pdf
+
+## Reporting
+Bei Anfragen oder Bug-Reports kannst du dich an folgende E-Mail wenden:
+steveemptysoul.official@gmail.com

@@ -1,35 +1,35 @@
 export function timesheet_SteveGoogleExcel(clipboarsString) {
 
-  
-
-  if(clipboarsString.includes('""')) {
-    // replace ALL "" with empty
-    clipboarsString = clipboarsString.replace(/""/g, "")
-  }
-  
-  let allTickets
-//   clipboarsString.split('"')[1]?? clipboarsString.split('	');
-  // the regExp to get all needed Informations
-  const regExp_fullDateString = /(Mo\.|Di\.|Mi\.|Do\.|Fr\.|Sa\.|So\.)\s*\d{2}\.\d{2}\.\d{4}/
-  const regExp_Ticket = /([^\n]+)/g
-  const regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
-  const regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
-  const regExp_ticketTime = /.*[\s]*?:[\s]*?(\d{1,2}[\.\,]?[\d]{0,2})/
-  const regExp_ticketNumber = /^[^\s#°]+/
-  const regExp_ticketMasterNumber = /(?<=°)[^\s#°]+/
-  const regExp_ticketCutomBookingNumber = /(?<=#)[^\s#°]+/
-  let fullDateString = ""
-  let matches = []
-  let match
-  let bookingData = []
-
-
-  if(clipboarsString.test(regExp_fullDateString)) {
-    fullDateString = clipboarsString.match(regExp_fullDateString)[0].trim()
-    allTickets = clipboarsString.replace(regExp_fullDateString, '').trim()
-    console.log(fullDateString)
-  }
-  
+    
+    // if(clipboarsString.includes('""')) {
+        // replace ALL "" with empty
+        // clipboarsString = clipboarsString.replace(/""/g, "")
+    // }
+    
+    let allTickets
+    //   clipboarsString.split('"')[1]?? clipboarsString.split('	');
+    // the regExp to get all needed Informations
+    const regExp_fullDateString = /(Mo\.|Di\.|Mi\.|Do\.|Fr\.|Sa\.|So\.)\s*\d{2}\.\d{2}\.\d{4}/
+    const regExp_Ticket = /([^\n]+)/g
+    const regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
+    const regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
+    const regExp_ticketTime = /.*[\s]*?:[\s]*?(\d{1,2}[\.\,]?[\d]{0,2})/
+    const regExp_ticketNumber = /^[^\s#°]+/
+    const regExp_ticketMasterNumber = /(?<=°)[^\s#°]+/
+    const regExp_ticketCutomBookingNumber = /(?<=#)[^\s#°]+/
+    let fullDateString = ""
+    let matches = []
+    let match
+    let bookingData = []
+    alert(clipboarsString)
+    // if clipboard contains datestring
+    if(clipboarsString.match(regExp_fullDateString)) {
+        fullDateString = clipboarsString.match(regExp_fullDateString)[0].trim()
+        allTickets = clipboarsString.replace(regExp_fullDateString, '').trim()
+        alert(fullDateString)
+        alert(allTickets)
+    }
+    
   // push into matches
   while ((match = regExp_Ticket.exec(allTickets)) !== null) {
     matches.push(match[1]);
@@ -68,5 +68,5 @@ export function timesheet_SteveGoogleExcel(clipboarsString) {
     }
     bookingData.push(itemObject)
   })
-  return bookingData
+//   return bookingData
 }
