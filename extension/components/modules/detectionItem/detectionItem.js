@@ -15,7 +15,7 @@ export function detectionItem(detectionItems) {
          <input type="text" class="input-size--default `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_ticketPrefix" id="input_ticketPrefix` + detectionItem.id + `" placeholder="Ticket Prefix" value="` + detectionItem.ticketprefix + `" />
        </div>
        <div>
-         <input type="text" class="input-size--large `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_additionalPrefix" id="input_additionalPrefix` + detectionItem.id + `" placeholder="Zusatz-Prefix (Optional)" value="` + detectionItem.addprefix + `"/>
+         <input type="text" class="input-size--large `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_additionalPrefix" id="input_additionalPrefix` + detectionItem.id + `" placeholder="String Match (Optional)" value="` + detectionItem.addprefix + `"/>
        </div>
        <div class="config-item-title-row flex `+ (detectionItem.bookingsheet === "select_bookingPlattform_amagProTime" ? null : "dNone") + `">
          <p class="subtext subtext-top">Buchung</p>

@@ -50,7 +50,7 @@ export function timesheet_SteveGoogleExcel(clipboarsString) {
     let item_ticketNumber =''
     let item_ticketMasterNomber =''
     let item_ticketCustomBookingNumber =''
-    let item_additionalTag = ''
+    let item_hiddenTag = ''
     let item_ticketNumberAll = ticket.match(regExp_ticketNumber)[0].trim();
 
     if(item_ticketNumberAll.match(regExp_ticketMasterNumber)){
@@ -67,7 +67,7 @@ export function timesheet_SteveGoogleExcel(clipboarsString) {
         item_bookingNumber = item_ticketCustomBookingNumber;
         ticket = ticket.replace(regExp_ticketCustomBookingNumberAll, '')
       }else {
-        item_additionalTag = ticket.match(regExp_ticketAddInformation)
+        item_hiddenTag = ticket.match(regExp_ticketAddInformation)[1].trim()
         ticket = ticket.replace(regExp_ticketAddInformation, '')
       }
     }
@@ -86,7 +86,7 @@ export function timesheet_SteveGoogleExcel(clipboarsString) {
       "item_ticketmasternumber": item_ticketMasterNomber,
       "item_ticketnumber":item_ticketNumber, 
       "item_ticketdisc":item_ticketDisc,
-      "item_hiddentag": item_additionalTag,
+      "item_hiddentag": item_hiddenTag,
       "item_tickettime":item_ticketTime,
       "item_date":item_date
     }

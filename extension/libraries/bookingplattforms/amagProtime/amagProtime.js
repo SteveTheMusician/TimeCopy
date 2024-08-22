@@ -106,7 +106,8 @@ function filterPrefix(ticket, detectionItemsProTime) {
 function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
   let filterAddPrefix_addPrefixMatches = []
   detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixMatch) => {
-    if (detectionItemPrefixMatch.addprefix.length > 0 && ticket.item_ticketdisc.includes(detectionItemPrefixMatch.addprefix) || detectionItemPrefixMatch.addprefix.length === 0) {
+    let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " "+ticket.item_hiddentag
+    if (detectionItemPrefixMatch.addprefix.length > 0 && item_ticketdiscWithHiddenTag.includes(detectionItemPrefixMatch.addprefix) || detectionItemPrefixMatch.addprefix.length === 0) {
       filterAddPrefix_addPrefixMatches.push(detectionItemPrefixMatch)
     }
   });
