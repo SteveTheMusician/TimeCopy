@@ -35,6 +35,7 @@ const configButton = document.querySelector('button#configButton');
 
 // Configuration Buttons
 const themeSelect = document.querySelector('select#select-themes');
+const languageSelect = document.querySelector('select#select-language');
 const button_clearConfigs = document.getElementById('button_clearConfigs')
 const radios_filter = document.getElementsByName('timesheet-filter');
 const button_openHelp = document.getElementById('button_openHelp')
@@ -44,6 +45,7 @@ const radio_bookingPlattforms = document.getElementsByName('booking-plattform')
 
 // local storages
 let lstorage_cThemes = localStorage.getItem('tc_c_theme')
+let lstorage_cLanguage = localStorage.getItem('tc_c_language')
 let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -52,7 +54,6 @@ let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
 // Some vars
 let configOpen = false
 let dev_pttest = false
-const eLang = getLang()
 // this variable activates tc reloading after pressing the back button when its set to true
 let configUserChanges = false
 
@@ -85,6 +86,7 @@ window.addEventListener("load", (event) => {
   button_openHelp.addEventListener('click', openHelp)
   button_openHelpTimesheetTobias.addEventListener('click', openHelp_timesheet_tobias)
   themeSelect.addEventListener('change', switchTheme);
+  languageSelect.addEventListener('change', switchLanguage);
   // filter radios listener
   for (var i = 0, iLen = radios_filter.length; i < iLen; i++) {
     radios_filter[i].addEventListener('click', switchFilter);
@@ -105,6 +107,7 @@ function loadSessionStorages() {
   let sMessageImported = sessionStorage.getItem('tc_c_messageImported')
   let sMessageProfileRemoved = sessionStorage.getItem('tc_c_messageProfileRemoved')
   let  sExportFile_afterChange = sessionStorage.getItem('tc_c_exportFile_afterChange')
+  let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
   if (sMessageImported === 'true') {
     notification(true, true, 'Profil wurde erfolgreich importiert!')
     sessionStorage.removeItem('tc_c_messageImported')
@@ -115,19 +118,24 @@ function loadSessionStorages() {
     sessionStorage.removeItem('tc_c_messageProfileRemoved')
     configButton.click()
   }
-
   if(sExportFile_afterChange === 'true') {
     sessionStorage.removeItem('tc_c_exportFile_afterChange')
     configButton.click()
     exportFile()
+  }
+  if (sChangeLanguage === 'true') {
+    sessionStorage.removeItem('tc_c_changeLanguage')
+    configButton.click()
   }
 }
 
 // Load localstorage
 function loadStorage() {
   // Default variables
-  let defaultTheme = "oceanswave"
-  let defaultProfileName = "Default"
+  const defaultProfileName = "Default"
+  const defaultTheme = "oceanswave"
+  const defaultLanguage = 'de'
+  let language = ''
   let defaultBookingPlattform = "bookingPlattform_automatic"
 
   if (lstorage_cThemes) {
@@ -137,6 +145,15 @@ function loadStorage() {
     themeSelect.value = defaultTheme
     link_cssTheme.setAttribute('href', 'style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
   }
+  if (lstorage_cLanguage) {
+    languageSelect.value = lstorage_cLanguage
+    language = lstorage_cLanguage
+  } else {
+    languageSelect.value = defaultLanguage
+    language = defaultLanguage
+  }
+  let eLang = getLang(language)
+  console.log(eLang.elang_test)
   if (lstorage_cFilter) {
     document.querySelector('input[value="' + lstorage_cFilter + '"]').checked = true
   }
@@ -157,6 +174,7 @@ function loadStorage() {
 // Clear local storage
 function clearLocalStorage() {
   localStorage.removeItem('tc_c_theme')
+  localStorage.removeItem('tc_c_language')
   localStorage.removeItem('tc_c_filter')
   localStorage.removeItem('tc_c_projectDetection')
   localStorage.removeItem('tc_c_profileName')
@@ -166,6 +184,7 @@ function clearLocalStorage() {
 function clearSessionStorage() {
   sessionStorage.removeItem('tc_c_messageImported')
   sessionStorage.removeItem('tc_c_messageProfileRemoved')
+  sessionStorage.removeItem('tc_c_changeLanguage')
 }
 
 function openConfigs() {
@@ -254,6 +273,15 @@ function switchTheme() {
   configUserChanges = true
 }
 
+function switchLanguage() {
+  let currentLanguageValue = languageSelect.value
+  localStorage.setItem('tc_c_language', currentLanguageValue)
+  configUserChanges = true
+  sessionStorage.setItem('tc_c_changeLanguage', true)
+  loadStorage()
+  window.location.reload()
+}
+
 function switchFilter(e) {
   localStorage.setItem('tc_c_filter', e.target.value)
   configUserChanges = true
@@ -283,6 +311,7 @@ function importFile(event) {
     if (validateFileVersion) {
       // set data
       localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
+      localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
       localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.timesheet_filter)
       localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detection_filter))
       localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
@@ -330,7 +359,7 @@ function exportFile() {
     }
     let saveObj = { "tcprofile": { "author": "steve", "version": tcprofileVersion, "extension_version": extensionVersion, "extension_build": extensionBuild, "profile_name": configProfileName.value } }
     // apply values
-    Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platform": lstorage_cBookingPlattform, "detection_filter": detectionItems } })
+    Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "language": lstorage_cLanguage, "timesheet_filter": lstorage_cFilter, "booking_platform": lstorage_cBookingPlattform, "detection_filter": detectionItems } })
     // file setting
     const data = JSON.stringify(saveObj);
     const name = configProfileName.value + fileNameFixed;

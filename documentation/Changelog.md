@@ -21,7 +21,8 @@
 ## V 0.9.00
 - feature: new theme "chrome black"
 - feature: dlc - steve google excel filter
-- feature: add hidden tag (currently nit used by proTime dlc )
+- feature: add hidden tag
+- feture: language
 - fix: error catch, when ticket has no discription
 - other: timesheet filter code refactor
 - other: components restructure
