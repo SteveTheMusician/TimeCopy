@@ -1,5 +1,5 @@
 
-import { detectionItem } from "../../../modules/detectionItem/detectionItem.js"
+import { detectionItem } from "../../../ui/detectionItem/detectionItem.js"
 
 const button_addDetection = document.getElementById('button_add_projectDetection')
 let detectionItems = localStorage.getItem('tc_c_projectDetection')

@@ -1,4 +1,4 @@
-import { notification } from "../../../components/modules/notification/notification.js";
+import { notification } from "../../../components/ui/notification/notification.js";
 
 let anyProjectNomber = "*"
 let bookingLoopCount = 0

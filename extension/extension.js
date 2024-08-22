@@ -1,8 +1,9 @@
 import data_version from "./version.json" with { type: "json" };
-import { timesheetFilter } from "./libraries/timesheets/timesheets.js";
-import { notification } from "./components/modules/notification/notification.js";
-import { bookingplattforms } from "./libraries/bookingplattforms/bookingplattforms.js";
+import { filters } from "./dlc/filters/filters.dlc.js";
+import { notification } from "./components/ui/notification/notification.js";
+import { plattforms } from "./dlc/plattforms/plattforms.dlc.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
+import { getLang } from "./core/ELanguage/ELanguage.js";
 
 const link_cssTheme = document.querySelector('link#link-theme');
 const main = document.querySelector('main');
@@ -51,6 +52,7 @@ let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
 // Some vars
 let configOpen = false
 let dev_pttest = false
+const eLang = getLang()
 // this variable activates tc reloading after pressing the back button when its set to true
 let configUserChanges = false
 
@@ -382,14 +384,14 @@ async function processData(filter, clipboarsString, bookingPlattform, dev_pttest
   let timesheetData = []
   // get all boocking relevant data as array
   try {
-    timesheetData = await timesheetFilter(filter, clipboarsString)
+    timesheetData = await filters(filter, clipboarsString)
     console.log("Timesheet Data: ", timesheetData)
   } catch (error) {
     console.error("Unable to call bookingData: ", error);
     notification(true, false, 'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
     return
   }
-  let bookEntries = await bookingplattforms(bookingPlattform, timesheetData, lstorage_cDetectionItems, dev_pttest)
+  let bookEntries = await plattforms(bookingPlattform, timesheetData, lstorage_cDetectionItems, dev_pttest)
   if(bookEntries) {
     // notification(true, true, bookEntries) --> Buchungsbestätigung erst rein machen ,wenn alle anderen Notifications stehen
     console.log("✅ bookEntries process complete | "+bookEntries)

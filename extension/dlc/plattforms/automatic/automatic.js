@@ -1,5 +1,5 @@
 // automatic functions
-import { notification } from "../../../components/modules/notification/notification.js";
+import { notification } from "../../../components/ui/notification/notification.js";
 
 export async function automatic(){
 

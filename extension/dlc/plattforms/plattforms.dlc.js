@@ -1,8 +1,8 @@
 import { automatic } from "./automatic/automatic.js";
-import { amagProTime } from "./amagProTime/amagProTime.js";
-import { dzbankProRes } from "./dzBankProRes/dzBankProres.js";
+import { amagProTime } from "./AmagProtime/AmagProtime.js";
+import { dzbankProRes } from "./DZBankProRes/DZBankProres.js";
 
-export async function bookingplattforms(bookingPlattformSelectValue,bookingData,detectionItems,dev_pttest) {
+export async function plattforms(bookingPlattformSelectValue,bookingData,detectionItems,dev_pttest) {
 
     let bookingFunctionName = bookingPlattformSelectValue.split("_").pop()
     let functionNameAutomatic = 'automatic'
