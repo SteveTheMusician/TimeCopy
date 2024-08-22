@@ -1,72 +1,96 @@
 export function timesheet_SteveGoogleExcel(clipboarsString) {
 
-    
-    // if(clipboarsString.includes('""')) {
-        // replace ALL "" with empty
-        // clipboarsString = clipboarsString.replace(/""/g, "")
-    // }
-    
-    let allTickets
-    //   clipboarsString.split('"')[1]?? clipboarsString.split('	');
-    // the regExp to get all needed Informations
-    const regExp_fullDateString = /(Mo\.|Di\.|Mi\.|Do\.|Fr\.|Sa\.|So\.)\s*\d{2}\.\d{2}\.\d{4}/
-    const regExp_Ticket = /([^\n]+)/g
-    const regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
-    const regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
-    const regExp_ticketTime = /.*[\s]*?:[\s]*?(\d{1,2}[\.\,]?[\d]{0,2})/
-    const regExp_ticketNumber = /^[^\s#°]+/
-    const regExp_ticketMasterNumber = /(?<=°)[^\s#°]+/
-    const regExp_ticketCutomBookingNumber = /(?<=#)[^\s#°]+/
-    let fullDateString = ""
-    let matches = []
-    let match
-    let bookingData = []
-    alert(clipboarsString)
-    // if clipboard contains datestring
-    if(clipboarsString.match(regExp_fullDateString)) {
-        fullDateString = clipboarsString.match(regExp_fullDateString)[0].trim()
-        allTickets = clipboarsString.replace(regExp_fullDateString, '').trim()
-        alert(fullDateString)
-        alert(allTickets)
-    }
-    
+  let allTickets
+  // the regExp to get all needed Informations
+  const regExp_fullDateString = /(Mo\.|Di\.|Mi\.|Do\.|Fr\.|Sa\.|So\.)\s*\d{2}\.\d{2}\.\d{4}/
+  const regExp_statusLetters = /^[a-zA-Z\s]{1,3}\s+/g
+  const regExp_workBeginTime = /^\d{1,2}[:.]\d{2}\s*/g
+  // const regExp_Ticket = /(\w.*[\s]{1}\d{1,2}[,\.]{0,1}?\d{0,2}?)\s/g
+  const regExp_Ticket = /(\w.*[\s]{1}\d{1,2}[,\.]?\d{0,2})(?=\s|$)/g
+  const regExp_ticketNumber = /(?:^|\n)\s*([A-Z0-9]+(?:-[A-Z0-9]+)?(?:>[A-Z0-9]+)?)/i
+  const regExp_ticketMasterNumber = />(.+)/
+  const regExp_ticketAddInformation = /\[([^\]]+)\](?=[^\[]*$)/
+  const regExp_ticketCustomBookingNumberAll = /\[#([^\]]+)\](?=[^\[]*$)/
+  const regExp_ticketCustomBookingNumber = /(?<=\#).*?(?=\])/
+  const regExp_ticketTime = /\d+[.,]?\d*$/
+  // const regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
+  // const regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
+  let fullDateString =''
+  let workingBeginTime =''
+  let matches = []
+  let match
+  let bookingData = []
+  // if clipboard contains datestring
+  if(clipboarsString.match(regExp_fullDateString)) {
+    fullDateString = clipboarsString.match(regExp_fullDateString)[0].trim()
+    allTickets = clipboarsString.replace(regExp_fullDateString, '').trim()
+  }else {
+    allTickets = clipboarsString.trim()
+  }
+  allTickets = allTickets.replaceAll("\t", " ")
+  // remove status letters
+  if(allTickets.match(regExp_statusLetters)){
+    allTickets = allTickets.replace(regExp_statusLetters,'').trim()
+  }
+  // if working time is in string
+  if(allTickets.match(regExp_workBeginTime)){
+    workingBeginTime = allTickets.match(regExp_workBeginTime)[0].trim()
+    allTickets = allTickets.replace(regExp_workBeginTime, '').trim()
+  }
   // push into matches
   while ((match = regExp_Ticket.exec(allTickets)) !== null) {
     matches.push(match[1]);
   }
-  
   matches.forEach(function(ticket, i) {
 
-    let item_bookingNumber = ''
-    let item_ticketNumberAll = ticket.match(regExp_squareBrakets)[0];
-    item_ticketNumberAll = item_ticketNumberAll.trim()
-    let item_ticketNumber = item_ticketNumberAll.match(regExp_ticketNumber)[0];
-    let item_ticketCustomBookingNumber = item_ticketNumberAll.match(regExp_ticketCutomBookingNumber) ? 
-                                          item_ticketNumberAll.match(regExp_ticketCutomBookingNumber)[0] 
-                                            : '';
-    let item_ticketMasterNomber = item_ticketNumberAll.match(regExp_ticketMasterNumber) ? 
-                                    item_ticketNumberAll.match(regExp_ticketMasterNumber)[0] 
-                                      : ''
-    let item_ticketDisc = ticket.match(regExp_ticketDiscription)[0];
-    item_ticketDisc = item_ticketDisc.trim()
-    let item_ticketTime = ticket.match(regExp_ticketTime)[1];
-    item_ticketTime = item_ticketTime.trim()
-    item_ticketTime = item_ticketTime.replaceAll(",",".")
-    let item_date = fullDateString.trim()
-   
-    if(item_ticketCustomBookingNumber) {
-      item_bookingNumber = item_ticketCustomBookingNumber;
-    }
+    ticket = ticket.replaceAll("\t", " ")
 
+    let item_date = ''
+    let item_bookingNumber =''
+    let item_ticketNumber =''
+    let item_ticketMasterNomber =''
+    let item_ticketCustomBookingNumber =''
+    let item_additionalTag = ''
+    let item_ticketNumberAll = ticket.match(regExp_ticketNumber)[0].trim();
+
+    if(item_ticketNumberAll.match(regExp_ticketMasterNumber)){
+      item_ticketNumber = item_ticketNumberAll.replace(regExp_ticketMasterNumber, '').trim()
+      item_ticketMasterNomber = item_ticketNumberAll.replace(item_ticketNumber+">",'').trim()
+    }else {
+      item_ticketNumber = item_ticketNumberAll.trim()
+    }
+    //custom bookingnumber
+    if(ticket.match(regExp_ticketAddInformation)) {
+      if(ticket.match(regExp_ticketCustomBookingNumberAll)) {
+        item_ticketCustomBookingNumber = ticket.match(regExp_ticketCustomBookingNumberAll)[0].trim()
+        item_ticketCustomBookingNumber = item_ticketCustomBookingNumber.match(regExp_ticketCustomBookingNumber)[0].trim()
+        item_bookingNumber = item_ticketCustomBookingNumber;
+        ticket = ticket.replace(regExp_ticketCustomBookingNumberAll, '')
+      }else {
+        item_additionalTag = ticket.match(regExp_ticketAddInformation)
+        ticket = ticket.replace(regExp_ticketAddInformation, '')
+      }
+    }
+    //ticket time 
+    let item_ticketTime = ticket.match(regExp_ticketTime)[0]
+    item_ticketTime = item_ticketTime.replaceAll(",",".")
+    // ticket discription
+    let item_ticketDisc = ticket.replace(item_ticketNumberAll, '').trim()
+    item_ticketDisc = item_ticketDisc.replace(item_ticketCustomBookingNumber, '').trim()
+    item_ticketDisc = item_ticketDisc.replace(regExp_ticketTime, '').trim()
+    // item date from global
+    item_date = fullDateString.replace("\t","").trim()
+    // define object
     let itemObject = {
       "item_bookingnumber":item_bookingNumber,
       "item_ticketmasternumber": item_ticketMasterNomber,
       "item_ticketnumber":item_ticketNumber, 
       "item_ticketdisc":item_ticketDisc,
+      "item_hiddentag": item_additionalTag,
       "item_tickettime":item_ticketTime,
       "item_date":item_date
     }
     bookingData.push(itemObject)
   })
-//   return bookingData
+  return bookingData
 }

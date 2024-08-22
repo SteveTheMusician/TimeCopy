@@ -1,4 +1,4 @@
-import { notification } from "../../../components/notification/notification.js";
+import { notification } from "../../../components/modules/notification/notification.js";
 
 let anyProjectNomber = "*"
 let bookingLoopCount = 0
@@ -15,7 +15,10 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
       let ticketAddPrefixMatches = filterAddPrefix(ticket, ticketPrefixMatches);
       let ticketRefinePrefixesMatches = filterAllPrefixes(ticket, ticketAddPrefixMatches);
       let ticketRefineBookingNomber = filterBookingNomber(ticket, ticketRefinePrefixesMatches);
-      console.log(ticketRefineBookingNomber)
+
+      if(ticket.item_ticketdisc.length < 2){
+        throw new Error ('Ticket hat keine Discription! '+ticket.item_ticketnumber+' '+ticket.item_bookingnumber)
+      }
       if (ticketRefineBookingNomber.length > 1) {
         throw new Error("Ticket hat mehrfache Matches | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc);
       } else if (ticketRefineBookingNomber.length === 1) {
@@ -56,27 +59,34 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
       } else {
         ticketdisc = failedTicketItem.item_ticketdisc;
       }
-      logFailedTicketList.push(" -> ", ticketnumber, ": ", ticketdisc, " ");
+      logFailedTicketList.push(" >> ", ticketnumber, ": ", ticketdisc, " "+"<< ");
     });
     let logFailedTicketsString = JSON.stringify(logFailedTicketList);
     let failedTicketsLink = document.getElementById('fail-link');
     failedTicketsLink.addEventListener('click', () => alert('Ignorierte Tickets: ' + logFailedTicketsString.replace(/]|[[",]/g, '')));
   }
   console.log("valide ", valideTickets);
-  if (valideTickets.length) {
-    for (let i = 0; i < valideTickets.length; i++) {
-      let ticket = valideTickets[i]
-      try {
-        await chromeTabScript(ticket, dev_pttest, bookingLoopCount)
-        bookingLoopCount++
-        // async/await hier hinzufügen
-        console.log('--> valid tickets loop')
-      } catch (err) {
-        console.error("Error in chromeTabScript: ", err)
-        return Promise.reject(new Error(400)) // Hier wird der Fehler ausgelöst
+  try {
+    if (valideTickets.length) {
+      for (let i = 0; i < valideTickets.length; i++) {
+        let ticket = valideTickets[i]
+        try {
+          await chromeTabScript(ticket, dev_pttest, bookingLoopCount)
+          bookingLoopCount++
+          // async/await hier hinzufügen
+          console.log('--> valid tickets loop')
+        } catch (err) {
+          console.error("Error in chromeTabScript: ", err)
+          return Promise.reject(new Error(400)) // Hier wird der Fehler ausgelöst
+        }
       }
+    } else {
+      throw new Error("Es konnten keine Daten erfasst werden.")
     }
-  }
+  } catch(error){
+    notification(true, false, error)
+    return
+  } 
   bookingLoopCount = 0
   return "ProTime Buchung abgeschlossen";
 }

@@ -17,3 +17,11 @@
 - other: rewrite ifs to try and catch
 - other: timesheet-tobias - regExep varables optimization
 - other: demp profiles (downloads tcprofile)
+
+## V 0.9.00
+- feature: new theme "chrome black"
+- feature: dlc - steve google excel filter
+- feature: add hidden tag (currently nit used by proTime dlc )
+- fix: error catch, when ticket has no discription
+- other: timesheet filter code refactor
+- other: components restructure

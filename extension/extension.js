@@ -1,7 +1,8 @@
 import data_version from "./version.json" with { type: "json" };
 import { timesheetFilter } from "./libraries/timesheets/timesheets.js";
-import { notification } from "./components/notification/notification.js";
+import { notification } from "./components/modules/notification/notification.js";
 import { bookingplattforms } from "./libraries/bookingplattforms/bookingplattforms.js";
+import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
 
 const link_cssTheme = document.querySelector('link#link-theme');
 const main = document.querySelector('main');
@@ -62,6 +63,7 @@ let tcprofileVersion = data_version.profile_version
 
 // Extension load up
 window.addEventListener("load", (event) => {
+  projectDetection()
   // Display version
   label_version.insertAdjacentHTML('beforeend', extensionVersion);
   label_build_version.insertAdjacentHTML('beforeend', extensionBuild);
