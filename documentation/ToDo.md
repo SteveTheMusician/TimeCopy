@@ -7,7 +7,6 @@
  - design aufräumen
  - componenten sauberer
  - icons gleichmäßiger (# pinsel icon für Farbthemen)
- - offline font include
  - doku pdf
 
  ### Features
