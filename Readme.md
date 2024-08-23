@@ -9,9 +9,9 @@ Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere bestimmte Plattfo
 ## Kurzeinweisung
 - Öffne die Extension und gehe in die Einstellungen.
 - 👁️ **Erkennungs-Items** : Ertselle hier neue Erkennungsmerkmale.
+- ▽ **Timesheet Filter** : Wähle aus, welche Excel-Tabelle / Input-Daten du selbst verwendest.
 Diese dienen dazu, deine Daten richtig zu zu ordnen und anschließend Buchen zu können.
 Wähle unte
-- ▽ **Timesheet Filter** : Wähle aus, welche Excel-Tabelle / Input-Daten du selbst verwendest.
 - 📆 **Buchungsplattform** : Sagt dem PlugIn, auf welche Seite/Programm diene Daten eingefügt werden. Hier finden die essenziellen Buchungs-Funktionen statt.
 
 > [!TIP] Um Änderungen zu übernehmen, klicke nach einem Change einfach auf den Zurück-Button oben Links oder Re-Open das PlugIn
