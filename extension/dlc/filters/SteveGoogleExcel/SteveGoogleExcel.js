@@ -1,4 +1,4 @@
-export function timesheet_SteveGoogleExcel(clipboarsString) {
+export function filter_SteveGoogleExcel(clipboarsString) {
 
   let allTickets
   // the regExp to get all needed Informations

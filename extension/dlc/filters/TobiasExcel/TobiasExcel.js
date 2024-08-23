@@ -1,4 +1,4 @@
-export function timesheet_TobiasExcel(clipboarsString) {
+export function filter_TobiasExcel(clipboarsString) {
 
   let fullDateString = ''
   if(clipboarsString.includes('	')) {
