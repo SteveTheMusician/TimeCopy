@@ -13,6 +13,19 @@
 - fix: catch error, wehen booking number is missing in ticket and project-detection
 - fix: booking-platform automatic as default on "empty" profile in localStorage
 - fix: proTime double click overlay
+- fix: Filter-Icon and Text style on small screen
 - other: rewrite ifs to try and catch
 - other: timesheet-tobias - regExep varables optimization
 - other: demp profiles (downloads tcprofile)
+
+## V 0.9.00
+- feature: new theme "chrome black"
+- feature: dlc - steve google excel filter
+- feature: add hidden tag
+- feature: language
+- feature: theme dropdown groups
+- fix: error catch, when ticket has no discription
+- fix: better icons for configurations
+- other: timesheet filter code refactor
+- other: components restructure
+- other: theme renaming

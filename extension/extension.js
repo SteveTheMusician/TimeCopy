@@ -1,7 +1,9 @@
 import data_version from "./version.json" with { type: "json" };
-import { timesheetFilter } from "./libraries/timesheets/timesheets.js";
-import { notification } from "./components/notification/notification.js";
-import { bookingplattforms } from "./libraries/bookingplattforms/bookingplattforms.js";
+import { filters } from "./dlc/filters/filters.dlc.js";
+import { notification } from "./components/ui/notification/notification.js";
+import { plattforms } from "./dlc/plattforms/plattforms.dlc.js";
+import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
+import { getLang } from "./core/ELanguage/ELanguage.js";
 
 const link_cssTheme = document.querySelector('link#link-theme');
 const main = document.querySelector('main');
@@ -33,6 +35,7 @@ const configButton = document.querySelector('button#configButton');
 
 // Configuration Buttons
 const themeSelect = document.querySelector('select#select-themes');
+const languageSelect = document.querySelector('select#select-language');
 const button_clearConfigs = document.getElementById('button_clearConfigs')
 const radios_filter = document.getElementsByName('timesheet-filter');
 const button_openHelp = document.getElementById('button_openHelp')
@@ -42,6 +45,7 @@ const radio_bookingPlattforms = document.getElementsByName('booking-plattform')
 
 // local storages
 let lstorage_cThemes = localStorage.getItem('tc_c_theme')
+let lstorage_cLanguage = localStorage.getItem('tc_c_language')
 let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -62,6 +66,7 @@ let tcprofileVersion = data_version.profile_version
 
 // Extension load up
 window.addEventListener("load", (event) => {
+  projectDetection()
   // Display version
   label_version.insertAdjacentHTML('beforeend', extensionVersion);
   label_build_version.insertAdjacentHTML('beforeend', extensionBuild);
@@ -79,8 +84,8 @@ window.addEventListener("load", (event) => {
   // Configs Listener
   button_clearConfigs.addEventListener('click', removeProfile);
   button_openHelp.addEventListener('click', openHelp)
-  button_openHelpTimesheetTobias.addEventListener('click', openHelp_timesheet_tobias)
   themeSelect.addEventListener('change', switchTheme);
+  // languageSelect.addEventListener('change', switchLanguage);
   // filter radios listener
   for (var i = 0, iLen = radios_filter.length; i < iLen; i++) {
     radios_filter[i].addEventListener('click', switchFilter);
@@ -101,6 +106,7 @@ function loadSessionStorages() {
   let sMessageImported = sessionStorage.getItem('tc_c_messageImported')
   let sMessageProfileRemoved = sessionStorage.getItem('tc_c_messageProfileRemoved')
   let  sExportFile_afterChange = sessionStorage.getItem('tc_c_exportFile_afterChange')
+  let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
   if (sMessageImported === 'true') {
     notification(true, true, 'Profil wurde erfolgreich importiert!')
     sessionStorage.removeItem('tc_c_messageImported')
@@ -111,19 +117,24 @@ function loadSessionStorages() {
     sessionStorage.removeItem('tc_c_messageProfileRemoved')
     configButton.click()
   }
-
   if(sExportFile_afterChange === 'true') {
     sessionStorage.removeItem('tc_c_exportFile_afterChange')
     configButton.click()
     exportFile()
+  }
+  if (sChangeLanguage === 'true') {
+    sessionStorage.removeItem('tc_c_changeLanguage')
+    configButton.click()
   }
 }
 
 // Load localstorage
 function loadStorage() {
   // Default variables
-  let defaultTheme = "oceanswave"
-  let defaultProfileName = "Default"
+  const defaultProfileName = "Default"
+  const defaultTheme = "oceanswave"
+  const defaultLanguage = 'de'
+  let language = ''
   let defaultBookingPlattform = "bookingPlattform_automatic"
 
   if (lstorage_cThemes) {
@@ -133,6 +144,15 @@ function loadStorage() {
     themeSelect.value = defaultTheme
     link_cssTheme.setAttribute('href', 'style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
   }
+  // if (lstorage_cLanguage) {
+    // languageSelect.value = lstorage_cLanguage
+    // language = lstorage_cLanguage
+  // } else {
+    // languageSelect.value = defaultLanguage
+    // language = defaultLanguage
+  // }
+  let eLang = getLang(language)
+  console.log(eLang.elang_test)
   if (lstorage_cFilter) {
     document.querySelector('input[value="' + lstorage_cFilter + '"]').checked = true
   }
@@ -153,6 +173,7 @@ function loadStorage() {
 // Clear local storage
 function clearLocalStorage() {
   localStorage.removeItem('tc_c_theme')
+  localStorage.removeItem('tc_c_language')
   localStorage.removeItem('tc_c_filter')
   localStorage.removeItem('tc_c_projectDetection')
   localStorage.removeItem('tc_c_profileName')
@@ -162,6 +183,7 @@ function clearLocalStorage() {
 function clearSessionStorage() {
   sessionStorage.removeItem('tc_c_messageImported')
   sessionStorage.removeItem('tc_c_messageProfileRemoved')
+  sessionStorage.removeItem('tc_c_changeLanguage')
 }
 
 function openConfigs() {
@@ -250,6 +272,15 @@ function switchTheme() {
   configUserChanges = true
 }
 
+function switchLanguage() {
+  let currentLanguageValue = languageSelect.value
+  localStorage.setItem('tc_c_language', currentLanguageValue)
+  configUserChanges = true
+  sessionStorage.setItem('tc_c_changeLanguage', true)
+  loadStorage()
+  window.location.reload()
+}
+
 function switchFilter(e) {
   localStorage.setItem('tc_c_filter', e.target.value)
   configUserChanges = true
@@ -257,10 +288,6 @@ function switchFilter(e) {
 
 function openHelp() {
   window.open(helpUrl)
-}
-
-function openHelp_timesheet_tobias() {
-  window.open(helpUrl_timesheet_tobias)
 }
 
 // import time copy profile
@@ -279,10 +306,11 @@ function importFile(event) {
     if (validateFileVersion) {
       // set data
       localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
-      localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.timesheet_filter)
-      localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detection_filter))
+      localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
+      localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
+      localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
       localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-      localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.booking_platform)
+      localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.platform)
       loadStorage()
       sessionStorage.setItem('tc_c_messageImported', 'true')
       window.location.reload()
@@ -326,7 +354,7 @@ function exportFile() {
     }
     let saveObj = { "tcprofile": { "author": "steve", "version": tcprofileVersion, "extension_version": extensionVersion, "extension_build": extensionBuild, "profile_name": configProfileName.value } }
     // apply values
-    Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "timesheet_filter": lstorage_cFilter, "booking_platform": lstorage_cBookingPlattform, "detection_filter": detectionItems } })
+    Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "language": lstorage_cLanguage, "filter": lstorage_cFilter, "platform": lstorage_cBookingPlattform, "detections": detectionItems } })
     // file setting
     const data = JSON.stringify(saveObj);
     const name = configProfileName.value + fileNameFixed;
@@ -380,14 +408,14 @@ async function processData(filter, clipboarsString, bookingPlattform, dev_pttest
   let timesheetData = []
   // get all boocking relevant data as array
   try {
-    timesheetData = await timesheetFilter(filter, clipboarsString)
+    timesheetData = await filters(filter, clipboarsString)
     console.log("Timesheet Data: ", timesheetData)
   } catch (error) {
     console.error("Unable to call bookingData: ", error);
     notification(true, false, 'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
     return
   }
-  let bookEntries = await bookingplattforms(bookingPlattform, timesheetData, lstorage_cDetectionItems, dev_pttest)
+  let bookEntries = await plattforms(bookingPlattform, timesheetData, lstorage_cDetectionItems, dev_pttest)
   if(bookEntries) {
     // notification(true, true, bookEntries) --> Buchungsbestätigung erst rein machen ,wenn alle anderen Notifications stehen
     console.log("✅ bookEntries process complete | "+bookEntries)

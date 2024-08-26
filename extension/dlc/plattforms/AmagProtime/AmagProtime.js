@@ -1,4 +1,4 @@
-import { notification } from "../../../components/notification/notification.js";
+import { notification } from "../../../components/ui/notification/notification.js";
 
 let anyProjectNomber = "*"
 let bookingLoopCount = 0
@@ -15,7 +15,10 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
       let ticketAddPrefixMatches = filterAddPrefix(ticket, ticketPrefixMatches);
       let ticketRefinePrefixesMatches = filterAllPrefixes(ticket, ticketAddPrefixMatches);
       let ticketRefineBookingNomber = filterBookingNomber(ticket, ticketRefinePrefixesMatches);
-      console.log(ticketRefineBookingNomber)
+
+      if (ticket.item_ticketdisc.length < 2) {
+        throw new Error('Ticket hat keine Discription! ' + ticket.item_ticketnumber + ' ' + ticket.item_bookingnumber)
+      }
       if (ticketRefineBookingNomber.length > 1) {
         throw new Error("Ticket hat mehrfache Matches | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc);
       } else if (ticketRefineBookingNomber.length === 1) {
@@ -27,8 +30,8 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
         throw new Error("Ticket hat ungewöhnliche Zeitangabe! | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc)
       }
       console.log("Infos: ", ticketRefineBookingNomber)
-      if(ticket.item_bookingnumber.length < 1 && ticketRefineBookingNomber.length > 0 ){
-        if (ticketRefineBookingNomber[0].projectnomber.length < 1){
+      if (ticket.item_bookingnumber.length < 1 && ticketRefineBookingNomber.length > 0) {
+        if (ticketRefineBookingNomber[0].projectnomber.length < 1) {
           throw new Error("Buchungsnummer fehlt im Ticket/in der Erkennung | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc)
         }
       }
@@ -37,7 +40,7 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
   } catch (error) {
     notification(true, false, error);
     return
-  } 
+  }
 
   if (failedTickets.length) {
     notification(true, false, "⚠️ " + failedTickets.length + `<span id="fail-link">Ticket(s)</span> wurden nicht übernommen.`);
@@ -56,31 +59,36 @@ export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest
       } else {
         ticketdisc = failedTicketItem.item_ticketdisc;
       }
-      logFailedTicketList.push(" -> ", ticketnumber, ": ", ticketdisc, " ");
+      logFailedTicketList.push(" >> ", ticketnumber, ": ", ticketdisc, " " + "<< ");
     });
     let logFailedTicketsString = JSON.stringify(logFailedTicketList);
     let failedTicketsLink = document.getElementById('fail-link');
     failedTicketsLink.addEventListener('click', () => alert('Ignorierte Tickets: ' + logFailedTicketsString.replace(/]|[[",]/g, '')));
   }
   console.log("valide ", valideTickets);
-  if (valideTickets.length) {
-    for (let i = 0; i < valideTickets.length; i++) {
-      let ticket = valideTickets[i]
-      try {
-        await chromeTabScript(ticket, dev_pttest, bookingLoopCount)
-        bookingLoopCount++
-        // async/await hier hinzufügen
-        console.log('--> valid tickets loop')
-      } catch (err) {
-        console.error("Error in chromeTabScript: ", err)
-        return Promise.reject(new Error(400)) // Hier wird der Fehler ausgelöst
+  try {
+    if (valideTickets.length) {
+      for (let i = 0; i < valideTickets.length; i++) {
+        let ticket = valideTickets[i]
+        try {
+          await chromeTabScript(ticket, dev_pttest, bookingLoopCount)
+          bookingLoopCount++
+          console.log('--> valid tickets loop')
+        } catch (err) {
+          console.error("Error in chromeTabScript: ", err)
+          return Promise.reject(new Error(400))
+        }
       }
+    } else {
+      throw new Error("Es konnten keine Daten erfasst werden.")
     }
+  } catch (error) {
+    notification(true, false, error)
+    return
   }
   bookingLoopCount = 0
   return "ProTime Buchung abgeschlossen";
 }
-
 
 function filterPrefix(ticket, detectionItemsProTime) {
   let filterPrefix_prefixMatches = [];
@@ -96,7 +104,8 @@ function filterPrefix(ticket, detectionItemsProTime) {
 function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
   let filterAddPrefix_addPrefixMatches = []
   detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixMatch) => {
-    if (detectionItemPrefixMatch.addprefix.length > 0 && ticket.item_ticketdisc.includes(detectionItemPrefixMatch.addprefix) || detectionItemPrefixMatch.addprefix.length === 0) {
+    let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
+    if (detectionItemPrefixMatch.addprefix.length > 0 && item_ticketdiscWithHiddenTag.includes(detectionItemPrefixMatch.addprefix) || detectionItemPrefixMatch.addprefix.length === 0) {
       filterAddPrefix_addPrefixMatches.push(detectionItemPrefixMatch)
     }
   });
@@ -138,7 +147,6 @@ async function chromeTabScript(ticket, dev_pttest, bookingLoopCount) {
   chrome.windows.getCurrent(function (window) {
     chrome.windows.update(window.id, { focused: true })
   });
-  // console.log('--chrome script', ticket, dev_pttest)
   try {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
     await chrome.scripting.executeScript({
@@ -146,7 +154,6 @@ async function chromeTabScript(ticket, dev_pttest, bookingLoopCount) {
       func: bookTicket,
       args: [ticket, dev_pttest, bookingLoopCount]
     })
-    // console.log('--script executed')
   } catch (err) {
     console.error("Error in chromeTabScript execution: ", err)
     throw err
@@ -159,14 +166,14 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve("Timer done")
-      }, 250)
+      }, 300)
     })
   }
 
   function checkFirstBookingLoop(bookingLoopCount) {
     return new Promise((resolve) => {
       if (bookingLoopCount === 0) {
-        if(!document.getElementById('timeCopyProTimeClick')){
+        if (!document.getElementById('timeCopyProTimeClick')) {
           let dom_clickContainer = document.createElement("div")
           let dom_clickContainerInner = document.createElement("div")
           dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
@@ -275,7 +282,6 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
 
   try {
     const result = await waitTimer()
-    // console.log(result)
   } catch (error) {
     alert(error)
     console.error("Error in waitTimer: ", error)
@@ -293,7 +299,6 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
 
   try {
     const result = await waitTimer()
-    // console.log(result)
   } catch (error) {
     alert(error)
     console.error("Error in waitTimer: ", error)
@@ -313,7 +318,6 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
 
   try {
     const result = await waitTimer()
-    // console.log(result)
   } catch (error) {
     alert(error)
     console.error("Error in waitTimer: ", error)
@@ -327,7 +331,7 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
     'cancelable': true
   });
   // Join tickent number and discription
-  let ticketItemDisc = "["+ticketObject.item_ticketnumber+"] "+ticketObject.item_ticketdisc
+  let ticketItemDisc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
 
   let mdown = new Event('focus');
   protime_ticketText.dispatchEvent(mover)
@@ -343,7 +347,6 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
 
   try {
     const result = await waitTimer()
-    // console.log(result)
   } catch (error) {
     alert(error)
     console.error("Error in waitTimer: ", error)
@@ -355,12 +358,9 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
     let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
     bookingButton.focus()
     bookingButton.click()
-  } else {
-    // document.getElementsByClassName('lsToolbar--item-button')[9].click()
   }
   try {
     const result = await waitTimer()
-    // console.log(result)
   } catch (error) {
     alert(error)
     console.error("Error in waitTimer: ", error)
@@ -368,7 +368,6 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
   }
   try {
     const result = await waitTimer()
-    // console.log(result)
   } catch (error) {
     alert(error)
     console.error("Error in waitTimer: ", error)
@@ -376,7 +375,6 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
   }
   try {
     const result = await waitTimer()
-    // console.log(result)
   } catch (error) {
     alert(error)
     console.error("Error in waitTimer: ", error)

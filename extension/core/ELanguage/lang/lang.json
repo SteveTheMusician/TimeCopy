@@ -1,0 +1,21 @@
+{"de":{
+    "elang_test": "test sprache deutsch",
+    "actions": "Aktionen",
+    "notifications": "Benachrichtigungen",
+    "configurations": "Einstellungen",
+    "general": "Allgemein",
+    "general_subtext": "Hier kannst du die Erweiterung nach deinen Wünschen anpassen.",
+    "timesheetfilter": "Filter Format"
+
+ },
+ "en":{
+  "elang_test": "test sprache english",
+    "actions": "Actions",
+    "notifications": "Notifications",
+    "configurations": "Configurations",
+    "general": "General",
+    "general_subtext": "Here you can configurate the extension like your desires.",
+    "timesheetfilter": "Timesheet Filter"
+  }
+
+}

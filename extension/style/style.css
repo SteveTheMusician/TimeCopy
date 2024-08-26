@@ -158,11 +158,11 @@ button svg {
     box-shadow: 0 0 6px 2px var(--color-active);
 }
 
-.config-item:hover input~.checkmark {
+label.config-item:hover input~.checkmark {
     background-color: var(--color-highlight);
 }
 
-.config-item:hover input:checked~.checkmark {
+label.config-item:hover input:checked~.checkmark {
     background-color: var(--color-active);
 }
 
@@ -600,6 +600,12 @@ textarea:hover {
 
 label.config-item {
     cursor: pointer;
+    transition: var(--transition-default);
+}
+
+label.config-item:hover {
+    transform: scale(1.03);
+    box-shadow: #00000033 2px 2px 8px;
 }
 
 .config-item-main {

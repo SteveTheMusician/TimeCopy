@@ -14,7 +14,7 @@ let config_bar_dev = `
     </div> 
   </div>
   <div class="config-item-content-row flex">
-  <p class="text-label padding-right-10">Show ProTime Test-Button</p>
+  <p class="text-label padding-right-10">ProTime Test</p>
     <label class="switch">
       <input type="checkbox" class="" id="check_showProTimetestButton" />
       <span class="switch_slider"></span>
