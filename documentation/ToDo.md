@@ -5,7 +5,6 @@
 
  - design aufräumen
  - componenten sauberer
- - icons gleichmäßiger (# pinsel icon für Farbthemen)
  - doku pdf
 
  ### Features
@@ -15,6 +14,5 @@
  - Info Dropdown mit funktionen für Timesheets oder Booking-Plattformen
  - buchung abgeschlossen notification
  - json mit eigener sprache
- - bei neuer profil-version die lower profil version (1.3) importieren können
- - latency timer
+ - latency timer für protime
  - erkennungs items zusammenklappbar

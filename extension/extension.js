@@ -84,7 +84,6 @@ window.addEventListener("load", (event) => {
   // Configs Listener
   button_clearConfigs.addEventListener('click', removeProfile);
   button_openHelp.addEventListener('click', openHelp)
-  button_openHelpTimesheetTobias.addEventListener('click', openHelp_timesheet_tobias)
   themeSelect.addEventListener('change', switchTheme);
   // languageSelect.addEventListener('change', switchLanguage);
   // filter radios listener
@@ -289,10 +288,6 @@ function switchFilter(e) {
 
 function openHelp() {
   window.open(helpUrl)
-}
-
-function openHelp_timesheet_tobias() {
-  window.open(helpUrl_timesheet_tobias)
 }
 
 // import time copy profile
