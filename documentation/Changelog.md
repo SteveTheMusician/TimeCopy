@@ -22,7 +22,7 @@
 - feature: new theme "chrome black"
 - feature: dlc - steve google excel filter
 - feature: add hidden tag
-- feature: language
+- (feature: language - taken out)
 - feature: theme dropdown groups
 - fix: error catch, when ticket has no discription
 - fix: better icons for configurations

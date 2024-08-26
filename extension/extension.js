@@ -387,7 +387,7 @@ async function readClipboardText() {
   // check whitch filter to use
   try {
     if (filter === '' || filter === null) {
-      throw new Error("Bitte wähle ein Timesheet!")
+      throw new Error("Bitte wähle einen Filter!")
     }
     if (bookingPlattform === '' || bookingPlattform === null) {
       throw new Error("Bitte wähle eine Buchungsplattform!")
