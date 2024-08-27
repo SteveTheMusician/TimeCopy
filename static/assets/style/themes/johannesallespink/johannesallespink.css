@@ -1,0 +1,32 @@
+:root {
+  /* ---- Johannes will alles Pink Theme ---- */
+
+  /* color palette */
+  --pink: #ee24bf;
+  --pink-e: #e122b4;
+  --pink-c: #c6209f;
+  --lightgray-d: #d9d9d9;
+  --silver-gray: #d9dcd8;
+  --color-none: transparent;
+  --white: #fefefe;
+
+  /* theme colors */
+  --color-main: var(--pink);
+  --color-second: var(--pink-e);
+  --color-third: var(--pink-c);
+  --color-highlight: var(--white);
+  --color-active: var(--white);
+  --color-disabled: var(--pale-green-5);
+  --color-close: #ff7373;
+
+  /* Font colors */
+  --color-font: var(--silver-gray);
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: var(--white);
+  --color-font-second: var(--silver-gray);
+  --color-font-headlabel: var(--white);
+  --color-font-subtext: var(--lightgray-d);
+  /* Icon colors */
+  --color-icon-default: var(--lightgray-d);
+  --color-icon-light: var(--white);
+}
