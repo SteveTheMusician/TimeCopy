@@ -8,7 +8,7 @@
     "build": "webpack"
   },
   "keywords": [],
-  "author": "",
+  "author": "Steve Pietrowski",
   "license": "ISC",
   "devDependencies": {
     "copy-webpack-plugin": "^12.0.2",

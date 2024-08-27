@@ -29,3 +29,10 @@
 - other: timesheet filter code refactor
 - other: components restructure
 - other: theme renaming
+
+## V0.9.10
+- fix: error: import statement outside module
+- other: webpack integration
+- other: load functions on dom 
+- other: component restructure
+- other: add more delay between h and ticket number (proTime dlc)
