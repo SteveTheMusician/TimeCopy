@@ -1,10 +1,15 @@
 # ToDo
 
-## V 0.9.2
+## RELEASE V 0.9.2
 
  - design aufräumen
- - componenten sauberer
+ - components unterteilen
+ - html components sauberer
  - doku pdf
+ - comments raus
+ - version testen lassen
+ - in test & release mergen
+ - release in chrome store hochladen 
 
 ## V 0.9.5
 
