@@ -1,5 +1,5 @@
 # Time Copy
-#### V 0.8.9*
+#### V 0.9.1*
 By Steve P.
 start: 04.07.2023
 
@@ -58,3 +58,6 @@ https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Help.pdf
 ## Reporting
 Bei Anfragen oder Bug-Reports kannst du dich an folgende E-Mail wenden:
 steveemptysoul.official@gmail.com
+
+## Node Version
+V.20.11.0
