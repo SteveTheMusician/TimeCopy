@@ -1,5 +1,5 @@
 import { Automatic } from "./Automatic/Automatic.js";
-import { AmagProTime } from "./AmagProtime/AmagProTime.js"
+import { AmagProTime } from "./AmagProtime/AmagProTime.js";
 import { DZBankProRes } from "./DZBankProRes/DZBankProres.js";
 
 
@@ -32,7 +32,7 @@ export async function plattforms(bookingPlattformSelectValue, bookingData, detec
 }
 
 export async function plattformsContent() {
-    const importPlattforms = ["Automatic","AmagProtime","DZBankProRes"]
+    const importPlattforms = ["Automatic","AmagProTime","DZBankProRes"]
 
     for (let importedPlattform of importPlattforms) {
         let infoData = Promise.resolve(import(`./${importedPlattform}/info.json`))
