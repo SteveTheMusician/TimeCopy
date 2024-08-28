@@ -381,6 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
       notification(true, false, 'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
       return
     }
+    console.log(bookingPlattform)
     let bookEntries = await plattforms(bookingPlattform, timesheetData, lstorage_cDetectionItems, dev_pttest)
     if (bookEntries) {
       // notification(true, true, bookEntries) --> Buchungsbestätigung erst rein machen ,wenn alle anderen Notifications stehen
