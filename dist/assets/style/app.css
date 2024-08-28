@@ -3,6 +3,7 @@
 @import url('fonts/Roboto.css');
 @import url('var/var.css');
 @import url('var/colors-default.css');
+@import url('dlc/plattforms/plattforms.css');
 
 ::-webkit-scrollbar {
     display: none;
@@ -672,18 +673,6 @@ input[type=text]:focus {
     margin-left: 10px;
     border-radius: var(--border-radius-round);
     overflow: hidden;
-}
-
-.config-item-logo-container--amag {
-    background-color: #000;
-}
-
-.config-item-logo-container--dzbank {
-    background-color: #ffffff;
-}
-
-.config-item-logo-container--automatic {
-    background-color: #5ecab7;
 }
 
 .config-item-icon-container {

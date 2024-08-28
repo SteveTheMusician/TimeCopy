@@ -1,7 +1,7 @@
 // automatic functions
 import { notification } from "../../../ui/notification/notification.js";
 
-export async function automatic(){
+export async function Automatic(){
 
     let currentURL
     let automaticValue
@@ -10,7 +10,7 @@ export async function automatic(){
     currentURL = tab.url
 
     if(currentURL.includes('s4.amag.ch/protime')){
-        automaticValue = "amagProTime"
+        automaticValue = "AmagProTime"
     }else if(currentURL.includes('DZBANK-TEST')) {
         automaticValue = "DZ Bank TEST"
         // something

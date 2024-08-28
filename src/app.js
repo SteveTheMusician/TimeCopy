@@ -4,7 +4,9 @@ import { notification } from "./components/ui/notification/notification.js";
 import { plattforms } from "./components/dlc/plattforms/plattforms.dlc.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
 import { developer } from "./developer/developer.js";
+import { plattformsContent } from "./components/dlc/plattforms/plattforms.dlc.js";
 
+plattformsContent()
 document.addEventListener('DOMContentLoaded', function () {
 
   const link_cssTheme = document.querySelector('link#link-theme');

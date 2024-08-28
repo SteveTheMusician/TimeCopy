@@ -1,6 +1,7 @@
 {
     "plattform_version": "1.3",
     "plattform_name": "Amag Protime",
+    "plattform_id": "amagprotime",
     "plattform_description": "Use this default library to paste informations to protime",
     "plattform_url":"s4.amag.ch/protime"
 }

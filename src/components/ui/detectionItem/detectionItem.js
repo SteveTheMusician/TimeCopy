@@ -9,18 +9,18 @@ export function detectionItem(detectionItems) {
        <div>
          <select class="input-size--small" id="select_bookingPlattform_`+ detectionItem.id + `">
            <option value="" selected disabled hidden>Keine</option>
-           <option value="select_bookingPlattform_amagProTime" >ProTime</option>
-           <option value="select_bookingPlattform_dzBankProRes">ProRes ⭐️</option>
+           <option value="select_bookingPlattform_AmagProTime" >ProTime</option>
+           <option value="select_bookingPlattform_DZBankProRes">ProRes ⭐️</option>
          </select>
          <input type="text" class="input-size--default `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_ticketPrefix" id="input_ticketPrefix` + detectionItem.id + `" placeholder="Ticket Prefix" value="` + detectionItem.ticketprefix + `" />
        </div>
        <div>
          <input type="text" class="input-size--large `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_additionalPrefix" id="input_additionalPrefix` + detectionItem.id + `" placeholder="String Match (Optional)" value="` + detectionItem.addprefix + `"/>
        </div>
-       <div class="config-item-title-row flex `+ (detectionItem.bookingsheet === "select_bookingPlattform_amagProTime" ? null : "dNone") + `">
+       <div class="config-item-title-row flex `+ (detectionItem.bookingsheet === "select_bookingPlattform_AmagProTime" ? null : "dNone") + `">
          <p class="subtext subtext-top">Buchung</p>
        </div>
-       <div class="project-detection-item--amagprotime `+ (detectionItem.bookingsheet === "select_bookingPlattform_amagProTime" ? null : "dNone") + `">
+       <div class="project-detection-item--amagprotime `+ (detectionItem.bookingsheet === "select_bookingPlattform_AmagProTime" ? null : "dNone") + `">
           <div>
             <select class="input-size--default" name="select_proTimeService" id="select_proTimeService_`+ detectionItem.id + `">
               <option value="select_proTime_service_ITD" `+ ("select_proTime_service_ITD" === detectionItem.protimeservice ? "selected" : "") + `>IT Dienstleistungen</option>

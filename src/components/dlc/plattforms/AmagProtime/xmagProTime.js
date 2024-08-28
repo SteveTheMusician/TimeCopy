@@ -4,7 +4,7 @@ let anyProjectNomber = "*"
 let bookingLoopCount = 0
 
 // Call the correct booking numbers for the specific tickets
-export async function amagProTime(bookingData, detectionItemsProTime, dev_pttest) {
+export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest) {
 
   let valideTickets = [];
   let failedTickets = [];
