@@ -102,9 +102,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const defaultTheme = "oceanswave"
     const defaultLanguage = 'de'
     let language = ''
-    let defaultBookingPlattform = "bookingPlattform_automatic"
+    let defaultBookingPlattform = "bookingPlattform_Automatic"
 
-    if (lstorage_cThemes) {
+    if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       themeSelect.value = lstorage_cThemes
       link_cssTheme.setAttribute('href', './assets/style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
     } else {
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.querySelector('input[value="' + defaultBookingPlattform + '"]').checked = true
       localStorage.setItem('tc_c_bookingPlattform', defaultBookingPlattform)
     }
-    console.log('✅ [extension] extension loaded')
+    console.log('✅ [Time Copy] extension loaded')
   }
 
   // Clear local storage
@@ -144,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.removeItem('tc_c_projectDetection')
     localStorage.removeItem('tc_c_profileName')
     localStorage.removeItem('tc_c_bookingPlattform')
+    localStorage.removeItem('tc_s_dlcplattforminformations')
   }
 
   function clearSessionStorage() {
@@ -401,9 +402,9 @@ document.addEventListener('DOMContentLoaded', function () {
     readClipboardText()
   }
 
+  projectDetection()
   // Extension load up
   window.addEventListener("load", (event) => {
-    projectDetection()
     // Display version
     label_version.insertAdjacentHTML('beforeend', extensionVersion);
     label_build_version.insertAdjacentHTML('beforeend', extensionBuild);

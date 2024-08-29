@@ -1,15 +1,18 @@
 import { Automatic } from "./Automatic/Automatic.js";
 import { AmagProTime } from "./AmagProTime/AmagProTime.js";
 import { DZBankProRes } from "./DZBankProRes/DZBankProres.js";
+import { importPlattforms } from "./plattforms.import.js";
 
 export async function plattformsContent() {
     // dlc array (Foldername aso used as ID for saving)
     // for new items, just make a new dls, add it here to the array, make logo in assets folder and add css in style/dlc folder
-    const importPlattforms = ["Automatic", "AmagProTime", "DZBankProRes"]
-
+    let dlcPlattformsData = []
     for (let importedPlattform of importPlattforms) {
         let infoData = Promise.resolve(import(`./${importedPlattform}/info.json`))
         await infoData.then(plInfo => {
+            let plattformStorageObject = {[importedPlattform] : {...plInfo}}
+            // let lstorage_sDLCPlattformInformations = 
+            dlcPlattformsData.push(plattformStorageObject)
             let plattformChild = `<label class="config-item dFlex">
                 <div class="config-item-main-container dFlex">
                   <div class="config-item-radio-container dFlex">
@@ -40,8 +43,11 @@ export async function plattformsContent() {
                 </div>
               </label>`
             document.getElementById('window_bookingplattforms').innerHTML += plattformChild
+            return dlcPlattformsData
         });
     }
+    // push all informations about the plattform dlcs into ls
+    localStorage.setItem('tc_s_dlcplattforminformations', JSON.stringify(dlcPlattformsData))
 }
 
 export async function plattforms(bookingPlattformSelectValue, bookingData, detectionItems, dev_pttest) {

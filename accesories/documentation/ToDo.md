@@ -10,6 +10,7 @@
  - version testen lassen
  - in test & release mergen
  - release in chrome store hochladen 
+ - wenn theme = null dann nimm default
 
 ## V 0.9.5
 

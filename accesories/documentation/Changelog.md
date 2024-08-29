@@ -30,9 +30,15 @@
 - other: components restructure
 - other: theme renaming
 
-## V0.9.10
+## V 0.9.10
 - fix: error: import statement outside module
 - other: webpack integration
 - other: load functions on dom 
 - other: component restructure
 - other: add more delay between h and ticket number (proTime dlc)
+
+## V 0.9.20
+- fix: hidden tag detection (detection-filtering)
+- dlc dynamic import
+- other: changes on different elements and storages naming
+- other: new Profile-Version

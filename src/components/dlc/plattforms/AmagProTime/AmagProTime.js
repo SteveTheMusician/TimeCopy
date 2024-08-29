@@ -13,7 +13,9 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
     bookingData.forEach((ticket) => {
       let ticketPrefixMatches = filterPrefix(ticket, detectionItemsProTime);
       let ticketAddPrefixMatches = filterAddPrefix(ticket, ticketPrefixMatches);
+      console.log("-->PM: ",ticketAddPrefixMatches)
       let ticketRefinePrefixesMatches = filterAllPrefixes(ticket, ticketAddPrefixMatches);
+      console.log("-->AM: ",ticketRefinePrefixesMatches)
       let ticketRefineBookingNomber = filterBookingNomber(ticket, ticketRefinePrefixesMatches);
 
       if (ticket.item_ticketdisc.length < 2) {
@@ -113,10 +115,12 @@ function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
 }
 
 function filterAllPrefixes(ticket, ticketAddPrefixMatches) {
+  console.log("T",ticket)
   let refinePrefix_Matches = []
   if (ticketAddPrefixMatches.length > 1) {
     ticketAddPrefixMatches.forEach((detectionItemRefineMatch) => {
-      if (detectionItemRefineMatch.addprefix.length > 0 && ticket.item_ticketdisc.includes(detectionItemRefineMatch.addprefix) && ticket.item_ticketnumber.includes(detectionItemRefineMatch.ticketprefix)) {
+      let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
+      if (detectionItemRefineMatch.addprefix.length > 0 && item_ticketdiscWithHiddenTag.includes(detectionItemRefineMatch.addprefix) && ticket.item_ticketnumber.includes(detectionItemRefineMatch.ticketprefix)) {
         refinePrefix_Matches.push(detectionItemRefineMatch)
       }
     });

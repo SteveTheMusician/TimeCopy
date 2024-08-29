@@ -1,0 +1,1 @@
+export const importPlattforms = ["Automatic", "AmagProTime", "DZBankProRes"]
