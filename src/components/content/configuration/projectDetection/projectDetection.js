@@ -1,6 +1,6 @@
 
 import { detectionItem } from "../../../ui/detectionItem/detectionItem.js"
-import { selectBookingPlattformPreName } from "../../../../utils/defaults/default_selectNames.js"
+import { selectBookingPlatformPreName } from "../../../../utils/defaults/default_selectNames.js"
 
 const button_addDetection = document.getElementById('button_add_projectDetection')
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
@@ -50,14 +50,14 @@ function loadDetectionItems() {
   // add Item change-listeners
   let detectionItemsHtml = document.getElementsByName('item_detection')
   for (let i = 0, iLength = detectionItemsHtml.length; i < iLength; i++) {
-    let select_bookingPlattform = document.getElementById(selectBookingPlattformPreName + detectionItemsHtml[i].id)
-    let loaded_select_bookingPlattform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
-    if(loaded_select_bookingPlattform !== '' && loaded_select_bookingPlattform !== null){
-      select_bookingPlattform.value = selectBookingPlattformPreName+loaded_select_bookingPlattform
+    let select_bookingPlatform = document.getElementById(selectBookingPlatformPreName + detectionItemsHtml[i].id)
+    let loaded_select_bookingPlatform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
+    if(loaded_select_bookingPlatform !== '' && loaded_select_bookingPlatform !== null){
+      select_bookingPlatform.value = selectBookingPlatformPreName+loaded_select_bookingPlatform
     }else {
-      select_bookingPlattform.value = loaded_select_bookingPlattform
+      select_bookingPlatform.value = loaded_select_bookingPlatform
     }
-    select_bookingPlattform.addEventListener('change', () => { setDetectionBookingPlattform(detectionItemsHtml[i].id, select_bookingPlattform.value) });
+    select_bookingPlatform.addEventListener('change', () => { setDetectionBookingPlatform(detectionItemsHtml[i].id, select_bookingPlatform.value) });
     let input_ticketPrefix = document.getElementById("input_ticketPrefix" + detectionItemsHtml[i].id)
     input_ticketPrefix.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "ticketprefix", input_ticketPrefix.value) });
     let input_additionalPrefix = document.getElementById("input_additionalPrefix" + detectionItemsHtml[i].id)
@@ -89,17 +89,17 @@ function setDetectionItemValueToObject(itemId, objectKey, objectValue) {
   detectionItems[indexOfObject] = newObject
 }
 
-function setDetectionBookingPlattform(itemId, selected_bookingPlattform) {
+function setDetectionBookingPlatform(itemId, selected_bookingPlatform) {
   let currentObject = getCurrentObject(itemId)
-  let selected_bookingPlattformName =  selected_bookingPlattform.split(selectBookingPlattformPreName)[1]
+  let selected_bookingPlatformName =  selected_bookingPlatform.split(selectBookingPlatformPreName)[1]
   let newData = {}
-  // Create new objects for the selected plattforms
-  if (selected_bookingPlattform === selectBookingPlattformPreName + "AmagProTime") {
+  // Create new objects for the selected Platforms
+  if (selected_bookingPlatform === selectBookingPlatformPreName + "AmagProTime") {
     newData = { "ticketprefix": "", "addprefix": "", "protimeservice": selectProtimeService_defaultValue, "projectnomber": "", "protimeactivity": "" }
-  } else if (selected_bookingPlattform === selectBookingPlattformPreName + "DZBankProRes") {
+  } else if (selected_bookingPlatform === selectBookingPlatformPreName + "DZBankProRes") {
     newData = { "ticketprefix": "", "addprefix": "" }
   }
-  let newObject = { ...currentObject, "bookingsheet": selected_bookingPlattformName, ...newData }
+  let newObject = { ...currentObject, "bookingsheet": selected_bookingPlatformName, ...newData }
   let indexOfObject = detectionItems.indexOf(currentObject)
   detectionItems[indexOfObject] = newObject
   updateDetectionItems(detectionItems)

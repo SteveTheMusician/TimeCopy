@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktime_copy=self.webpackChunktime_copy||[]).push([[964],{964:(t,o,n)=>{n.r(o),n.d(o,{CustomFunction:()=>c,customContent:()=>e});const e='<button id="xx">Custom Content</button>';function c(){console.log("protime custom function"),document.getElementById("xx").addEventListener("click",(function(){console.log("hallo")}))}}}]);

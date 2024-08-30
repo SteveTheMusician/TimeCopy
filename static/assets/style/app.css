@@ -3,7 +3,7 @@
 @import url('fonts/Roboto.css');
 @import url('var/var.css');
 @import url('var/colors-default.css');
-@import url('dlc/plattforms/plattforms.css');
+@import url('dlc/platforms/platforms.css');
 
 ::-webkit-scrollbar {
     display: none;

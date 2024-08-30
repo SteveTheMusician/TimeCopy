@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktime_copy=self.webpackChunktime_copy||[]).push([[238],{238:(o,t,n)=>{n.r(t),n.d(t,{AmagProTimeContent:()=>e,AmagProTimeContentFunctions:()=>c});const e="<div>Custom Content</div>";function c(){console.log("protime custom function")}}}]);

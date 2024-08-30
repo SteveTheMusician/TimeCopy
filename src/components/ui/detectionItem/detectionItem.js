@@ -1,11 +1,8 @@
-import { importPlattforms } from "../../dlc/plattforms/plattforms.import"
-import { selectBookingPlattformPreName } from "../../../utils/defaults/default_selectNames"
-
+import { selectBookingPlatformPreName } from "../../../utils/defaults/default_selectNames"
+import { importPlatformsData } from "../../dlc/platforms/platforms.import"
 
  
 export function detectionItem(detectionItems) {
-  let optionsSelectItems = localStorage.getItem('tc_s_dlcplattforminformations')
-console.log(optionsSelectItems)
     if (detectionItems) {
       document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem =>
         `<div class="config-item detection-item flex" name="item_detection" id="` + detectionItem.id + `">
@@ -14,10 +11,10 @@ console.log(optionsSelectItems)
          <p class="subtext subtext-top">Erkennung</p>
        </div>
        <div>
-         <select class="input-size--small" id="select_bookingPlattform_`+ detectionItem.id + `">
+         <select class="input-size--small" id="select_bookingPlatform_`+ detectionItem.id + `">
            <option value="" selected disabled hidden>Keine</option>
-           <option value="select_bookingPlattform_AmagProTime" >ProTime</option>
-           <option value="select_bookingPlattform_DZBankProRes">ProRes ⭐️</option>
+           <option value="select_bookingPlatform_AmagProTime" >ProTime</option>
+           <option value="select_bookingPlatform_DZBankProRes">ProRes ⭐️</option>
          </select>
          <input type="text" class="input-size--default `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_ticketPrefix" id="input_ticketPrefix` + detectionItem.id + `" placeholder="Ticket Prefix" value="` + detectionItem.ticketprefix + `" />
        </div>

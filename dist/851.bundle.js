@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktime_copy=self.webpackChunktime_copy||[]).push([[851],{851:e=>{e.exports=JSON.parse('{"platform_version":"0.1","platform_name":"DZ Bank ProRes","platform_id":"dzbankprores","platform_shortname":"ProRes","platform_description":"Use this default library to paste informations to ProRes","platform_url":"","platform_content":"false"}')}}]);

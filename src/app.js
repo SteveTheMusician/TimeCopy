@@ -1,12 +1,12 @@
 import { filters } from "./components/dlc/filters/filters.dlc.js";
 import data_version from "../static/version.json" with { type: "json" };
 import { notification } from "./components/ui/notification/notification.js";
-import { plattforms } from "./components/dlc/plattforms/plattforms.dlc.js";
+import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
 import { developer } from "./developer/developer.js";
-import { plattformsContent } from "./components/dlc/plattforms/plattforms.dlc.js";
+import { platformsContent } from "./components/dlc/platforms/platforms.dlc.js";
 
-plattformsContent()
+platformsContent()
 document.addEventListener('DOMContentLoaded', function () {
 
   const link_cssTheme = document.querySelector('link#link-theme');
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const button_openHelp = document.getElementById('button_openHelp')
   const button_openHelpTimesheetTobias = document.getElementById('tobiasFilterInfo')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
-  const radio_bookingPlattforms = document.getElementsByName('booking-plattform')
+  const radio_bookingPlatforms = document.getElementsByName('booking-platform')
 
   // local storages
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let lstorage_cFilter = localStorage.getItem('tc_c_filter')
   let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
   let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
-  let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
+  let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
 
   // Some vars
   let configOpen = false
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const defaultTheme = "oceanswave"
     const defaultLanguage = 'de'
     let language = ''
-    let defaultBookingPlattform = "bookingPlattform_Automatic"
+    let defaultBookingPlatform = "bookingPlatform_Automatic"
 
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       themeSelect.value = lstorage_cThemes
@@ -127,11 +127,11 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       configProfileName.value = defaultProfileName
     }
-    if (lstorage_cBookingPlattform) {
-      document.querySelector('input[value="' + lstorage_cBookingPlattform + '"]').checked = true
+    if (lstorage_cBookingPlatform) {
+      document.querySelector('input[value="' + lstorage_cBookingPlatform + '"]').checked = true
     } else {
-      document.querySelector('input[value="' + defaultBookingPlattform + '"]').checked = true
-      localStorage.setItem('tc_c_bookingPlattform', defaultBookingPlattform)
+      document.querySelector('input[value="' + defaultBookingPlatform + '"]').checked = true
+      localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
     }
     console.log('✅ [Time Copy] extension loaded')
   }
@@ -143,8 +143,8 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.removeItem('tc_c_filter')
     localStorage.removeItem('tc_c_projectDetection')
     localStorage.removeItem('tc_c_profileName')
-    localStorage.removeItem('tc_c_bookingPlattform')
-    localStorage.removeItem('tc_s_dlcplattforminformations')
+    localStorage.removeItem('tc_c_bookingPlatform')
+    localStorage.removeItem('tc_s_dlcplatforminformations')
   }
 
   function clearSessionStorage() {
@@ -222,8 +222,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // notification(true, true, 'Bitte öffne das PlugIn erneut, um die Filter zu übernehmen')
   }
 
-  function bookingPlattformsChange(e) {
-    localStorage.setItem('tc_c_bookingPlattform', e.target.value)
+  function bookingPlatformsChange(e) {
+    localStorage.setItem('tc_c_bookingPlatform', e.target.value)
     configUserChanges = true
   }
 
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
         localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
         localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-        localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.platform)
+        localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
         loadStorage()
         sessionStorage.setItem('tc_c_messageImported', 'true')
         window.location.reload()
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       let saveObj = { "tcprofile": { "author": "steve", "version": tcprofileVersion, "extension_version": extensionVersion, "extension_build": extensionBuild, "profile_name": configProfileName.value } }
       // apply values
-      Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "language": lstorage_cLanguage, "filter": lstorage_cFilter, "platform": lstorage_cBookingPlattform, "detections": detectionItems } })
+      Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "language": lstorage_cLanguage, "filter": lstorage_cFilter, "platform": lstorage_cBookingPlatform, "detections": detectionItems } })
       // file setting
       const data = JSON.stringify(saveObj);
       const name = configProfileName.value + fileNameFixed;
@@ -350,19 +350,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let clipboarsString = await navigator.clipboard.readText();
     let filter = lstorage_cFilter
-    let bookingPlattform = lstorage_cBookingPlattform
+    let bookingPlatform = lstorage_cBookingPlatform
     // check whitch filter to use
     try {
       if (filter === '' || filter === null) {
         throw new Error("Bitte wähle einen Filter!")
       }
-      if (bookingPlattform === '' || bookingPlattform === null) {
-        throw new Error("Bitte wähle eine Buchungsplattform!")
+      if (bookingPlatform === '' || bookingPlatform === null) {
+        throw new Error("Bitte wähle eine Buchungsplatform!")
       }
       if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null) {
         throw new Error("Bitte erstelle mindestens ein Erkennungs-Item !")
       }
-      processData(filter, clipboarsString, bookingPlattform, dev_pttest)
+      processData(filter, clipboarsString, bookingPlatform, dev_pttest)
 
     } catch (error) {
       notification(true, false, error)
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  async function processData(filter, clipboarsString, bookingPlattform, dev_pttest) {
+  async function processData(filter, clipboarsString, bookingPlatform, dev_pttest) {
 
     let timesheetData = []
     // get all boocking relevant data as array
@@ -382,8 +382,8 @@ document.addEventListener('DOMContentLoaded', function () {
       notification(true, false, 'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
       return
     }
-    console.log(bookingPlattform)
-    let bookEntries = await plattforms(bookingPlattform, timesheetData, lstorage_cDetectionItems, dev_pttest)
+    console.log(bookingPlatform)
+    let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
     if (bookEntries) {
       // notification(true, true, bookEntries) --> Buchungsbestätigung erst rein machen ,wenn alle anderen Notifications stehen
       console.log("✅ bookEntries process complete | " + bookEntries)
@@ -431,8 +431,8 @@ document.addEventListener('DOMContentLoaded', function () {
     for (var index = 0, indexLen = radio_timesheetFilters.length; index < indexLen; index++) {
       radio_timesheetFilters[index].addEventListener('click', timesheetFilterChange);
     }
-    for (var index = 0, indexLen = radio_bookingPlattforms.length; index < indexLen; index++) {
-      radio_bookingPlattforms[index].addEventListener('click', bookingPlattformsChange);
+    for (var index = 0, indexLen = radio_bookingPlatforms.length; index < indexLen; index++) {
+      radio_bookingPlatforms[index].addEventListener('click', bookingPlatformsChange);
     }
     // Load local storages
     loadStorage()

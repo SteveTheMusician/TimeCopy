@@ -39,6 +39,7 @@
 
 ## V 0.9.20
 - fix: hidden tag detection (detection-filtering)
+- fix: if theme is null, set default 
 - dlc dynamic import
 - other: changes on different elements and storages naming
 - other: new Profile-Version

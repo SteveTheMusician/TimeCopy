@@ -1,2 +1,2 @@
 
-export const selectBookingPlattformPreName = "select_bookingPlattform_"
+export const selectBookingPlatformPreName = "select_bookingPlatform_"
