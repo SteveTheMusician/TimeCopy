@@ -166,7 +166,7 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve("Timer done")
-      }, 300)
+      }, 250)
     })
   }
 
