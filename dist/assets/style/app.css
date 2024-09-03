@@ -167,6 +167,15 @@ label.config-item:hover input:checked~.checkmark {
     background-color: var(--color-active);
 }
 
+ input:checked~label.config-item:hover{
+    transform: unset;
+    box-shadow: unset;
+}
+
+label.config-item input:checked{
+box-shadow: inset 1px 1px 5px #00000099;
+}
+
 .text-label {
     color: var(--color-font-second);
     font-size: 12px;

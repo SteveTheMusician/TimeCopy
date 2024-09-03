@@ -5,10 +5,20 @@ import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
 import { developer } from "./developer/developer.js";
 import { platformsContent } from "./components/dlc/platforms/platforms.dlc.js";
+import { platform_functionName_automatic } from "./components/dlc/platforms/platforms.import.js";
+import { platform_bookingPlatformPreValue } from "./components/dlc/platforms/platforms.import.js";
 
-platformsContent()
-document.addEventListener('DOMContentLoaded', function () {
 
+document.addEventListener('DOMContentLoaded', async function () {
+  let dlc_PlatformContent = await platformsContent()
+  try{
+    if(!dlc_PlatformContent){
+      throw new Error('platform contents not loaded')
+    }
+  }catch(error){
+    console.log(error)
+    return
+  }
   const link_cssTheme = document.querySelector('link#link-theme');
   const main = document.querySelector('main');
   const header = document.querySelector('header');
@@ -93,8 +103,8 @@ document.addEventListener('DOMContentLoaded', function () {
       sessionStorage.removeItem('tc_c_changeLanguage')
       configButton.click()
     }
+    
   }
-
   // Load localstorage
   function loadStorage() {
     // Default variables
@@ -102,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const defaultTheme = "oceanswave"
     const defaultLanguage = 'de'
     let language = ''
-    let defaultBookingPlatform = "bookingPlatform_Automatic"
+    let defaultBookingPlatform = platform_functionName_automatic
 
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       themeSelect.value = lstorage_cThemes
@@ -128,9 +138,9 @@ document.addEventListener('DOMContentLoaded', function () {
       configProfileName.value = defaultProfileName
     }
     if (lstorage_cBookingPlatform) {
-      document.querySelector('input[value="' + lstorage_cBookingPlatform + '"]').checked = true
+      document.querySelector('input[value="' + platform_bookingPlatformPreValue + lstorage_cBookingPlatform + '"]').checked = true
     } else {
-      document.querySelector('input[value="' + defaultBookingPlatform + '"]').checked = true
+      document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
       localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
     }
     console.log('✅ [Time Copy] extension loaded')
@@ -223,7 +233,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function bookingPlatformsChange(e) {
-    localStorage.setItem('tc_c_bookingPlatform', e.target.value)
+    let bookingPlatformValue = e.target.value.split(platform_bookingPlatformPreValue)[1]
+    localStorage.setItem('tc_c_bookingPlatform', bookingPlatformValue)
     configUserChanges = true
   }
 
@@ -382,12 +393,20 @@ document.addEventListener('DOMContentLoaded', function () {
       notification(true, false, 'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
       return
     }
-    console.log(bookingPlatform)
+    console.log("App Booking Platform "+bookingPlatform)
     let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
-    if (bookEntries) {
+    try{
+      if (bookEntries) {
       // notification(true, true, bookEntries) --> Buchungsbestätigung erst rein machen ,wenn alle anderen Notifications stehen
-      console.log("✅ bookEntries process complete | " + bookEntries)
+      console.log("✅ Booking process return okey | ", bookEntries)
+      }else {
+        throw new Error('Bookingprocess failed')
+      }
+    }catch(error){
+      console.log(error)
+      return
     }
+
   }
 
   // Test protime function
@@ -441,4 +460,5 @@ document.addEventListener('DOMContentLoaded', function () {
     developer()
   });
 })
+
 

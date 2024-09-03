@@ -27,10 +27,10 @@
   --color-disabled: var(--color-third);
 
   /* Font colors */
-  --color-font: var(--lightgray-9);
+  --color-font: var(--gray-6);
   --color-font-navigation: var(--color-font-second);
   --color-font-headline: var(--gray-6);
-  --color-font-second: var(--lightgray-a);
+  --color-font-second: var(--gray-6);
   --color-font-headlabel: var(--black-3);
   --color-font-subtext: #79908e;
   /* Icon colors */

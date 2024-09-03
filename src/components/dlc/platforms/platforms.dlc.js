@@ -1,24 +1,44 @@
 import { Automatic } from "./Automatic/Automatic.js";
 import { AmagProTime } from "./AmagProTime/AmagProTime.js";
 import { DZBankProRes } from "./DZBankProRes/DZBankProres.js";
-import { importPlatformsData } from "./platforms.import.js";
+import { importPlatforms } from "./platforms.import.js";
 import { importPlatformCustomContent } from "./platforms.import.js";
+import { importPlatformsData } from "./platforms.import.js";
+import { platform_functionName_automatic } from "./platforms.import.js";
 
 export async function platformsContent() {
-  let platformInfoData = await importPlatformsData()
-  for (let plInfo of platformInfoData) {
-    let plInfoKey = Object.keys(plInfo)
-    let platformCustomContent = ''
-    let platformCustomFunction
-    let loadCustomFunction = false
-    let platformCustomImports
-    // if dlc has custom function true import html and funcktion
-    if(plInfo[plInfoKey].platform_content === 'true') {
-      platformCustomImports = await importPlatformCustomContent(plInfoKey)
-      platformCustomContent = platformCustomImports.customContent
-      loadCustomFunction = true
+  return new Promise(async (resolve) => { 
+  let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
+  if (!platformInfoData) {
+    let importNewPlatformData = await importPlatformsData()
+    try {
+      if (importNewPlatformData) {
+        console.log('dlc data created, restart time copy...')
+        window.location.reload()
+      } else {
+        throw new Error('unable to import dlc platform data')
+      }
+    } catch (error) {
+      console.log(error)
+      window.location.reload()
     }
-    console.log(plInfo)
+  } else {
+    platformInfoData = JSON.parse(platformInfoData)
+  }
+
+  for (let plKey of importPlatforms) {
+    let plDataObject = platformInfoData.find(item => item[plKey])[plKey]
+    let platformCustomContent = ''
+    let platformCustomImports
+    let plattformImageFormat = '.png'
+    if (plKey === platform_functionName_automatic) {
+      plattformImageFormat = '.gif'
+    }
+    // if dlc has custom function true import html and function
+    if (plDataObject.platform_content === 'true') {
+      platformCustomImports = await importPlatformCustomContent(plKey)
+      platformCustomContent = platformCustomImports.customContent
+    }
     // dlc array (Foldername aso used as ID for saving)
     // for new items, just make a new dls, add it here to the array, make logo in assets folder and add css in style/dlc folder
     let platformChild = `<label class="config-item dFlex">
@@ -26,19 +46,19 @@ export async function platformsContent() {
                   <div class="config-item-radio-container dFlex">
                     <label class="radio-custom-container dFlex">
                       <input type="radio" class="radio-default" name="booking-platform"
-                        value="bookingPlatform_`+ (plInfoKey) + `" />
+                        value="bookingPlatform_`+ (plKey) + `" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                  <div class="config-item-logo-container flex config-item-logo-container--`+ (plInfo[plInfoKey].platform_id) + `">
-                    <img src="assets/gfx/dlc/platforms/logos/`+ (plInfoKey) + `.png" class="icon-bookingItem" />
+                  <div class="config-item-logo-container flex config-item-logo-container--`+ (plDataObject.platform_id) + `">
+                    <img src="assets/gfx/dlc/platforms/logos/`+ (plKey + plattformImageFormat) + `" class="icon-bookingItem" />
                   </div>
                   <div class="config-item-main flex">
-                    <p class="text-label">`+ (plInfo[plInfoKey].platform_name) + `</p>
+                    <p class="text-label">`+ (plDataObject.platform_name) + `</p>
                   </div>
                 </div>
                 <div class="config-item-action-container flex">
-                  <button class="button-primary" id="bookingPlatform_`+ (plInfoKey) + `">
+                  <button class="button-primary" id="bookingPlatform_`+ (plKey) + `">
                     <?xml version="1.0" encoding="utf-8"?>
                     <svg version="1.1" id="DownArrow" xmlns:serif="http://www.serif.com/"
                     	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
@@ -49,24 +69,27 @@ export async function platformsContent() {
                     </svg>
                   </button>
                 </div>
-              </label>`+(platformCustomContent)
+              </label>`+ (platformCustomContent)
     document.getElementById('window_bookingplatforms').innerHTML += platformChild
-    if(loadCustomFunction){platformCustomContent = platformCustomImports.CustomFunction()}
   }
+      resolve("DLC Content ready")
+  })
 }
 
 export async function platforms(bookingPlatformSelectValue, bookingData, detectionItems, dev_pttest) {
 
-  let bookingFunctionName = bookingPlatformSelectValue.split("_").pop()
-  let functionNameAutomatic = 'Automatic'
-  let bookingFunctions = {
-    AmagProTime: async function (bookingData, detectionItems, dev_pttest) { return await AmagProTime(bookingData, detectionItems, dev_pttest) },
-    DZBankProRes: async function (bookingData, detectionItems, dev_pttest) { return await DZBankProRes(bookingData, detectionItems, dev_pttest) }
-  };
+  let dlc_bookingPlatformFunctions = []
+  let bookingFunctionName = bookingPlatformSelectValue
+  // create dynamic function array
+  importPlatforms.forEach((plKey) => {
+    dlc_bookingPlatformFunctions[plKey] = async function (bookingData, detectionItems, dev_pttest) { 
+      return await AmagProTime(bookingData, detectionItems, dev_pttest); 
+    };
+  });
 
-  if (bookingFunctionName === functionNameAutomatic) {
+  if (bookingFunctionName === platform_functionName_automatic) {
     bookingFunctionName = await Automatic()
-    bookingPlatformSelectValue = bookingPlatformSelectValue.replace(functionNameAutomatic, bookingFunctionName)
+    bookingPlatformSelectValue = bookingPlatformSelectValue.replace(platform_functionName_automatic, bookingFunctionName)
   }
   // filter detection items for booking platforms
   let allDetectionFilters = JSON.parse(detectionItems)
@@ -78,6 +101,5 @@ export async function platforms(bookingPlatformSelectValue, bookingData, detecti
       detectionFiltersMatch_booking = [...detectionFiltersMatch_booking, allDetectionFilters[i]];
     }
   }
-
-  return bookingFunctionName ? bookingFunctions[bookingFunctionName](bookingData, detectionFiltersMatch_booking, dev_pttest) : null
+  return bookingFunctionName ? dlc_bookingPlatformFunctions[bookingFunctionName](bookingData, detectionFiltersMatch_booking, dev_pttest) : null
 }
