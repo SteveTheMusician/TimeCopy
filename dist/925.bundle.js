@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktime_copy=self.webpackChunktime_copy||[]).push([[925],{306:t=>{t.exports=JSON.parse('{"plattform_version":"1.3","plattform_name":"Amag Protime","plattform_description":"Use this default library to paste informations to protime","plattform_url":"s4.amag.ch/protime"}')}}]);

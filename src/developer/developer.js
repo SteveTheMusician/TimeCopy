@@ -3,7 +3,6 @@ export function developer() {
 
   const configWindow_General_WindowContent = document.getElementById('config-win-general--content');
   const label_version = document.getElementById('label_version');
-  const button_pasteTicketData = document.getElementById('button_test_pasteTicketData')
 
   let config_bar_dev = `
 <div class="config-item dFlex">
@@ -30,24 +29,8 @@ export function developer() {
   let label_version_devmode = "⭐️ "
 
   label_version.insertAdjacentHTML('afterbegin', label_version_devmode);
-  configWindow_General_WindowContent.insertAdjacentHTML('beforeend', config_bar_dev);
+  // configWindow_General_WindowContent.insertAdjacentHTML('beforeend', config_bar_dev);
 
-  const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
-
-  config_check_showProTimeTestButton.addEventListener('change', showProTimeTestButton);
-
-
-  function showProTimeTestButton() {
-
-    if (config_check_showProTimeTestButton.checked) {
-      button_pasteTicketData.classList.remove('dNone')
-      localStorage.setItem('tc_c_dev_pttest', 'true')
-    } else {
-      button_pasteTicketData.classList.add('dNone')
-      localStorage.setItem('tc_c_dev_pttest', 'false')
-    }
-
-  }
 
   window.addEventListener("load", () => {
     loadStorage_dev()

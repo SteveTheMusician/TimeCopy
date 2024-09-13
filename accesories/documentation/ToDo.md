@@ -10,14 +10,15 @@
  - version testen lassen
  - in test & release mergen
  - release in chrome store hochladen 
- - wenn theme = null dann nimm default
+ - wenn theme = null dann nimm default ✅
+ - ProTime testbutton wird ins html generiert
 
 ## V 0.9.5
 
- - Info Dropdown mit funktionen für Timesheets oder Booking-Plattformen
+ - Info Dropdown mit funktionen für Timesheets oder Booking-Plattformen ✅
  - erkennungs items zusammenklappbar
  - latency timer für protime
- - protime test funktion als option im booking sheet
+ - protime test funktion als option im booking sheet ✅
  
 ## V 1.0.0
 

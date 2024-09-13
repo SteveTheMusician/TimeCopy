@@ -55,7 +55,13 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_openHelp = document.getElementById('button_openHelp')
   const button_openHelpTimesheetTobias = document.getElementById('tobiasFilterInfo')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
+  
+  // Platform-DLC Elements and Listener
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
+  const dlc_platform_element = document.getElementsByClassName('dlc-item-platform')
+  const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
+  config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton);
+  const button_pasteTicketData = document.getElementById('button_test_pasteTicketData')
 
   // local storages
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
@@ -70,6 +76,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let dev_pttest = false
   // this variable activates tc reloading after pressing the back button when its set to true
   let configUserChanges = false
+  const dlc_details_classHidden = 'dlc-details--hidden'
 
   let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Help.md"
   let helpUrl_timesheet_tobias = helpUrl + "#timesheet-tobias"
@@ -238,6 +245,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
+  function dlcPlatformOpenDropdown(e){
+    let dlc_platformElement = e.target.closest(".dlc-item-platform")
+    let dlc_platformDropDownButton = e.target.closest("button")
+    let dlc_platformInformationContainer = dlc_platformElement.getElementsByClassName('dlc-item-details-container')[0]
+    if(dlc_platformInformationContainer.classList.contains(dlc_details_classHidden)){
+      dlc_platformInformationContainer.classList.remove(dlc_details_classHidden)
+      dlc_platformDropDownButton.classList.add('button-dropdown--active')
+    }else {
+      dlc_platformInformationContainer.classList.add(dlc_details_classHidden)
+      dlc_platformDropDownButton.classList.remove('button-dropdown--active')
+    }
+  }
+
   function configSetProfileName() {
     localStorage.setItem('tc_c_profileName', configProfileName.value)
     configUserChanges = true
@@ -267,6 +287,17 @@ document.addEventListener('DOMContentLoaded', async function () {
   function openHelp() {
     window.open(helpUrl)
   }
+
+  function dlcShowProTimeTestButton() {
+    if (config_check_showProTimeTestButton.checked) {
+      button_pasteTicketData.classList.remove('dNone')
+      localStorage.setItem('tc_c_dev_pttest', 'true')
+    } else {
+      button_pasteTicketData.classList.add('dNone')
+      localStorage.setItem('tc_c_dev_pttest', 'false')
+    }
+  }
+
 
   // import time copy profile
   let button_importConfigs = document.getElementById('button_importConfigs');
@@ -453,6 +484,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     for (var index = 0, indexLen = radio_bookingPlatforms.length; index < indexLen; index++) {
       radio_bookingPlatforms[index].addEventListener('click', bookingPlatformsChange);
     }
+    for (var index = 0, indexLen = dlc_platform_element.length; index < indexLen; index++) {
+      let dropdownButton = dlc_platform_element[index].getElementsByClassName('button-dropdown')[0]
+      dropdownButton.addEventListener('click', dlcPlatformOpenDropdown);
+    }
+
     // Load local storages
     loadStorage()
     loadSessionStorages()

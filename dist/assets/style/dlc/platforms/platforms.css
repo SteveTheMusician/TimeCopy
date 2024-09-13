@@ -9,3 +9,56 @@
 .config-item-logo-container--automatic {
     background-color: #ececec;
 }
+
+.dlc-item {
+    flex-flow: column;
+}
+
+.dlc-item-details-container {
+    transition: var(--transition-default);
+    overflow: hidden;
+    height: 200px;
+    margin-top: 10px;
+    border-top: 2px solid var(--color-second);
+    overflow-y: scroll;
+}
+
+.dlc-details--hidden {
+    height: 0;
+    opacity: 0;
+    margin-top: 0;
+    pointer-events: none;
+}
+
+.dlc-item-versionText-left {
+    width: 50%;
+}
+
+.dlc-item-versionText-right {
+    width: 50%;
+}
+
+.dlc-item-details_information_version-container {
+    padding-top: 10px;
+}
+
+.dlc-item-details_information_version-row {
+    height: 20px;
+}
+
+.dlc-item-details_information_version-row .subtext{
+    margin-block-start: 4px;
+    margin-block-end: 4px;
+}
+
+.dlc-platform_custom-content {
+    padding-top: 10px;
+}
+
+.row-cell-left {
+    width: 50%;
+}
+
+.row-cell-right {
+    width: 50%;
+}
