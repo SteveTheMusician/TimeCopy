@@ -125,6 +125,11 @@ button svg {
     align-items: center;
 }
 
+.text-margin--small {
+    margin-block-start: 4px;
+    margin-block-end: 4px;
+}
+
 .subtext {
     font-size: 10px;
     color: var(--color-font-subtext);
@@ -159,20 +164,20 @@ button svg {
     box-shadow: 0 0 6px 2px var(--color-active);
 }
 
-label.config-item:hover input~.checkmark {
+label.configItem:hover input~.checkmark {
     background-color: var(--color-highlight);
 }
 
-label.config-item:hover input:checked~.checkmark {
+label.configItem:hover input:checked~.checkmark {
     background-color: var(--color-active);
 }
 
- input:checked~label.config-item:hover{
+ input:checked~label.configItem:hover{
     transform: unset;
     box-shadow: unset;
 }
 
-label.config-item input:checked{
+label.configItem input:checked{
 box-shadow: inset 1px 1px 5px #00000099;
 }
 
@@ -293,6 +298,10 @@ footer {
 #fillButton svg {
     width: 20px;
     height: 20px;
+}
+
+label:has(#button_importConfigs) {
+    justify-content: flex-start;
 }
 
 .button-primary {
@@ -502,13 +511,11 @@ textarea:hover {
 
 #label_version {
     min-width: 100px;
-    justify-content: end;
     user-select: text;
 }
 
 #label_build_version {
-    justify-content: end;
-    font-size: 10px;
+    /* font-size: 10px; */
     user-select: text;
 }
 
@@ -553,6 +560,10 @@ textarea:hover {
     fill: var(--color-active);
 }
 
+.button-padding--small {
+    padding: 4px;
+}
+
 .configuration-window-content {
     padding: 10px;
     max-height: calc(100vh - 224px);
@@ -565,23 +576,23 @@ textarea:hover {
     flex-grow: 1;
 }
 
-.config-item[disabled] {
+.configItem[disabled] {
     cursor: not-allowed;
     pointer-events: none;
     filter: blur(2px);
     opacity: 0.5;
 }
 
-.config-item[disabled]:hover input~.checkmark {
+.configItem[disabled]:hover input~.checkmark {
     background-color: var(--color-icon-default);
 }
 
-.config-item[disabled] * {
+.configItem[disabled] * {
     pointer-events: none;
     user-select: none;
 }
 
-.config-item {
+.configItem {
     border-radius: var(--border-radius-default);
     background-color: var(--color-third);
     padding: 10px 15px;
@@ -590,6 +601,16 @@ textarea:hover {
     transition: var(--transition-default);
 }
 
+.configItem-content-section {
+    padding-top: 10px;
+    margin-top: 12px;
+    border-top: 2px solid var(--color-font-second);
+}
+
+.configItem-content-fullWidth {
+    width: 100%;
+    margin: 5px;
+}
 
 .item--new {
     animation-name: item--new-animation;
@@ -613,32 +634,42 @@ textarea:hover {
     }
 }
 
-label.config-item {
+label.configItem {
     cursor: pointer;
     transition: var(--transition-default);
 }
 
-label.config-item:hover {
+label.configItem:hover {
     transform: scale(1.03);
     box-shadow: #00000033 2px 2px 8px;
 }
 
-.config-item-main {
-    padding: 0 10px;
-    padding-left: 20px;
+.configItem-content {
+    padding: 10px 30px;
 }
 
-.config-item-main-container {
+.configItem-content-row {
     width: 100%;
+    align-items: baseline;
 }
 
-.config-item-radio-container {
+.configItem-content-left {
+    width: 50%;
+    height: fit-content;
+}
+
+.configItem-content-right{
+    width: 50%;
+    height: fit-content;
+}
+
+.configItem-radio-container {
     justify-content: center;
     align-items: center;
     max-width: 20px;
 }
 
-.config-item-title-row {
+.configItem-title-row {
     width: 100%;
     justify-content: flex-start;
 }
@@ -648,7 +679,6 @@ input[type=text] {
     color: var(--color-font);
     outline: 1px solid var(--color-none);
     border: 1px solid var(--color-none);
-    margin: 5px;
     padding: 5px;
     border-radius: var(--border-radius-default);
 }
@@ -657,19 +687,28 @@ input[type=text]:focus {
     outline: 1px solid var(--color-icon-default);
 }
 
-.input-size--small {
-    /* width: 80px; */
-    width: calc(35% - 20px);
-}
-
 .input-size--default {
     /* width: 120px; */
     width: calc(65% - 20px);
 }
 
+.input-size--medium {
+    /* width: 120px; */
+    width: calc(100% - 16px);
+}
+
+.input-size--small {
+    /* width: 80px; */
+    width: calc(35% - 20px);
+}
+
 .input-size--large {
     /* width: 215px; */
-    width: calc(100% - 25px);
+    width: calc(100% - 12px);
+}
+
+.input-padding--medium {
+    margin: 5px;
 }
 
 .text-projectNomber {
@@ -682,25 +721,25 @@ input[type=text]:focus {
     object-fit: contain;
 }
 
-.config-item-logo-container {
+.configItem-logo-container {
     padding: 10px;
     margin-left: 10px;
     border-radius: var(--border-radius-round);
     overflow: hidden;
 }
 
-.config-item-icon-container {
-    margin-left: 10px;
+.configItem-icon-container {
+    margin-right: 10px;
 }
 
-.config-item-icon-container img {
+.configItem-icon-container img {
     width: 50px;
     height: 50px;
     border-radius: var(--border-radius-round);
     overflow: hidden;
 }
 
-.config-item--remove {
+.configItem--remove {
     transform: translateX(100%);
     opacity: 0;
     transition: .5s;
@@ -714,12 +753,24 @@ select {
     padding: 5px;
     font-size: 12px;
     border: 0px solid;
+    width: 100%;
     /* margin: 5px; */
 }
 
-.detection-item select {
-    margin: 5px;
+.detectionItem-main {
+    width: 100%;
 }
+
+.detectionItem-content-smaller {
+    width: 30%;
+    padding: 5px;
+}
+
+.detectionItem-content-larger {
+    width: 70%;
+    padding: 5px;
+}
+
 
 .label-emoji {
     font-size: 20px;
@@ -842,7 +893,7 @@ input:checked+.switch_slider:before {
         padding-left: 0px;
     }
 
-    .config-item-main {
+    .configItem-main {
         padding-left: 10px;
     }
 
@@ -850,7 +901,7 @@ input:checked+.switch_slider:before {
         min-width: 70px;
     }
 
-    .config-item {
+    .configItem {
         padding: 10px 10px;   
     }
 }

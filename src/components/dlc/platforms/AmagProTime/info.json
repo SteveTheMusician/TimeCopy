@@ -3,7 +3,7 @@
     "platform_name": "Amag Protime",
     "platform_id": "amagprotime",
     "platform_shortname": "ProTime",
-    "platform_description": "Das ProTime-DLC sorgt dafür, dass deine kopierten Informationen richtig zugeordnet und anschließend in ProTime (SAP) gebucht werden.",
+    "platform_description": "Das ProTime-DLC sorgt dafür, dass deine kopierten Informationen richtig zugeordnet und anschließend in ProTime gebucht werden. Im Funktionen-Unterpunkt kannst du auch eine Testfunktion einschalten, mit der du überprüfen kannst, ob alles richtig übernommen wird. (Scrolle runter)",
     "platform_url":"s4.amag.ch/protime",
     "platform_content": "true"
 }

@@ -11,7 +11,7 @@
  - in test & release mergen
  - release in chrome store hochladen 
  - wenn theme = null dann nimm default ✅
- - ProTime testbutton wird ins html generiert
+ - ProTime testbutton wieder funktionsfähig
 
 ## V 0.9.5
 

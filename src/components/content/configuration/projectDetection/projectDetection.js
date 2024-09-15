@@ -119,7 +119,7 @@ function removeProjectDetectionItem(i) {
   let currentItemID = i.target.closest("div").parentNode.id
   // console.log(currentItemID)
   let currentItem = document.getElementById(currentItemID)
-  currentItem.classList.add('config-item--remove')
+  currentItem.classList.add('configItem--remove')
   setTimeout(function () {
     currentItem.remove()
   }, 500)

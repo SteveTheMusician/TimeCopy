@@ -1,5 +1,5 @@
 // Enter here the Filder/File Names of the dlcs
-export const importPlatforms = ["Automatic", "AmagProTime", "DZBankProRes"]
+export const importPlatforms = ["Automatic", "AmagProTime"]
 
 export const platform_functionName_automatic = 'Automatic'
 export const platform_bookingPlatformPreValue = 'bookingPlatform_'

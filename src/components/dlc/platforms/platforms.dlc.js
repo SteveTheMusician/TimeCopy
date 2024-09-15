@@ -41,24 +41,24 @@ export async function platformsContent() {
     }
     // dlc array (Foldername aso used as ID for saving)
     // for new items, just make a new dls, add it here to the array, make logo in assets folder and add css in style/dlc folder
-    let platformChild = `<label class="config-item dlc-item dlc-item-platform dFlex">
-                <div class="dlc-item-main-container dFlex">
-                  <div class="config-item-main-container dFlex">
-                    <div class="config-item-radio-container dFlex">
+    let platformChild = `<label class="configItem dlcItem dlcItem-platform dFlex">
+                <div class="dlcItem-main-container dFlex">
+                  <div class="dlcItem-main dFlex">
+                    <div class="configItem-radio-container dFlex">
                       <label class="radio-custom-container dFlex">
                         <input type="radio" class="radio-default" name="booking-platform"
                           value="bookingPlatform_`+ (plKey) + `" />
                         <span class="checkmark"></span>
                       </label>
                     </div>
-                    <div class="config-item-logo-container flex config-item-logo-container--`+ (plDataObject.platform_id) + `">
+                    <div class="configItem-logo-container flex configItem-logo-container--`+ (plDataObject.platform_id) + `">
                       <img src="assets/gfx/dlc/platforms/logos/`+ (plKey + plattformImageFormat) + `" class="icon-bookingItem" />
                     </div>
-                    <div class="config-item-main flex">
+                    <div class="dlcItem-headline-container flex">
                       <p class="text-label">`+ (plDataObject.platform_name) + `</p>
                     </div>
                   </div>
-                  <div class="config-item-action-container flex">
+                  <div class="configItem-action-container flex">
                     <button class="button-primary button-dropdown" id="bookingPlatform_DropDown`+ (plKey) + `">
                       <?xml version="1.0" encoding="utf-8"?>
                       <svg version="1.1" id="DownArrow" xmlns:serif="http://www.serif.com/"
@@ -71,21 +71,21 @@ export async function platformsContent() {
                     </button>
                   </div>
                 </div>
-                <div class="dlc-item-details-container dlc-details--hidden">
-                  <div class="dlc-item-details_information-container">
+                <div class="dlcItem-details-container dlc-details--hidden">
+                  <div class="dlcItem-details_information-container">
                     <p class="text-label">Infos</p>
                     <p class="subtext">`+ (plDataObject.platform_description) +`</p>
-                    <div class="dlc-item-details_information_version-container">
+                    <div class="dlcItem-details_information_version-container">
                       <p class="text-label">Version</p>
-                      <div class="dlc-item-details_information_version-row dFlex">
-                        <p class="subtext dlc-item-versionText-left">DLC-Version</p><p class="subtext dlc-item-versionText-right">`+ (plDataObject.platform_version) +`</p>
+                      <div class="dlcItem-details_information_version-row dFlex">
+                        <p class="subtext dlcItem-versionText-left">DLC-Version</p><p class="subtext dlcItem-versionText-right">`+ (plDataObject.platform_version) +`</p>
                       </div>
-                      <div class="dlc-item-details_information_version-row dFlex">
-                        <p class="subtext dlc-item-versionText-left">Erkennungs URL</p><p class="subtext dlc-item-versionText-right">`+ (plDataObject.platform_url) +`</p>
+                      <div class="dlcItem-details_information_version-row dFlex">
+                        <p class="subtext dlcItem-versionText-left">Erkennungs URL</p><p class="subtext dlcItem-versionText-right">`+ (plDataObject.platform_url) +`</p>
                       </div>
                     </div>
                   </div>
-                  <div class="dlc-item-actions-container">
+                  <div class="dlcItem-actions-container">
                   `+ (platformCustomContent) +`
                   </div>
                 </div>

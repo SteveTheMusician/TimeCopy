@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   
   // Platform-DLC Elements and Listener
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
-  const dlc_platform_element = document.getElementsByClassName('dlc-item-platform')
+  const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
   const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
   config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton);
   const button_pasteTicketData = document.getElementById('button_test_pasteTicketData')
@@ -246,9 +246,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function dlcPlatformOpenDropdown(e){
-    let dlc_platformElement = e.target.closest(".dlc-item-platform")
+    let dlc_platformElement = e.target.closest(".dlcItem-platform")
     let dlc_platformDropDownButton = e.target.closest("button")
-    let dlc_platformInformationContainer = dlc_platformElement.getElementsByClassName('dlc-item-details-container')[0]
+    let dlc_platformInformationContainer = dlc_platformElement.getElementsByClassName('dlcItem-details-container')[0]
     if(dlc_platformInformationContainer.classList.contains(dlc_details_classHidden)){
       dlc_platformInformationContainer.classList.remove(dlc_details_classHidden)
       dlc_platformDropDownButton.classList.add('button-dropdown--active')

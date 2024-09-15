@@ -30,7 +30,9 @@
   <main>
     <!-- overview -->
     <div class="overview main-window">
-      <p class="text-label">Aktionen</p>
+      <div class="label-row">
+        <p class="text-label">Aktionen</p>
+      </div>
       <div class="mainSection mainAction--container dFlex">
         <div class="overview-mainAction--conteiner"></div>
         <button class="button-mainAction flex" id="fillButton">
@@ -108,7 +110,9 @@
           </button>
         </div>
       </div>
-      <p class="text-label">Benachrichtigungen</p>
+      <div class="label-row">
+        <p class="text-label">Benachrichtigungen</p>
+      </div>
     </div>
     <!-- configurations -->
     <div class="configurations main-window dNone">
@@ -195,86 +199,119 @@
               </div>
             </div>
             <div class="configuration-window-content" id="config-win-general--content">
-              <div class="config-item dFlex">
-                <div class="config-item-main-container">
-                  <div class="config-item-title-row flex">
-                    <div class="config-item-icon-container flex">
-                      <p class="text-label label-emoji">
-                        <?xml version="1.0" encoding="utf-8"?>
-                        <svg version="1.1" id="Profile" xmlns="http://www.w3.org/2000/svg"
-                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
-                          style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
-                          <path d="M600,678.8L600,678.8c-154.3,0-279.4-125.1-279.4-279.4v0C320.6,245.1,445.7,120,600,120h0c154.3,0,279.4,125.1,279.4,279.4
-                              v0C879.4,553.7,754.3,678.8,600,678.8z" />
-                          <path d="M920,1198.8H280c-154.6,0-280-125.4-280-280v0c0-66.3,53.7-120,120-120h960c66.3,0,120,53.7,120,120v0
-                              C1200,1073.4,1074.6,1198.8,920,1198.8z" />
-                        </svg>
-                      </p>
-                    </div>
-                    <div class="config-item-main flex">
-                      <p class="text-label" style="padding-right: 10px;">Profil </p>
-                      <input type="text" class="input-size--default" id="configProfileName" value="none" />
-                    </div>
+              <div class="configItem"> 
+                <div class="configItem-title-row flex">
+                  <div class="configItem-icon-container flex">
+                    <p class="text-label label-emoji">
+                      <?xml version="1.0" encoding="utf-8"?>
+                      <svg version="1.1" id="Profile" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
+                        style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
+                        <path d="M600,678.8L600,678.8c-154.3,0-279.4-125.1-279.4-279.4v0C320.6,245.1,445.7,120,600,120h0c154.3,0,279.4,125.1,279.4,279.4
+                            v0C879.4,553.7,754.3,678.8,600,678.8z" />
+                        <path d="M920,1198.8H280c-154.6,0-280-125.4-280-280v0c0-66.3,53.7-120,120-120h960c66.3,0,120,53.7,120,120v0
+                            C1200,1073.4,1074.6,1198.8,920,1198.8z" />
+                      </svg>
+                    </p>
                   </div>
-                  <div class="config-item-content-row flex">
-                    <label class="button-primary">Import
-                      <input type="file" class="object--hidden" id="button_importConfigs" accept=".tcprofile" />
-                    </label>
-                    <button class="button-primary" id="button_exportConfigs">Export</button>
-                    <button class="button-primary" id="button_clearConfigs">Löschen</button>
+                  <div class="configItem-headline-container">
+                    <p class="text-label">Profil</p>
                   </div>
                 </div>
-              </div>
-              <div class="config-item dFlex">
-                <div class="config-item-main-container flex">
-                  <div class="config-item-title-row flex">
-                    <div class="config-item-icon-container flex">
-                      <p class="text-label label-emoji">
-                        <?xml version="1.0" encoding="utf-8"?>
-                        <svg version="1.1" id="brush" xmlns="http://www.w3.org/2000/svg"
-                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
-                          style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
-                          <path
-                            d="M537.7,575.4L424.6,462.3L863.7,23.1c30.9-30.9,80.9-30.9,111.7,0l1.4,1.4c30.9,30.9,30.9,80.9,0,111.7L537.7,575.4z" />
-                          <path d="M467.2,645.9L414,682C414,682,467.3,645.9,467.2,645.9C431.8,681.4,491,849,222.4,890.7c-5.3,0.8-10.8,1.6-16.4,2.3
-                          	c-8.7,1,60-60,27-71C136.8,789.9,96,969,96,969c-27-54.5-32-106.9-25.1-153C84,728.4,113.5,660.3,161,615
-                          	c121.6-115.9,160.1-57.1,193.1-82.2c0,0,0,0,0,0L467.2,645.9z" />
-                          <path d="M293,593.9" />
-                        </svg>
-                      </p>
+                <div class="configItem-content">
+                  <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-left">
+                      <p class="text-label text-margin--small">Name:</p>
                     </div>
-                    <div class="config-item-main flex">
-                      <p class="text-label">Farbthemen</p>
+                    <div class="configItem-content-right">
+                      <input type="text" class="input-size--medium" id="configProfileName" value="none" />
                     </div>
                   </div>
-                  <select class="input-size--default" name="select_themes" id="select-themes">
-                    <option disabled>Feelings</option>
-                    <option value="oceanswave" selected>Oceans Weave</option>
-                    <option value="midnightglow">Midnight Glow</option>
-                    <option disabled>Basic Colors</option>
-                    <option value="darkdroid">Dark Droid</option>
-                    <option value="pokemonsforest">Pokemon's Forest</option>
-                    <option value="blueflame">Blue Flame</option>
-                    <option value="mrwhite">Mr. White</option>
-                    <option disabled>Characters</option>
-                    <option value="jaimesrot">Jaime's Rot</option>
-                    <option value="yoshascoffeemug">Yosha's Coffee Mug</option>
-                    <option value="stevesblack">Steve's Black</option>
-                    <option value="tobiaswillesschoen">Tobias will es schön</option>
-                    <option value="johannesallespink">Johannes alles Pink</option>
-                    <option value="danielsnfsoutfit">Daniel's NFS Outfit</option>
-                    <option disabled>Company</option>
-                    <option value="trueinnovation">Trueinnovation</option>
-                    <option value="chromeblack">Chrome Black</option>
-                  </select>
+                  <div class="configItem-content-section">
+                    <div class="configItem-content-row dFlex">
+                      <div class="configItem-content-left">
+                        <p class="text-label text-margin--small">Datei:</p>
+                      </div>
+                      <div class="configItem-content-right">
+                        <label class="button-primary button-padding--small">Import
+                          <input type="file" class="object--hidden" id="button_importConfigs" accept=".tcprofile" />
+                        </label>
+                      </div>
+                    </div>
+                    <div class="configItem-content-row dFlex">
+                      <div class="configItem-content-left">
+                      </div>
+                      <div class="configItem-content-right">
+                        <button class="button-primary button-padding--small" id="button_exportConfigs">Export</button>
+                      </div>
+                    </div>
+                    <div class="configItem-content-row dFlex">
+                      <div class="configItem-content-left">
+                      </div>
+                      <div class="configItem-content-right">
+                        <button class="button-primary button-padding--small" id="button_clearConfigs">Löschen</button>
+                      </div>
+                    </div>
+                  </div>  
                 </div>
-              </div>
-              <div class="config-item dFlex">
-                <div class="config-item-main-container flex">
-                  <div class="config-item-title-row flex">
-                    <div class="config-item-icon-container flex">
-                      <p class="text-label label-emoji">
-                        <?xml version="1.0" encoding="utf-8"?>
+            </div>
+              <div class="configItem"> 
+                <div class="configItem-title-row flex">
+                  <div class="configItem-icon-container flex">
+                    <p class="text-label label-emoji">
+                      <?xml version="1.0" encoding="utf-8"?>
+                      <svg version="1.1" id="brush" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
+                        style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
+                        <path
+                          d="M537.7,575.4L424.6,462.3L863.7,23.1c30.9-30.9,80.9-30.9,111.7,0l1.4,1.4c30.9,30.9,30.9,80.9,0,111.7L537.7,575.4z" />
+                        <path d="M467.2,645.9L414,682C414,682,467.3,645.9,467.2,645.9C431.8,681.4,491,849,222.4,890.7c-5.3,0.8-10.8,1.6-16.4,2.3
+                        	c-8.7,1,60-60,27-71C136.8,789.9,96,969,96,969c-27-54.5-32-106.9-25.1-153C84,728.4,113.5,660.3,161,615
+                        	c121.6-115.9,160.1-57.1,193.1-82.2c0,0,0,0,0,0L467.2,645.9z" />
+                        <path d="M293,593.9" />
+                      </svg>
+                    </p>
+                  </div>
+                  <div class="configItem-headline-container">
+                    <p class="text-label">Design</p>
+                  </div>
+                </div>
+                <div class="configItem-content">
+                  <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-left">
+                      <p class="text-label text-margin--small">Farbthemen:</p>
+                    </div>
+                    <div class="configItem-content-right">
+                      <select name="select_themes" id="select-themes">
+                        <option disabled>Originals</option>
+                        <option value="oceanswave" selected>Oceans Weave</option>
+                        <option value="midnightglow">Midnight Glow</option>
+                        <option disabled>Feelings</option>
+                        <option value="battlefield">Battlefield</option>
+                        <option value="blueflame">Blue Flame</option>
+                        <option value="mint">Mint</option>
+                        <option value="mrwhite">Mr. White</option>
+                        <option value="neonretrored">Neon Retro Red</option>
+                        <option disabled>Characters</option>
+                        <option value="jaimesrot">Jaime's Rot</option>
+                        <option value="yoshascoffeemug">Yosha's Coffee Mug</option>
+                        <option value="stevesblack">Steve's Black</option>
+                        <option value="tobiaswillesschoen">Tobias will es schön</option>
+                        <option value="johannesallespink">Johannes alles Pink</option>
+                        <option value="danielsnfsoutfit">Daniel's NFS Outfit</option>
+                        <option disabled>Company</option>
+                        <option value="trueinnovation">Trueinnovation</option>
+                        <option value="chromeblack">Chrome Black</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+            </div>
+              <div class="configItem"> 
+                <div class="configItem-title-row flex">
+                  <div class="configItem-icon-container flex">
+                    <p class="text-label label-emoji">
+                      <?xml version="1.0" encoding="utf-8"?>
                         <svg version="1.1" id="questmark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                            viewBox="0 0 1200 1200" style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
                         <path d="M600,1200L600,1200c-44.2,0-80-35.8-80-80v0c0-44.2,35.8-80,80-80h0c44.2,0,80,35.8,80,80v0C680,1164.2,644.2,1200,600,1200
@@ -288,20 +325,43 @@
                             c-35.3,14.1-47.2,21.3-50,23.2c-3.1,3-4.9,5.4-5.9,6.8V860C680,904.2,644.2,940,600,940z M679,768.7C679,768.7,679,768.7,679,768.7
                             C679,768.7,679,768.7,679,768.7z M685.3,760.5C685.3,760.5,685.3,760.5,685.3,760.5C685.3,760.5,685.3,760.5,685.3,760.5z"/>
                         </g>
-                        </svg>                                               
-                      </p>
+                        </svg>       
+                    </p>
+                  </div>
+                  <div class="configItem-headline-container">
+                    <p class="text-label">Hilfe</p>
+                  </div>
+                </div>
+                <div class="configItem-content">
+                  <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-left">
+                      <p class="text-label text-margin--small">Readme</p>
                     </div>
-                    <div class="config-item-main flex">
-                      <p class="text-label">Hilfe</p>
+                    <div class="configItem-content-right">
+                      <button class="button-primary button-padding--small" id="button_openReadme">Readme.md</button>
                     </div>
                   </div>
-                  <button class="button-primary" id="button_openHelp">Öffnen</button>
+                  <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-left">
+                      <p class="text-label text-margin--small">Dokumentation</p>
+                    </div>
+                    <div class="configItem-content-right">
+                      <button class="button-primary button-padding--small" id="button_openHelp">Dokumentation.pdf</button>
+                    </div>
+                  </div>
+                  <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-left">
+                      <p class="text-label text-margin--small">Technische-Doku</p>
+                    </div>
+                    <div class="configItem-content-right">
+                      <button class="button-primary button-padding--small" id="button_openTechDoku">Technische_Doku.pdf</button>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="config-item dFlex">
-                <div class="config-item-main-container flex">
-                  <div class="config-item-title-row flex">
-                    <div class="config-item-icon-container flex">
+              <div class="configItem"> 
+                  <div class="configItem-title-row flex">
+                    <div class="configItem-icon-container flex">
                       <p class="text-label label-emoji">
                         <?xml version="1.0" encoding="utf-8"?>
                         <svg version="1.1" id="information_single" xmlns:serif="http://www.serif.com/"
@@ -312,15 +372,28 @@
                         </svg>
                       </p>
                     </div>
-                    <div class="config-item-main flex">
-                      <p class="text-label">Version</p>
+                    <div class="configItem-headline-container">
+                      <p class="text-label">Informationen</p>
                     </div>
                   </div>
-                  <div class="config-item-content-row">
-                    <p class="label-version dFlex" id="label_version">V </p>
-                    <p class="label-version dFlex" id="label_build_version"></p>
+                  <div class="configItem-content">
+                    <div class="configItem-content-row dFlex">
+                      <div class="configItem-content-left">
+                        <p class="text-label text-margin--small">Version:</p>
+                      </div>
+                      <div class="configItem-content-right">
+                        <p class="label-version dFlex text-margin--small" id="label_version">V </p>
+                      </div>
+                    </div>
+                    <div class="configItem-content-row dFlex">
+                      <div class="configItem-content-left">
+                        <p class="text-label text-margin--small">Build-Version:</p>
+                      </div>
+                      <div class="configItem-content-right">
+                        <p class="label-version dFlex text-margin--small" id="label_build_version"></p>
+                      </div>
+                    </div>
                   </div>
-                </div>
               </div>
             </div>
           </div>
@@ -334,25 +407,24 @@
                 </p>
               </div>
             </div>
-
             <div class="configuration-window-content">
-              <label class="config-item dFlex">
-                <div class="config-item-main-container dFlex">
-                  <div class="config-item-radio-container dFlex">
+              <label class="configItem dFlex">
+                <div class="configItem-main-container dFlex">
+                  <div class="configItem-radio-container dFlex">
                     <label class="radio-custom-container dFlex">
                       <input type="radio" class="radio-default" value="timesheetfilter-tobiasexcel"
                         name="timesheet-filter" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                  <div class="config-item-icon-container flex">
+                  <div class="configItem-icon-container flex">
                     <img src="assets/gfx/dlc/filters/icons/TobiasExcel.jpg" class="icon-bookingItem" />
                   </div>
-                  <div class="config-item-main flex">
+                  <div class="configItem-main flex">
                     <p class="text-label">Tobias Excel</p>
                   </div>
                 </div>
-                <div class="config-item-action-container flex">
+                <div class="configItem-action-container flex">
                   <button class="button-primary" id="tobiasFilterInfo">
                     <?xml version="1.0" encoding="utf-8"?>
                     <svg version="1.1" id="DownArrow" xmlns:serif="http://www.serif.com/"
@@ -365,23 +437,23 @@
                   </button>
                 </div>
               </label>
-              <label class="config-item dFlex">
-                <div class="config-item-main-container dFlex">
-                  <div class="config-item-radio-container dFlex">
+              <label class="configItem dFlex">
+                <div class="configItem-main-container dFlex">
+                  <div class="configItem-radio-container dFlex">
                     <label class="radio-custom-container dFlex">
                       <input type="radio" class="radio-default" value="timesheetfilter-stevegoogleexcel"
                         name="timesheet-filter" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                  <div class="config-item-icon-container flex">
+                  <div class="configItem-icon-container flex">
                     <img src="assets/gfx/dlc/filters/icons/SteveGoogleExcel.jpg" class="icon-bookingItem" />
                   </div>
-                  <div class="config-item-main flex">
+                  <div class="configItem-main flex">
                     <p class="text-label">Steve Google Excel</p>
                   </div>
                 </div>
-                <div class="config-item-action-container flex">
+                <div class="configItem-action-container flex">
                   <button class="button-primary" id="steveFilterInfo">
                     <?xml version="1.0" encoding="utf-8"?>
                     <svg version="1.1" id="DownArrow" xmlns:serif="http://www.serif.com/"
