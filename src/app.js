@@ -55,10 +55,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   // WAS SCHAUST DU IN MEIN CODE REIN?? DER WIRD NOCH AUFGERÄUMT!!
 
   // Main Buttons
-  const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData');
   const fillButton = document.querySelector('button#fillButton');
   const configButton = document.querySelector('button#configButton');
-
+  
   // Configuration Buttons
   const themeSelect = document.querySelector('select#select-themes');
   const languageSelect = document.querySelector('select#select-language');
@@ -74,8 +73,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
   const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
   config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton);
-  const button_pasteTicketData = document.getElementById('button_test_pasteTicketData')
-
+  const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData');
+  
   // local storages
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
   let lstorage_cLanguage = localStorage.getItem('tc_c_language')
@@ -83,6 +82,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
   let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
   let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
+  let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
 
   // Some vars
   let configOpen = false
@@ -143,14 +143,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       themeSelect.value = defaultTheme
       link_cssTheme.setAttribute('href', './assets/style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
     }
-    // if (lstorage_cLanguage) {
-    // languageSelect.value = lstorage_cLanguage
-    // language = lstorage_cLanguage
-    // } else {
-    // languageSelect.value = defaultLanguage
-    // language = defaultLanguage
-    // }
-
     if (lstorage_cFilter) {
       document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
     }
@@ -165,7 +157,17 @@ document.addEventListener('DOMContentLoaded', async function () {
       document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
       localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
     }
+    loadDLCStorage()
     console.log('✅ [Time Copy] extension loaded')
+  }
+
+  // local storage for dlcs
+  function loadDLCStorage(){
+    console.log(lstorage_c_dlcProTimeTest)
+    if(lstorage_c_dlcProTimeTest === 'true'){
+      config_check_showProTimeTestButton.checked = true
+      dlcShowProTimeTestButtonDisplay()
+    }
   }
 
   // Clear local storage
@@ -183,6 +185,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // DLC Storages
     localStorage.removeItem('tc_s_dlcplatforminformations')
     localStorage.removeItem('tc_s_dlcfilterinformations')
+    localStorage.removeItem('tc_c_dlc_protimetest')
   }
 
   function clearSessionStorage() {
@@ -324,17 +327,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.open(helpUrl)
   }
 
-  function dlcShowProTimeTestButton() {
-    if (config_check_showProTimeTestButton.checked) {
-      button_pasteTicketData.classList.remove('dNone')
-      localStorage.setItem('tc_c_dev_pttest', 'true')
-    } else {
-      button_pasteTicketData.classList.add('dNone')
-      localStorage.setItem('tc_c_dev_pttest', 'false')
-    }
-  }
-
-
   // import time copy profile
   let button_importConfigs = document.getElementById('button_importConfigs');
   button_importConfigs.addEventListener("change", importFile, false);
@@ -474,6 +466,25 @@ document.addEventListener('DOMContentLoaded', async function () {
       return
     }
 
+  }
+
+  // DLC Functions
+  function dlcShowProTimeTestButton() {
+    if (config_check_showProTimeTestButton.checked) {
+      localStorage.setItem('tc_c_dlc_protimetest', 'true')
+    } else {
+      localStorage.setItem('tc_c_dlc_protimetest', 'false')
+    }
+    dlcShowProTimeTestButtonDisplay()
+    configUserChanges = true
+  }
+
+  function dlcShowProTimeTestButtonDisplay(){
+    if (config_check_showProTimeTestButton.checked) {
+      button_dev_pttest.classList.remove('dNone')
+    } else {
+      button_dev_pttest.classList.add('dNone')
+    }
   }
 
   // Test protime function

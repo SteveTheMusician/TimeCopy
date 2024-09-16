@@ -11,21 +11,6 @@ export const customContent = `<div class="dlc-platform_custom-content">
             </label>
         </div>
     </div>
-    <div class="dlc-platform_custom-content-row dFlex">
-        <div class="row-cell-left">
-            <p class="subtext">Verzugs-Timer </p>
-        </div>
-        <div class="row-cell-right">
-            <select name="dlc_select_proTimeDelayTimer" id="dlc-select-protimedelaytimer">
-                <option value="150" >150 ms</option> 
-                <option value="250" selected>250 ms</option>
-                <option value="350" >350 ms</option>
-                <option value="500" >500 ms</option>
-                <option value="500" >750 ms</option>
-                <option value="500" >1000 ms</option>     
-            </select>
-        </div>
-    </div>
 </div>`
 
 export function CustomFunction(){
