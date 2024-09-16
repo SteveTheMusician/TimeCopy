@@ -4,7 +4,7 @@
 
  - design aufräumen ✅
  - components unterteilen
- - html components sauberer
+ - html components sauberer (80%)
  - doku pdf
  - comments raus
  - version testen lassen
@@ -13,11 +13,12 @@
  - wenn theme = null dann nimm default ✅
  - ProTime testbutton wieder funktionsfähig
  - DLC funktionen namen automatisch erfassen ✅
- - Automatic DLC fixen
+ - Automatic DLC fixen ✅
  - AmagProTime DLC fixen
 
 ## V 0.9.5
 
+ - Responsive Fix für small displays
  - Info Dropdown mit funktionen für Timesheets oder Booking-Plattformen ✅
  - erkennungs items zusammenklappbar ?
  - latency timer für protime ❌

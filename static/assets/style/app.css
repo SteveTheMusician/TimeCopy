@@ -630,11 +630,13 @@ label.configItem:hover {
 .configItem-content-left {
     width: 50%;
     height: fit-content;
+    word-break: break-all;
 }
 
 .configItem-content-right{
     width: 50%;
     height: fit-content;
+    word-break: break-all;
 }
 
 .configItem-radio-container {
