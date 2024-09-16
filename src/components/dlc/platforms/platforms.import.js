@@ -1,4 +1,6 @@
+
 // Enter here the Filder/File Names of the dlcs
+// Pls import the dlc also as function in the platform.dlc
 export const importPlatforms = ["Automatic", "AmagProTime"]
 
 export const platform_functionName_automatic = 'Automatic'
@@ -30,7 +32,7 @@ export async function importPlatformsData() {
                     tc_s_dlcplatforminformations = localStorage.setItem('tc_s_dlcplatforminformations', JSON.stringify(dlcPlatformsData))
                     resolve(tc_s_dlcplatforminformations)
                 } else {
-                    throw new Error('unable to create dlc import data')
+                    throw new Error('unable to create dlc (platforms) import data')
                 }
             } catch (error) {
             }

@@ -1,0 +1,92 @@
+@import url('./platforms/platforms.css');
+@import url('./filters/filters.css');
+
+.dlcItem {
+    flex-flow: column;
+}
+
+.dlcItem-main {
+    width: calc(100% - 40px);
+}
+
+.dlcItem-details-container {
+    transition: var(--transition-default);
+    overflow: hidden;
+    height: 200px;
+    margin-top: 10px;
+    border-top: 2px solid var(--color-second);
+    overflow-y: scroll;
+}
+
+.dlc-details--hidden {
+    height: 0;
+    opacity: 0;
+    margin-top: 0;
+    pointer-events: none;
+    border-top: 0px solid var(--color-second);
+}
+
+.dlcItem-headline-container {
+    padding-left: 20px;
+}
+
+.dlcItem-versionText-left {
+    width: 50%;
+}
+
+.dlcItem-versionText-right {
+    width: 50%;
+}
+
+.dlcItem-details_information_version-container {
+    padding-top: 10px;
+}
+
+.dlcItem-details_information_version-row {
+    height: 20px;
+}
+
+.dlcItem-details_information_version-row .subtext{
+    margin-block-start: 4px;
+    margin-block-end: 4px;
+}
+
+.radio-custom-container:hover input~.checkmark {
+    background-color: var(--color-highlight);
+}
+
+.radio-custom-container input:checked~.checkmark {
+    background-color: var(--color-active);
+    /* background: linear-gradient(180deg, rgba(1,171,130,1) 0%, rgba(31,254,172,1) 42%, rgba(89,255,196,1) 47%, rgba(14,144,83,1) 83%, rgba(2,92,64,1) 100%); */
+    box-shadow: 0 0 6px 2px var(--color-active);
+}
+
+.dlcItem-clickable:hover input~.checkmark {
+    background-color: var(--color-highlight);
+}
+
+.dlcItem-clickable:hover input:checked~.checkmark {
+    background-color: var(--color-active);
+}
+
+input:checked~.dlcItem-clickable:hover{
+    transform: unset;
+    box-shadow: unset;
+}
+
+.dlcItem-clickable input:checked{
+box-shadow: inset 1px 1px 5px #00000099;
+}
+
+.dlcItem .configItem-icon-container {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.row-cell-left {
+    width: 50%;
+}
+
+.row-cell-right {
+    width: 50%;
+}

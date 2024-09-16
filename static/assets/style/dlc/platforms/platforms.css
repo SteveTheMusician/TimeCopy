@@ -10,64 +10,6 @@
     background-color: #ececec;
 }
 
-.dlcItem {
-    flex-flow: column;
-}
-
-.dlcItem-main {
-    width: calc(100% - 40px);
-}
-
-.dlcItem-details-container {
-    transition: var(--transition-default);
-    overflow: hidden;
-    height: 200px;
-    margin-top: 10px;
-    border-top: 2px solid var(--color-second);
-    overflow-y: scroll;
-}
-
-.dlc-details--hidden {
-    height: 0;
-    opacity: 0;
-    margin-top: 0;
-    pointer-events: none;
-    border-top: 0px solid var(--color-second);
-}
-
-.dlcItem-headline-container {
-    padding-left: 20px;
-}
-
-.dlcItem-versionText-left {
-    width: 50%;
-}
-
-.dlcItem-versionText-right {
-    width: 50%;
-}
-
-.dlcItem-details_information_version-container {
-    padding-top: 10px;
-}
-
-.dlcItem-details_information_version-row {
-    height: 20px;
-}
-
-.dlcItem-details_information_version-row .subtext{
-    margin-block-start: 4px;
-    margin-block-end: 4px;
-}
-
 .dlc-platform_custom-content {
     padding-top: 10px;
-}
-
-.row-cell-left {
-    width: 50%;
-}
-
-.row-cell-right {
-    width: 50%;
 }

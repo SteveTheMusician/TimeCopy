@@ -1,4 +1,6 @@
 import { filters } from "./components/dlc/filters/filters.dlc.js";
+import { filtersContent } from "./components/dlc/filters/filters.dlc.js";
+import { filter_timesheetFilterPreValue } from "./components/dlc/filters/filters.import.js";
 import data_version from "../static/version.json" with { type: "json" };
 import { notification } from "./components/ui/notification/notification.js";
 import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
@@ -10,13 +12,24 @@ import { platform_bookingPlatformPreValue } from "./components/dlc/platforms/pla
 
 
 document.addEventListener('DOMContentLoaded', async function () {
-  let dlc_PlatformContent = await platformsContent()
+  let dlc_platformContent = await platformsContent()
   try{
-    if(!dlc_PlatformContent){
-      throw new Error('platform contents not loaded')
+    if(!dlc_platformContent){
+      throw new Error('❌ platform contents not loaded')
     }
   }catch(error){
     console.log(error)
+    clearDlcLocalStorages()
+    return
+  }
+  let dlc_filterContent = await filtersContent()
+  try{
+    if(!dlc_filterContent){
+      throw new Error('❌ filter contents not loaded')
+    }
+  }catch(error){
+    console.log(error)
+    clearDlcLocalStorages()
     return
   }
   const link_cssTheme = document.querySelector('link#link-theme');
@@ -31,7 +44,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const configWindow_Bookingsheets = document.getElementById('config-win-bookingsheet');
   const configWindow_Projects = document.getElementById('config-win-projects');
   const configProfileName = document.getElementById('configProfileName')
-
   // tab buttons
   const buttonsTab_getAll = document.getElementsByClassName('button-config-tab');
   const buttonTab_General = document.querySelector('button#button-tab-general');
@@ -59,6 +71,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Platform-DLC Elements and Listener
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
+  const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
   const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
   config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton);
   const button_pasteTicketData = document.getElementById('button_test_pasteTicketData')
@@ -81,8 +94,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Help.md"
   let helpUrl_timesheet_tobias = helpUrl + "#timesheet-tobias"
   let helpUrl_timesheet_steve = helpUrl + "#timesheet-steve-google-excel"
-  let extensionVersion = data_version.extension_version
-  let extensionBuild = data_version.extension_build
+  const extensionVersion = data_version.extension_version
+  const extensionBuild = data_version.extension_build
+  const extensionAuthor = data_version.extension_author
+  const extensionCoAuthor = data_version.extension_co_author
   let tcprofileVersion = data_version.profile_version
 
   // some sessionstorages for temp-messages and data
@@ -137,7 +152,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // }
 
     if (lstorage_cFilter) {
-      document.querySelector('input[value="' + lstorage_cFilter + '"]').checked = true
+      document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
     }
     if (lstorage_cProfileName) {
       configProfileName.value = lstorage_cProfileName
@@ -161,7 +176,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_c_projectDetection')
     localStorage.removeItem('tc_c_profileName')
     localStorage.removeItem('tc_c_bookingPlatform')
+    clearDlcLocalStorages()
+  }
+
+  function clearDlcLocalStorages(){
+    // DLC Storages
     localStorage.removeItem('tc_s_dlcplatforminformations')
+    localStorage.removeItem('tc_s_dlcfilterinformations')
   }
 
   function clearSessionStorage() {
@@ -235,8 +256,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // configuration functions
-  function timesheetFilterChange() {
-    // notification(true, true, 'Bitte öffne das PlugIn erneut, um die Filter zu übernehmen')
+  function timesheetFilterChange(e) {
+    let timesheetFilterValue = e.target.value.split(filter_timesheetFilterPreValue)[1]
+    localStorage.setItem('tc_c_filter', timesheetFilterValue)
+    configUserChanges = true
   }
 
   function bookingPlatformsChange(e) {
@@ -255,6 +278,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     }else {
       dlc_platformInformationContainer.classList.add(dlc_details_classHidden)
       dlc_platformDropDownButton.classList.remove('button-dropdown--active')
+    }
+  }
+
+  function dlcFilterOpenDropdown(e){
+    let dlc_filterElement = e.target.closest(".dlcItem-filter")
+    let dlc_filterDropDownButton = e.target.closest("button")
+    let dlc_filterInformationContainer = dlc_filterElement.getElementsByClassName('dlcItem-details-container')[0]
+    if(dlc_filterInformationContainer.classList.contains(dlc_details_classHidden)){
+      dlc_filterInformationContainer.classList.remove(dlc_details_classHidden)
+      dlc_filterDropDownButton.classList.add('button-dropdown--active')
+    }else {
+      dlc_filterInformationContainer.classList.add(dlc_details_classHidden)
+      dlc_filterDropDownButton.classList.remove('button-dropdown--active')
     }
   }
 
@@ -431,7 +467,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       // notification(true, true, bookEntries) --> Buchungsbestätigung erst rein machen ,wenn alle anderen Notifications stehen
       console.log("✅ Booking process return okey | ", bookEntries)
       }else {
-        throw new Error('Bookingprocess failed')
+        throw new Error('❌ Bookingprocess failed')
       }
     }catch(error){
       console.log(error)
@@ -458,6 +494,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Display version
     label_version.insertAdjacentHTML('beforeend', extensionVersion);
     label_build_version.insertAdjacentHTML('beforeend', extensionBuild);
+    label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor);
+    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionCoAuthor);
     // Main Buttons Listener
     fillButton.addEventListener('click', execReadClipboardText);
     button_dev_pttest.addEventListener('click', testProTime);
@@ -487,6 +525,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     for (var index = 0, indexLen = dlc_platform_element.length; index < indexLen; index++) {
       let dropdownButton = dlc_platform_element[index].getElementsByClassName('button-dropdown')[0]
       dropdownButton.addEventListener('click', dlcPlatformOpenDropdown);
+    }
+    for (var index = 0, indexLen = dlc_filter_element.length; index < indexLen; index++) {
+      let dropdownButton = dlc_filter_element[index].getElementsByClassName('button-dropdown')[0]
+      dropdownButton.addEventListener('click', dlcFilterOpenDropdown);
     }
 
     // Load local storages

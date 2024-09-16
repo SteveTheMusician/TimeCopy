@@ -6,11 +6,14 @@ import { importPlatformCustomContent } from "./platforms.import.js";
 import { importPlatformsData } from "./platforms.import.js";
 import { platform_functionName_automatic } from "./platforms.import.js";
 
-export async function platformsContent() {
-  return new Promise(async (resolve) => { 
-  let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
-  if (!platformInfoData) {
-    let importNewPlatformData = await importPlatformsData()
+// DLC function import - static map cuz eval is unsave
+const platformFunctionsMap = {
+  "AmagProTime": AmagProTime,
+  "Automatic": Automatic
+};
+
+async function importNewPlatformData(){
+  let importNewPlatformData = await importPlatformsData()
     try {
       if (importNewPlatformData) {
         console.log('dlc data created, restart time copy...')
@@ -22,17 +25,39 @@ export async function platformsContent() {
       console.log(error)
       window.location.reload()
     }
+}
+
+export async function platformsContent() {
+  return new Promise(async (resolve) => { 
+  let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
+  if (!platformInfoData) {
+    await importNewPlatformData()
   } else {
     platformInfoData = JSON.parse(platformInfoData)
   }
 
   for (let plKey of importPlatforms) {
-    let plDataObject = platformInfoData.find(item => item[plKey])[plKey]
+
+    // If a new DLC is Imported it would crash, cuz there is no cached data for it.
+    // To slove this: if error -> throw it and try to restart plugin (with cleaned dlc cache and new data)
+    let plDataObject = ''
+    try{
+      plDataObject = platformInfoData.find(item => item[plKey])[plKey]
+      if(!plDataObject){
+        throw new Error('DLC ERROR')
+      }
+    }catch(error){
+      console.log(error)
+      console.log('Restart Extension')
+      localStorage.removeItem('tc_s_dlcplatforminformations')
+      importNewPlatformData()
+      return
+    }
     let platformCustomContent = ''
     let platformCustomImports
-    let plattformImageFormat = '.png'
+    let platformImageFormat = '.png'
     if (plKey === platform_functionName_automatic) {
-      plattformImageFormat = '.gif'
+      platformImageFormat = '.gif'
     }
     // if dlc has custom function true import html and function
     if (plDataObject.platform_content === 'true') {
@@ -41,7 +66,7 @@ export async function platformsContent() {
     }
     // dlc array (Foldername aso used as ID for saving)
     // for new items, just make a new dls, add it here to the array, make logo in assets folder and add css in style/dlc folder
-    let platformChild = `<label class="configItem dlcItem dlcItem-platform dFlex">
+    let platformChild = `<label class="configItem dlcItem dlcItem-platform dlcItem-clickable dFlex">
                 <div class="dlcItem-main-container dFlex">
                   <div class="dlcItem-main dFlex">
                     <div class="configItem-radio-container dFlex">
@@ -52,7 +77,7 @@ export async function platformsContent() {
                       </label>
                     </div>
                     <div class="configItem-logo-container flex configItem-logo-container--`+ (plDataObject.platform_id) + `">
-                      <img src="assets/gfx/dlc/platforms/logos/`+ (plKey + plattformImageFormat) + `" class="icon-bookingItem" />
+                      <img src="assets/gfx/dlc/platforms/logos/`+ (plKey + platformImageFormat) + `" class="icon-bookingItem" />
                     </div>
                     <div class="dlcItem-headline-container flex">
                       <p class="text-label">`+ (plDataObject.platform_name) + `</p>
@@ -61,7 +86,7 @@ export async function platformsContent() {
                   <div class="configItem-action-container flex">
                     <button class="button-primary button-dropdown" id="bookingPlatform_DropDown`+ (plKey) + `">
                       <?xml version="1.0" encoding="utf-8"?>
-                      <svg version="1.1" id="DownArrow" xmlns:serif="http://www.serif.com/"
+                      <svg version="1.1" xmlns:serif="http://www.serif.com/"
                       	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
                       	 style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
                       <path id="downarrow_smooth" class="st0" d="M671.2,910.4l502.1-502.1c35.1-35.1,35.1-92.2,0-127.3c-35.1-35.1-92.2-35.1-127.3,0
@@ -98,15 +123,8 @@ export async function platformsContent() {
 
 export async function platforms(bookingPlatformSelectValue, bookingData, detectionItems, dev_pttest) {
 
-  let dlc_bookingPlatformFunctions = []
   let bookingFunctionName = bookingPlatformSelectValue
-  // create dynamic function array
-  importPlatforms.forEach((plKey) => {
-    dlc_bookingPlatformFunctions[plKey] = async function (bookingData, detectionItems, dev_pttest) { 
-      return await AmagProTime(bookingData, detectionItems, dev_pttest); 
-    };
-  });
-
+  // If "Automatic" then wait for new Value
   if (bookingFunctionName === platform_functionName_automatic) {
     bookingFunctionName = await Automatic()
     bookingPlatformSelectValue = bookingPlatformSelectValue.replace(platform_functionName_automatic, bookingFunctionName)
@@ -121,5 +139,6 @@ export async function platforms(bookingPlatformSelectValue, bookingData, detecti
       detectionFiltersMatch_booking = [...detectionFiltersMatch_booking, allDetectionFilters[i]];
     }
   }
-  return bookingFunctionName ? dlc_bookingPlatformFunctions[bookingFunctionName](bookingData, detectionFiltersMatch_booking, dev_pttest) : null
+  return bookingFunctionName ? platformFunctionsMap[bookingFunctionName](bookingData, detectionFiltersMatch_booking, dev_pttest) : null
 }
+
