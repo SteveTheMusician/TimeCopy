@@ -38,8 +38,12 @@
 - other: add more delay between h and ticket number (proTime dlc)
 
 ## V 0.9.20
+- feature: new configuratin ui design
+- feature: dlc information dropdown 
+- feature: new themes and theme redesign
 - fix: hidden tag detection (detection-filtering)
-- fix: if theme is null, set default 
-- dlc dynamic import
+- fix: if theme is null, set default
+- fix: dlc informations and theme headlines in german 
+- other: dlc dynamic import
 - other: changes on different elements and storages naming
 - other: new Profile-Version
