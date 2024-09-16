@@ -11,7 +11,7 @@
  - in test & release mergen
  - release in chrome store hochladen 
  - wenn theme = null dann nimm default ✅
- - ProTime testbutton wieder funktionsfähig
+ - ProTime testbutton wieder funktionsfähig ✅
  - DLC funktionen namen automatisch erfassen ✅
  - Automatic DLC fixen ✅
  - AmagProTime DLC fixen

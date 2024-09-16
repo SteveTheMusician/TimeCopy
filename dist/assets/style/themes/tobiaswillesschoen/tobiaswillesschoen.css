@@ -94,7 +94,7 @@ header {
   border-radius: 20px;
 }
 
-.configItem-main-container .configItem-icon-container {
+.dlcItem-main .configItem-icon-container {
   backdrop-filter: unset;
   background-color: unset;
   padding: 0;
