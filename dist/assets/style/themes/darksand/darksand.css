@@ -1,0 +1,35 @@
+:root {
+  /* ---- Dark Sand Theme (Idea by Sebastian)---- */
+
+  /* color palette */
+  --black-22: #303841;
+  --gray-43: #3A4750;
+  --gray-4c: #4c5b65;
+  --teal: #22A39F;
+  --sand: #F3EFE0;
+  --lightteal: #c7f6ed;
+  --gray-ab: #abb6bd;
+  --gray-db: #dbe4e9;
+  --red-a3: #a32258;
+  --red-65: #654c57;
+
+  /* theme colors */
+  --color-main: var(--black-22);
+  --color-second: var(--gray-43);
+  --color-third: var(--gray-4c);
+  --color-highlight: var(--lightteal);
+  --color-active: var(--teal);
+  --color-disabled: var(--red-65);
+  --color-close: var(--red-a3);
+
+  /* Font colors */
+  --color-font: var(--gray-db);
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: var(--sand);
+  --color-font-second: var(--gray-db);
+  --color-font-headlabel: var(--sand);
+  --color-font-subtext: var(--gray-ab);
+  /* Icon colors */
+  --color-icon-default: var(--sand);
+  --color-icon-light: var(--sand);
+}
