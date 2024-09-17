@@ -41,6 +41,7 @@
 - feature: new configuratin ui design
 - feature: dlc information dropdown 
 - feature: new themes and theme redesign
+- feature: protime test function in protime dlc
 - fix: hidden tag detection (detection-filtering)
 - fix: if theme is null, set default
 - fix: dlc informations and theme headlines in german 

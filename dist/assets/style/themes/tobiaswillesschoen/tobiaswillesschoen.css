@@ -51,7 +51,7 @@ body:before {
   content: "";
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0; 
-  background: hsl(0deg 0% 53.78% / 34%);
+  background: hsl(0deg 0% 25.03% / 34%);
   pointer-events: none;
 }
 
@@ -74,7 +74,7 @@ header {
 }
 
 .button-config-tab svg {
-  fill: var(--color-icon-light);
+  fill: var(--color-icon-default);
 }
 
 .button-tab--active svg{
@@ -113,9 +113,10 @@ header {
 }
 
 .configuration-tab-container {
-  backdrop-filter: var(--blur-default) brightness(1.2);
+  backdrop-filter: var(--blur-default) brightness(1.05);
   border-radius: var(--border-radius-default);
   margin-bottom: 10px;
+  background-color: var(--color-second);
 }
 
 .button-config-tab {
