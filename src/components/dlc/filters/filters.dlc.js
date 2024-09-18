@@ -11,7 +11,8 @@ const filterFunctionsMap = {
 
 export async function filters(filter,clipboarsString) {
    let filteredTimesheetData = []
-   return filteredTimesheetData = filterFunctionsMap[filter](clipboarsString)
+   filteredTimesheetData = filterFunctionsMap[filter](clipboarsString)
+   return filteredTimesheetData
 }
 
 export async function filtersContent() {

@@ -13,9 +13,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
     bookingData.forEach((ticket) => {
       let ticketPrefixMatches = filterPrefix(ticket, detectionItemsProTime);
       let ticketAddPrefixMatches = filterAddPrefix(ticket, ticketPrefixMatches);
-      console.log("-->PM: ",ticketAddPrefixMatches)
       let ticketRefinePrefixesMatches = filterAllPrefixes(ticket, ticketAddPrefixMatches);
-      console.log("-->AM: ",ticketRefinePrefixesMatches)
       let ticketRefineBookingNomber = filterBookingNomber(ticket, ticketRefinePrefixesMatches);
 
       if (ticket.item_ticketdisc.length < 2) {
@@ -31,13 +29,13 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
       if (/\p{L}/u.test(ticket.item_tickettime)) {
         throw new Error("Ticket hat ungewöhnliche Zeitangabe! | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc)
       }
-      console.log("Infos: ", ticketRefineBookingNomber)
+      // console.log("Infos: ", ticketRefineBookingNomber)
       if (ticket.item_bookingnumber.length < 1 && ticketRefineBookingNomber.length > 0) {
         if (ticketRefineBookingNomber[0].projectnomber.length < 1) {
           throw new Error("Buchungsnummer fehlt im Ticket/in der Erkennung | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc)
         }
       }
-      console.log("ticket filter matches ", ticket, ticketRefineBookingNomber);
+      // console.log("ticket filter matches ", ticket, ticketRefineBookingNomber);
     });
   } catch (error) {
     notification(true, false, error);
@@ -46,7 +44,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
 
   if (failedTickets.length) {
     notification(true, false, "⚠️ " + failedTickets.length + `<span id="fail-link">Ticket(s)</span> wurden nicht übernommen.`);
-    console.log("failed tickets ", failedTickets);
+    console.log("⛔️ failed tickets ", failedTickets);
     var logFailedTicketList = [];
     failedTickets.forEach((failedTicketItem) => {
       let ticketnumber;
@@ -67,7 +65,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
     let failedTicketsLink = document.getElementById('fail-link');
     failedTicketsLink.addEventListener('click', () => alert('Ignorierte Tickets: ' + logFailedTicketsString.replace(/]|[[",]/g, '')));
   }
-  console.log("valide ", valideTickets);
+  console.log("🔄 valid tickets ", valideTickets);
   try {
     if (valideTickets.length) {
       for (let i = 0; i < valideTickets.length; i++) {
@@ -115,7 +113,6 @@ function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
 }
 
 function filterAllPrefixes(ticket, ticketAddPrefixMatches) {
-  console.log("T",ticket)
   let refinePrefix_Matches = []
   if (ticketAddPrefixMatches.length > 1) {
     ticketAddPrefixMatches.forEach((detectionItemRefineMatch) => {
@@ -201,7 +198,7 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
 
   try {
     let firstBookingLoop = await checkFirstBookingLoop(bookingLoopCount)
-    console.log(firstBookingLoop)
+    // console.log(firstBookingLoop)
   } catch (error) {
     alert(error)
     console.error("Error in checkFirstBookingLoop: ", error);

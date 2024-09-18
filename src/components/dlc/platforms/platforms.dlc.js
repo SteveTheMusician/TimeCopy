@@ -48,7 +48,7 @@ export async function platformsContent() {
       }
     }catch(error){
       console.log(error)
-      console.log('Restart Extension')
+      console.log('Restart Extension...')
       localStorage.removeItem('tc_s_dlcplatforminformations')
       importNewPlatformData()
       return
@@ -132,8 +132,7 @@ export async function platforms(bookingPlatformSelectValue, bookingData, detecti
   // filter detection items for booking platforms
   let allDetectionFilters = JSON.parse(detectionItems)
   let detectionFiltersMatch_booking = []
-  let bookingsheetSearchValue = "select_" + bookingPlatformSelectValue
-
+  let bookingsheetSearchValue = bookingPlatformSelectValue
   for (let i = 0; i < allDetectionFilters.length; i++) {
     if (allDetectionFilters[i].bookingsheet === bookingsheetSearchValue) {
       detectionFiltersMatch_booking = [...detectionFiltersMatch_booking, allDetectionFilters[i]];

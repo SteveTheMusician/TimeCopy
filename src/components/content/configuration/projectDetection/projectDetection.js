@@ -72,9 +72,7 @@ function loadDetectionItems() {
     let loaded_input_activity = detectionItems.find(x => x.id === detectionItemsHtml[i].id).protimeactivity
     input_activity.value = loaded_input_activity
     input_activity.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "protimeactivity", input_activity.value) });
-
   }
-
 }
 // get Items current object to change
 function getCurrentObject(itemId) {

@@ -163,7 +163,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // local storage for dlcs
   function loadDLCStorage(){
-    console.log(lstorage_c_dlcProTimeTest)
     if(lstorage_c_dlcProTimeTest === 'true'){
       config_check_showProTimeTestButton.checked = true
       dlcShowProTimeTestButtonDisplay()
@@ -309,15 +308,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
-  function switchLanguage() {
-    let currentLanguageValue = languageSelect.value
-    localStorage.setItem('tc_c_language', currentLanguageValue)
-    configUserChanges = true
-    sessionStorage.setItem('tc_c_changeLanguage', true)
-    loadStorage()
-    window.location.reload()
-  }
-
   function switchFilter(e) {
     localStorage.setItem('tc_c_filter', e.target.value)
     configUserChanges = true
@@ -339,7 +329,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       fileData = this.result;
       fileData = JSON.parse(fileData)
       validateFileVersion = checkImportFileVersion(fileData)
-      console.log(validateFileVersion)
       if (validateFileVersion) {
         // set data
         localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
@@ -446,13 +435,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     // get all boocking relevant data as array
     try {
       timesheetData = await filters(filter, clipboarsString)
-      console.log("Timesheet Data: ", timesheetData)
+      console.log("💽 dlc filter (timesheet "+ filter +") data: ", timesheetData)
     } catch (error) {
-      console.error("Unable to call bookingData: ", error);
+      console.error("❌ Unable to call bookingData: ", error);
       notification(true, false, 'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
       return
     }
-    console.log("App Booking Platform "+bookingPlatform)
+    console.log("🔘 selected platform: "+bookingPlatform)
     let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
     try{
       if (bookEntries) {

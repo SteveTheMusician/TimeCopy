@@ -92,6 +92,5 @@ export function filter_SteveGoogleExcel(clipboarsString) {
     }
     bookingData.push(itemObject)
   })
-  console.log(bookingData)
   return bookingData
 }
