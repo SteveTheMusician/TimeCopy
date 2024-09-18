@@ -1,5 +1,6 @@
 // automatic functions
 import { notification } from "../../../ui/notification/notification.js";
+import { message } from "../../../ui/message/message.js";
 
 export async function Automatic(){
 
@@ -23,7 +24,7 @@ export async function Automatic(){
             throw new Error('"Automatisch" konnte die URL nicht zuweisen.')
         }
     }catch(error){
-        notification(true,false,error)
+        message(true,'warning', error, 'Es gibt keine übereinstimmung zwischen deiner aktuellen Web-URL und einer der Buchungsplattformen. Das DLC "Automatisch" kann so keine Zuweisung treffen.')
         return
     }
     return automaticValue

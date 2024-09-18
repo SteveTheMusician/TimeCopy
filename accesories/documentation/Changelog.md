@@ -48,3 +48,16 @@
 - other: dlc dynamic import
 - other: changes on different elements and storages naming
 - other: new Profile-Version
+
+## V 0.9.21
+- fix: DLC-Automatic detection
+- fix: Project-Detection error
+- fix: DLC-ProTime Ticket validating
+- fix: styles
+- other: HTML refactor
+- other: logs added
+
+## V 0.9.50
+- feature: message feedback
+- other: code refactor
+- other: wordings in messages

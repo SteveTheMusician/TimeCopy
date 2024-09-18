@@ -133,6 +133,7 @@ button svg {
 
 .subtext {
     font-size: 10px;
+    line-height: 1.4;
     color: var(--color-font-subtext);
 }
 
@@ -158,6 +159,10 @@ button svg {
 .text-label {
     color: var(--color-font-second);
     font-size: 12px;
+}
+
+.label-row-messageHeadline {
+    justify-content: space-between;
 }
 
 .dFlex {
@@ -205,6 +210,8 @@ header {
 main {
     display: flex;
     justify-content: center;
+    height: 100%;
+    overflow: hidden;
 }
 
 .main-window {
@@ -708,6 +715,12 @@ input[type=text]:focus {
     margin-right: 10px;
 }
 
+.configItem-icon-container svg{
+    width: 20px;
+    height: 20px;
+    fill: var(--color-icon-default);
+}
+
 .configItem-icon-container img {
     width: 50px;
     height: 50px;
@@ -756,9 +769,7 @@ select {
 }
 
 .label-emoji svg {
-    width: 20px;
-    height: 20px;
-    fill: var(--color-icon-default);
+
 }
 
 .switch {
@@ -859,8 +870,132 @@ input:checked+.switch_slider:before {
     opacity: 0;
 }
 
+.messageSection {
+    padding-top: 10px;
+    margin-bottom: 20px;
+    max-height: 520px;
+    overflow-y: scroll;
+    height: calc(60% - 30px);
+}
+
+.message {
+    width: -webkit-fill-available;
+    opacity: 1;
+    transition: var(--transition-mid);
+    justify-content: flex-start;
+    cursor: pointer;
+    outline: 1px solid var(--color-second);
+    animation-duration: 3s;
+    animation-fill-mode: none;
+    animation-direction: normal;
+    /* transition-delay: 2s; */
+}
+
+@keyframes message-new-information {
+    0% {
+        outline-color: var(--color-highlight);
+    }
+    80% {
+        outline-color: var(--color-highlight);
+    }
+    100% {
+        outline-color: var(--color-second);
+    }
+}
+
+@keyframes message-new-warning {
+    0% {
+        outline-color: var(--color-warning);
+    }
+    80% {
+        outline-color: var(--color-warning);
+    }
+    100% {
+        outline-color: var(--color-second);
+    }
+}
+
+@keyframes message-new-error {
+    0% {
+        outline-color: var(--color-close);
+    }
+    80% {
+        outline-color: var(--color-close);
+    }
+    100% {
+        outline-color: var(--color-second);
+    }
+}
+
+.message-icon-container {
+    margin-top: 5px;
+}
+
+.message-information {
+    animation-name: message-new-information;
+}
+
+.message-information:hover {
+    outline: 1px solid var(--color-highlight);
+}
+
+.message-information svg {
+    fill: var(--color-highlight);
+}
+
+.message-information .text-message-overview {
+    color: var(--color-highlight);
+}
+
+.message-warning {
+    animation-name: message-new-warning;
+}
+
+.message-warning svg {
+    fill: var(--color-warning);
+}
+
+.message-warning:hover {
+    outline: 1px solid var(--color-warning);
+}
+
+.message-warning .text-message-overview {
+    color: var(--color-warning);
+}
+
+.message-error {
+    animation-name: message-new-error;
+}
+
+
+.message-error svg {
+    fill: var(--color-close);
+}
+
+.message-error:hover {
+    outline: 1px solid var(--color-close);
+}
+
+.message-error .text-message-overview {
+    color: var(--color-close);
+}
+
+.text-message-overview {
+    margin-block-start: 8px;
+}
+
+.message--hidden {
+    opacity: 0;
+    transform: translateX(-200px);
+}
+
 /* responsive */
 @media only screen and (max-width: 400px){
+
+    .text-message {
+        padding-left: 0 !important;
+    }
+
     .overview .text-label {
         padding-left: 10px;
     }

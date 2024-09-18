@@ -14,6 +14,7 @@
   --color-active: #a9c7fa;
   --color-disabled: #753141;
   --color-close: #916e74;
+  --color-warning: #c3c376;
 
   /* Font colors */
   --color-font: var(--white);

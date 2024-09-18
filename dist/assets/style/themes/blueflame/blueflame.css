@@ -16,6 +16,7 @@
   --color-active: #CAF0F8;
   --color-disabled: #295276;
   --color-close: #ff209d;
+  --color-warning: #f8ff2a;
   
   /* Font colors */
   --color-font: var(--white-ec);

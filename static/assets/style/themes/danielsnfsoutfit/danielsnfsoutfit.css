@@ -20,6 +20,7 @@
   --color-active: var(--gold-light);
   --color-disabled: var(--red-7e);
   --color-close: var(--red);
+  --color-warning: #9d9a00;
 
   /* Font colors */
   --color-font: var(--black);

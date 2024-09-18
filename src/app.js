@@ -3,6 +3,7 @@ import { filtersContent } from "./components/dlc/filters/filters.dlc.js";
 import { filter_timesheetFilterPreValue } from "./components/dlc/filters/filters.import.js";
 import data_version from "../static/version.json" with { type: "json" };
 import { notification } from "./components/ui/notification/notification.js";
+import { message } from "./components/ui/message/message.js";
 import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
 import { developer } from "./developer/developer.js";
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const header = document.querySelector('header');
   const configurations = document.querySelector('div.configurations');
   const overview = document.querySelector('div.overview');
+  const messageSection = document.getElementById('messages-section')
   const configurationsContainer = document.getElementById('config-container')
   const configWindow_getAll = document.getElementsByClassName('configuration-window');
   const configWindow_General = document.getElementById('config-win-general');
@@ -57,6 +59,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Main Buttons
   const fillButton = document.querySelector('button#fillButton');
   const configButton = document.querySelector('button#configButton');
+  const button_clearAllMessages = document.getElementById('button_clearAllMessages')
   
   // Configuration Buttons
   const themeSelect = document.querySelector('select#select-themes');
@@ -83,7 +86,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
   let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
   let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
-
+  let lstorage_appVersion = localStorage.getItem('tc_appVersion')
+  let lstorage_appWelcome = localStorage.getItem('tc_appWelcome')
   // Some vars
   let configOpen = false
   let dev_pttest = false
@@ -98,6 +102,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   const extensionBuild = data_version.extension_build
   const extensionAuthor = data_version.extension_author
   const extensionCoAuthor = data_version.extension_co_author
+  const extensionUpdateTextOverview = data_version.extension_update_text_overview
+  const extensionUpdateTextDetails = data_version.extension_update_text_details
   let tcprofileVersion = data_version.profile_version
 
   // some sessionstorages for temp-messages and data
@@ -135,6 +141,20 @@ document.addEventListener('DOMContentLoaded', async function () {
     const defaultLanguage = 'de'
     let language = ''
     let defaultBookingPlatform = platform_functionName_automatic
+
+    if(lstorage_appVersion) {
+      if(lstorage_appVersion !== extensionVersion) {
+        localStorage.setItem('tc_appWelcome', 'true')
+        localStorage.setItem('tc_appVersion', extensionVersion)
+        message(true,'information',extensionUpdateTextOverview+extensionVersion,extensionUpdateTextDetails)
+      } else {
+        localStorage.setItem('tc_appWelcome', 'false')
+      }
+    }else {
+      localStorage.setItem('tc_appWelcome', 'true')
+      localStorage.setItem('tc_appVersion', extensionVersion)
+      message(true,'information',extensionUpdateTextOverview+extensionVersion,extensionUpdateTextDetails)
+    }
 
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       themeSelect.value = lstorage_cThemes
@@ -177,6 +197,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_c_projectDetection')
     localStorage.removeItem('tc_c_profileName')
     localStorage.removeItem('tc_c_bookingPlatform')
+    localStorage.removeItem('tc_appVersion')
+    localStorage.removeItem('tc_appWelcome')
     clearDlcLocalStorages()
   }
 
@@ -340,7 +362,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         loadStorage()
         sessionStorage.setItem('tc_c_messageImported', 'true')
         window.location.reload()
-        // notification(true, true, 'Profil wurde gerfolgreich geladen. Starte neu...')
         setTimeout(function () {
         }, 2000)
       } else {
@@ -413,18 +434,18 @@ document.addEventListener('DOMContentLoaded', async function () {
     // check whitch filter to use
     try {
       if (filter === '' || filter === null) {
-        throw new Error("Bitte wähle einen Filter!")
+        throw new Error("Bitte wähle zuerst einen Filter!")
       }
       if (bookingPlatform === '' || bookingPlatform === null) {
         throw new Error("Bitte wähle eine Buchungsplatform!")
       }
       if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null) {
-        throw new Error("Bitte erstelle mindestens ein Erkennungs-Item !")
+        throw new Error("Bitte erstelle mindestens eine Projekt-Erkennung !")
       }
       processData(filter, clipboarsString, bookingPlatform, dev_pttest)
 
     } catch (error) {
-      notification(true, false, error)
+      message(true, 'warning', error, '')
       return
     }
   }
@@ -438,15 +459,16 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.log("💽 dlc filter (timesheet "+ filter +") data: ", timesheetData)
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error);
-      notification(true, false, 'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
+      // notification(true, false, '')
+      message(true, 'error','ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
       return
     }
     console.log("🔘 selected platform: "+bookingPlatform)
     let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
     try{
       if (bookEntries) {
-      // notification(true, true, bookEntries) --> Buchungsbestätigung erst rein machen ,wenn alle anderen Notifications stehen
       console.log("✅ Booking process return okey | ", bookEntries)
+      message(true, 'information','Buchungsprozess abgeschlossen', bookingPlatform)
       }else {
         throw new Error('❌ Bookingprocess failed')
       }
@@ -481,14 +503,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     dev_pttest = true
     readClipboardText()
   }
-
   // Regular Paste Function
+
   async function execReadClipboardText() {
     dev_pttest = false
     readClipboardText()
   }
 
+  function clearAllMessages(){
+    messageSection.innerHTML = ''
+  }
+
   projectDetection()
+
   // Extension load up
   window.addEventListener("load", (event) => {
     // Display version
@@ -500,6 +527,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     fillButton.addEventListener('click', execReadClipboardText);
     button_dev_pttest.addEventListener('click', testProTime);
     configButton.addEventListener('click', openConfigs);
+    button_clearAllMessages.addEventListener('click', clearAllMessages)
     buttonBackToMain.addEventListener('click', openConfigs);
     // Configuration tabs listener
     buttonTab_General.addEventListener('click', configTabOpenGeneral);
@@ -530,7 +558,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       let dropdownButton = dlc_filter_element[index].getElementsByClassName('button-dropdown')[0]
       dropdownButton.addEventListener('click', dlcFilterOpenDropdown);
     }
-
     // Load local storages
     loadStorage()
     loadSessionStorages()

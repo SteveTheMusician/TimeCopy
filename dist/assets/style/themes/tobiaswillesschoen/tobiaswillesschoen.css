@@ -2,7 +2,7 @@
   /* ---- Tobias will alles schön Theme (experimentell)---- */
 
   /* vars */
-  --blur-default: blur(8px);
+  --blur-default: blur(20px);
   /* color palette */
   --color-none: transparent;
   --white: #fefefe;
@@ -13,11 +13,11 @@
   --purple-pale: #985fd2;
   --mud-purple-8: #8364a3;
   --mud-purple: #5a4e6f;
-  --white-transparent: #fefefe55;
+  --white-transparent: #c1c1c155;
   --white-transparent-d: #d8d8d88f;
   --black: #121212;
   --black-3: #343434;
-  --light-gray: #78878d;
+  --light-gray: ##5f6568;
   --dark-gray-3: #343434;
 
   /* theme colors */
@@ -27,7 +27,8 @@
   --color-highlight: #6d95d5cc;
   --color-active: var(--white);
   --color-disabled: var(--light-gray);
-  --color-close: #e34a66cc;
+  --color-close: #ff9eb8;
+  --color-warning: #ffe17f;
 
   /* Font colors */
   --color-font: #121212;
@@ -167,4 +168,22 @@ input:checked + .switch_slider {
 
 .switch_slider {
   background-color: var(--color-second);
+}
+
+.message {
+  backdrop-filter: var(--blur-default);
+  background-color: var(--color-second);
+}
+
+.message-icon-container {
+  height: 20px;
+}
+
+#button_clearAllMessages {
+  backdrop-filter: var(--blur-default);
+  background-color: var(--color-second);
+}
+
+.label-row-messageHeadline .text-label {
+  height: 14px;
 }

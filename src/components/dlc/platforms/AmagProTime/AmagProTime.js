@@ -1,4 +1,4 @@
-import { notification } from "../../../ui/notification/notification.js";
+import { message } from "../../../ui/message/message.js";
 
 let anyProjectNomber = "*"
 let bookingLoopCount = 0
@@ -8,6 +8,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
 
   let valideTickets = [];
   let failedTickets = [];
+  let errorDetailMessage = ''
 
   try {
     bookingData.forEach((ticket) => {
@@ -27,25 +28,26 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
         failedTickets.push(ticket);
       }
       if (/\p{L}/u.test(ticket.item_tickettime)) {
-        throw new Error("Ticket hat ungewöhnliche Zeitangabe! | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc)
+        errorDetailMessage = 'Fehler im folgendem Ticket: '+ticket.item_ticketnumber + ', ' + ticket.item_ticketdisc
+        throw new Error("Ticket hat ungewöhnliche Zeitangabe" )
       }
       // console.log("Infos: ", ticketRefineBookingNomber)
       if (ticket.item_bookingnumber.length < 1 && ticketRefineBookingNomber.length > 0) {
         if (ticketRefineBookingNomber[0].projectnomber.length < 1) {
-          throw new Error("Buchungsnummer fehlt im Ticket/in der Erkennung | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc)
+          errorDetailMessage = '[' + ticket.item_ticketnumber + ticket.item_ticketdisc + ' -> Die Buchungsnummer fehlt entweder im Ticket oder den Erkennsungs-Filter.'
+          throw new Error("Buchungsnummer fehlt")
         }
       }
       // console.log("ticket filter matches ", ticket, ticketRefineBookingNomber);
     });
   } catch (error) {
-    notification(true, false, error);
+    message(true,'error', error, errorDetailMessage)
     return
   }
 
   if (failedTickets.length) {
-    notification(true, false, "⚠️ " + failedTickets.length + `<span id="fail-link">Ticket(s)</span> wurden nicht übernommen.`);
+    let notificationTimeOut = 0
     console.log("⛔️ failed tickets ", failedTickets);
-    var logFailedTicketList = [];
     failedTickets.forEach((failedTicketItem) => {
       let ticketnumber;
       let ticketdisc;
@@ -59,11 +61,13 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
       } else {
         ticketdisc = failedTicketItem.item_ticketdisc;
       }
-      logFailedTicketList.push(" >> ", ticketnumber, ": ", ticketdisc, " " + "<< ");
+      notificationTimeOut += 150
+      setTimeout(function(){
+
+        message(true,'warning','Ticket nicht übernommen',ticketnumber + ': ' + ticketdisc)
+      },notificationTimeOut)
     });
-    let logFailedTicketsString = JSON.stringify(logFailedTicketList);
-    let failedTicketsLink = document.getElementById('fail-link');
-    failedTicketsLink.addEventListener('click', () => alert('Ignorierte Tickets: ' + logFailedTicketsString.replace(/]|[[",]/g, '')));
+    notificationTimeOut = 0
   }
   console.log("🔄 valid tickets ", valideTickets);
   try {
@@ -73,17 +77,16 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
         try {
           await chromeTabScript(ticket, dev_pttest, bookingLoopCount)
           bookingLoopCount++
-          console.log('--> valid tickets loop')
         } catch (err) {
           console.error("Error in chromeTabScript: ", err)
           return Promise.reject(new Error(400))
         }
       }
     } else {
-      throw new Error("Es konnten keine Daten erfasst werden.")
+      throw new Error("Keine validen Daten")
     }
   } catch (error) {
-    notification(true, false, error)
+    message(true, 'error', error, 'Es konnten keine Daten Validiert bzw. den Filtern zugeordnet werden.')
     return
   }
   bookingLoopCount = 0

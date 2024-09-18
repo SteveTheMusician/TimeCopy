@@ -3,7 +3,7 @@
 ## RELEASE V 0.9.2
 
  - design aufräumen ✅
- - html components sauberer (80%) ✅
+ - html components sauberer (88%) ✅
  - doku pdf
  - comments raus
  - version testen lassen
@@ -13,20 +13,23 @@
  - ProTime testbutton wieder funktionsfähig ✅
  - DLC funktionen namen automatisch erfassen ✅
  - Automatic DLC fixen ✅
- - AmagProTime DLC fixen
+ - AmagProTime DLC fixen ✅
 
 ## V 0.9.5
 
  - Info Dropdown mit funktionen für Timesheets oder Booking-Plattformen ✅
  - protime test funktion als option im booking sheet ✅
  
+ - Buchungsfunktionen noch einmal genau testen
+ - Tobias-Theme überarbeiten
+ 
 ## V 1.0.0
 
  - CSS Variabeln verbessern und auslagern
  - Notification fix: beim öfteren betätigen oder schließen wird der timer nicht zurück gesetzt
- - Benachrichtigungen: Fehlerhafte Tickets werden als einzel nachricht im Benachrichtigungsfeld angezeigt bzw gelistet (Ohne Time Out und werden nach reopen gelöscht)
+ - Benachrichtigungen: Fehlerhafte Tickets werden als einzel nachricht im Benachrichtigungsfeld angezeigt bzw gelistet (Ohne Time Out und werden nach reopen gelöscht) ✅
  - Timesheet Items und BookingItems als extra Components auslagern ✅
- - buchung abgeschlossen notification
+ - buchung abgeschlossen notification ✅
  
  
  ## Features & Fixes für die Zukunft

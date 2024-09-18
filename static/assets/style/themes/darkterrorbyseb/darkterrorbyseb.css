@@ -10,7 +10,7 @@
   --lightteal: #c7f6ed;
   --gray-ab: #abb6bd;
   --gray-db: #dbe4e9;
-  --red-a3: #a32258;
+  --red-ea: #ea73a5;
   --red-65: #654c57;
 
   /* theme colors */
@@ -20,7 +20,8 @@
   --color-highlight: var(--lightteal);
   --color-active: var(--teal);
   --color-disabled: var(--red-65);
-  --color-close: var(--red-a3);
+  --color-close: var(--red-ea);
+  --color-warning: #aac851;
 
   /* Font colors */
   --color-font: var(--gray-db);
