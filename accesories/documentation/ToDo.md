@@ -20,8 +20,11 @@
  - Info Dropdown mit funktionen für Timesheets oder Booking-Plattformen ✅
  - protime test funktion als option im booking sheet ✅
  
+## V 0.9.6
  - Buchungsfunktionen noch einmal genau testen
  - Tobias-Theme überarbeiten
+ - SteveGoogleExcel: Datum soll nicht mit, wenn kopiert (wird zum teil als Ticket nummer erkannt)
+ - Wenn es geht: Buchungs-Timer schneller
  
 ## V 1.0.0
 

@@ -511,11 +511,16 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function clearAllMessages(){
-    messageSection.innerHTML = ''
+    let messageSectionMessages = document.getElementsByClassName('message')
+    for (var index = 0, indexLen = messageSectionMessages.length; index < indexLen; index++) {
+      messageSectionMessages[index].classList.add('message--hidden');
+    }
+    setTimeout(function(){
+      messageSection.innerHTML = ''
+    }, 400)
   }
 
   projectDetection()
-
   // Extension load up
   window.addEventListener("load", (event) => {
     // Display version
