@@ -513,7 +513,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   function clearAllMessages(){
     let messageSectionMessages = document.getElementsByClassName('message')
     for (var index = 0, indexLen = messageSectionMessages.length; index < indexLen; index++) {
-      messageSectionMessages[index].classList.add('message--hidden');
+      messageSectionMessages[index].classList.add('message--hiddenremove');
     }
     setTimeout(function(){
       messageSection.innerHTML = ''

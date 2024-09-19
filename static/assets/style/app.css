@@ -989,6 +989,11 @@ input:checked+.switch_slider:before {
     transform: translateX(-200px);
 }
 
+.message--hiddenremove {
+    opacity: 0;
+    transform: translateX(200px);
+}
+
 /* responsive */
 @media only screen and (max-width: 400px){
 
