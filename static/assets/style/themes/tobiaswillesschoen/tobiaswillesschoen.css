@@ -13,22 +13,22 @@
   --purple-pale: #985fd2;
   --mud-purple-8: #8364a3;
   --mud-purple: #5a4e6f;
-  --white-transparent: #c1c1c155;
+  --white-transparent: #ffffff55;
   --white-transparent-d: #d8d8d88f;
   --black: #121212;
   --black-3: #343434;
-  --light-gray: ##5f6568;
+  --light-gray: #5f6568;
   --dark-gray-3: #343434;
 
   /* theme colors */
   --color-main: var(--black);
   --color-second: var(--white-transparent);
   --color-third: var(--white-transparent-d);
-  --color-highlight: #6d95d5cc;
+  --color-highlight: #1e7fae;
   --color-active: var(--white);
   --color-disabled: var(--light-gray);
-  --color-close: #ff9eb8;
-  --color-warning: #ffe17f;
+  --color-close: #ff1856;
+  --color-warning: #fcff18;
 
   /* Font colors */
   --color-font: #121212;
@@ -52,7 +52,7 @@ body:before {
   content: "";
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0; 
-  background: hsl(0deg 0% 25.03% / 34%);
+  background: hsl(0deg 0% 45.03% / 34%);
   pointer-events: none;
 }
 

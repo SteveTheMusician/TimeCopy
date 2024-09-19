@@ -22,9 +22,9 @@
  
 ## V 0.9.6
  - Buchungsfunktionen noch einmal genau testen
- - Tobias-Theme überarbeiten
- - SteveGoogleExcel: Datum soll nicht mit, wenn kopiert (wird zum teil als Ticket nummer erkannt)
- - Wenn es geht: Buchungs-Timer schneller
+ - Tobias-Theme überarbeiten ✅
+ - SteveGoogleExcel: Datum soll nicht mit, wenn kopiert (wird zum teil als Ticket nummer erkannt) ✅
+ - Wenn es geht: Buchungs-Timer schneller ✅
  
 ## V 1.0.0
 
@@ -33,10 +33,13 @@
  - Benachrichtigungen: Fehlerhafte Tickets werden als einzel nachricht im Benachrichtigungsfeld angezeigt bzw gelistet (Ohne Time Out und werden nach reopen gelöscht) ✅
  - Timesheet Items und BookingItems als extra Components auslagern ✅
  - buchung abgeschlossen notification ✅
+ - DLC ProTime: Wenn Loading Screen -> Warte mit dem Eintragen/Buchen (:before element in "#ur-loading-box")
+                + wenn inputs nicht da sind = warte
+ - dlc: stevegoogleexcel - wenn urhzeit im string filtern
  
  
  ## Features & Fixes für die Zukunft
- - DLC ProTime: Wenn Loading Screen -> Warte mit dem Eintragen/Buchen
+
  - erkennungs items zusammenklappbar ?
  - components unterteilen ?
  - latency timer für protime ❌

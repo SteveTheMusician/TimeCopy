@@ -52,7 +52,6 @@ function closeMessage(e){
     let thisMessageId = e.target.closest(".message").id
     let thisMessage = document.getElementById(thisMessageId)
     thisMessage.classList.add('message--hiddenremove')
-    console.log(thisMessage)
     setTimeout(function(){
         thisMessage.remove()
         // thisMessage.removeEventListener('click', closeMessage)

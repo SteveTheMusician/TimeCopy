@@ -61,3 +61,8 @@
 - feature: message feedback
 - other: code refactor
 - other: wordings in messages
+
+## V 0.9.60
+- fix: DLC SteveGoogleExcel data filter
+- other: DLC ProTime - Timer
+- other: better tobias theme

@@ -28,8 +28,8 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
         failedTickets.push(ticket);
       }
       if (/\p{L}/u.test(ticket.item_tickettime)) {
-        errorDetailMessage = 'Fehler im folgendem Ticket: '+ticket.item_ticketnumber + ', ' + ticket.item_ticketdisc
-        throw new Error("Ticket hat ungewöhnliche Zeitangabe" )
+        errorDetailMessage = 'Fehler im folgendem Ticket: ' + ticket.item_ticketnumber + ', ' + ticket.item_ticketdisc
+        throw new Error("Ticket hat ungewöhnliche Zeitangabe")
       }
       // console.log("Infos: ", ticketRefineBookingNomber)
       if (ticket.item_bookingnumber.length < 1 && ticketRefineBookingNomber.length > 0) {
@@ -41,7 +41,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
       // console.log("ticket filter matches ", ticket, ticketRefineBookingNomber);
     });
   } catch (error) {
-    message(true,'error', error, errorDetailMessage)
+    message(true, 'error', error, errorDetailMessage)
     return
   }
 
@@ -62,10 +62,10 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
         ticketdisc = failedTicketItem.item_ticketdisc;
       }
       notificationTimeOut += 150
-      setTimeout(function(){
+      setTimeout(function () {
 
-        message(true,'warning','Ticket nicht übernommen',ticketnumber + ': ' + ticketdisc)
-      },notificationTimeOut)
+        message(true, 'warning', 'Ticket nicht übernommen', ticketnumber + ': ' + ticketdisc)
+      }, notificationTimeOut)
     });
     notificationTimeOut = 0
   }
@@ -166,11 +166,13 @@ async function chromeTabScript(ticket, dev_pttest, bookingLoopCount) {
 
 async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
 
+  let bookingWaitingTimer = "250"
+
   function waitTimer() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve("Timer done")
-      }, 300)
+      }, bookingWaitingTimer)
     })
   }
 
@@ -251,6 +253,7 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
     "select_proTime_service_ITDNT": "[data-itemkey='ZCHN0730005']",
     "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
   }]
+  
   protime_leistung.click()
   protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
 
@@ -299,14 +302,6 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
   protime_hours.value = ticketObject.item_tickettime
   if (!dev_pttest) {
     protime_hours.dispatchEvent(keyEventEnter)
-  }
-
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
-    return
   }
 
   try {
