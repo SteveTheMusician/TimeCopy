@@ -66,8 +66,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   const languageSelect = document.querySelector('select#select-language');
   const button_clearConfigs = document.getElementById('button_clearConfigs')
   const radios_filter = document.getElementsByName('timesheet-filter');
-  const button_openHelp = document.getElementById('button_openHelp')
-  const button_openHelpTimesheetTobias = document.getElementById('tobiasFilterInfo')
+  const button_docuHelp = document.getElementById('button_openHelp')
+  const button_docuReadme = document.getElementById('button_openReadme')
+  const button_docuChangelog = document.getElementById('button_openChangelog')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
   
   // Platform-DLC Elements and Listener
@@ -95,9 +96,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   let configUserChanges = false
   const dlc_details_classHidden = 'dlc-details--hidden'
 
-  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Help.md"
-  let helpUrl_timesheet_tobias = helpUrl + "#timesheet-tobias"
-  let helpUrl_timesheet_steve = helpUrl + "#timesheet-steve-google-excel"
+  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Documentation.pdf"
+  let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Changelog.md"
+  let readmeUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/Readme.md"
   const extensionVersion = data_version.extension_version
   const extensionBuild = data_version.extension_build
   const extensionAuthor = data_version.extension_author
@@ -335,9 +336,18 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
-  function openHelp() {
+  function docuOpenHelp() {
     window.open(helpUrl)
   }
+
+  function docuOpenChangelog() {
+    window.open(changelogUrl)
+  }
+
+  function docuOpenReadme() {
+    window.open(readmeUrl)
+  }
+
 
   // import time copy profile
   let button_importConfigs = document.getElementById('button_importConfigs');
@@ -542,7 +552,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     configProfileName.addEventListener('change', configSetProfileName)
     // Configs Listener
     button_clearConfigs.addEventListener('click', removeProfile);
-    button_openHelp.addEventListener('click', openHelp)
+    button_docuHelp.addEventListener('click', docuOpenHelp)
+    button_docuChangelog.addEventListener('click', docuOpenChangelog)
+    button_docuReadme.addEventListener('click', docuOpenReadme)
     themeSelect.addEventListener('change', switchTheme);
     // languageSelect.addEventListener('change', switchLanguage);
     // filter radios listener

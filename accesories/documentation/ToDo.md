@@ -25,6 +25,7 @@
  - Tobias-Theme überarbeiten ✅
  - SteveGoogleExcel: Datum soll nicht mit, wenn kopiert (wird zum teil als Ticket nummer erkannt) ✅
  - Wenn es geht: Buchungs-Timer schneller ✅
+ - Dokus verlinken
  
 ## V 1.0.0
 
