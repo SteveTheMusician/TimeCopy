@@ -13,13 +13,13 @@ export const customContent = `<div class="dlc-platform_custom-content">
     </div>
 </div>`
 
-export function CustomFunction(){
+export function CustomFunction() {
+    
     console.log('protime custom function')
-
-        let x = document.getElementById('xx')
-        x.addEventListener('click', test)
-        function test(){
-            console.log('hallo')
-        }
+    let x = document.getElementById('xx')
+    x.addEventListener('click', test)
+    function test() {
+        console.log('hallo')
+    }
 
 }

@@ -244,6 +244,15 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
     console.error("Error in waitTimer: ", error);
     return
   }
+
+  try {
+    const result = await waitTimer()
+  } catch (error) {
+    alert(error)
+    console.error("Error in waitTimer: ", error);
+    return
+  }
+
   // service dropdown
   let protime_leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0];
   let protime_leistungenOption;
