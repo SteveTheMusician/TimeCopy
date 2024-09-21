@@ -29,6 +29,7 @@
  
 ## V 1.0.0
 
+ - dlc: amagprotime - aboard button einfügen
  - CSS Variabeln verbessern und auslagern
  - Notification fix: beim öfteren betätigen oder schließen wird der timer nicht zurück gesetzt
  - Benachrichtigungen: Fehlerhafte Tickets werden als einzel nachricht im Benachrichtigungsfeld angezeigt bzw gelistet (Ohne Time Out und werden nach reopen gelöscht) ✅
