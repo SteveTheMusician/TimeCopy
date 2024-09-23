@@ -1,6 +1,5 @@
 import { Automatic } from "./Automatic/Automatic.js";
 import { AmagProTime } from "./AmagProTime/AmagProTime.js";
-import { DZBankProRes } from "./DZBankProRes/DZBankProres.js";
 import { importPlatforms } from "./platforms.import.js";
 import { importPlatformCustomContent } from "./platforms.import.js";
 import { importPlatformsData } from "./platforms.import.js";
