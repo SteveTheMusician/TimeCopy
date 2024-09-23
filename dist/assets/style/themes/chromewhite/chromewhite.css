@@ -1,0 +1,34 @@
+:root {
+  /* ---- Chrome White Theme ---- */
+
+  /* color palette */
+  --white-ef: #efeded;
+  --white: #ffffff;
+  --white-ec: #ecf0f7;
+  --black-20: #202124;
+  --dark-gray: #202124;
+  --blue: #1f5cd2;
+  --google-blue: #7cacf8;
+  --gray-c7: #c7c7c8;
+
+  /* theme colors */
+  --color-main: var(--white-ef);
+  --color-second: var(--white);
+  --color-third: var(--white-ec);
+  --color-highlight: var(--google-blue);
+  --color-active: var(--blue);
+  --color-disabled: var(--gray-c7);
+  --color-close: #dc362e;
+  --color-warning: #e96e30;
+
+  /* Font colors */
+  --color-font: var(--black-20);
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: var(--black-20);
+  --color-font-second: var(--black-20);
+  --color-font-headlabel: var(--black-20);
+  --color-font-subtext: var(--dark-gray);
+  /* Icon colors */
+  --color-icon-default: var(--dark-gray);
+  --color-icon-light: var(--blue);
+}

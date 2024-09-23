@@ -2,7 +2,7 @@
   /* ---- Tobias will alles schön Theme (experimentell)---- */
 
   /* vars */
-  --blur-default: blur(8px);
+  --blur-default: blur(20px);
   /* color palette */
   --color-none: transparent;
   --white: #fefefe;
@@ -13,32 +13,33 @@
   --purple-pale: #985fd2;
   --mud-purple-8: #8364a3;
   --mud-purple: #5a4e6f;
-  --white-transparent: #fefefe55;
+  --white-transparent: #ffffff55;
   --white-transparent-d: #d8d8d88f;
   --black: #121212;
   --black-3: #343434;
-  --dark-gray: #4e4e4e;
+  --light-gray: #5f6568;
   --dark-gray-3: #343434;
 
   /* theme colors */
   --color-main: var(--black);
   --color-second: var(--white-transparent);
   --color-third: var(--white-transparent-d);
-  --color-highlight: #465b87cc;
+  --color-highlight: #1e7fae;
   --color-active: var(--white);
-  --color-disabled: var(--dark-gray);
-  --color-close: #e34a66cc;
+  --color-disabled: var(--light-gray);
+  --color-close: #ff1856;
+  --color-warning: #fcff18;
 
   /* Font colors */
   --color-font: #121212;
   --color-font-navigation: var(--color-font-second);
   --color-font-headline: #3b4953;
-  --color-font-second: #262626;
+  --color-font-second: #566469;
   --color-font-headlabel: var(--dark-gray-3);
-  --color-font-subtext: var(--dark-gray);
+  --color-font-subtext: var(--light-gray);
   /* Icon colors */
-  --color-icon-default: #121212;
-  --color-icon-light: var(--white);
+  --color-icon-default: #365a79;
+  --color-icon-light: #b5cde1;
 }
 
 body {
@@ -51,7 +52,7 @@ body:before {
   content: "";
   position: fixed;
   top: 0; bottom: 0; left: 0; right: 0; 
-  background: hsl(0deg 17.47% 28.76% / 34%);
+  background: hsl(0deg 0% 45.03% / 34%);
   pointer-events: none;
 }
 
@@ -73,11 +74,19 @@ header {
   background-color: var(--white-transparent);
 }
 
+.button-config-tab svg {
+  fill: var(--color-icon-default);
+}
+
+.button-tab--active svg{
+  fill: var(--color-active);
+}
+
 .configuration-container {
   backdrop-filter: var(--blur-default);
 }
 
-.main-window .text-label {
+.configItem-icon-container, .label-row .text-label {
   backdrop-filter: var(--blur-default);
   background-color: var(--white-transparent);
   padding: 10px;
@@ -86,15 +95,29 @@ header {
   border-radius: 20px;
 }
 
-.config-item-content-row .text-label {
+.dlcItem-main .configItem-icon-container {
+  backdrop-filter: unset;
+  background-color: unset;
+  padding: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border-radius: 0;
+}
+
+.label-row {
+  padding: 2px 5px;
+}
+
+.configItem-content-row .text-label {
   backdrop-filter: unset;
   background-color: transparent;
 }
 
 .configuration-tab-container {
-  backdrop-filter: var(--blur-default) brightness(1.2);
+  backdrop-filter: var(--blur-default) brightness(1.05);
   border-radius: var(--border-radius-default);
   margin-bottom: 10px;
+  background-color: var(--color-second);
 }
 
 .button-config-tab {
@@ -145,4 +168,22 @@ input:checked + .switch_slider {
 
 .switch_slider {
   background-color: var(--color-second);
+}
+
+.message {
+  backdrop-filter: var(--blur-default);
+  background-color: var(--color-second);
+}
+
+.message-icon-container {
+  height: 20px;
+}
+
+#button_clearAllMessages {
+  backdrop-filter: var(--blur-default);
+  background-color: var(--color-second);
+}
+
+.label-row-messageHeadline .text-label {
+  height: 14px;
 }

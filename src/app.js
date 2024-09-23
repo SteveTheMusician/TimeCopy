@@ -1,17 +1,43 @@
 import { filters } from "./components/dlc/filters/filters.dlc.js";
+import { filtersContent } from "./components/dlc/filters/filters.dlc.js";
+import { filter_timesheetFilterPreValue } from "./components/dlc/filters/filters.import.js";
 import data_version from "../static/version.json" with { type: "json" };
 import { notification } from "./components/ui/notification/notification.js";
-import { plattforms } from "./components/dlc/plattforms/plattforms.dlc.js";
+import { message } from "./components/ui/message/message.js";
+import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
-import { developer } from "./developer/developer.js";
+import { platformsContent } from "./components/dlc/platforms/platforms.dlc.js";
+import { platform_functionName_automatic } from "./components/dlc/platforms/platforms.import.js";
+import { platform_bookingPlatformPreValue } from "./components/dlc/platforms/platforms.import.js";
 
-document.addEventListener('DOMContentLoaded', function () {
 
+document.addEventListener('DOMContentLoaded', async function () {
+  let dlc_platformContent = await platformsContent()
+  try{
+    if(!dlc_platformContent){
+      throw new Error('❌ platform contents not loaded')
+    }
+  }catch(error){
+    console.log(error)
+    clearDlcLocalStorages()
+    return
+  }
+  let dlc_filterContent = await filtersContent()
+  try{
+    if(!dlc_filterContent){
+      throw new Error('❌ filter contents not loaded')
+    }
+  }catch(error){
+    console.log(error)
+    clearDlcLocalStorages()
+    return
+  }
   const link_cssTheme = document.querySelector('link#link-theme');
   const main = document.querySelector('main');
   const header = document.querySelector('header');
   const configurations = document.querySelector('div.configurations');
   const overview = document.querySelector('div.overview');
+  const messageSection = document.getElementById('messages-section')
   const configurationsContainer = document.getElementById('config-container')
   const configWindow_getAll = document.getElementsByClassName('configuration-window');
   const configWindow_General = document.getElementById('config-win-general');
@@ -19,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const configWindow_Bookingsheets = document.getElementById('config-win-bookingsheet');
   const configWindow_Projects = document.getElementById('config-win-projects');
   const configProfileName = document.getElementById('configProfileName')
-
   // tab buttons
   const buttonsTab_getAll = document.getElementsByClassName('button-config-tab');
   const buttonTab_General = document.querySelector('button#button-tab-general');
@@ -31,39 +56,54 @@ document.addEventListener('DOMContentLoaded', function () {
   // WAS SCHAUST DU IN MEIN CODE REIN?? DER WIRD NOCH AUFGERÄUMT!!
 
   // Main Buttons
-  const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData');
   const fillButton = document.querySelector('button#fillButton');
   const configButton = document.querySelector('button#configButton');
-
+  const button_clearAllMessages = document.getElementById('button_clearAllMessages')
+  
   // Configuration Buttons
   const themeSelect = document.querySelector('select#select-themes');
   const languageSelect = document.querySelector('select#select-language');
   const button_clearConfigs = document.getElementById('button_clearConfigs')
   const radios_filter = document.getElementsByName('timesheet-filter');
-  const button_openHelp = document.getElementById('button_openHelp')
-  const button_openHelpTimesheetTobias = document.getElementById('tobiasFilterInfo')
+  const button_docuHelp = document.getElementById('button_openHelp')
+  const button_docuReadme = document.getElementById('button_openReadme')
+  const button_docuChangelog = document.getElementById('button_openChangelog')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
-  const radio_bookingPlattforms = document.getElementsByName('booking-plattform')
-
+  
+  // Platform-DLC Elements and Listener
+  const radio_bookingPlatforms = document.getElementsByName('booking-platform')
+  const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
+  const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
+  const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
+  config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton);
+  const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData');
+  
   // local storages
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
   let lstorage_cLanguage = localStorage.getItem('tc_c_language')
   let lstorage_cFilter = localStorage.getItem('tc_c_filter')
   let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
   let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
-  let lstorage_cBookingPlattform = localStorage.getItem('tc_c_bookingPlattform')
-
+  let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
+  let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
+  let lstorage_appVersion = localStorage.getItem('tc_appVersion')
+  let lstorage_appWelcome = localStorage.getItem('tc_appWelcome')
   // Some vars
   let configOpen = false
   let dev_pttest = false
   // this variable activates tc reloading after pressing the back button when its set to true
   let configUserChanges = false
+  const dlc_details_classHidden = 'dlc-details--hidden'
 
-  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Help.md"
-  let helpUrl_timesheet_tobias = helpUrl + "#timesheet-tobias"
-  let helpUrl_timesheet_steve = helpUrl + "#timesheet-steve-google-excel"
-  let extensionVersion = data_version.extension_version
-  let extensionBuild = data_version.extension_build
+  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/TimeCopy-Dokumentation.pdf"
+  let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Changelog.md"
+  let readmeUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/Readme.md"
+  const extensionVersion = data_version.extension_version
+  const extensionBuild = data_version.extension_build
+  const extensionAuthor = data_version.extension_author
+  const extensionCoAuthor = data_version.extension_co_author
+  const extensionUpdateTextOverview = data_version.extension_update_text_overview
+  const extensionUpdateTextDetails = data_version.extension_update_text_details
   let tcprofileVersion = data_version.profile_version
 
   // some sessionstorages for temp-messages and data
@@ -91,8 +131,8 @@ document.addEventListener('DOMContentLoaded', function () {
       sessionStorage.removeItem('tc_c_changeLanguage')
       configButton.click()
     }
+    
   }
-
   // Load localstorage
   function loadStorage() {
     // Default variables
@@ -100,38 +140,53 @@ document.addEventListener('DOMContentLoaded', function () {
     const defaultTheme = "oceanswave"
     const defaultLanguage = 'de'
     let language = ''
-    let defaultBookingPlattform = "bookingPlattform_automatic"
+    let defaultBookingPlatform = platform_functionName_automatic
 
-    if (lstorage_cThemes) {
+    if(lstorage_appVersion) {
+      if(lstorage_appVersion !== extensionVersion) {
+        localStorage.setItem('tc_appWelcome', 'true')
+        localStorage.setItem('tc_appVersion', extensionVersion)
+        message(true,'information',extensionUpdateTextOverview+extensionVersion,extensionUpdateTextDetails)
+      } else {
+        localStorage.setItem('tc_appWelcome', 'false')
+      }
+    }else {
+      localStorage.setItem('tc_appWelcome', 'true')
+      localStorage.setItem('tc_appVersion', extensionVersion)
+      message(true,'information',extensionUpdateTextOverview+extensionVersion,extensionUpdateTextDetails)
+    }
+
+    if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       themeSelect.value = lstorage_cThemes
       link_cssTheme.setAttribute('href', './assets/style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
     } else {
       themeSelect.value = defaultTheme
       link_cssTheme.setAttribute('href', './assets/style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
     }
-    // if (lstorage_cLanguage) {
-    // languageSelect.value = lstorage_cLanguage
-    // language = lstorage_cLanguage
-    // } else {
-    // languageSelect.value = defaultLanguage
-    // language = defaultLanguage
-    // }
-
     if (lstorage_cFilter) {
-      document.querySelector('input[value="' + lstorage_cFilter + '"]').checked = true
+      document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
     }
     if (lstorage_cProfileName) {
       configProfileName.value = lstorage_cProfileName
     } else {
       configProfileName.value = defaultProfileName
     }
-    if (lstorage_cBookingPlattform) {
-      document.querySelector('input[value="' + lstorage_cBookingPlattform + '"]').checked = true
+    if (lstorage_cBookingPlatform) {
+      document.querySelector('input[value="' + platform_bookingPlatformPreValue + lstorage_cBookingPlatform + '"]').checked = true
     } else {
-      document.querySelector('input[value="' + defaultBookingPlattform + '"]').checked = true
-      localStorage.setItem('tc_c_bookingPlattform', defaultBookingPlattform)
+      document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
+      localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
     }
-    console.log('✅ [extension] extension loaded')
+    loadDLCStorage()
+    console.log('✅ [Time Copy] extension loaded')
+  }
+
+  // local storage for dlcs
+  function loadDLCStorage(){
+    if(lstorage_c_dlcProTimeTest === 'true'){
+      config_check_showProTimeTestButton.checked = true
+      dlcShowProTimeTestButtonDisplay()
+    }
   }
 
   // Clear local storage
@@ -141,7 +196,17 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.removeItem('tc_c_filter')
     localStorage.removeItem('tc_c_projectDetection')
     localStorage.removeItem('tc_c_profileName')
-    localStorage.removeItem('tc_c_bookingPlattform')
+    localStorage.removeItem('tc_c_bookingPlatform')
+    localStorage.removeItem('tc_appVersion')
+    localStorage.removeItem('tc_appWelcome')
+    clearDlcLocalStorages()
+  }
+
+  function clearDlcLocalStorages(){
+    // DLC Storages
+    localStorage.removeItem('tc_s_dlcplatforminformations')
+    localStorage.removeItem('tc_s_dlcfilterinformations')
+    localStorage.removeItem('tc_c_dlc_protimetest')
   }
 
   function clearSessionStorage() {
@@ -215,13 +280,42 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // configuration functions
-  function timesheetFilterChange() {
-    // notification(true, true, 'Bitte öffne das PlugIn erneut, um die Filter zu übernehmen')
+  function timesheetFilterChange(e) {
+    let timesheetFilterValue = e.target.value.split(filter_timesheetFilterPreValue)[1]
+    localStorage.setItem('tc_c_filter', timesheetFilterValue)
+    configUserChanges = true
   }
 
-  function bookingPlattformsChange(e) {
-    localStorage.setItem('tc_c_bookingPlattform', e.target.value)
+  function bookingPlatformsChange(e) {
+    let bookingPlatformValue = e.target.value.split(platform_bookingPlatformPreValue)[1]
+    localStorage.setItem('tc_c_bookingPlatform', bookingPlatformValue)
     configUserChanges = true
+  }
+
+  function dlcPlatformOpenDropdown(e){
+    let dlc_platformElement = e.target.closest(".dlcItem-platform")
+    let dlc_platformDropDownButton = e.target.closest("button")
+    let dlc_platformInformationContainer = dlc_platformElement.getElementsByClassName('dlcItem-details-container')[0]
+    if(dlc_platformInformationContainer.classList.contains(dlc_details_classHidden)){
+      dlc_platformInformationContainer.classList.remove(dlc_details_classHidden)
+      dlc_platformDropDownButton.classList.add('button-dropdown--active')
+    }else {
+      dlc_platformInformationContainer.classList.add(dlc_details_classHidden)
+      dlc_platformDropDownButton.classList.remove('button-dropdown--active')
+    }
+  }
+
+  function dlcFilterOpenDropdown(e){
+    let dlc_filterElement = e.target.closest(".dlcItem-filter")
+    let dlc_filterDropDownButton = e.target.closest("button")
+    let dlc_filterInformationContainer = dlc_filterElement.getElementsByClassName('dlcItem-details-container')[0]
+    if(dlc_filterInformationContainer.classList.contains(dlc_details_classHidden)){
+      dlc_filterInformationContainer.classList.remove(dlc_details_classHidden)
+      dlc_filterDropDownButton.classList.add('button-dropdown--active')
+    }else {
+      dlc_filterInformationContainer.classList.add(dlc_details_classHidden)
+      dlc_filterDropDownButton.classList.remove('button-dropdown--active')
+    }
   }
 
   function configSetProfileName() {
@@ -236,23 +330,23 @@ document.addEventListener('DOMContentLoaded', function () {
     configUserChanges = true
   }
 
-  function switchLanguage() {
-    let currentLanguageValue = languageSelect.value
-    localStorage.setItem('tc_c_language', currentLanguageValue)
-    configUserChanges = true
-    sessionStorage.setItem('tc_c_changeLanguage', true)
-    loadStorage()
-    window.location.reload()
-  }
-
   function switchFilter(e) {
     localStorage.setItem('tc_c_filter', e.target.value)
     configUserChanges = true
   }
 
-  function openHelp() {
+  function docuOpenHelp() {
     window.open(helpUrl)
   }
+
+  function docuOpenChangelog() {
+    window.open(changelogUrl)
+  }
+
+  function docuOpenReadme() {
+    window.open(readmeUrl)
+  }
+
 
   // import time copy profile
   let button_importConfigs = document.getElementById('button_importConfigs');
@@ -266,7 +360,6 @@ document.addEventListener('DOMContentLoaded', function () {
       fileData = this.result;
       fileData = JSON.parse(fileData)
       validateFileVersion = checkImportFileVersion(fileData)
-      console.log(validateFileVersion)
       if (validateFileVersion) {
         // set data
         localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
@@ -274,11 +367,10 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
         localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
         localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-        localStorage.setItem('tc_c_bookingPlattform', fileData.tcprofile.cfg.platform)
+        localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
         loadStorage()
         sessionStorage.setItem('tc_c_messageImported', 'true')
         window.location.reload()
-        // notification(true, true, 'Profil wurde gerfolgreich geladen. Starte neu...')
         setTimeout(function () {
         }, 2000)
       } else {
@@ -318,7 +410,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       let saveObj = { "tcprofile": { "author": "steve", "version": tcprofileVersion, "extension_version": extensionVersion, "extension_build": extensionBuild, "profile_name": configProfileName.value } }
       // apply values
-      Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "language": lstorage_cLanguage, "filter": lstorage_cFilter, "platform": lstorage_cBookingPlattform, "detections": detectionItems } })
+      Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "language": lstorage_cLanguage, "filter": lstorage_cFilter, "platform": lstorage_cBookingPlatform, "detections": detectionItems } })
       // file setting
       const data = JSON.stringify(saveObj);
       const name = configProfileName.value + fileNameFixed;
@@ -347,42 +439,71 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let clipboarsString = await navigator.clipboard.readText();
     let filter = lstorage_cFilter
-    let bookingPlattform = lstorage_cBookingPlattform
+    let bookingPlatform = lstorage_cBookingPlatform
     // check whitch filter to use
     try {
       if (filter === '' || filter === null) {
-        throw new Error("Bitte wähle einen Filter!")
+        throw new Error("Bitte wähle zuerst einen Filter!")
       }
-      if (bookingPlattform === '' || bookingPlattform === null) {
-        throw new Error("Bitte wähle eine Buchungsplattform!")
+      if (bookingPlatform === '' || bookingPlatform === null) {
+        throw new Error("Bitte wähle eine Buchungsplatform!")
       }
       if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null) {
-        throw new Error("Bitte erstelle mindestens ein Erkennungs-Item !")
+        throw new Error("Bitte erstelle mindestens eine Projekt-Erkennung !")
       }
-      processData(filter, clipboarsString, bookingPlattform, dev_pttest)
+      processData(filter, clipboarsString, bookingPlatform, dev_pttest)
 
     } catch (error) {
-      notification(true, false, error)
+      message(true, 'warning', error, '')
       return
     }
   }
 
-  async function processData(filter, clipboarsString, bookingPlattform, dev_pttest) {
+  async function processData(filter, clipboarsString, bookingPlatform, dev_pttest) {
 
     let timesheetData = []
     // get all boocking relevant data as array
     try {
       timesheetData = await filters(filter, clipboarsString)
-      console.log("Timesheet Data: ", timesheetData)
+      console.log("💽 dlc filter (timesheet "+ filter +") data: ", timesheetData)
     } catch (error) {
-      console.error("Unable to call bookingData: ", error);
-      notification(true, false, 'Fehler: Buchungsdaten konnten nicht aufgerufen werden')
+      console.error("❌ Unable to call bookingData: ", error);
+      // notification(true, false, '')
+      message(true, 'error','ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
       return
     }
-    let bookEntries = await plattforms(bookingPlattform, timesheetData, lstorage_cDetectionItems, dev_pttest)
-    if (bookEntries) {
-      // notification(true, true, bookEntries) --> Buchungsbestätigung erst rein machen ,wenn alle anderen Notifications stehen
-      console.log("✅ bookEntries process complete | " + bookEntries)
+    console.log("🔘 selected platform: "+bookingPlatform)
+    let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
+    try{
+      if (bookEntries) {
+      console.log("✅ Booking process return okey | ", bookEntries)
+      message(true, 'information','Buchungsprozess abgeschlossen', bookingPlatform)
+      }else {
+        throw new Error('❌ Bookingprocess failed')
+      }
+    }catch(error){
+      console.log(error)
+      return
+    }
+
+  }
+
+  // DLC Functions
+  function dlcShowProTimeTestButton() {
+    if (config_check_showProTimeTestButton.checked) {
+      localStorage.setItem('tc_c_dlc_protimetest', 'true')
+    } else {
+      localStorage.setItem('tc_c_dlc_protimetest', 'false')
+    }
+    dlcShowProTimeTestButtonDisplay()
+    configUserChanges = true
+  }
+
+  function dlcShowProTimeTestButtonDisplay(){
+    if (config_check_showProTimeTestButton.checked) {
+      button_dev_pttest.classList.remove('dNone')
+    } else {
+      button_dev_pttest.classList.add('dNone')
     }
   }
 
@@ -391,23 +512,36 @@ document.addEventListener('DOMContentLoaded', function () {
     dev_pttest = true
     readClipboardText()
   }
-
   // Regular Paste Function
+
   async function execReadClipboardText() {
     dev_pttest = false
     readClipboardText()
   }
 
+  function clearAllMessages(){
+    let messageSectionMessages = document.getElementsByClassName('message')
+    for (var index = 0, indexLen = messageSectionMessages.length; index < indexLen; index++) {
+      messageSectionMessages[index].classList.add('message--hiddenremove');
+    }
+    setTimeout(function(){
+      messageSection.innerHTML = ''
+    }, 400)
+  }
+
+  projectDetection()
   // Extension load up
   window.addEventListener("load", (event) => {
-    projectDetection()
     // Display version
     label_version.insertAdjacentHTML('beforeend', extensionVersion);
     label_build_version.insertAdjacentHTML('beforeend', extensionBuild);
+    label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor);
+    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionCoAuthor);
     // Main Buttons Listener
     fillButton.addEventListener('click', execReadClipboardText);
     button_dev_pttest.addEventListener('click', testProTime);
     configButton.addEventListener('click', openConfigs);
+    button_clearAllMessages.addEventListener('click', clearAllMessages)
     buttonBackToMain.addEventListener('click', openConfigs);
     // Configuration tabs listener
     buttonTab_General.addEventListener('click', configTabOpenGeneral);
@@ -417,7 +551,9 @@ document.addEventListener('DOMContentLoaded', function () {
     configProfileName.addEventListener('change', configSetProfileName)
     // Configs Listener
     button_clearConfigs.addEventListener('click', removeProfile);
-    button_openHelp.addEventListener('click', openHelp)
+    button_docuHelp.addEventListener('click', docuOpenHelp)
+    button_docuChangelog.addEventListener('click', docuOpenChangelog)
+    button_docuReadme.addEventListener('click', docuOpenReadme)
     themeSelect.addEventListener('change', switchTheme);
     // languageSelect.addEventListener('change', switchLanguage);
     // filter radios listener
@@ -427,14 +563,21 @@ document.addEventListener('DOMContentLoaded', function () {
     for (var index = 0, indexLen = radio_timesheetFilters.length; index < indexLen; index++) {
       radio_timesheetFilters[index].addEventListener('click', timesheetFilterChange);
     }
-    for (var index = 0, indexLen = radio_bookingPlattforms.length; index < indexLen; index++) {
-      radio_bookingPlattforms[index].addEventListener('click', bookingPlattformsChange);
+    for (var index = 0, indexLen = radio_bookingPlatforms.length; index < indexLen; index++) {
+      radio_bookingPlatforms[index].addEventListener('click', bookingPlatformsChange);
+    }
+    for (var index = 0, indexLen = dlc_platform_element.length; index < indexLen; index++) {
+      let dropdownButton = dlc_platform_element[index].getElementsByClassName('button-dropdown')[0]
+      dropdownButton.addEventListener('click', dlcPlatformOpenDropdown);
+    }
+    for (var index = 0, indexLen = dlc_filter_element.length; index < indexLen; index++) {
+      let dropdownButton = dlc_filter_element[index].getElementsByClassName('button-dropdown')[0]
+      dropdownButton.addEventListener('click', dlcFilterOpenDropdown);
     }
     // Load local storages
     loadStorage()
     loadSessionStorages()
-    // devtool
-    developer()
   });
 })
+
 

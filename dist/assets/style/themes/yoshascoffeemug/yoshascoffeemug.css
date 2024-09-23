@@ -7,7 +7,7 @@
   --mud-green: #485543;
   --mud-green-5: #5f6f59;
   --lightgreen: #8ad170;
-  --lightgray-a: #a6a9ba;
+  --lightgray-c: #c1c3d2;
   --silver-gray: #d9dcd8;
   --color-none: transparent;
   --white: #fefefe;
@@ -21,7 +21,8 @@
   --color-highlight: var(--silver-gray);
   --color-active: var(--white);
   --color-disabled: var(--pale-green-5);
-  --color-close: #e4e78f;
+  --color-close: #ffae00;
+  --color-warning: #e4e78f;
 
   /* Font colors */
   --color-font: var(--silver-gray);
@@ -29,8 +30,8 @@
   --color-font-headline: var(--white);
   --color-font-second: var(--silver-gray);
   --color-font-headlabel: var(--white);
-  --color-font-subtext: var(--lightgray-a);
+  --color-font-subtext: var(--lightgray-c);
   /* Icon colors */
-  --color-icon-default: var(--lightgray-a);
+  --color-icon-default: var(--lightgray-c);
   --color-icon-light: var(--white);
 }

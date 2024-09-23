@@ -1,11 +1,11 @@
 
 import { detectionItem } from "../../../ui/detectionItem/detectionItem.js"
+import { selectBookingPlatformPreName,detectionItemID_Prefix, selectProtimeService_defaultValue } from "../../../../utils/defaults/defaultVariables.js"
 
 const button_addDetection = document.getElementById('button_add_projectDetection')
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
 detectionItems = JSON.parse(detectionItems)
 const window_detection = document.getElementById('window_detection')
-const detectionItemID_Prefix = "deci"
 
 export function projectDetection() {
   detectionItem(detectionItems)
@@ -47,10 +47,14 @@ function loadDetectionItems() {
   // add Item change-listeners
   let detectionItemsHtml = document.getElementsByName('item_detection')
   for (let i = 0, iLength = detectionItemsHtml.length; i < iLength; i++) {
-    let select_bookingPlattform = document.getElementById("select_bookingPlattform_" + detectionItemsHtml[i].id)
-    let loaded_select_bookingPlattform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
-    select_bookingPlattform.value = loaded_select_bookingPlattform
-    select_bookingPlattform.addEventListener('change', () => { setDetectionBookingPlattform(detectionItemsHtml[i].id, select_bookingPlattform.value) });
+    let select_bookingPlatform = document.getElementById(selectBookingPlatformPreName + detectionItemsHtml[i].id)
+    let loaded_select_bookingPlatform = detectionItems.find(x => x.id === detectionItemsHtml[i].id).bookingsheet
+    if(loaded_select_bookingPlatform !== '' && loaded_select_bookingPlatform !== null){
+      select_bookingPlatform.value = selectBookingPlatformPreName+loaded_select_bookingPlatform
+    }else {
+      select_bookingPlatform.value = loaded_select_bookingPlatform
+    }
+    select_bookingPlatform.addEventListener('change', () => { setDetectionBookingPlatform(detectionItemsHtml[i].id, select_bookingPlatform.value) });
     let input_ticketPrefix = document.getElementById("input_ticketPrefix" + detectionItemsHtml[i].id)
     input_ticketPrefix.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "ticketprefix", input_ticketPrefix.value) });
     let input_additionalPrefix = document.getElementById("input_additionalPrefix" + detectionItemsHtml[i].id)
@@ -65,9 +69,7 @@ function loadDetectionItems() {
     let loaded_input_activity = detectionItems.find(x => x.id === detectionItemsHtml[i].id).protimeactivity
     input_activity.value = loaded_input_activity
     input_activity.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "protimeactivity", input_activity.value) });
-
   }
-
 }
 // get Items current object to change
 function getCurrentObject(itemId) {
@@ -82,16 +84,17 @@ function setDetectionItemValueToObject(itemId, objectKey, objectValue) {
   detectionItems[indexOfObject] = newObject
 }
 
-function setDetectionBookingPlattform(itemId, selected_bookingPlattform) {
+function setDetectionBookingPlatform(itemId, selected_bookingPlatform) {
   let currentObject = getCurrentObject(itemId)
+  let selected_bookingPlatformName =  selected_bookingPlatform.split(selectBookingPlatformPreName)[1]
   let newData = {}
-  if (selected_bookingPlattform === "select_bookingPlattform_amagProTime") {
-    newData = { "ticketprefix": "", "addprefix": "", "protimeservice": "select_proTime_service_CSITEST", "projectnomber": "", "protimeactivity": "" }
-  } else if (selected_bookingPlattform === "select_bookingPlattform_dzBankProRes") {
+  // Create new objects for the selected Platforms
+  if (selected_bookingPlatform === selectBookingPlatformPreName + "AmagProTime") {
+    newData = { "ticketprefix": "", "addprefix": "", "protimeservice": selectProtimeService_defaultValue, "projectnomber": "", "protimeactivity": "" }
+  } else if (selected_bookingPlatform === selectBookingPlatformPreName + "DZBankProRes") {
     newData = { "ticketprefix": "", "addprefix": "" }
   }
-  let newObject = { ...currentObject, "bookingsheet": selected_bookingPlattform, ...newData }
-  console.log(newObject)
+  let newObject = { ...currentObject, "bookingsheet": selected_bookingPlatformName, ...newData }
   let indexOfObject = detectionItems.indexOf(currentObject)
   detectionItems[indexOfObject] = newObject
   updateDetectionItems(detectionItems)
@@ -109,9 +112,9 @@ function changeDetectionItemData(itemId, objectKey, objectValue) {
 // Remove Item
 function removeProjectDetectionItem(i) {
   let currentItemID = i.target.closest("div").parentNode.id
-  console.log(currentItemID)
+  // console.log(currentItemID)
   let currentItem = document.getElementById(currentItemID)
-  currentItem.classList.add('config-item--remove')
+  currentItem.classList.add('configItem--remove')
   setTimeout(function () {
     currentItem.remove()
   }, 500)

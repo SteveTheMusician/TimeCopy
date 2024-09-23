@@ -29,3 +29,40 @@
 - other: timesheet filter code refactor
 - other: components restructure
 - other: theme renaming
+
+## V 0.9.10
+- fix: error: import statement outside module
+- other: webpack integration
+- other: load functions on dom 
+- other: component restructure
+- other: add more delay between h and ticket number (proTime dlc)
+
+## V 0.9.20
+- feature: new configuratin ui design
+- feature: dlc information dropdown 
+- feature: new themes and theme redesign
+- feature: protime test function in protime dlc
+- fix: hidden tag detection (detection-filtering)
+- fix: if theme is null, set default
+- fix: dlc informations and theme headlines in german 
+- other: dlc dynamic import
+- other: changes on different elements and storages naming
+- other: new Profile-Version
+
+## V 0.9.21
+- fix: DLC-Automatic detection
+- fix: Project-Detection error
+- fix: DLC-ProTime Ticket validating
+- fix: styles
+- other: HTML refactor
+- other: logs added
+
+## V 0.9.50
+- feature: message feedback
+- other: code refactor
+- other: wordings in messages
+
+## V 0.9.60
+- fix: DLC SteveGoogleExcel data filter
+- other: DLC ProTime - Timer
+- other: better tobias theme

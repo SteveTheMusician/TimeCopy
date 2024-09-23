@@ -16,6 +16,7 @@
   --color-close: #ce41c0;
   --color-edit: var(--lightyellow);
   --color-disabled: var(--color-third);
+  --color-warning: #dfdf5a;
 
   /* Font colors */
   --color-font: var(--white_e);

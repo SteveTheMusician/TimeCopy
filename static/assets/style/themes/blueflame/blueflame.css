@@ -3,29 +3,31 @@
   /* ---- Blue Flame Theme ---- */
     
   /* color palette */
-  --silver-gray: #d3dcdc;
-  --dark-gray-6: #6b6b6b;
-  --white: #b7b7b7;
+  --white-ec: #ececec;
+  --white-bd: #bdbdbd;
+  --lightblue: #96b0b5;
+
 
   /* theme colors */
-  --color-main: #040015;
-  --color-second: #090038;
-  --color-third: #03005b;
-  --color-highlight: #00a3bc;
-  --color-active: #00bfff;
-  --color-disabled: #123447;
-  --color-close: #6924bc;
+  --color-main: #03045E;
+  --color-second: #00267e;
+  --color-third: #0436ac;
+  --color-highlight: #90E0EF;
+  --color-active: #CAF0F8;
+  --color-disabled: #295276;
+  --color-close: #ff209d;
+  --color-warning: #f8ff2a;
   
   /* Font colors */
-  --color-font: #005180;
+  --color-font: var(--white-ec);
   --color-font-navigation: var(--color-font-second);
-  --color-font-headline: var(--white);
-  --color-font-second: var(--silver-gray);
-  --color-font-headlabel:var(--white);
-  --color-font-subtext: var(--dark-gray-6);
+  --color-font-headline: var(--white-ec);
+  --color-font-second: var(--white-bd);
+  --color-font-headlabel:var(--white-bd);
+  --color-font-subtext: var(--lightblue);
   /* Icon colors */
-  --color-icon-default: #005180;
-  --color-icon-light: #005180;  
+  --color-icon-default: #00B4D8;
+  --color-icon-light: #00B4D8;  
 }
   
   

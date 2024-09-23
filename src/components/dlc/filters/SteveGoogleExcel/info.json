@@ -1,5 +1,7 @@
 {
-    "filter_version": "1.0",
+    "filter_version": "1.2",
     "filter_name": "Steve Google Excel",
-    "filter_description": "Filter configuration to get all informations from steves try hard complex excel file."    
+    "filter_id": "stevegoogleexcel",
+    "filter_shortname": "SteveExcel",
+    "filter_description": "Filtert alle Informationen aus der komplexeren Timesheet-Variante und funktioniert auch nur spezifisch für diese."
 }
