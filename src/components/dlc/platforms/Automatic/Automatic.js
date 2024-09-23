@@ -1,5 +1,3 @@
-// automatic functions
-import { notification } from "../../../ui/notification/notification.js";
 import { message } from "../../../ui/message/message.js";
 
 export async function Automatic(){

@@ -54,6 +54,5 @@ function closeMessage(e){
     thisMessage.classList.add('message--hiddenremove')
     setTimeout(function(){
         thisMessage.remove()
-        // thisMessage.removeEventListener('click', closeMessage)
     },400)
 }

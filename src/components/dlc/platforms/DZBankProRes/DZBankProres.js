@@ -1,4 +1,4 @@
-// Call the correct booking numbers for the specific tickets
+// Test-Platform
 export async function DZBankProRes(bookingData){
     console.log('DZBank ProRes Starting')
     return "ProRes OK"

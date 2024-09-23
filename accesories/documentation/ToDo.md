@@ -36,7 +36,7 @@
  - Timesheet Items und BookingItems als extra Components auslagern ✅
  - buchung abgeschlossen notification ✅
  - DLC ProTime: Wenn Loading Screen -> Warte mit dem Eintragen/Buchen (:before element in "#ur-loading-box")
-                + wenn inputs nicht da sind = warte
+                + wenn inputs nicht da sind = warte (mit wait for elem aus utils)
  - dlc: stevegoogleexcel - wenn urhzeit im string filtern
  
  

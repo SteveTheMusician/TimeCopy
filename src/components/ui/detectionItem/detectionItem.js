@@ -1,7 +1,3 @@
-import { selectBookingPlatformPreName } from "../../../utils/defaults/default_selectNames"
-import { importPlatformsData } from "../../dlc/platforms/platforms.import"
-
-
 export function detectionItem(detectionItems) {
   if (detectionItems) {
     document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem =>

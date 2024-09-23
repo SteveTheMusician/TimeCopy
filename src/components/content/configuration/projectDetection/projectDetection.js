@@ -1,14 +1,11 @@
 
 import { detectionItem } from "../../../ui/detectionItem/detectionItem.js"
-import { selectBookingPlatformPreName } from "../../../../utils/defaults/default_selectNames.js"
+import { selectBookingPlatformPreName,detectionItemID_Prefix, selectProtimeService_defaultValue } from "../../../../utils/defaults/defaultVariables.js"
 
 const button_addDetection = document.getElementById('button_add_projectDetection')
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
 detectionItems = JSON.parse(detectionItems)
 const window_detection = document.getElementById('window_detection')
-
-const detectionItemID_Prefix = "deci"
-const selectProtimeService_defaultValue = "select_proTime_service_CSITEST"
 
 export function projectDetection() {
   detectionItem(detectionItems)
