@@ -66,3 +66,14 @@
 - fix: DLC SteveGoogleExcel data filter
 - other: DLC ProTime - Timer
 - other: better tobias theme
+
+## V 0.9.62
+- feature: new theme
+- feature: clear all message animation
+- fix: DLC SteveGoogleExcel V 1.2
+- fix: styles
+- other: documentation init
+- other: code cleanup
+- other: cleanup data
+- other: DLC wordings
+- other: clean console.logs
