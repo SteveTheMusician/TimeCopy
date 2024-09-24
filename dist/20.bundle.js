@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktime_copy=self.webpackChunktime_copy||[]).push([[20],{20:e=>{e.exports=JSON.parse('{"filter_version":"1.2","filter_name":"Steve Google Excel","filter_id":"stevegoogleexcel","filter_shortname":"SteveExcel","filter_description":"Filtert alle Informationen aus der komplexeren Timesheet-Variante und funktioniert auch nur spezifisch für diese."}')}}]);
