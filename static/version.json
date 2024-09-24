@@ -1,6 +1,10 @@
 {
     "extension_version": "0.9.62",
+<<<<<<< HEAD
     "extension_build": "S24.09231728",
+=======
+    "extension_build": "S24.09230906",
+>>>>>>> develop
     "extension_author": "Steve P.",
     "extension_co_author": "Tobias K.",
     "extension_discription": "Time Copy is created to help developer booking their Times",
