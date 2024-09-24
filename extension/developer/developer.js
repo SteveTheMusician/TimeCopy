@@ -14,7 +14,7 @@ let config_bar_dev = `
     </div> 
   </div>
   <div class="config-item-content-row flex">
-  <p class="text-label padding-right-10">Show ProTime Test-Button</p>
+  <p class="text-label padding-right-10">ProTime Test</p>
     <label class="switch">
       <input type="checkbox" class="" id="check_showProTimetestButton" />
       <span class="switch_slider"></span>
@@ -24,7 +24,7 @@ let config_bar_dev = `
 </div>
 </div>`;
 
-let label_version_devmode = "⭐️ "
+let label_version_devmode = "🧪 "
 
 label_version.insertAdjacentHTML('afterbegin', label_version_devmode);
 configWindow_General_WindowContent.insertAdjacentHTML('beforeend', config_bar_dev);
@@ -34,12 +34,12 @@ const config_check_showProTimeTestButton = document.getElementById('check_showPr
 config_check_showProTimeTestButton.addEventListener('change', showProTimeTestButton);
 
 
-function showProTimeTestButton(){
+function showProTimeTestButton() {
 
-  if(config_check_showProTimeTestButton.checked ) {
+  if (config_check_showProTimeTestButton.checked) {
     button_pasteTicketData.classList.remove('dNone')
     localStorage.setItem('tc_c_dev_pttest', 'true')
-  }else {
+  } else {
     button_pasteTicketData.classList.add('dNone')
     localStorage.setItem('tc_c_dev_pttest', 'false')
   }
@@ -50,11 +50,10 @@ window.addEventListener("load", () => {
   loadStorage_dev()
 });
 
-function loadStorage_dev(){
+function loadStorage_dev() {
   let tccdevpttest = localStorage.getItem('tc_c_dev_pttest')
-  if(tccdevpttest == "true") {
+  if (tccdevpttest == "true") {
     config_check_showProTimeTestButton.checked = true
     showProTimeTestButton()
   }
-
 }

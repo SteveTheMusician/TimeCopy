@@ -1,0 +1,9 @@
+{
+    "platform_version": "1.5",
+    "platform_name": "Amag Protime",
+    "platform_id": "amagprotime",
+    "platform_shortname": "ProTime",
+    "platform_description": "Bucht jeweils nur den ausgewählten Tag in ProTime. Deine kopierten Daten werden hier verarbeitet und an den richtigen Stellen in der Platform eingefügt.",
+    "platform_url":"s4.amag.ch/protime",
+    "platform_content": "true"
+}

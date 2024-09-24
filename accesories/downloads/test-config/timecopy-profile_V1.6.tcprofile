@@ -1,0 +1,26 @@
+{
+    "tcprofile": {
+        "author": "steve",
+        "version": "1.6",
+        "extension_version": "0.9.61",
+        "extension_build": "S24.09201033",
+        "profile_name": "Profil 1.6",
+        "cfg": {
+            "theme": "midnightglow",
+            "language": "de",
+            "filter": "SteveGoogleExcel",
+            "platform": "Automatic",
+            "detections": [
+                {
+                    "id": "deci0000000000000",
+                    "bookingsheet": "AmagProTime",
+                    "ticketprefix": "TestPrefix",
+                    "addprefix": "",
+                    "protimeservice": "select_proTime_service_CSITEST",
+                    "projectnomber": "00000",
+                    "protimeactivity": ""
+                }
+            ]
+        }
+    }
+}

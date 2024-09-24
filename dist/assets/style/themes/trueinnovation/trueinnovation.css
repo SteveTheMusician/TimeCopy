@@ -1,0 +1,40 @@
+:root {
+  /* ---- Trueinnovation Theme ---- */
+
+  /* color palette */
+  --blue-pale: #5d7b83;
+  --white_e: #EEEEEE;
+  --color-none: transparent;
+  --gray-6: #666;
+  --lightgray-c: #ccc;
+  --lightgray-f8: #f8f8f8;
+  --gray-e3: #e3e3e3;
+  --black-3: #333;
+  --white: #fefefe;
+  --blue-dark-ti: #039;
+  --blue-light-ti: #09c;
+  --color-warning: #cbc800;
+
+
+  /* theme colors */
+  --color-main: var(--white);
+  --color-second: var(--lightgray-f8);
+  --color-third: var(--lightgray-c);
+  --color-darker: #010e12;
+  --color-highlight: var(--blue-dark-ti);
+  --color-active: var(--blue-light-ti);
+  --color-close: #7d4f94;
+  --color-edit: var(--lightyellow);
+  --color-disabled: var(--color-third);
+
+  /* Font colors */
+  --color-font: var(--gray-6);
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: var(--gray-6);
+  --color-font-second: var(--gray-6);
+  --color-font-headlabel: var(--black-3);
+  --color-font-subtext: #79908e;
+  /* Icon colors */
+  --color-icon-default: var(--blue-pale);
+  --color-icon-light: var(--blue-pale);
+}

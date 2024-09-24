@@ -1,0 +1,31 @@
+:root {
+  /* ---- Midnight Glow Theme ---- */
+
+  /* color palette */
+  --white_e: #EEEEEE;
+  --lightyellow: #e6d1ab;
+
+  /* theme colors */
+  --color-main: #1d2636;
+  --color-second: #273346;
+  --color-third: #202c3f;
+  --color-darker: #010e12;
+  --color-highlight: #7c83db;
+
+  --color-active: #626cf3;
+  --color-close: #ce41c0;
+  --color-edit: var(--lightyellow);
+  --color-disabled: var(--color-third);
+  --color-warning: #dfdf5a;
+
+  /* Font colors */
+  --color-font: var(--white_e);
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: #333c4d;
+  --color-font-second: #495c7b;
+  --color-font-headlabel: #415775;
+  --color-font-subtext: #79908e;
+  /* Icon colors */
+  --color-icon-default: #5d7b83;
+  --color-icon-light: #5d7b83;
+}
