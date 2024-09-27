@@ -54,7 +54,7 @@ chrome://extensions/shortcuts
 
 ### Hilfe
 Für detailierte Hilfe findest du Hier:
-https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Dokumentation.pdf
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/TimeCopy-Dokumentation.pdf
 
 ### Reporting
 Bei Anfragen oder Bug-Reports kannst du dich an folgende E-Mail wenden:
