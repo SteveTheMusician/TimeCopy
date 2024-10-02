@@ -77,3 +77,6 @@
 - other: cleanup data
 - other: DLC wordings
 - other: clean console.logs
+
+## V 0.9.63
+- other: detection activity filter added
