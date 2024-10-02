@@ -45,6 +45,7 @@ export function detectionItem(detectionItems) {
                 <datalist id="datalist_activity`+ detectionItem.id + `">
                   <option>- WP2 - AEM Dashboard</option>
                   <option>AP01 - Front-end</option>
+                  <option>Customer Success Management</option>
                 </datalist>
               </div>
             </div>
