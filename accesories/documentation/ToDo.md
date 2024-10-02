@@ -1,31 +1,15 @@
 # ToDo
 
-## RELEASE V 0.9.2
 
- - design aufräumen ✅
- - html components sauberer (88%) ✅
- - doku pdf
- - comments raus
- - version testen lassen
- - in test & release mergen
- - release in chrome store hochladen 
- - wenn theme = null dann nimm default ✅
- - ProTime testbutton wieder funktionsfähig ✅
- - DLC funktionen namen automatisch erfassen ✅
- - Automatic DLC fixen ✅
- - AmagProTime DLC fixen ✅
-
-## V 0.9.5
-
- - Info Dropdown mit funktionen für Timesheets oder Booking-Plattformen ✅
- - protime test funktion als option im booking sheet ✅
- 
 ## V 0.9.6
  - Buchungsfunktionen noch einmal genau testen
  - Tobias-Theme überarbeiten ✅
  - SteveGoogleExcel: Datum soll nicht mit, wenn kopiert (wird zum teil als Ticket nummer erkannt) ✅
  - Wenn es geht: Buchungs-Timer schneller ✅
- - Dokus verlinken
+ - Dokus verlinken ✅
+ - ❗️ ProTime DLC: checke, wenn Textarea leer ist, dann erst weiter + ggf auf andere elemente warten
+ - Notification, wenn ProTime lange braucht, um ein Element zu getten
+ - ❗️ Erkennungs-Item Aktivität um "Customer Success Management" (✔)
  
 ## V 1.0.0
 
