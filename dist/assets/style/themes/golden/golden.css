@@ -1,5 +1,5 @@
 :root {
-  /* ---- Tobias will alles schön Theme ---- */
+  /* ---- Golden Theme ---- */
 
   /* vars */
   --blur-default: blur(20px);
@@ -40,12 +40,6 @@
   /* Icon colors */
   --color-icon-default: #365a79;
   --color-icon-light: #b5cde1;
-}
-
-body {
-  background: url(wallpaper.jpg) no-repeat center center fixed;
-  background-size: cover;
-  /* backdrop-filter: blur(10px); */
 }
 
 body:before {

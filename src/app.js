@@ -62,13 +62,14 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_clearAllMessages = document.getElementById('button_clearAllMessages')
   
   // Configuration Buttons
-  const themeSelect = document.querySelector('select#select-themes');
-  const languageSelect = document.querySelector('select#select-language');
+  const themeSelect = document.querySelector('select#select-themes')
+  const languageSelect = document.querySelector('select#select-language')
   const button_clearConfigs = document.getElementById('button_clearConfigs')
-  const radios_filter = document.getElementsByName('timesheet-filter');
+  const radios_filter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
   const button_docuReadme = document.getElementById('button_openReadme')
   const button_docuChangelog = document.getElementById('button_openChangelog')
+  const button_docuDatenschutz = document.getElementById('button_openDatenschutz')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
   
   // Platform-DLC Elements and Listener
@@ -76,8 +77,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
   const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
-  config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton);
-  const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData');
+  config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton)
+  const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData')
   
   // local storages
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
@@ -98,6 +99,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/TimeCopy-Dokumentation.pdf"
   let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Changelog.md"
+  let datenschutzUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Datenschutz/Datenschutz.md"
   let readmeUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/Readme.md"
   const extensionVersion = data_version.extension_version
   const extensionBuild = data_version.extension_build
@@ -344,6 +346,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.open(changelogUrl)
   }
 
+  function docuOpenDatenschutz() {
+    window.open(datenschutzUrl)
+  }
+
   function docuOpenReadme() {
     window.open(readmeUrl)
   }
@@ -551,9 +557,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
     configProfileName.addEventListener('change', configSetProfileName)
     // Configs Listener
-    button_clearConfigs.addEventListener('click', removeProfile);
+    button_clearConfigs.addEventListener('click', removeProfile)
     button_docuHelp.addEventListener('click', docuOpenHelp)
-    button_docuChangelog.addEventListener('click', docuOpenChangelog)
+    // button_docuChangelog.addEventListener('click', docuOpenChangelog)
+    button_docuDatenschutz.addEventListener('click', docuOpenDatenschutz)
     button_docuReadme.addEventListener('click', docuOpenReadme)
     themeSelect.addEventListener('change', switchTheme);
     // languageSelect.addEventListener('change', switchLanguage);

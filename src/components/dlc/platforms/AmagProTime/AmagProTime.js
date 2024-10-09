@@ -1,4 +1,5 @@
 import { message } from "../../../ui/message/message.js";
+import { notification } from "../../../ui/notification/notification.js";
 
 let anyProjectNomber = "*"
 let bookingLoopCount = 0
@@ -168,7 +169,7 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
 
   let bookingWaitingTimer = "250"
 
-  function waitTimer() {
+  async function waitTimer() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve("Timer done")
@@ -397,12 +398,42 @@ async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
     console.error("Error in waitTimer: ", error)
     return
   }
+  console.log('protime')
+  if (protime_ticketText.value === "") {
+    console.log('nicht leer')
+   alert('ist niht leer')
+  }
+
   try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
+     
+  // before run the next booking process or end it, check if textarea is empty
+  let timeElapsed = 0;
+  const checkInterval = 500; // Überprüfung jede Sekunde
+  const timeout = 6000; // Maximale Zeit von 10 Sekunden
+
+    let intervalId = setInterval(async() => {
+      timeElapsed += checkInterval;
+  
+      // Prüfen, ob das Textfeld jetzt leer ist
+      if (document.getElementsByTagName('textarea')[0].value.trim() === "") {
+        clearInterval(intervalId); // Intervall stoppen
+        return new Promise((resolve) => {
+          resolve('textarea is clear after interval')
+        })
+      }
+  
+      // Überprüfen, ob die maximale Zeit überschritten wurde
+      if (timeElapsed >= timeout) {
+        clearInterval(intervalId); // Intervall stoppen
+        // notification(true, false, 'notification Fehler: Buchungs-Timeout!')
+        throw new Error('Fehler: Buchungs-Timeout!')
+      }
+    }, checkInterval);
+
+  } catch (e){
+    alert(e)
     return
   }
+
   return bookingLoopCount
 }
