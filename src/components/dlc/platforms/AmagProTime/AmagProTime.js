@@ -73,16 +73,18 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
   console.log("🔄 valid tickets ", valideTickets);
   try {
     if (valideTickets.length) {
-      for (let i = 0; i < valideTickets.length; i++) {
-        let ticket = valideTickets[i]
-        try {
-          await chromeTabScript(ticket, dev_pttest, bookingLoopCount)
+          await injectChromeTab(valideTickets, dev_pttest, bookingLoopCount)
           bookingLoopCount++
-        } catch (err) {
-          console.error("Error in chromeTabScript: ", err)
-          return Promise.reject(new Error(400))
-        }
-      }
+      // for (let i = 0; i < valideTickets.length; i++) {
+        // let ticket = valideTickets[i]
+        // try {
+          // await chromeTabScript(ticket, dev_pttest, bookingLoopCount)
+          // bookingLoopCount++
+        // } catch (err) {
+          // console.error("Error in chromeTabScript: ", err)
+          // return Promise.reject(new Error(400))
+        // }
+      // }
     } else {
       throw new Error("Keine validen Daten")
     }
@@ -91,7 +93,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
     return
   }
   bookingLoopCount = 0
-  return "ProTime Buchung abgeschlossen";
+  return "ProTime Buchung beendet";
 }
 
 function filterPrefix(ticket, detectionItemsProTime) {
@@ -148,7 +150,7 @@ function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
   return refineBookingNomber_Matches
 }
 
-async function chromeTabScript(ticket, dev_pttest, bookingLoopCount) {
+async function injectChromeTab(valideTickets, dev_pttest, bookingLoopCount) {
   chrome.windows.getCurrent(function (window) {
     chrome.windows.update(window.id, { focused: true })
   });
@@ -156,8 +158,8 @@ async function chromeTabScript(ticket, dev_pttest, bookingLoopCount) {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
     await chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: bookTicket,
-      args: [ticket, dev_pttest, bookingLoopCount]
+      func: bookTickets,
+      args: [valideTickets, dev_pttest, bookingLoopCount]
     })
   } catch (err) {
     console.error("Error in chromeTabScript execution: ", err)
@@ -165,275 +167,332 @@ async function chromeTabScript(ticket, dev_pttest, bookingLoopCount) {
   }
 }
 
-async function bookTicket(ticket, dev_pttest, bookingLoopCount) {
+async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
 
-  let bookingWaitingTimer = "250"
+  for (const ticket of valideTickets) {
+    bookingLoopCount++
+   console.log(ticket)
+    let bookingWaitingTimer = "250"
 
-  async function waitTimer() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("Timer done")
-      }, bookingWaitingTimer)
-    })
-  }
+    async function waitTimer() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("Timer done")
+        }, bookingWaitingTimer)
+      })
+    }
 
-  function checkFirstBookingLoop(bookingLoopCount) {
-    return new Promise((resolve) => {
-      if (bookingLoopCount === 0) {
-        if (!document.getElementById('timeCopyProTimeClick')) {
-          let dom_clickContainer = document.createElement("div")
-          let dom_clickContainerInner = document.createElement("div")
-          dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
-          dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
-          dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
-          dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
-          dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
-          dom_clickContainerInner.innerHTML = "Click here to focus window"
-          dom_clickContainer.appendChild(dom_clickContainerInner)
-          document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
-          dom_clickContainer.addEventListener("click", test);
+    function checkFirstBookingLoop(bookingLoopCount) {
+      return new Promise((resolve) => {
+        if (bookingLoopCount === 0) {
+          if (!document.getElementById('timeCopyProTimeClick')) {
+            let dom_clickContainer = document.createElement("div")
+            let dom_clickContainerInner = document.createElement("div")
+            dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
+            dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
+            dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
+            dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
+            dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
+            dom_clickContainerInner.innerHTML = "Click here to focus window"
+            dom_clickContainer.appendChild(dom_clickContainerInner)
+            document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
+            dom_clickContainer.addEventListener("click", test);
+          }
+        } else {
+          test()
         }
-      } else {
-        test()
+        function test() {
+          resolve('ok')
+        }
+      })
+    }
+    // function for checking if loader exists / disappears
+    async function waitTillElementNotExists(element,boolean) {
+      let timeElapsed = 0;
+      const checkInterval = 500;
+      const timeout = 6000; 
+    
+      console.log('🟡 Wait Element Started '+boolean);
+      try {
+        const result = await waitTimer()
+      } catch (error) {
+        alert(error)
+        console.error("Error in waitTimer: ", error);
+        return
       }
-      function test() {
-        resolve('ok')
+
+      try {
+        const result = await waitTimer()
+      } catch (error) {
+        alert(error)
+        console.error("Error in waitTimer: ", error);
+        return
       }
+
+      try {
+        const result = await waitTimer()
+      } catch (error) {
+        alert(error)
+        console.error("Error in waitTimer: ", error);
+        return
+      }
+    
+    
+      return new Promise(async (resolve, reject) => {
+        // Setze ein Timeout von 6 Sekunden, um die Promise zu rejecten, wenn es zu lange dauert
+        const timeoutId = setTimeout(() => {
+          console.log('XX timeout');
+          reject(new Error('❌ ERROR: Element Timeout'));
+        }, timeout);
+      
+        // Die Schleife läuft weiter, bis das Textfeld nicht leer ist
+        while (timeElapsed < timeout) {
+          await new Promise(resolve => setTimeout(resolve, checkInterval)); // Warte für das Intervall
+          timeElapsed += checkInterval;
+        
+          // Prüfen, ob das Textfeld jetzt nicht leer ist
+          if(boolean){
+            if (element) {
+              console.log('⚛️ Element true');
+              clearTimeout(timeoutId); // Timeout abbrechen, da das Textfeld befüllt wurde
+              resolve('🟢 Element found after waiting interval');
+              return;
+            }
+          }else {
+            if (!element) {
+              console.log('⚛️ Element false');
+              clearTimeout(timeoutId); // Timeout abbrechen, da das Textfeld befüllt wurde
+              resolve('🟢 Element gone after waiting interval');
+              return;
+            }
+          }
+
+        }
+      });
+    }
+
+    try {
+      let firstBookingLoop = await checkFirstBookingLoop(bookingLoopCount)
+      // console.log(firstBookingLoop)
+    } catch (error) {
+      alert(error)
+      console.error("Error in checkFirstBookingLoop: ", error);
+      return
+    }
+    const keyEventEnter = new KeyboardEvent('keydown', {
+      key: 'Enter',
+      code: 'Enter',
+      which: 13,
+      keyCode: 13,
     })
-  }
 
-  try {
-    let firstBookingLoop = await checkFirstBookingLoop(bookingLoopCount)
-    // console.log(firstBookingLoop)
-  } catch (error) {
-    alert(error)
-    console.error("Error in checkFirstBookingLoop: ", error);
-    return
-  }
-  const keyEventEnter = new KeyboardEvent('keydown', {
-    key: 'Enter',
-    code: 'Enter',
-    which: 13,
-    keyCode: 13,
-  })
+    const eventChange = new Event("change")
+    const ticketObject = ticket[0]
+    const detectionObject = ticket[1]
+    let protime_hours
+    let protime_ticketNumber
+    let protime_activityDropdown
+    let protime_activityDropdownList
+    let protime_ticketElemNom
 
-  const eventChange = new Event("change")
-  const ticketObject = ticket[0]
-  const detectionObject = ticket[1]
-  let protime_hours
-  let protime_ticketNumber
-  let protime_activityDropdown
-  let protime_activityDropdownList
-  let protime_ticketElemNom
-  let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
-  if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
-    let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber
-    if (proTime_projectNomber) {
-      protime_Innenauftrag.childNodes[0].value = proTime_projectNomber
-      protime_Innenauftrag.childNodes[0].dispatchEvent(keyEventEnter)
+    let protime_ticketText = document.getElementsByTagName('textarea')[0];
+
+    // protime_ticketText.value = ''
+
+    let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
+    if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
+      let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber
+      if (proTime_projectNomber) {
+        protime_Innenauftrag.childNodes[0].value = proTime_projectNomber
+        protime_Innenauftrag.childNodes[0].dispatchEvent(keyEventEnter)
+      } else {
+        return
+      }
     } else {
       return
     }
-  } else {
-    return
-  }
 
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error);
-    return
-  }
-
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error);
-    return
-  }
-
-  // service dropdown
-  let protime_leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0];
-  let protime_leistungenOption;
-  const protime_leistungenArray = [{
-    "select_proTime_service_CSITEST": "[data-itemkey='ZCHN0730070']",
-    "select_proTime_service_CSITENT": "[data-itemkey='ZCHN0730080']",
-    "select_proTime_service_ITDNT": "[data-itemkey='ZCHN0730005']",
-    "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
-  }]
-  
-  protime_leistung.click()
-  protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
-
-  if (!protime_leistungenOption) {
-    return
-  }
-
-  protime_leistungenOption.click()
-
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
-    return;
-  }
-  // if detection item has activity book it
-  if (detectionObject.protimeactivity.length > 1) {
-    protime_activityDropdown = document.getElementsByClassName('lsField--list')[2].childNodes[0]
-    protime_activityDropdown.click()
-    protime_activityDropdownList = document.getElementsByClassName('lsListbox__items')[1].childNodes[0]
-    let protime_activityDropdownItems = protime_activityDropdownList.childNodes
-    for (let i = 0, ilen = protime_activityDropdownItems.length; i < ilen; i++) {
-      if (protime_activityDropdownItems[i].textContent.includes(detectionObject.protimeactivity)) {
-        protime_activityDropdownItems[i].click()
-      }
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error);
+      return
     }
-    // set Ticket Nomber Child Nom
-    protime_ticketElemNom = 4
-  } else {
-    protime_ticketElemNom = 3
-  }
 
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
-    return
-  }
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error);
+      return
+    }
+    try {
+      const result = await waitTillElementNotExists(document.getElementsByClassName('lsField--list')[1].childNodes[0],true);
+      console.log(result);
+    } catch (error) {
+      console.log(error.message);
+      return
+    }
 
-  // Entry Ticket Data
-  protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
-  protime_hours.focus()
-  protime_hours.click()
-  protime_hours.value = ticketObject.item_tickettime
-  if (!dev_pttest) {
-    protime_hours.dispatchEvent(keyEventEnter)
-  }
+    // service dropdown
+    let protime_leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0];
+    let protime_leistungenOption;
+    const protime_leistungenArray = [{
+      "select_proTime_service_CSITEST": "[data-itemkey='ZCHN0730070']",
+      "select_proTime_service_CSITENT": "[data-itemkey='ZCHN0730080']",
+      "select_proTime_service_ITDNT": "[data-itemkey='ZCHN0730005']",
+      "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
+    }]
 
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
-    return
-  }
+    protime_leistung.click()
+    protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
 
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
-    return
-  }
+    if (!protime_leistungenOption) {
+      return
+    }
 
-  // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
-  let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
+    protime_leistungenOption.click()
 
-  protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
-  protime_ticketNumber.focus()
-  protime_ticketNumber.click()
-  protime_ticketNumber.value = bookingItem_TicketNumber
-  if (!dev_pttest) {
-    protime_ticketNumber.dispatchEvent(keyEventEnter)
-  }
-
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
-    return
-  }
-
-  let protime_ticketText = document.getElementsByTagName('textarea')[0];
-  let mover = new MouseEvent('mouseover', {
-    'view': window,
-    'bubbles': true,
-    'cancelable': true
-  });
-  // Join tickent number and discription
-  let ticketItemDisc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
-
-  let mdown = new Event('focus');
-  protime_ticketText.dispatchEvent(mover)
-  protime_ticketText.dispatchEvent(mdown)
-  protime_ticketText.focus()
-  protime_ticketText.click()
-  protime_ticketText.value = ticketItemDisc
-  document.getElementsByTagName('textarea')[0].dispatchEvent(eventChange);
-  // set focus to other textarea to accept befores area text
-  document.getElementsByTagName('textarea')[1].focus();
-  // Set the cursor position to the end of the text
-  document.getElementsByTagName('textarea')[1].setSelectionRange(document.getElementsByTagName('textarea')[1].value.length, document.getElementsByTagName('textarea')[1].value.length);
-
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
-    return
-  }
-
-  console.log("DEV-TestMode: " + dev_pttest)
-  if (!dev_pttest) {
-    let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
-    bookingButton.focus()
-    bookingButton.click()
-  }
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
-    return
-  }
-  try {
-    const result = await waitTimer()
-  } catch (error) {
-    alert(error)
-    console.error("Error in waitTimer: ", error)
-    return
-  }
-  console.log('protime')
-  if (protime_ticketText.value === "") {
-    console.log('nicht leer')
-   alert('ist niht leer')
-  }
-
-  try {
-     
-  // before run the next booking process or end it, check if textarea is empty
-  let timeElapsed = 0;
-  const checkInterval = 500; // Überprüfung jede Sekunde
-  const timeout = 6000; // Maximale Zeit von 10 Sekunden
-
-    let intervalId = setInterval(async() => {
-      timeElapsed += checkInterval;
-  
-      // Prüfen, ob das Textfeld jetzt leer ist
-      if (document.getElementsByTagName('textarea')[0].value.trim() === "") {
-        clearInterval(intervalId); // Intervall stoppen
-        return new Promise((resolve) => {
-          resolve('textarea is clear after interval')
-        })
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return;
+    }
+    // if detection item has activity book it
+    if (detectionObject.protimeactivity.length > 1) {
+      protime_activityDropdown = document.getElementsByClassName('lsField--list')[2].childNodes[0]
+      protime_activityDropdown.click()
+      protime_activityDropdownList = document.getElementsByClassName('lsListbox__items')[1].childNodes[0]
+      let protime_activityDropdownItems = protime_activityDropdownList.childNodes
+      for (let i = 0, ilen = protime_activityDropdownItems.length; i < ilen; i++) {
+        if (protime_activityDropdownItems[i].textContent.includes(detectionObject.protimeactivity)) {
+          protime_activityDropdownItems[i].click()
+        }
       }
-  
-      // Überprüfen, ob die maximale Zeit überschritten wurde
-      if (timeElapsed >= timeout) {
-        clearInterval(intervalId); // Intervall stoppen
-        // notification(true, false, 'notification Fehler: Buchungs-Timeout!')
-        throw new Error('Fehler: Buchungs-Timeout!')
-      }
-    }, checkInterval);
+      // set Ticket Nomber Child Nom
+      protime_ticketElemNom = 4
+    } else {
+      protime_ticketElemNom = 3
+    }
 
-  } catch (e){
-    alert(e)
-    return
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+
+    // Entry Ticket Data
+    protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
+    protime_hours.focus()
+    protime_hours.click()
+    protime_hours.value = ticketObject.item_tickettime
+    if (!dev_pttest) {
+      protime_hours.dispatchEvent(keyEventEnter)
+    }
+
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+
+    // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
+    let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
+
+    protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
+    protime_ticketNumber.focus()
+    protime_ticketNumber.click()
+    protime_ticketNumber.value = bookingItem_TicketNumber
+    if (!dev_pttest) {
+      protime_ticketNumber.dispatchEvent(keyEventEnter)
+    }
+
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+
+
+    let mover = new MouseEvent('mouseover', {
+      'view': window,
+      'bubbles': true,
+      'cancelable': true
+    });
+    // Join tickent number and discription
+    let ticketItemDisc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
+
+    let mdown = new Event('focus');
+    protime_ticketText.dispatchEvent(mover)
+    protime_ticketText.dispatchEvent(mdown)
+    protime_ticketText.focus()
+    protime_ticketText.click()
+    protime_ticketText.value = ticketItemDisc
+    document.getElementsByTagName('textarea')[0].dispatchEvent(eventChange);
+    // set focus to other textarea to accept befores area text
+    document.getElementsByTagName('textarea')[1].focus();
+    // Set the cursor position to the end of the text
+    document.getElementsByTagName('textarea')[1].setSelectionRange(document.getElementsByTagName('textarea')[1].value.length, document.getElementsByTagName('textarea')[1].value.length);
+
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+
+    console.log("DEV-TestMode: " + dev_pttest)
+    if (!dev_pttest) {
+      let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
+      bookingButton.focus()
+      bookingButton.click()
+    }
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+    try {
+      const result = await waitTimer()
+    } catch (error) {
+      alert(error)
+      console.error("Error in waitTimer: ", error)
+      return
+    }
+
+    try {
+      const result = await waitTillElementNotExists(document.querySelectorAll('#ur-loading-box:before')[0],false);
+      console.log(result);
+    } catch (error) {
+      console.log(error.message);
+
+    }
+
   }
+
+  
+
 
   return bookingLoopCount
 }
+

@@ -1016,3 +1016,15 @@ input:checked+.switch_slider:before {
         padding: 10px 10px;   
     }
 }
+
+@media only screen and (min-width: 706px){
+
+    .configuration-window-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    #config-win-projects .configuration-window-content {
+        display: flex;
+    }
+    
+}

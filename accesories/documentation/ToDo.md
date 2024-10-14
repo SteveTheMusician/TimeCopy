@@ -10,16 +10,19 @@
  - Erkennungs-Item Aktivität um "Customer Success Management" ✅
 
 ## V 0.9.7
- - ❗️ ProTime DLC: checken, wenn Textarea leer ist, dann erst weiter + ggf auf andere elemente warten
+ - ❗️ ProTime DLC: checken, wenn Textarea leer ist, dann erst weiter + ggf auf andere elemente warten ->ProTime Loop Logik ändern
+ - DLC ProTime: Wenn Loading Screen -> Warte mit dem Eintragen/Buchen (:before element in "#ur-loading-box")
  - Notification, wenn ProTime lange braucht, um ein Element zu getten
- - dlc: stevegoogleexcel - wenn urhzeit im string filtern
- - Responsive Feature: small & kacheln nebeneinander auf large
+ - So lange Buchung läuft, wird der einfügen Button mit einer loading animation blockiert
+
+ 
+## V 0.9.8
+- dlc: stevegoogleexcel - wenn urhzeit im string filtern
+ - Responsive Feature: small & kacheln nebeneinander auf large ✅
  - "Zum Store" Link in den Infos
  - EE Golden Theme
  - EE Snowfall
- 
-## V 0.9.8
- - DLC ProTime: Wenn Loading Screen -> Warte mit dem Eintragen/Buchen (:before element in "#ur-loading-box")
+ - EE: count total booked tickets
  
 ## V 1.0.0
 

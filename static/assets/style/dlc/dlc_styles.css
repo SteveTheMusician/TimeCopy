@@ -3,6 +3,7 @@
 
 .dlcItem {
     flex-flow: column;
+    height: fit-content;
 }
 
 .dlcItem-main {
