@@ -149,6 +149,9 @@ document.addEventListener('DOMContentLoaded', async function () {
       if(lstorage_appVersion !== extensionVersion) {
         localStorage.setItem('tc_appWelcome', 'true')
         localStorage.setItem('tc_appVersion', extensionVersion)
+        // reset dlc information cache
+        clearDlcLocalStorages()
+        // show update message
         message(true,'information',extensionUpdateTextOverview+extensionVersion,extensionUpdateTextDetails)
       } else {
         localStorage.setItem('tc_appWelcome', 'false')
@@ -480,16 +483,17 @@ document.addEventListener('DOMContentLoaded', async function () {
       return
     }
     console.log("🔘 selected platform: "+bookingPlatform)
-    let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
     try{
+      let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
       if (bookEntries) {
       console.log("✅ Booking process return okey | ", bookEntries)
-      message(true, 'information','Buchungsprozess abgeschlossen', bookingPlatform)
+      message(true, 'information','Buchungsprozess beendet', bookingPlatform)
       }else {
-        throw new Error('❌ Bookingprocess failed')
+        console.log("error entries: ",bookEntries)
       }
     }catch(error){
-      console.log(error)
+      message(true, error.errorstatus,'Fehler: '+error.errorheadline, error.errortext || bookingPlatform)
+      console.error('❌ Bookingprocess failed | ',error.errorheadline + ' '+error.errortext)
       return
     }
 

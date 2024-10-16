@@ -84,3 +84,5 @@
 ## V 0.9.70
 - feature: responsive style for large width
 - feature: DLC Amag ProTime - recode, 
+- other: placeholder text for empty message details
+- other: better error handling and response

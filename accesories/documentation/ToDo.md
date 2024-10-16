@@ -34,6 +34,8 @@
  - Timesheet Items und BookingItems als extra Components auslagern ✅
  - buchung abgeschlossen notification ✅
                 + wenn inputs nicht da sind = warte (mit wait for elem aus utils)
+ - Code Cleanup: error message in app.js / anzeigen
+ - In fehler meldungen den "Namen" der DLCs statt ID anzeigen
  
  
  ## Features & Fixes für die Zukunft

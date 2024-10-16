@@ -1,5 +1,9 @@
 export function message(messageShow,messageType,messageTextOverview,messageTextDetails){
 
+    if(messageTextDetails === '' || !messageTextDetails){
+        messageTextDetails = 'Keine Details verfügbar.'
+    }
+
     let currentMessageID = new Date().getTime().toString()
     let messageSection = document.getElementById('messages-section')
     let messageInformationIconHtml = `<?xml version="1.0" encoding="utf-8"?>
