@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="de">
+
 <head>
   <title>Time Copy</title>
   <meta charset="UTF-8">
@@ -11,6 +12,7 @@
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
     rel="stylesheet">
 </head>
+
 <body>
   <header class="header dFlex dNone">
     <button class="button-primary" id="buttonBackToMain">
@@ -112,30 +114,32 @@
         </div>
       </div>
       <div class="label-row dFlex label-row-messageHeadline">
-        <p class="text-label">Benachrichtigungen</p>  
-        <button class="button-primary button-reset" id="button_clearAllMessages"><?xml version="1.0" encoding="utf-8"?>
+        <p class="text-label">Benachrichtigungen</p>
+        <button class="button-primary button-reset" id="button_clearAllMessages">
+          <?xml version="1.0" encoding="utf-8"?>
           <!-- Designed by Empty Soul  -->
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
-          <g>
-            <path d="M200.3,269.8v602.4c0,71.7,58.3,130,130,130h333.6c71.7,0,130-58.3,130-130V269.8H200.3z M733.9,872.2
-              c0,38.6-31.4,70-70,70H330.3c-38.6,0-70-31.4-70-70V329.8h473.6V872.2z"/>
-          </g>
-          <g>
-            <rect x="326" y="400.4" width="60" height="480.3"/>
-          </g>
-          <g>
-            <path d="M670,143.8c-4.6-33-16.7-63.6-35.2-88.2c-26-34.4-61.3-53.4-99.4-53.4H459c-38.2,0-73.5,19-99.4,53.4
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+            y="0px" viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
+            <g>
+              <path d="M200.3,269.8v602.4c0,71.7,58.3,130,130,130h333.6c71.7,0,130-58.3,130-130V269.8H200.3z M733.9,872.2
+              c0,38.6-31.4,70-70,70H330.3c-38.6,0-70-31.4-70-70V329.8h473.6V872.2z" />
+            </g>
+            <g>
+              <rect x="326" y="400.4" width="60" height="480.3" />
+            </g>
+            <g>
+              <path d="M670,143.8c-4.6-33-16.7-63.6-35.2-88.2c-26-34.4-61.3-53.4-99.4-53.4H459c-38.2,0-73.5,19-99.4,53.4
               c-18.5,24.6-30.7,55.2-35.2,88.2h-126v60h597.7v-60H670z M385,143.8c3.8-19.7,11.5-37.6,22.4-52.1c14.3-19,32.6-29.5,51.5-29.5
-              h76.4c18.9,0,37.2,10.5,51.5,29.5c10.9,14.5,18.5,32.4,22.4,52.1H385z"/>
-          </g>
-          <g>
-            <rect x="612" y="400.4" width="60" height="480.3"/>
-          </g>
-          <g>
-            <rect x="467.2" y="400.4" width="60" height="480.3"/>
-          </g>
-          </svg>       </button>
+              h76.4c18.9,0,37.2,10.5,51.5,29.5c10.9,14.5,18.5,32.4,22.4,52.1H385z" />
+            </g>
+            <g>
+              <rect x="612" y="400.4" width="60" height="480.3" />
+            </g>
+            <g>
+              <rect x="467.2" y="400.4" width="60" height="480.3" />
+            </g>
+          </svg>
+        </button>
       </div>
       <div class="messageSection" id="messages-section"></div>
     </div>
@@ -224,7 +228,7 @@
               </div>
             </div>
             <div class="configuration-window-content" id="config-win-general--content">
-              <div class="configItem"> 
+              <div class="configItem">
                 <div class="configItem-title-row flex">
                   <div class="configItem-icon-container flex">
                     <?xml version="1.0" encoding="utf-8"?>
@@ -275,10 +279,18 @@
                         <button class="button-primary button-padding--small" id="button_clearConfigs">Löschen</button>
                       </div>
                     </div>
-                  </div>  
+                    <div class="configItem-content-row dFlex">
+                      <div class="configItem-content-left">
+                        <p class="text-label">DLC-Cache</p>
+                      </div>
+                      <div class="configItem-content-right">
+                        <button class="button-primary button-padding--small" id="button_reloadDLCCache">Reload</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
-              <div class="configItem"> 
+              </div>
+              <div class="configItem">
                 <div class="configItem-title-row flex">
                   <div class="configItem-icon-container flex">
                     <?xml version="1.0" encoding="utf-8"?>
@@ -304,6 +316,8 @@
                     </div>
                     <div class="configItem-content-right">
                       <select name="select_themes" id="select-themes">
+                        <option disabled id="select-theme-exotic-categ" class="dNone">Exotisch</option>
+                        <option value="exotic" id="select-theme-exotic" class="dNone">Exotic Gold</option>
                         <option disabled>Original</option>
                         <option value="oceanswave" selected>Oceans Weave</option>
                         <option value="midnightglow">Midnight Glow</option>
@@ -329,25 +343,27 @@
                     </div>
                   </div>
                 </div>
-            </div>
-              <div class="configItem"> 
+              </div>
+              <div class="configItem">
                 <div class="configItem-title-row flex">
                   <div class="configItem-icon-container flex">
                     <?xml version="1.0" encoding="utf-8"?>
-                    <svg version="1.1" id="questmark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                       viewBox="0 0 1200 1200" style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
-                    <path d="M600,1200L600,1200c-44.2,0-80-35.8-80-80v0c0-44.2,35.8-80,80-80h0c44.2,0,80,35.8,80,80v0C680,1164.2,644.2,1200,600,1200
-                      z"/>
-                    <g>
-                      <path d="M600,940L600,940c-44.2,0-80-35.8-80-80v-97.8c-0.2-9.7,0.9-25.9,7.7-45.8c9.5-27.7,26.8-53.1,51.3-75.5
+                    <svg version="1.1" id="questmark" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
+                      style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
+                      <path d="M600,1200L600,1200c-44.2,0-80-35.8-80-80v0c0-44.2,35.8-80,80-80h0c44.2,0,80,35.8,80,80v0C680,1164.2,644.2,1200,600,1200
+                      z" />
+                      <g>
+                        <path
+                          d="M600,940L600,940c-44.2,0-80-35.8-80-80v-97.8c-0.2-9.7,0.9-25.9,7.7-45.8c9.5-27.7,26.8-53.1,51.3-75.5
                         c32.6-29.8,94.6-53,192.9-87.8c27.8-9.8,59.3-21,70.6-26.4c49.6-23.7,66.9-73.7,72.7-101.4c9.7-46.1,4.9-97.5-0.4-137.1
                         c-4.5-33.9-12.3-75.1-32.7-92.5c-17.2-14.7-53.5-19.1-86.1-22c-58.5-5.3-118.2-8.8-178.5-10.6c-43.4-1.3-77.8-36.9-77.6-80.3v0
                         c0.2-45,37.4-81,82.4-79.6c63.4,1.9,126.4,5.6,188,11.2c57.2,5.1,122.7,14.4,175.7,59.7c61.7,52.7,79.1,130.8,87.4,193
                         c7,52.4,13.1,121.4-1.7,191.4c-20.4,96.2-78.8,173.8-160.3,212.7c-19,9.1-48.7,19.6-86.2,32.8c-28.9,10.2-61.6,21.8-89.3,32.8
                         c-35.3,14.1-47.2,21.3-50,23.2c-3.1,3-4.9,5.4-5.9,6.8V860C680,904.2,644.2,940,600,940z M679,768.7C679,768.7,679,768.7,679,768.7
-                        C679,768.7,679,768.7,679,768.7z M685.3,760.5C685.3,760.5,685.3,760.5,685.3,760.5C685.3,760.5,685.3,760.5,685.3,760.5z"/>
-                    </g>
-                    </svg>       
+                        C679,768.7,679,768.7,679,768.7z M685.3,760.5C685.3,760.5,685.3,760.5,685.3,760.5C685.3,760.5,685.3,760.5,685.3,760.5z" />
+                      </g>
+                    </svg>
                   </div>
                   <div class="configItem-headline-container">
                     <p class="text-label">Hilfe</p>
@@ -356,7 +372,7 @@
                 <div class="configItem-content">
                   <div class="configItem-content-row dFlex">
                     <div class="configItem-content-left">
-                        <button class="button-primary button-padding--small" id="button_openReadme">Readme</button>
+                      <button class="button-primary button-padding--small" id="button_openReadme">Readme</button>
                     </div>
                     <div class="configItem-content-right">
                       <button class="button-primary button-padding--small" id="button_openHelp">Dokumentation</button>
@@ -367,60 +383,62 @@
                       <button class="button-primary button-padding--small" id="button_openChangelog">Changelog</button>
                     </div>
                     <div class="configItem-content-right">
-                      <button class="button-primary button-padding--small" id="button_openDatenschutz">Datenschutz</button>
+                      <button class="button-primary button-padding--small"
+                        id="button_openDatenschutz">Datenschutz</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="configItem"> 
-                  <div class="configItem-title-row flex">
-                    <div class="configItem-icon-container flex">
-                      <?xml version="1.0" encoding="utf-8"?>
-                      <svg version="1.1" id="information_single" xmlns:serif="http://www.serif.com/"
-                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                        viewBox="0 0 1200 1200" style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
-                        <circle cx="600" cy="216.1" r="108" />
-                        <path d="M676.4,463.7c19.5,19.5,31.6,46.5,31.6,76.4v443.8c0,59.6-48.3,108-108,108s-108-48.4-108-108V540.1c0-59.6,48.3-108,108-108C629.8,432.1,656.8,444.2,676.4,463.7z" />
-                      </svg>
+              <div class="configItem">
+                <div class="configItem-title-row flex">
+                  <div class="configItem-icon-container flex">
+                    <?xml version="1.0" encoding="utf-8"?>
+                    <svg version="1.1" id="information_single" xmlns:serif="http://www.serif.com/"
+                      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                      viewBox="0 0 1200 1200" style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
+                      <circle cx="600" cy="216.1" r="108" />
+                      <path
+                        d="M676.4,463.7c19.5,19.5,31.6,46.5,31.6,76.4v443.8c0,59.6-48.3,108-108,108s-108-48.4-108-108V540.1c0-59.6,48.3-108,108-108C629.8,432.1,656.8,444.2,676.4,463.7z" />
+                    </svg>
+                  </div>
+                  <div class="configItem-headline-container">
+                    <p class="text-label">Informationen</p>
+                  </div>
+                </div>
+                <div class="configItem-content">
+                  <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-left">
+                      <p class="text-label text-margin--small">Version:</p>
                     </div>
-                    <div class="configItem-headline-container">
-                      <p class="text-label">Informationen</p>
+                    <div class="configItem-content-right">
+                      <p class="label-version dFlex text-margin--small" id="label_version">V </p>
                     </div>
                   </div>
-                  <div class="configItem-content">
-                    <div class="configItem-content-row dFlex">
-                      <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Version:</p>
-                      </div>
-                      <div class="configItem-content-right">
-                        <p class="label-version dFlex text-margin--small" id="label_version">V </p>
-                      </div>
+                  <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-left">
+                      <p class="text-label text-margin--small">Build-Version:</p>
                     </div>
-                    <div class="configItem-content-row dFlex">
-                      <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Build-Version:</p>
-                      </div>
-                      <div class="configItem-content-right">
-                        <p class="label-version dFlex text-margin--small" id="label_build_version"></p>
-                      </div>
-                    </div>
-                    <div class="configItem-content-row dFlex">
-                      <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Creator:</p>
-                      </div>
-                      <div class="configItem-content-right">
-                        <p class="label-version dFlex text-margin--small" id="label_extensionDevelop"></p>
-                      </div>
-                    </div>
-                    <div class="configItem-content-row dFlex">
-                      <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Testing:</p>
-                      </div>
-                      <div class="configItem-content-right">
-                        <p class="label-version dFlex text-margin--small" id="label_extensionCoDevelop"></p>
-                      </div>
+                    <div class="configItem-content-right">
+                      <p class="label-version dFlex text-margin--small" id="label_build_version"></p>
                     </div>
                   </div>
+                  <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-left">
+                      <p class="text-label text-margin--small">Creator:</p>
+                    </div>
+                    <div class="configItem-content-right">
+                      <p class="label-version dFlex text-margin--small" id="label_extensionDevelop"></p>
+                    </div>
+                  </div>
+                  <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-left">
+                      <p class="text-label text-margin--small">Testing:</p>
+                    </div>
+                    <div class="configItem-content-right">
+                      <p class="label-version dFlex text-margin--small" id="label_extensionCoDevelop"></p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -467,7 +485,7 @@
               </div>
             </div>
             <div class="configuration-window-content" id="window_bookingplatforms">
-             <!-- DLC Platforms here -->
+              <!-- DLC Platforms here -->
             </div>
           </div>
         </div>
@@ -475,4 +493,5 @@
   </main>
   <script src='app.bundle.js' type="module"></script>
 </body>
+
 </html>

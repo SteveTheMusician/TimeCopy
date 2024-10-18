@@ -1,4 +1,18 @@
+import { importPlatforms } from "../../dlc/platforms/platforms.import"
+
 export function detectionItem(detectionItems) {
+  let platformSelectItems = []
+  let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
+  platformInfoData = JSON.parse(platformInfoData)
+  let plDataObject = ''
+  for (let plKey of importPlatforms){
+    plDataObject = platformInfoData.find(item => item[plKey])[plKey]
+    if(plKey !== 'Automatic'){
+      let platformSelectOption = `<option value="select_bookingPlatform_`+(plKey)+`" >`+ (plDataObject.platform_shortname) +`</option>`
+      platformSelectItems.push(platformSelectOption)
+    }
+  }
+  console.log('PlatformItems: ',platformSelectItems)
   if (detectionItems) {
     document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem =>
       `<div class="configItem detectionItem flex" name="item_detection" id="` + detectionItem.id + `">
@@ -9,8 +23,7 @@ export function detectionItem(detectionItems) {
           <div class="configItem-content-row dFlex">
             <div class="detectionItem-content-smaller">
               <select id="select_bookingPlatform_`+ detectionItem.id + `">
-                <option value="" selected disabled hidden>Keine</option>
-                <option value="select_bookingPlatform_AmagProTime" >ProTime</option>
+                <option value="" selected disabled hidden>Keine</option>`+ (platformSelectItems) +`
               </select>
             </div>
             <div class="detectionItem-content-larger">
@@ -41,7 +54,7 @@ export function detectionItem(detectionItems) {
             </div>
             <div class="configItem-content-row dFlex">
               <div class="configItem-content-fullWidth">
-                <input type="text" class="input-size--large input-padding--medium" name="input_activity" id="input_activity`+ detectionItem.id + `" list="datalist_activity` + detectionItem.id + `" placeholder="Aktivität (Wenn vorhanden)"/>
+                <input type="text" class="input-size--large" name="input_activity" id="input_activity`+ detectionItem.id + `" list="datalist_activity` + detectionItem.id + `" placeholder="Aktivität (Wenn vorhanden)"/>
                 <datalist id="datalist_activity`+ detectionItem.id + `">
                   <option>- WP2 - AEM Dashboard</option>
                   <option>AP01 - Front-end</option>

@@ -381,7 +381,7 @@ label:has(#button_importConfigs) {
 
 .button-mainAction svg {
     fill: var(--color-icon-default);
-    transition: .3s;
+    transition: var(--transition-default);
 }
 
 .button-mainAction:hover {

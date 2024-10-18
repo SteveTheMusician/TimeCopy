@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const themeSelect = document.querySelector('select#select-themes')
   const languageSelect = document.querySelector('select#select-language')
   const button_clearConfigs = document.getElementById('button_clearConfigs')
+  const button_reloadDLCCache = document.getElementById('button_reloadDLCCache')
   const radios_filter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
   const button_docuReadme = document.getElementById('button_openReadme')
@@ -90,6 +91,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
   let lstorage_appVersion = localStorage.getItem('tc_appVersion')
   let lstorage_appWelcome = localStorage.getItem('tc_appWelcome')
+  let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
   // Some vars
   let configOpen = false
   let dev_pttest = false
@@ -162,9 +164,21 @@ document.addEventListener('DOMContentLoaded', async function () {
       message(true,'information',extensionUpdateTextOverview+extensionVersion,extensionUpdateTextDetails)
     }
 
+    if(lstorage_eeTheme === 'true'){
+      document.getElementById('select-theme-exotic-categ').classList.remove('dNone');
+      document.getElementById('select-theme-exotic').classList.remove('dNone');
+    }
+
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       themeSelect.value = lstorage_cThemes
-      link_cssTheme.setAttribute('href', './assets/style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
+      if( lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true'){
+        link_cssTheme.setAttribute('href', './assets/style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
+      }else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true'){
+        themeSelect.value = defaultTheme
+        lstorage_cThemes = defaultTheme
+      } else {
+        link_cssTheme.setAttribute('href', './assets/style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
+      }
     } else {
       themeSelect.value = defaultTheme
       link_cssTheme.setAttribute('href', './assets/style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
@@ -205,6 +219,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_c_bookingPlatform')
     localStorage.removeItem('tc_appVersion')
     localStorage.removeItem('tc_appWelcome')
+    localStorage.removeItem('tc_ee_exoticThemetc_ee_exoticTheme')
     clearDlcLocalStorages()
   }
 
@@ -327,11 +342,18 @@ document.addEventListener('DOMContentLoaded', async function () {
   function configSetProfileName() {
     localStorage.setItem('tc_c_profileName', configProfileName.value)
     configUserChanges = true
+    if(configProfileName.value === 'LOVE'){
+      localStorage.setItem('tc_ee_exoticTheme', 'true')
+    }
   }
 
   function switchTheme() {
     let currentThemeValue = themeSelect.value
-    link_cssTheme.setAttribute('href', './assets/style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
+    if(currentThemeValue === 'exotic'){
+      link_cssTheme.setAttribute('href', './assets/style/themes/ee/exotisch/' + currentThemeValue + '.css')
+    }else {
+      link_cssTheme.setAttribute('href', './assets/style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
+    }
     localStorage.setItem('tc_c_theme', currentThemeValue)
     configUserChanges = true
   }
@@ -435,7 +457,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       a.remove();
     }
   }
-
   // delete configs
   function removeProfile() {
     clearLocalStorage()
@@ -443,7 +464,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     sessionStorage.setItem('tc_c_messageProfileRemoved', 'true')
     window.location.reload()
   }
-
+  function reloadDLCCache(){
+    clearDlcLocalStorages()
+    window.location.reload()
+  }
   // Main Functions
   async function readClipboardText() {
 
@@ -562,6 +586,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     configProfileName.addEventListener('change', configSetProfileName)
     // Configs Listener
     button_clearConfigs.addEventListener('click', removeProfile)
+    button_reloadDLCCache.addEventListener('click', reloadDLCCache)
     button_docuHelp.addEventListener('click', docuOpenHelp)
     // button_docuChangelog.addEventListener('click', docuOpenChangelog)
     button_docuDatenschutz.addEventListener('click', docuOpenDatenschutz)

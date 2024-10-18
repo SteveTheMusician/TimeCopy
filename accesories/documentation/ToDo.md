@@ -1,8 +1,6 @@
 # ToDo
 
-
 ## V 0.9.6
- - Buchungsfunktionen noch einmal genau testen
  - Tobias-Theme überarbeiten ✅
  - SteveGoogleExcel: Datum soll nicht mit, wenn kopiert (wird zum teil als Ticket nummer erkannt) ✅
  - Wenn es geht: Buchungs-Timer schneller ✅
@@ -14,15 +12,16 @@
  - DLC ProTime: Wenn Loading Screen -> Warte mit dem Eintragen/Buchen (:before element in "#ur-loading-box")
  - Notification, wenn ProTime lange braucht, um ein Element zu getten
  - So lange Buchung läuft, wird der einfügen Button mit einer loading animation blockiert
+ - Buchungsfunktionen noch einmal genau testen
 
  
 ## V 0.9.8
 - dlc: stevegoogleexcel - wenn urhzeit im string filtern
  - Responsive Feature: small & kacheln nebeneinander auf large ✅
  - "Zum Store" Link in den Infos
- - EE Golden Theme
+ - EE Golden Theme ✅
  - EE Snowfall
- - EE: count total booked tickets
+ - DLC Items in erkennungs select rendern
  
 ## V 1.0.0
 
@@ -43,5 +42,6 @@
  - Firefox & Opera Version
  - erkennungs items zusammenklappbar ?
  - components unterteilen ?
+ - EE: count total booked tickets ❌
  - latency timer für protime ❌
  - json mit eigener sprache ❌

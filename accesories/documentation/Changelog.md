@@ -83,6 +83,10 @@
 
 ## V 0.9.70
 - feature: responsive style for large width
-- feature: DLC Amag ProTime - recode, 
+- feature: DLC Amag ProTime - recode,
+- fix: detection item style
 - other: placeholder text for empty message details
 - other: better error handling and response
+
+- feature: button to clear DLC-Cache
+- other: Dynamic DLC-Import in Project-Detection select
