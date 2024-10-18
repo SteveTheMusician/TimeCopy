@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_c_bookingPlatform')
     localStorage.removeItem('tc_appVersion')
     localStorage.removeItem('tc_appWelcome')
-    localStorage.removeItem('tc_ee_exoticThemetc_ee_exoticTheme')
+    localStorage.removeItem('tc_ee_exoticTheme')
     clearDlcLocalStorages()
   }
 
