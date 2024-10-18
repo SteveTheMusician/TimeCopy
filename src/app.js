@@ -11,24 +11,23 @@ import { platformsContent } from "./components/dlc/platforms/platforms.dlc.js";
 import { platform_functionName_automatic } from "./components/dlc/platforms/platforms.import.js";
 import { platform_bookingPlatformPreValue } from "./components/dlc/platforms/platforms.import.js";
 
-
 document.addEventListener('DOMContentLoaded', async function () {
   let dlc_platformContent = await platformsContent()
-  try{
-    if(!dlc_platformContent){
+  try {
+    if (!dlc_platformContent) {
       throw new Error('❌ platform contents not loaded')
     }
-  }catch(error){
+  } catch (error) {
     console.log(error)
     clearDlcLocalStorages()
     return
   }
   let dlc_filterContent = await filtersContent()
-  try{
-    if(!dlc_filterContent){
+  try {
+    if (!dlc_filterContent) {
       throw new Error('❌ filter contents not loaded')
     }
-  }catch(error){
+  } catch (error) {
     console.log(error)
     clearDlcLocalStorages()
     return
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const fillButton = document.querySelector('button#fillButton');
   const configButton = document.querySelector('button#configButton');
   const button_clearAllMessages = document.getElementById('button_clearAllMessages')
-  
+
   // Configuration Buttons
   const themeSelect = document.querySelector('select#select-themes')
   const languageSelect = document.querySelector('select#select-language')
@@ -72,7 +71,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_docuChangelog = document.getElementById('button_openChangelog')
   const button_docuDatenschutz = document.getElementById('button_openDatenschutz')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
-  
+
   // Platform-DLC Elements and Listener
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
@@ -80,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
   config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton)
   const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData')
-  
+
   // local storages
   let lstorage_cThemes = localStorage.getItem('tc_c_theme')
   let lstorage_cLanguage = localStorage.getItem('tc_c_language')
@@ -136,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       sessionStorage.removeItem('tc_c_changeLanguage')
       configButton.click()
     }
-    
+
   }
   // Load localstorage
   function loadStorage() {
@@ -147,33 +146,33 @@ document.addEventListener('DOMContentLoaded', async function () {
     let language = ''
     let defaultBookingPlatform = platform_functionName_automatic
 
-    if(lstorage_appVersion) {
-      if(lstorage_appVersion !== extensionVersion) {
+    if (lstorage_appVersion) {
+      if (lstorage_appVersion !== extensionVersion) {
         localStorage.setItem('tc_appWelcome', 'true')
         localStorage.setItem('tc_appVersion', extensionVersion)
         // reset dlc information cache
         clearDlcLocalStorages()
         // show update message
-        message(true,'information',extensionUpdateTextOverview+extensionVersion,extensionUpdateTextDetails)
+        message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
       } else {
         localStorage.setItem('tc_appWelcome', 'false')
       }
-    }else {
+    } else {
       localStorage.setItem('tc_appWelcome', 'true')
       localStorage.setItem('tc_appVersion', extensionVersion)
-      message(true,'information',extensionUpdateTextOverview+extensionVersion,extensionUpdateTextDetails)
+      message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
     }
 
-    if(lstorage_eeTheme === 'true'){
+    if (lstorage_eeTheme === 'true') {
       document.getElementById('select-theme-exotic-categ').classList.remove('dNone');
       document.getElementById('select-theme-exotic').classList.remove('dNone');
     }
 
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       themeSelect.value = lstorage_cThemes
-      if( lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true'){
+      if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
         link_cssTheme.setAttribute('href', './assets/style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
-      }else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true'){
+      } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {
         themeSelect.value = defaultTheme
         lstorage_cThemes = defaultTheme
       } else {
@@ -202,8 +201,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // local storage for dlcs
-  function loadDLCStorage(){
-    if(lstorage_c_dlcProTimeTest === 'true'){
+  function loadDLCStorage() {
+    if (lstorage_c_dlcProTimeTest === 'true') {
       config_check_showProTimeTestButton.checked = true
       dlcShowProTimeTestButtonDisplay()
     }
@@ -223,7 +222,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     clearDlcLocalStorages()
   }
 
-  function clearDlcLocalStorages(){
+  function clearDlcLocalStorages() {
     // DLC Storages
     localStorage.removeItem('tc_s_dlcplatforminformations')
     localStorage.removeItem('tc_s_dlcfilterinformations')
@@ -313,27 +312,27 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
-  function dlcPlatformOpenDropdown(e){
+  function dlcPlatformOpenDropdown(e) {
     let dlc_platformElement = e.target.closest(".dlcItem-platform")
     let dlc_platformDropDownButton = e.target.closest("button")
     let dlc_platformInformationContainer = dlc_platformElement.getElementsByClassName('dlcItem-details-container')[0]
-    if(dlc_platformInformationContainer.classList.contains(dlc_details_classHidden)){
+    if (dlc_platformInformationContainer.classList.contains(dlc_details_classHidden)) {
       dlc_platformInformationContainer.classList.remove(dlc_details_classHidden)
       dlc_platformDropDownButton.classList.add('button-dropdown--active')
-    }else {
+    } else {
       dlc_platformInformationContainer.classList.add(dlc_details_classHidden)
       dlc_platformDropDownButton.classList.remove('button-dropdown--active')
     }
   }
 
-  function dlcFilterOpenDropdown(e){
+  function dlcFilterOpenDropdown(e) {
     let dlc_filterElement = e.target.closest(".dlcItem-filter")
     let dlc_filterDropDownButton = e.target.closest("button")
     let dlc_filterInformationContainer = dlc_filterElement.getElementsByClassName('dlcItem-details-container')[0]
-    if(dlc_filterInformationContainer.classList.contains(dlc_details_classHidden)){
+    if (dlc_filterInformationContainer.classList.contains(dlc_details_classHidden)) {
       dlc_filterInformationContainer.classList.remove(dlc_details_classHidden)
       dlc_filterDropDownButton.classList.add('button-dropdown--active')
-    }else {
+    } else {
       dlc_filterInformationContainer.classList.add(dlc_details_classHidden)
       dlc_filterDropDownButton.classList.remove('button-dropdown--active')
     }
@@ -342,16 +341,16 @@ document.addEventListener('DOMContentLoaded', async function () {
   function configSetProfileName() {
     localStorage.setItem('tc_c_profileName', configProfileName.value)
     configUserChanges = true
-    if(configProfileName.value === 'LOVE'){
+    if (configProfileName.value === 'LOVE') {
       localStorage.setItem('tc_ee_exoticTheme', 'true')
     }
   }
 
   function switchTheme() {
     let currentThemeValue = themeSelect.value
-    if(currentThemeValue === 'exotic'){
+    if (currentThemeValue === 'exotic') {
       link_cssTheme.setAttribute('href', './assets/style/themes/ee/exotisch/' + currentThemeValue + '.css')
-    }else {
+    } else {
       link_cssTheme.setAttribute('href', './assets/style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
     }
     localStorage.setItem('tc_c_theme', currentThemeValue)
@@ -464,7 +463,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     sessionStorage.setItem('tc_c_messageProfileRemoved', 'true')
     window.location.reload()
   }
-  function reloadDLCCache(){
+  function reloadDLCCache() {
     clearDlcLocalStorages()
     window.location.reload()
   }
@@ -499,25 +498,25 @@ document.addEventListener('DOMContentLoaded', async function () {
     // get all boocking relevant data as array
     try {
       timesheetData = await filters(filter, clipboarsString)
-      console.log("💽 dlc filter (timesheet "+ filter +") data: ", timesheetData)
+      console.log("💽 dlc filter (timesheet " + filter + ") data: ", timesheetData)
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error);
       // notification(true, false, '')
-      message(true, 'error','ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
+      message(true, 'error', 'ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
       return
     }
-    console.log("🔘 selected platform: "+bookingPlatform)
-    try{
+    console.log("🔘 selected platform: " + bookingPlatform)
+    try {
       let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
       if (bookEntries) {
-      console.log("✅ Booking process return okey | ", bookEntries)
-      message(true, 'information','Buchungsprozess beendet', bookingPlatform)
-      }else {
-        console.log("error entries: ",bookEntries)
+        console.log("✅ Booking process return okey | ", bookEntries)
+        message(true, 'information', 'Buchungsprozess beendet', bookingPlatform)
+      } else {
+        console.log("error entries: ", bookEntries)
       }
-    }catch(error){
-      message(true, error.errorstatus,'Fehler: '+error.errorheadline, error.errortext || bookingPlatform)
-      console.error('❌ Bookingprocess failed | ',error.errorheadline + ' '+error.errortext)
+    } catch (error) {
+      message(true, error.errorstatus, 'Fehler: ' + error.errorheadline, error.errortext || bookingPlatform)
+      console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext)
       return
     }
 
@@ -534,7 +533,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
-  function dlcShowProTimeTestButtonDisplay(){
+  function dlcShowProTimeTestButtonDisplay() {
     if (config_check_showProTimeTestButton.checked) {
       button_dev_pttest.classList.remove('dNone')
     } else {
@@ -554,12 +553,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     readClipboardText()
   }
 
-  function clearAllMessages(){
+  function clearAllMessages() {
     let messageSectionMessages = document.getElementsByClassName('message')
     for (var index = 0, indexLen = messageSectionMessages.length; index < indexLen; index++) {
       messageSectionMessages[index].classList.add('message--hiddenremove');
     }
-    setTimeout(function(){
+    setTimeout(function () {
       messageSection.innerHTML = ''
     }, 400)
   }
