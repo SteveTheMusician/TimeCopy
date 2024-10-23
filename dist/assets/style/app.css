@@ -180,6 +180,10 @@ button svg {
     padding-left: 10px;
 }
 
+.padding-top-bottom-10 {
+    padding: 10px 0px;
+}
+
 .header-headline {
     height: 40px;
     text-align: center;

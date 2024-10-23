@@ -20,8 +20,8 @@
  - Responsive Feature: small & kacheln nebeneinander auf large ✅
  - "Zum Store" Link in den Infos
  - EE Golden Theme ✅
- - EE Snowfall
- - DLC Items in erkennungs select rendern
+ - EE Snowfall ✅
+ - DLC Items in erkennungs select rendern ✅
  
 ## V 1.0.0
 
@@ -35,6 +35,7 @@
                 + wenn inputs nicht da sind = warte (mit wait for elem aus utils)
  - Code Cleanup: error message in app.js / anzeigen
  - In fehler meldungen den "Namen" der DLCs statt ID anzeigen
+ - 10px abstand zwichen einzelnen Zeilen mit Inputs, die direkt übereinander sind in den einstellungen
  
  
  ## Features & Fixes für die Zukunft

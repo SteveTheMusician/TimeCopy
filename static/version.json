@@ -1,6 +1,6 @@
 {
-    "extension_version": "0.9.67",
-    "extension_build": "S24.10181222",
+    "extension_version": "0.9.69",
+    "extension_build": "S24.10230932",
     "extension_author": "Steve P.",
     "extension_co_author": "Tobias K.",
     "extension_discription": "Time Copy is created to help developer booking their Times",
@@ -10,4 +10,3 @@
     "extension_update_text_details": "In dem neuen Update erhältst du ein besseres Responsive Design, viele kleine Bugfixes und vorallem ein komplett überarbeitetes ProTime DLC. Viel Spaß!"
 
 }
-

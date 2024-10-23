@@ -36,6 +36,9 @@
   --color-icon-light: var(--white);
 
   --transition-default: .5s;
+
+  /* dlc snowflake color */
+  --color-dlc-snowflake: var(--color-font-second);
 }
 
 body:before {

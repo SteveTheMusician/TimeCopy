@@ -8,7 +8,7 @@ export function detectionItem(detectionItems) {
   for (let plKey of importPlatforms){
     plDataObject = platformInfoData.find(item => item[plKey])[plKey]
     if(plKey !== 'Automatic'){
-      let platformSelectOption = `<option value="select_bookingPlatform_`+(plKey)+`" >`+ (plDataObject.platform_shortname) +`</option>`
+      let platformSelectOption = `<option value="select_bookingPlatform_`+(plKey)+`" >`+ (plDataObject.platform_name) +`</option>`
       platformSelectItems.push(platformSelectOption)
     }
   }

@@ -10,6 +10,7 @@ import { developer } from "./developer/developer.js";
 import { platformsContent } from "./components/dlc/platforms/platforms.dlc.js";
 import { platform_functionName_automatic } from "./components/dlc/platforms/platforms.import.js";
 import { platform_bookingPlatformPreValue } from "./components/dlc/platforms/platforms.import.js";
+import { xmas } from "./components/dlc/xmas/xmas.dlc.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
   let dlc_platformContent = await platformsContent()
@@ -32,6 +33,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     clearDlcLocalStorages()
     return
   }
+  // date variables
+  const dateNow = new Date();
+  const dateMonth = dateNow.getMonth();
+  // vars
   const link_cssTheme = document.querySelector('link#link-theme');
   const main = document.querySelector('main');
   const header = document.querySelector('header');
@@ -70,6 +75,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_docuReadme = document.getElementById('button_openReadme')
   const button_docuChangelog = document.getElementById('button_openChangelog')
   const button_docuDatenschutz = document.getElementById('button_openDatenschutz')
+  const button_openStore = document.getElementById('button_openStore')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
 
   // Platform-DLC Elements and Listener
@@ -102,6 +108,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Changelog.md"
   let datenschutzUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Datenschutz/Datenschutz.md"
   let readmeUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/Readme.md"
+  let storeUrl = "https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfidbf"
   const extensionVersion = data_version.extension_version
   const extensionBuild = data_version.extension_build
   const extensionAuthor = data_version.extension_author
@@ -227,6 +234,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_s_dlcplatforminformations')
     localStorage.removeItem('tc_s_dlcfilterinformations')
     localStorage.removeItem('tc_c_dlc_protimetest')
+    localStorage.removeItem('tc_c_dlc_snowflakes')
   }
 
   function clearSessionStorage() {
@@ -376,6 +384,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function docuOpenReadme() {
     window.open(readmeUrl)
+  }
+
+  function openStore() {
+    window.open(storeUrl)
   }
 
 
@@ -590,6 +602,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // button_docuChangelog.addEventListener('click', docuOpenChangelog)
     button_docuDatenschutz.addEventListener('click', docuOpenDatenschutz)
     button_docuReadme.addEventListener('click', docuOpenReadme)
+    button_openStore.addEventListener('click', openStore)
     themeSelect.addEventListener('change', switchTheme);
     // languageSelect.addEventListener('change', switchLanguage);
     // filter radios listener
@@ -613,6 +626,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Load local storages
     loadStorage()
     loadSessionStorages()
+    // load xmas dlc between dezember (11) and march (2)
+    if (dateMonth === 11 || dateMonth === 0 || dateMonth === 1 || dateMonth === 2) {
+      xmas()
+    }
     // devtool
     developer()
   });
