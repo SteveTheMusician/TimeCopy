@@ -78,7 +78,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
       throw ({ errorstatus: 'error', errorheadline: 'Keine Validen Daten', errortext: 'Die kopierten Informationen konnten nicht validiert bzw. keinen Filter zugeordnet werden. Bitte Prüfe ob: - die richtigen Informationen kopiert wurden  - der richtige Filter ausgewählt wurde  - die Erkennungs-Items stimmen' })
     }
   } catch (error) {
-    // message(true, 'error', error, 'Es konnten keine Daten Validiert bzw. den Filtern zugeordnet werden.')
+    bookingLoopCount = 0
     throw error
   }
   bookingLoopCount = 0
@@ -139,11 +139,27 @@ function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
   return refineBookingNomber_Matches
 }
 
+async function measurePageLoadPerformance() {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  let result = await chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    func: () => performance.now()
+  });
+  return result[0].result;
+}
+
 async function injectChromeTab(valideTickets, dev_pttest, bookingLoopCount) {
+  // Check Page Latency
+  let proTimeJSPageTime = await measurePageLoadPerformance()
+  proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
+  console.log("current Page Time:" + proTimeJSPageTime)
+  if (proTimeJSPageTime > 4) {
+    notification(true, false, "Webpage has low latency. ("+proTimeJSPageTime+" ms) Booking could take longer.")
+    console.log("warning: ProTime Page low latency " + proTimeJSPageTime + " ms")
+  }
   chrome.windows.getCurrent(function (window) {
     chrome.windows.update(window.id, { focused: true });
   });
-
   try {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     let chromeExecScript = await chrome.scripting.executeScript({
@@ -156,21 +172,21 @@ async function injectChromeTab(valideTickets, dev_pttest, bookingLoopCount) {
       console.log('chrome error', chromeExecScript);
       throw new Error(chromeExecScript[0].result.error);
     }
-    return chromeExecScript[0]; 
+    return chromeExecScript[0];
   } catch (errObj) {
     console.log(errObj);
     console.error("Error in chromeTabScript execution: ", errObj);
-    throw errObj; 
+    bookingLoopCount = 0
+    throw ({ errorstatus: 'error', errorheadline: 'Chrome Tab Execution', errortext: errObj })
   }
 }
-
 
 async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
 
   // function for checking if loader exists / disappears
   async function elementObserver(element, boolean, dotValue) {
-    const checkInterval = 500; 
-    const timeout = 6000;
+    const checkInterval = 500;
+    const timeout = 8000;
     console.log('🟡 [Element Observer] Wait Element Started , Element Boolean:' + boolean);
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
@@ -236,6 +252,10 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
         console.log(bookingLoopCount)
         function checkFirstBookingLoop(bookingLoopCount) {
           return new Promise((resolve) => {
+            // If Click-Overlay already exists duo error / plugin reload - remove it
+            if (document.getElementById('timeCopyProTimeClick')) {
+              document.getElementById('timeCopyProTimeClick').remove()
+            }
             if (bookingLoopCount === 0) {
               if (!document.getElementById('timeCopyProTimeClick')) {
                 let dom_clickContainer = document.createElement("div")
@@ -253,7 +273,7 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
             } else {
               resolveFirstBookingLoop()
             }
-            function resolveFirstBookingLoop(){
+            function resolveFirstBookingLoop() {
               resolve('first booking loop ok')
             }
           })
@@ -263,7 +283,7 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
           await checkFirstBookingLoop(bookingLoopCount)
           // console.log(firstBookingLoop)
         } catch (error) {
-          alert('Time Copy '+error)
+          alert('Time Copy ' + error)
           console.error("[Time Copy] Error in checkFirstBookingLoop: ", error);
           return
         }
@@ -273,6 +293,22 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
           which: 13,
           keyCode: 13,
         })
+        // Wait for empty textarea first
+        try {
+          await elementObserver(document.getElementsByTagName('textarea')[0], false);
+        } catch (error) {
+          console.log("result error: ", error);
+          let errorMessage = error
+          return result = { success: false, message: errorMessage };
+        }
+        // check if loadingspinner is gone
+        try {
+          await elementObserver(document.getElementById('ur-loading-box'), false);
+        } catch (error) {
+          console.log("result error: ", error);
+          let errorMessage = error
+          return result = { success: false, message: errorMessage };
+        }
 
         const eventChange = new Event("change")
         const ticketObject = ticket[0]
@@ -299,7 +335,7 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
         try {
           await waitTimer(bookingWaitingTimer500)
         } catch (error) {
-          alert('Time Copy '+error)
+          alert('Time Copy ' + error)
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }
@@ -333,7 +369,7 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
         try {
           await waitTimer(bookingWaitingTimerDefault)
         } catch (error) {
-          alert('Time Copy '+error)
+          alert('Time Copy ' + error)
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }
@@ -357,7 +393,7 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
         try {
           await waitTimer(bookingWaitingTimerDefault)
         } catch (error) {
-          alert('Time Copy '+error)
+          alert('Time Copy ' + error)
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }
@@ -374,7 +410,7 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
         try {
           await waitTimer(bookingWaitingTimer500)
         } catch (error) {
-          alert('Time Copy '+error)
+          alert('Time Copy ' + error)
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }
@@ -392,7 +428,7 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
         try {
           await waitTimer(bookingWaitingTimerDefault)
         } catch (error) {
-          alert('Time Copy '+error)
+          alert('Time Copy ' + error)
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }
@@ -413,7 +449,7 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
         protime_ticketText.dispatchEvent(mdown)
         protime_ticketText.focus()
         protime_ticketText.click()
-        // protime_ticketText.value = ticketItemDisc
+        protime_ticketText.value = ticketItemDisc
         document.getElementsByTagName('textarea')[0].dispatchEvent(eventChange);
         // set focus to other textarea to accept befores area text
         document.getElementsByTagName('textarea')[1].focus();
@@ -423,12 +459,12 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
         try {
           await waitTimer(bookingWaitingTimerDefault)
         } catch (error) {
-          alert('Time Copy '+error)
+          alert('Time Copy ' + error)
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }
 
-        console.log("DEV-TestMode: " + dev_pttest)
+        console.log("ProTime Testmode: " + dev_pttest)
         if (!dev_pttest) {
           let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
           bookingButton.focus()
@@ -437,7 +473,7 @@ async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
         try {
           await waitTimer(bookingWaitingTimer500)
         } catch (error) {
-          alert('Time Copy '+error)
+          alert('Time Copy ' + error)
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }

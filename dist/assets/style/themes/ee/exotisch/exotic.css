@@ -11,6 +11,7 @@
   --black: #121212;
   --black-3: #343434;
   --dark-gray-3: #333133;
+  --dark-pink: #503c49;
   --gold-dark: rgba(179, 173, 135, 1);
   --gold-light: rgb(251 243 203);
 
@@ -20,7 +21,7 @@
   --color-third: var(--dark-gray-30);
   --color-highlight: #fff7d0;
   --color-active: var(--white);
-  --color-disabled: var(--dark-gray-3);
+  --color-disabled: var(--dark-pink);
   --color-close: #d2428c;
   --color-warning: #d2b442;
 
@@ -70,6 +71,16 @@ header {
   animation-iteration-count: infinite;
   transition: all 0.5s;
   background-size: 200% auto;
+}
+
+.button-mainAction:disabled, .button-mainAction:disabled:hover, .button-mainAction--waiting:hover {
+  background: linear-gradient(280deg, rgb(35 45 46) 0%, rgb(42 42 42) 100%);
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  transition: all 0.5s;
+  animation-name: backgroundAnimationIdle;
+  transform: unset;
+  box-shadow: unset;
 }
 
 @keyframes backgroundAnimationIdle {
@@ -248,6 +259,11 @@ input:checked+.switch_slider {
 .message-information:hover {
   background-color: #373630;
 }
+
+.button-mainAction--waiting:after {
+  animation: waitingSpinnerRotation 2s linear infinite;
+}
+
 
 @keyframes item--new-animation {
   0% {

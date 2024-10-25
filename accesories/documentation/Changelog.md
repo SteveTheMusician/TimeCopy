@@ -83,11 +83,16 @@
 
 ## V 0.9.70
 - feature: responsive style for large width
-- feature: DLC Amag ProTime - recode,
+- feature: button to clear DLC-Cache
 - fix: detection item style
 - other: placeholder text for empty message details
 - other: better error handling and response
 
-- feature: button to clear DLC-Cache
+- feature: show loading spinner on pasting and lock action buttons
+- feature: DLC Amag ProTime - recode,
+- fix: catch chrome tab exec-error
+- fix: DLC AmagProTime - Renew page click overlay when reopen TimeCopy / paste again
+- fix: DLC AmagProTime - Show page click overlay after error 
 - other: Dynamic DLC-Import in Project-Detection select
 - other: XMas Update
+- other: DLC ProTime - get page js speed for better booking performance

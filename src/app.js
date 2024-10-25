@@ -482,6 +482,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Main Functions
   async function readClipboardText() {
 
+    lockActionButtons('true',fillButton)
     let clipboarsString = await navigator.clipboard.readText();
     let filter = lstorage_cFilter
     let bookingPlatform = lstorage_cBookingPlatform
@@ -499,6 +500,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       processData(filter, clipboarsString, bookingPlatform, dev_pttest)
 
     } catch (error) {
+      lockActionButtons('false',fillButton)
       message(true, 'warning', error, '')
       return
     }
@@ -514,6 +516,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error);
       // notification(true, false, '')
+      lockActionButtons('false',fillButton)
       message(true, 'error', 'ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
       return
     }
@@ -522,16 +525,30 @@ document.addEventListener('DOMContentLoaded', async function () {
       let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
       if (bookEntries) {
         console.log("✅ Booking process return okey | ", bookEntries)
+        lockActionButtons('false',fillButton)
         message(true, 'information', 'Buchungsprozess beendet', bookingPlatform)
       } else {
         console.log("error entries: ", bookEntries)
       }
     } catch (error) {
+      lockActionButtons('false',fillButton)
       message(true, error.errorstatus, 'Fehler: ' + error.errorheadline, error.errortext || bookingPlatform)
       console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext)
       return
     }
+  }
 
+  // Main Action Buttons disable / enable functions
+  function lockActionButtons(lockStatus, actionButtonSpinner){
+    if(lockStatus === 'true') {
+      actionButtonSpinner.classList.add('button-mainAction--waiting')
+      fillButton.setAttribute('disabled', 'disabled')
+      configButton.setAttribute('disabled', 'disabled')
+    }else if(lockStatus === 'false'){
+      actionButtonSpinner.classList.remove('button-mainAction--waiting')
+      fillButton.removeAttribute('disabled', 'disabled')
+      configButton.removeAttribute('disabled', 'disabled')
+    }
   }
 
   // DLC Functions
@@ -558,8 +575,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     dev_pttest = true
     readClipboardText()
   }
+  
   // Regular Paste Function
-
   async function execReadClipboardText() {
     dev_pttest = false
     readClipboardText()
