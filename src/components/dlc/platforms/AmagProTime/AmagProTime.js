@@ -1,3 +1,4 @@
+import { TestPageLoadPerformance,filterPrefix,filterAddPrefix,filterAllPrefixes,filterBookingNomber } from "./services/AmagProTime.services.js";
 import { message } from "../../../ui/message/message.js";
 import { notification } from "../../../ui/notification/notification.js";
 
@@ -68,7 +69,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
   console.log("🔄 valid tickets ", valideTickets);
   try {
     if (valideTickets.length) {
-      const iChrTab = await injectChromeTab(valideTickets, dev_pttest, bookingLoopCount)
+      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount)
       bookingLoopCount++
       console.log('iChrTab:', iChrTab);
       if (iChrTab.result !== null && iChrTab.result.success === false) {
@@ -85,75 +86,12 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
   return "ProTime Buchung beendet";
 }
 
-function filterPrefix(ticket, detectionItemsProTime) {
-  let filterPrefix_prefixMatches = [];
-  detectionItemsProTime.forEach((detectionItemProTime) => {
-    if (detectionItemProTime.ticketprefix.length > 0 && ticket.item_ticketnumber.includes(detectionItemProTime.ticketprefix) ||
-      detectionItemProTime.ticketprefix.length === 0 && ticket.item_ticketnumber.length === 0) {
-      filterPrefix_prefixMatches.push(detectionItemProTime)
-    }
-  })
-  return filterPrefix_prefixMatches ? filterPrefix_prefixMatches : null
-}
-
-function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
-  let filterAddPrefix_addPrefixMatches = []
-  detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixMatch) => {
-    let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
-    if (detectionItemPrefixMatch.addprefix.length > 0 && item_ticketdiscWithHiddenTag.includes(detectionItemPrefixMatch.addprefix) || detectionItemPrefixMatch.addprefix.length === 0) {
-      filterAddPrefix_addPrefixMatches.push(detectionItemPrefixMatch)
-    }
-  });
-  return filterAddPrefix_addPrefixMatches ? filterAddPrefix_addPrefixMatches : null
-}
-
-function filterAllPrefixes(ticket, ticketAddPrefixMatches) {
-  let refinePrefix_Matches = []
-  if (ticketAddPrefixMatches.length > 1) {
-    ticketAddPrefixMatches.forEach((detectionItemRefineMatch) => {
-      let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
-      if (detectionItemRefineMatch.addprefix.length > 0 && item_ticketdiscWithHiddenTag.includes(detectionItemRefineMatch.addprefix) && ticket.item_ticketnumber.includes(detectionItemRefineMatch.ticketprefix)) {
-        refinePrefix_Matches.push(detectionItemRefineMatch)
-      }
-    });
-  } else {
-    refinePrefix_Matches = ticketAddPrefixMatches
-  }
-  return refinePrefix_Matches
-}
-
-function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
-  let refineBookingNomber_Matches = []
-
-  if (ticketRefinePrefixesMatches.length > 1) {
-    ticketRefinePrefixesMatches.forEach((detectionItemRefineBookingNomber) => {
-      if (ticket.item_bookingnumber.length && detectionItemRefineBookingNomber.projectnomber === ticket.item_bookingnumber || ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber === anyProjectNomber) {
-        refineBookingNomber_Matches.push(detectionItemRefineBookingNomber)
-      } else if (!ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber.length && detectionItemRefineBookingNomber.projectnomber !== anyProjectNomber) {
-        refineBookingNomber_Matches.push(detectionItemRefineBookingNomber)
-      }
-    })
-  } else {
-    refineBookingNomber_Matches = ticketRefinePrefixesMatches
-  }
-  return refineBookingNomber_Matches
-}
-
-async function measurePageLoadPerformance() {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  let result = await chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: () => performance.now()
-  });
-  return result[0].result;
-}
-
-async function injectChromeTab(valideTickets, dev_pttest, bookingLoopCount) {
+async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount) {
   // Check Page Latency
-  let proTimeJSPageTime = await measurePageLoadPerformance()
-  proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
+  let proTimeJSPageTime = await TestPageLoadPerformance()
   console.log("current Page Time:" + proTimeJSPageTime)
-  if (proTimeJSPageTime > 4) {
+  proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
+  if (proTimeJSPageTime > 60) {
     notification(true, false, "Webpage has low latency. ("+proTimeJSPageTime+" ms) Booking could take longer.")
     console.log("warning: ProTime Page low latency " + proTimeJSPageTime + " ms")
   }
@@ -164,7 +102,7 @@ async function injectChromeTab(valideTickets, dev_pttest, bookingLoopCount) {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     let chromeExecScript = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: bookTickets,
+      func: AmagProTimeBookTickets,
       args: [valideTickets, dev_pttest, bookingLoopCount]
     });
 
@@ -181,7 +119,7 @@ async function injectChromeTab(valideTickets, dev_pttest, bookingLoopCount) {
   }
 }
 
-async function bookTickets(valideTickets, dev_pttest, bookingLoopCount) {
+async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCount) {
 
   // function for checking if loader exists / disappears
   async function elementObserver(element, boolean, dotValue) {
