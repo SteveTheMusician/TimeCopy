@@ -78,7 +78,7 @@
 - other: DLC wordings
 - other: clean console.logs
 
-## V 0.9.63
+## V 0.9.63 (Release)
 - other: detection activity filter added
 
 ## V 0.9.70
@@ -87,12 +87,15 @@
 - fix: detection item style
 - other: placeholder text for empty message details
 - other: better error handling and response
-
 - feature: show loading spinner on pasting and lock action buttons
-- feature: DLC Amag ProTime - recode,
 - fix: catch chrome tab exec-error
 - fix: DLC AmagProTime - Renew page click overlay when reopen TimeCopy / paste again
 - fix: DLC AmagProTime - Show page click overlay after error 
 - other: Dynamic DLC-Import in Project-Detection select
 - other: XMas Update
 - other: DLC ProTime - get page js speed for better booking performance
+
+## V 0.9.71
+- feature: responsive style for detection Items
+
+- feature: DLC Amag ProTime - recode,

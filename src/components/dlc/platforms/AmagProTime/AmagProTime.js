@@ -4,6 +4,7 @@ import { notification } from "../../../ui/notification/notification.js";
 
 let anyProjectNomber = "*"
 let bookingLoopCount = 0
+let lowLatency = true
 
 export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest) {
 
@@ -122,54 +123,108 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
 async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCount) {
 
   // function for checking if loader exists / disappears
-  async function elementObserver(element, boolean, dotValue) {
-    const checkInterval = 500;
-    const timeout = 8000;
-    console.log('🟡 [Element Observer] Wait Element Started , Element Boolean:' + boolean);
+  async function observeElement(selector, boolean, selectorNumber) {
+    const checkInterval = 500; // Intervall für wiederholte Checks
+    const timeout = 8000; // maximale Wartezeit
+    console.log('🟡 [Element Observer] Wait Element Started, Element Boolean:' + boolean);
+  
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
-        reject({ text: 'ProTime Element Timeout', textdetails: element + " #" + boolean + ": Element wurde nicht gefunden, oder hat nicht die gewünschten Änderungen übernehmen können. Grund dafür können Verbindungsprobleme sein." });
+        reject({
+          text: 'ProTime Element Timeout',
+          textdetails: selector + " #" + boolean + ": Element wurde nicht gefunden oder hat nicht die gewünschten Änderungen übernehmen können. Grund dafür können Verbindungsprobleme sein."
+        });
       }, timeout);
-
-      const observer = new MutationObserver(() => {
-        if (boolean) {
-          if (element.value) {
+  
+      // Funktion zur Prüfung und Beobachtung des Elements
+      const checkAndObserve = () => {
+        const element = document.querySelectorAll(selector)[selectorNumber];
+        console.log('Element: ', element);
+  
+        if (element) {
+          // Sofortige Prüfung, ob das Element bereits den gewünschten Zustand erfüllt
+          if ((boolean && element.value) || (!boolean && !element.value) || (boolean && element) || (!boolean && !element)) {
             clearTimeout(timeoutId);
-            observer.disconnect();
-            resolve('🟢 [Element Observer] Element found after waiting for mutation');
+            resolve('🟢 [Element Observer] Element found immediately');
+            return;
           }
-        } else {
-          if (!element.value) {
-            clearTimeout(timeoutId);
-            observer.disconnect();
-            resolve('🟢 [Element Observer] Element gone after waiting for mutation');
-          }
+  
+          // MutationObserver starten, um auf Änderungen zu reagieren
+          const observer = new MutationObserver(() => {
+            if (boolean) {
+              if (element.value) {
+                clearTimeout(timeoutId);
+                observer.disconnect();
+                resolve('🟢 [Element Observer] Element found after waiting for mutation');
+              }
+            } else {
+              if (!element.value) {
+                clearTimeout(timeoutId);
+                observer.disconnect();
+                resolve('🟢 [Element Observer] Element gone after waiting for mutation');
+              }
+            }
+          });
+  
+          // Starten des Observers für Änderungen am Element
+          observer.observe(element, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributesList: ["style"],
+          });
         }
-      });
-
-      // Start observing the element for changes in its value
-      observer.observe(element, {
-        attributes: true,
-        childList: true,
-        subtree: true,
-        characterData: true
-      });
-      // Falls sich der Wert des Elements bereits zu Beginn erfüllt
-      const initialCheck = setInterval(() => {
-        if (boolean && element.value) {
-          clearTimeout(timeoutId);
-          clearInterval(initialCheck);
-          observer.disconnect();
-          resolve('🟢 [Element Observer] Element found initial');
-        } else if (!boolean && !element.value) {
-          clearTimeout(timeoutId);
-          clearInterval(initialCheck);
-          observer.disconnect();
-          resolve('🟢 [Element Observer] Element gone initial');
+      };
+  
+      // Einmalige Prüfung beim Start, um vorhandene Elemente sofort zu erkennen
+      checkAndObserve();
+  
+      // Intervall-Check, falls das Element später hinzugefügt wird
+      const existenceCheck = setInterval(() => {
+        const element = document.querySelectorAll(selector)[selectorNumber];
+        if (element) {
+          clearInterval(existenceCheck);
+          checkAndObserve();
         }
       }, checkInterval);
     });
   }
+
+  async function observeVisibility(selector, shouldBeVisible) {
+    const checkInterval = 500; // Intervall für wiederholte Checks in Millisekunden
+    const timeout = 8000; // Timeout in Millisekunden
+  
+    return new Promise((resolve, reject) => {
+      const timeoutId = setTimeout(() => {
+        reject({
+          text: 'ProTime Element Timeout',
+          textdetails: `Timeout: Die Sichtbarkeitsbedingung für das Element mit dem Selektor "${selector}" wurde nicht innerhalb der Zeit erfüllt.`,
+        });
+      }, timeout);
+  
+      const checkAndObserve = () => {
+        const element = document.querySelector(selector);
+  
+        // Prüft, ob das Element sichtbar ist
+        const isVisible = element && element.style.display !== 'none' && element.style.visibility !== 'hidden';
+  
+        if (shouldBeVisible && isVisible) {
+          clearInterval(intervalId);
+          clearTimeout(timeoutId);
+          resolve(`Element "${selector}" ist sichtbar.`);
+        } else if (!shouldBeVisible && (!element || !isVisible)) {
+          clearInterval(intervalId);
+          clearTimeout(timeoutId);
+          resolve(`Element "${selector}" ist unsichtbar oder wurde entfernt.`);
+        }
+      };
+  
+      const intervalId = setInterval(checkAndObserve, checkInterval);
+    });
+  }
+  
+  
+  
   // timing variables for wait timer
   const bookingWaitingTimerDefault = "250"
   const bookingWaitingTimer500 = "500"
@@ -231,21 +286,20 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           which: 13,
           keyCode: 13,
         })
-        // Wait for empty textarea first
+
+        // Wait for empty textarea (true only when page is reloaded or ticket was booked)
         try {
-          await elementObserver(document.getElementsByTagName('textarea')[0], false);
+          await observeElement('textarea', false,'0');
         } catch (error) {
           console.log("result error: ", error);
           let errorMessage = error
           return result = { success: false, message: errorMessage };
         }
         // check if loadingspinner is gone
-        try {
-          await elementObserver(document.getElementById('ur-loading-box'), false);
-        } catch (error) {
-          console.log("result error: ", error);
-          let errorMessage = error
-          return result = { success: false, message: errorMessage };
+        try{
+          await observeVisibility('#ur-loading', false)
+        }catch(error){
+          return result = { success: false, message: error };
         }
 
         const eventChange = new Event("change")
@@ -277,33 +331,43 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }
-        // try {
-        // const result = await waitTillElement(document.getElementsByClassName('lsField--list')[1].childNodes[0],true);
-        // console.log(result);
-        // } catch (error) {
-        // console.log(error.message);
-        // return
-        // }
 
-        // service dropdown
-        let protime_leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0];
-        let protime_leistungenOption;
-        const protime_leistungenArray = [{
-          "select_proTime_service_CSITEST": "[data-itemkey='ZCHN0730070']",
-          "select_proTime_service_CSITENT": "[data-itemkey='ZCHN0730080']",
-          "select_proTime_service_ITDNT": "[data-itemkey='ZCHN0730005']",
-          "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
-        }]
-
-        protime_leistung.click()
-        protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
-
-        if (!protime_leistungenOption) {
-          return
+        if(lowLatency === true){
+          console.log('lowLatency activated')
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          console.log('lowLatency activated - 1000')
+          // wait till spinner is gone - low latency
+          try{
+            let x = await observeVisibility('#ur-loading', false)
+            console.log('lowLatency observer ready',x)
+          }catch(error){
+            return result = { success: false, message: error };
+          }
         }
 
-        protime_leistungenOption.click()
-
+        // service dropdown
+        try {
+          await observeElement('.lsField--list [aria-roledescription="Auswählen"]', true, '0');
+          console.log('Leistung Dropdown ready')
+          let protime_leistung = document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]')[0]
+          let protime_leistungenOption;
+          const protime_leistungenArray = [{
+            "select_proTime_service_CSITEST": "[data-itemkey='ZCHN0730070']",
+            "select_proTime_service_CSITENT": "[data-itemkey='ZCHN0730080']",
+            "select_proTime_service_ITDNT": "[data-itemkey='ZCHN0730005']",
+            "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
+          }]
+          protime_leistung.click()
+          protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
+          protime_leistungenOption.click()
+          console.log('Leistung dropdown selected')
+        } catch (error) {
+          console.log("result error: ", error);
+          return result = { success: false, message: error };
+        }
+        //old --> let protime_leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0];
         try {
           await waitTimer(bookingWaitingTimerDefault)
         } catch (error) {
@@ -312,22 +376,47 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           return
         }
         // if detection item has activity book it
-        if (detectionObject.protimeactivity.length > 1) {
-          protime_activityDropdown = document.getElementsByClassName('lsField--list')[2].childNodes[0]
-          protime_activityDropdown.click()
-          protime_activityDropdownList = document.getElementsByClassName('lsListbox__items')[1].childNodes[0]
-          let protime_activityDropdownItems = protime_activityDropdownList.childNodes
-          for (let i = 0, ilen = protime_activityDropdownItems.length; i < ilen; i++) {
-            if (protime_activityDropdownItems[i].textContent.includes(detectionObject.protimeactivity)) {
-              protime_activityDropdownItems[i].click()
+        // protime_activityDropdown = document.getElementsByClassName('lsField--list')[2].childNodes[0]
+        try {
+            if (detectionObject.protimeactivity.length > 1) {
+              let protime_activityDropdownSelector = '.lsField--list [aria-roledescription="Auswählen"]'
+              await observeElement(protime_activityDropdownSelector, true, '0');
+              if(lowLatency === true){
+                try{
+                  await waitTimer(bookingWaitingTimer1000)
+                  await waitTimer(bookingWaitingTimer1000)
+                  await observeVisibility(protime_activityDropdownSelector, true)
+                  await observeVisibility('#ur-loading', false)
+                }catch(error){
+                  console.error('[Time Copy] WaitTimmer Error: ', error)
+                }
+                console.log('--> Activity low latency')
+              }
+              await observeElement('.lsListbox__items', true, '1')
+              try {
+                await observeVisibility('#ur-loading', false)
+              }catch(error){
+                console.error('[Time Copy] Element Error: ', error)
+              }
+              protime_activityDropdown = document.querySelectorAll(protime_activityDropdownSelector)[1]
+              protime_activityDropdown.click()
+              protime_activityDropdownList = document.getElementsByClassName('lsListbox__items')[1].childNodes[0]
+              let protime_activityDropdownItems = protime_activityDropdownList.childNodes
+              for (let i = 0, ilen = protime_activityDropdownItems.length; i < ilen; i++) {
+                if (protime_activityDropdownItems[i].textContent.includes(detectionObject.protimeactivity)) {
+                  protime_activityDropdownItems[i].click()
+                }
+              }
+              // set Ticket Nomber Child Nom
+              protime_ticketElemNom = 4
+            }else {
+              protime_ticketElemNom = 3
             }
-          }
-          // set Ticket Nomber Child Nom
-          protime_ticketElemNom = 4
-        } else {
-          protime_ticketElemNom = 3
+        } catch (error) {
+          console.log("result error: ", error);
+          let errorMessage = error
+          return result = { success: false, message: errorMessage };
         }
-
         try {
           await waitTimer(bookingWaitingTimerDefault)
         } catch (error) {
@@ -359,9 +448,9 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
         protime_ticketNumber.focus()
         protime_ticketNumber.click()
         protime_ticketNumber.value = bookingItem_TicketNumber
-        if (!dev_pttest) {
-          protime_ticketNumber.dispatchEvent(keyEventEnter)
-        }
+        // if (!dev_pttest) {
+          // protime_ticketNumber.dispatchEvent(keyEventEnter)
+        // }
 
         try {
           await waitTimer(bookingWaitingTimerDefault)
@@ -417,7 +506,8 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
         }
 
         try {
-          await elementObserver(document.getElementsByTagName('textarea')[0], true);
+          console.log('--> Last Textarea Check')
+          await elementObserver('textarea', true, '','0');
         } catch (error) {
           console.log("result error: ", error);
           let errorMessage = error

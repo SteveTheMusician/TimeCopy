@@ -29,3 +29,7 @@
   --color-icon-default: #5d7b83;
   --color-icon-light: #5d7b83;
 }
+
+.button-mainAction{
+  border-radius: var(--border-radius-round);
+}

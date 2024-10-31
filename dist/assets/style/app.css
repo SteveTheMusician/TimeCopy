@@ -1046,6 +1046,26 @@ input:checked+.switch_slider:before {
     
 }
 
+@media only screen and (min-width: 960px) {
+
+    #window_detection {
+        flex-wrap: wrap-reverse;
+        flex-direction: unset;
+    }
+
+    .detectionItem {
+        flex-basis: calc(50% - 50px);
+    }
+}
+
+@media only screen and (min-width: 1280px){
+
+    .configuration-window-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
 .button-mainAction--waiting {
     cursor: wait !IMPORTANT;
 }

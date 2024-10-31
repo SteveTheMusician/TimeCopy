@@ -15,6 +15,7 @@
  - So lange Buchung läuft, wird der einfügen Button mit einer loading animation blockiert ✅
  - Buchungsfunktionen noch einmal genau testen
  - Checken ob Buchungsfehler bei merh als 4 verschiedenen Buchungsnummern hintereinander auftritt
+ - Kurzer Loadingscreen oder farbfläche, während die Page sich nach einer config änderung neu lädt (damit man den aufbau nicht sieht) ?
 
  
 ## V 0.9.8
@@ -24,6 +25,7 @@
  - EE Golden Theme ✅
  - EE Snowfall ✅
  - DLC Items in erkennungs select rendern ✅
+ - Ultra-wide auflösung auch für Detection Items (1fr 1fr 1fr 1fr) ✅
  
 ## V 1.0.0
 
@@ -37,6 +39,7 @@
  - Code Cleanup: error message in app.js / anzeigen
  - In fehler meldungen den "Namen" der DLCs statt ID anzeigen ✅
  - 10px abstand zwichen einzelnen Zeilen mit Inputs, die direkt übereinander sind in den einstellungen
+ - better element namings und h-Tags für headlines und überschriften
  
  
  ## Features & Fixes für die Zukunft
