@@ -97,5 +97,6 @@
 
 ## V 0.9.71
 - feature: responsive style for detection Items
-
+- feature: cancel button
+- fix: error log on empty chrome window for Automatic and ProTime DLC
 - feature: DLC Amag ProTime - recode,

@@ -4,13 +4,21 @@ import { notification } from "../../../ui/notification/notification.js";
 
 let anyProjectNomber = "*"
 let bookingLoopCount = 0
-let lowLatency = true
+let lowLatency = false
+let forceLowLatency = false
 
 export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest) {
 
   let valideTickets = [];
   let failedTickets = [];
   let errorDetailMessage = ''
+
+  // extra force-wert übergeben der dann den anderen auf true setzt, doppelte ID verhindern
+  if(localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === 'true') {
+    lowLatency = true
+    forceLowLatency = true
+    message(true,'warning','Low Latency Mode' , 'Force Low Latency Modus ist in den ProTime DLC-Funktionen aktiviert. Time Copy wird die Daten langsamer, dafür sicherer übertragen.')
+  }
 
   try {
     bookingData.forEach((ticket) => {
@@ -89,16 +97,21 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
 
 async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount) {
   // Check Page Latency
+  try{
   let proTimeJSPageTime = await TestPageLoadPerformance()
   console.log("current Page Time:" + proTimeJSPageTime)
   proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
   if (proTimeJSPageTime > 60) {
-    notification(true, false, "Webpage has low latency. ("+proTimeJSPageTime+" ms) Booking could take longer.")
-    console.log("warning: ProTime Page low latency " + proTimeJSPageTime + " ms")
+    forceLowLatency ? '' : notification(true, false, "Webseite hat niedige Latenz. ("+proTimeJSPageTime+" ms) Buchungen werden länger brauchen.")
+    forceLowLatency ? console.log('ProTime force low latency activated') : console.log("warning: ProTime Page low latency " + proTimeJSPageTime + " ms")
   }
   chrome.windows.getCurrent(function (window) {
     chrome.windows.update(window.id, { focused: true });
   });
+  }catch(error){
+    console.log('ProTime Chrome Window Error:',error)
+    throw ({ errorstatus: 'error', errorheadline: 'Chrome Window URL', errortext: '"Amag ProTime" hat keinen zugriff auf eine gültige Chrome URL' })
+  }
   try {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     let chromeExecScript = await chrome.scripting.executeScript({

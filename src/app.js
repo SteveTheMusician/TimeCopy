@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Main Buttons
   const fillButton = document.querySelector('button#fillButton');
+  const fillCancelButton = document.querySelector('button#fillCancelButton');
   const configButton = document.querySelector('button#configButton');
   const button_clearAllMessages = document.getElementById('button_clearAllMessages')
 
@@ -83,7 +84,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
   const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
+  const config_check_forceLatencyModeproTime = document.getElementById('check_forceLatencyModeproTime')
   config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton)
+  config_check_forceLatencyModeproTime.addEventListener('change', dlcProTimeForceLatencyMode)
   const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData')
 
   // local storages
@@ -94,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
   let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
   let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
+  let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
   let lstorage_appVersion = localStorage.getItem('tc_appVersion')
   let lstorage_appWelcome = localStorage.getItem('tc_appWelcome')
   let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
@@ -213,6 +217,9 @@ document.addEventListener('DOMContentLoaded', async function () {
       config_check_showProTimeTestButton.checked = true
       dlcShowProTimeTestButtonDisplay()
     }
+    if(lstorage_c_dlcProTimeForceLatencyMode === 'true') {
+      config_check_forceLatencyModeproTime.checked = true
+    }
   }
 
   // Clear local storage
@@ -235,6 +242,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_s_dlcfilterinformations')
     localStorage.removeItem('tc_c_dlc_protimetest')
     localStorage.removeItem('tc_c_dlc_snowflakes')
+    localStorage.removeItem('tc_c_dlc_protimeforcelatencymode')
   }
 
   function clearSessionStorage() {
@@ -543,12 +551,20 @@ document.addEventListener('DOMContentLoaded', async function () {
     if(lockStatus === 'true') {
       actionButtonSpinner.classList.add('button-mainAction--waiting')
       fillButton.setAttribute('disabled', 'disabled')
+      fillCancelButton.classList.remove('dNone')
       configButton.setAttribute('disabled', 'disabled')
     }else if(lockStatus === 'false'){
       actionButtonSpinner.classList.remove('button-mainAction--waiting')
       fillButton.removeAttribute('disabled', 'disabled')
+      fillCancelButton.classList.add('dNone')
       configButton.removeAttribute('disabled', 'disabled')
     }
+  }
+
+  // Cancel Functions
+  function cancelPasteData(){
+    chrome.tabs.reload(function(){});
+    window.location.reload()
   }
 
   // DLC Functions
@@ -568,6 +584,15 @@ document.addEventListener('DOMContentLoaded', async function () {
     } else {
       button_dev_pttest.classList.add('dNone')
     }
+  }
+
+  function dlcProTimeForceLatencyMode(){
+    if(config_check_forceLatencyModeproTime.checked){
+      localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'true')
+    }else {
+      localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'false')
+    }
+    configUserChanges = true
   }
 
   // Test protime function
@@ -596,21 +621,22 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Extension load up
   window.addEventListener("load", (event) => {
     // Display version
-    label_version.insertAdjacentHTML('beforeend', extensionVersion);
-    label_build_version.insertAdjacentHTML('beforeend', extensionBuild);
-    label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor);
-    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionCoAuthor);
+    label_version.insertAdjacentHTML('beforeend', extensionVersion)
+    label_build_version.insertAdjacentHTML('beforeend', extensionBuild)
+    label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor)
+    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionCoAuthor)
     // Main Buttons Listener
-    fillButton.addEventListener('click', execReadClipboardText);
-    button_dev_pttest.addEventListener('click', testProTime);
-    configButton.addEventListener('click', openConfigs);
+    fillButton.addEventListener('click', execReadClipboardText)
+    fillCancelButton.addEventListener('click', cancelPasteData)
+    button_dev_pttest.addEventListener('click', testProTime)
+    configButton.addEventListener('click', openConfigs)
     button_clearAllMessages.addEventListener('click', clearAllMessages)
-    buttonBackToMain.addEventListener('click', openConfigs);
+    buttonBackToMain.addEventListener('click', openConfigs)
     // Configuration tabs listener
-    buttonTab_General.addEventListener('click', configTabOpenGeneral);
-    buttonTab_Projects.addEventListener('click', configTabOpenProjects);
-    buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets);
-    buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets);
+    buttonTab_General.addEventListener('click', configTabOpenGeneral)
+    buttonTab_Projects.addEventListener('click', configTabOpenProjects)
+    buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets)
+    buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets)
     configProfileName.addEventListener('change', configSetProfileName)
     // Configs Listener
     button_clearConfigs.addEventListener('click', removeProfile)
@@ -620,7 +646,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     button_docuDatenschutz.addEventListener('click', docuOpenDatenschutz)
     button_docuReadme.addEventListener('click', docuOpenReadme)
     button_openStore.addEventListener('click', openStore)
-    themeSelect.addEventListener('change', switchTheme);
+    themeSelect.addEventListener('change', switchTheme)
     // languageSelect.addEventListener('change', switchLanguage);
     // filter radios listener
     for (var i = 0, iLen = radios_filter.length; i < iLen; i++) {
