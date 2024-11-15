@@ -2,9 +2,9 @@
   /* ---- Mr. White Theme ---- */
 
   /* theme colors */
-  --color-main: #fff;
+  --color-main: #eee;
   --color-second: #fff;
-  --color-third: #eee;
+  --color-third: #e3e3e3;
   --color-highlight: #111;
   --color-active: #09153e;
   --color-disabled: #909090;
@@ -23,4 +23,14 @@
   --color-icon-light: #111;
   /* dlc snowflake color */
   --color-dlc-snowflake: #090a13;
+}
+
+.button-mainAction:hover{
+  transform:translateY(-10px);
+  box-shadow: 0px 17px 12px #00000033;
+  background: var(--color-second);
+}
+.button-mainAction:hover:disabled{
+  transform:translateY(0px);
+  box-shadow: inset 0px 4px 10px #00000033;
 }
