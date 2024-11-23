@@ -64,7 +64,6 @@ header {
 }
 
 .button-mainAction {
-  /* background: linear-gradient(45deg, rgba(179, 173, 135, 1) 0%, rgba(255, 249, 190, 1) 100%); */
   background: linear-gradient(45deg, var(--gold-dark) 0%, var(--gold-light) 100%);
   animation-name: backgroundAnimationIdle;
   animation-duration: 10s;
@@ -117,7 +116,6 @@ header {
 .button-mainAction:hover {
   box-shadow: 0px 2px 13px #00000055;
   transform: scale(1.02);
-  /* background: linear-gradient(45deg, rgba(179, 173, 135, 1) 0%, rgba(255, 249, 190, 1) 100%); */
   background: linear-gradient(45deg, var(--gold-dark) 0%, var(--gold-light) 100%);
 }
 
@@ -141,7 +139,6 @@ header {
 
 .configItem-icon-container,
 .label-row .text-label {
-  backdrop-filter: var(--blur-default);
   background-color: var(--dark-gray-30);
   padding: 10px;
   margin-block-start: 0;
@@ -150,7 +147,6 @@ header {
 }
 
 .dlcItem-main .configItem-icon-container {
-  backdrop-filter: unset;
   background-color: unset;
   padding: 0;
   margin-block-start: 0;
@@ -167,12 +163,10 @@ header {
 }
 
 .configItem-content-row .text-label {
-  backdrop-filter: unset;
   background-color: transparent;
 }
 
 .configuration-tab-container {
-  backdrop-filter: var(--blur-default) brightness(1.05);
   border-radius: var(--border-radius-default);
   margin-bottom: 10px;
   background-color: var(--color-second);
@@ -208,7 +202,6 @@ select {
 }
 
 .notification--ok {
-  backdrop-filter: var(--blur-default);
   background-color: var(--dark-gray-30);
 }
 
@@ -231,7 +224,6 @@ input:checked+.switch_slider {
 }
 
 .message {
-  backdrop-filter: var(--blur-default);
   background-color: var(--color-second);
 }
 
@@ -240,7 +232,6 @@ input:checked+.switch_slider {
 }
 
 #button_clearAllMessages {
-  backdrop-filter: var(--blur-default);
   background-color: var(--color-second);
 }
 

@@ -97,6 +97,16 @@
 
 ## V 0.9.71
 - feature: responsive style for detection Items
+
+## V 0.9.72
 - feature: cancel button
 - fix: error log on empty chrome window for Automatic and ProTime DLC
+- other: Theme changes - Mr.White & Midnight GLow
+
+## V 0.9.80
+
 - feature: DLC Amag ProTime - recode,
+- feature: Button-Titles on hover (DE)
+- other: cursor pointer for select
+- other: Theme adjustments
+- other: better html

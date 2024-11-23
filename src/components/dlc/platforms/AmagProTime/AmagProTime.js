@@ -78,7 +78,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
   console.log("🔄 valid tickets ", valideTickets);
   try {
     if (valideTickets.length) {
-      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount)
+      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, lowLatency)
       bookingLoopCount++
       console.log('iChrTab:', iChrTab);
       if (iChrTab.result !== null && iChrTab.result.success === false) {
@@ -95,16 +95,21 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
   return "ProTime Buchung beendet";
 }
 
-async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount) {
+async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, lowLatency) {
   // Check Page Latency
   try{
   let proTimeJSPageTime = await TestPageLoadPerformance()
   console.log("current Page Time:" + proTimeJSPageTime)
   proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
   if (proTimeJSPageTime > 60) {
-    forceLowLatency ? '' : notification(true, false, "Webseite hat niedige Latenz. ("+proTimeJSPageTime+" ms) Buchungen werden länger brauchen.")
-    forceLowLatency ? console.log('ProTime force low latency activated') : console.log("warning: ProTime Page low latency " + proTimeJSPageTime + " ms")
+    if(forceLowLatency){
+      console.log('ProTime force low latency activated')
+    }
+    console.log("warning: ProTime Page low latency " + proTimeJSPageTime + " ms")
+    notification(true, false, "Webseite hat niedige Latenz. ("+proTimeJSPageTime+" ms) Buchungen werden länger brauchen.")
+    lowLatency = true
   }
+  console.log('Page latenz:'+proTimeJSPageTime)
   chrome.windows.getCurrent(function (window) {
     chrome.windows.update(window.id, { focused: true });
   });
@@ -117,7 +122,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
     let chromeExecScript = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: AmagProTimeBookTickets,
-      args: [valideTickets, dev_pttest, bookingLoopCount]
+      args: [valideTickets, dev_pttest, bookingLoopCount, lowLatency]
     });
 
     if (chromeExecScript[0].result && chromeExecScript[0].result.error) {
@@ -133,7 +138,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
   }
 }
 
-async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCount) {
+async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCount, lowLatency) {
 
   // function for checking if loader exists / disappears
   async function observeElement(selector, boolean, selectorNumber) {
@@ -250,12 +255,15 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
       }, ms)
     })
   }
+  if(lowLatency === true){
+    console.log('[Time Copy] 🏓 Low Latency Mode Activated')
+  }
 
   // Booking Proccess
   try {
     for (const ticket of valideTickets) {
       try {
-        console.log(bookingLoopCount)
+        console.log("Booking Loop Count: ",bookingLoopCount)
         function checkFirstBookingLoop(bookingLoopCount) {
           return new Promise((resolve) => {
             // If Click-Overlay already exists duo error / plugin reload - remove it
@@ -344,17 +352,14 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }
-
         if(lowLatency === true){
-          console.log('lowLatency activated')
           await waitTimer(bookingWaitingTimer1000)
           await waitTimer(bookingWaitingTimer1000)
           await waitTimer(bookingWaitingTimer1000)
           console.log('lowLatency activated - 1000')
           // wait till spinner is gone - low latency
           try{
-            let x = await observeVisibility('#ur-loading', false)
-            console.log('lowLatency observer ready',x)
+            await observeVisibility('#ur-loading', false)
           }catch(error){
             return result = { success: false, message: error };
           }
@@ -431,7 +436,7 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           return result = { success: false, message: errorMessage };
         }
         try {
-          await waitTimer(bookingWaitingTimerDefault)
+          await waitTimer(bookingWaitingTimer500)
         } catch (error) {
           alert('Time Copy ' + error)
           console.error("[Time Copy] WaitTimer Error: ", error);
@@ -439,21 +444,53 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
         }
 
         // Entry Ticket Data
+        if(lowLatency === true){
+          try {
+            await waitTimer(bookingWaitingTimer1000)
+          } catch (error) {
+            alert('Time Copy ' + error)
+            console.error("[Time Copy] WaitTimer Error: ", error);
+            return
+          }
+        }
         protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
         protime_hours.focus()
-        protime_hours.click()
+        protime_hours.click()        
         protime_hours.value = ticketObject.item_tickettime
-        if (!dev_pttest) {
-          protime_hours.dispatchEvent(keyEventEnter)
-        }
 
         try {
-          await waitTimer(bookingWaitingTimer500)
+          await waitTimer(bookingWaitingTimerDefault)
         } catch (error) {
           alert('Time Copy ' + error)
           console.error("[Time Copy] WaitTimer Error: ", error);
           return
         }
+        
+        if (!dev_pttest) {
+          console.log('Dev Test:', dev_pttest)
+          protime_hours.dispatchEvent(keyEventEnter)
+        }
+
+        if(lowLatency === true){
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          // wait till spinner is gone - low latency
+          try{
+            let loadingDots = await observeVisibility('#ur-loading', false)
+            console.log('loading Dots waiting', loadingDots)
+          }catch(error){
+            return result = { success: false, message: error };
+          }
+        }
+
+        try{
+          let loadingDots = await observeVisibility('#ur-loading', false)
+          console.log('loading Dots waiting', loadingDots)
+        }catch(error){
+          return result = { success: false, message: error };
+        }
+
         // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
         let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
 
@@ -461,9 +498,13 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
         protime_ticketNumber.focus()
         protime_ticketNumber.click()
         protime_ticketNumber.value = bookingItem_TicketNumber
-        // if (!dev_pttest) {
-          // protime_ticketNumber.dispatchEvent(keyEventEnter)
-        // }
+        if (!dev_pttest) {
+          protime_ticketNumber.dispatchEvent(keyEventEnter)
+        }
+        // if hours get lost
+        if(protime_hours.value = ''){
+          protime_hours.value = ticketObject.item_tickettime
+        }
 
         try {
           await waitTimer(bookingWaitingTimerDefault)
@@ -473,6 +514,22 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           return
         }
 
+        if(lowLatency === true){
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          // wait till spinner is gone - low latency
+          try{
+            await observeVisibility('#ur-loading', false)
+          }catch(error){
+            return result = { success: false, message: error };
+          }
+        }
+
+        try{
+          await observeVisibility('#ur-loading', false)
+        }catch(error){
+          return result = { success: false, message: error };
+        }
 
         let mover = new MouseEvent('mouseover', {
           'view': window,
@@ -509,7 +566,12 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
           bookingButton.focus()
           bookingButton.click()
+        }else {
+          // clear elements when test is on (Values will be visibile on next ticket)
+          protime_ticketNumber.value = ''
+          protime_ticketText.value = ''
         }
+
         try {
           await waitTimer(bookingWaitingTimer500)
         } catch (error) {
@@ -518,9 +580,26 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           return
         }
 
+        if(lowLatency === true){
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          // wait till spinner is gone - low latency
+          try{
+            await observeVisibility('#ur-loading', false)
+          }catch(error){
+            return result = { success: false, message: error };
+          }
+        }
+        try{
+          await observeVisibility('#ur-loading', false)
+        }catch(error){
+          return result = { success: false, message: error };
+        }
+
         try {
           console.log('--> Last Textarea Check')
-          await elementObserver('textarea', true, '','0');
+          await observeElement('textarea', false,'0');
         } catch (error) {
           console.log("result error: ", error);
           let errorMessage = error

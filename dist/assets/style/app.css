@@ -86,6 +86,7 @@ input {
 select {
     font-family: Roboto;
     font-weight: 400;
+    cursor: pointer;
 }
 
 input::placeholder {

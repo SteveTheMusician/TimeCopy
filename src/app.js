@@ -671,6 +671,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     loadSessionStorages()
     // load xmas dlc between dezember (11) and march (2)
     if (dateMonth === 11 || dateMonth === 0 || dateMonth === 1 || dateMonth === 2) {
+      console.log('Winter')
       xmas()
     }
     // devtool

@@ -1,6 +1,8 @@
 :root {
   /* ---- Mint Theme ---- */
-  
+
+  --border-radius-default: 20px;
+
   /* theme colors */
   --color-main: #16423C;
   --color-second: #1d554e;

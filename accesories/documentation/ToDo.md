@@ -21,7 +21,7 @@
  
 ## V 0.9.8
  - dlc: stevegoogleexcel - wenn urhzeit im string filtern / raus löschen ? macht schon?
- - style: mr white theme überarbeiten
+ - style: mr white theme überarbeiten ✅
  - Responsive Feature: small & kacheln nebeneinander auf large ✅
  - "Zum Store" Link in den Infos ✅
  - EE Golden Theme ✅
@@ -43,6 +43,7 @@
  - In fehler meldungen den "Namen" der DLCs statt ID anzeigen ✅
  - 10px abstand zwichen einzelnen Zeilen mit Inputs, die direkt übereinander sind in den einstellungen
  - better element namings und h-Tags für headlines und überschriften
+ - Benachrichtigungen optionen in den einstellungen (z.b. Warnungen ausschalten)
  
  
  ## Features & Fixes für die Zukunft
