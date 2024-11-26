@@ -13,20 +13,25 @@ import { platform_bookingPlatformPreValue } from "./components/dlc/platforms/pla
 import { xmas } from "./components/dlc/xmas/xmas.dlc.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
-  let dlc_platformContent = await platformsContent()
+  // import DLC's
   try {
+    let dlc_platformContent = await platformsContent()
     if (!dlc_platformContent) {
-      throw new Error('❌ platform contents not loaded')
+      throw new Error('❌ DLC Platform contents not loaded')
+    }else {
+      console.log(dlc_platformContent)
     }
   } catch (error) {
     console.log(error)
     clearDlcLocalStorages()
     return
   }
-  let dlc_filterContent = await filtersContent()
   try {
+    let dlc_filterContent = await filtersContent()
     if (!dlc_filterContent) {
-      throw new Error('❌ filter contents not loaded')
+      throw new Error('❌ DLC Filter contents not loaded')
+    }else {
+      console.log(dlc_filterContent)
     }
   } catch (error) {
     console.log(error)
@@ -85,8 +90,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
   const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
   const config_check_forceLatencyModeproTime = document.getElementById('check_forceLatencyModeproTime')
+  const config_check_useLatencyModeproTime = document.getElementById('check_useLatencyModeproTime')
   config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton)
   config_check_forceLatencyModeproTime.addEventListener('change', dlcProTimeForceLatencyMode)
+  config_check_useLatencyModeproTime.addEventListener('change', dlcProTimeUseLatencyMode)
   const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData')
 
   // local storages
@@ -98,6 +105,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
   let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
   let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
+  let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
   let lstorage_appVersion = localStorage.getItem('tc_appVersion')
   let lstorage_appWelcome = localStorage.getItem('tc_appWelcome')
   let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
@@ -220,6 +228,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     if(lstorage_c_dlcProTimeForceLatencyMode === 'true') {
       config_check_forceLatencyModeproTime.checked = true
     }
+    if(lstorage_c_dlcProTimeUseLatencyMode === 'false') {
+      config_check_useLatencyModeproTime.checked = false
+    }else {
+      config_check_useLatencyModeproTime.checked = true
+    }
   }
 
   // Clear local storage
@@ -243,6 +256,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_c_dlc_protimetest')
     localStorage.removeItem('tc_c_dlc_snowflakes')
     localStorage.removeItem('tc_c_dlc_protimeforcelatencymode')
+    localStorage.removeItem('tc_c_dlc_protimeuselatencymode')
   }
 
   function clearSessionStorage() {
@@ -520,7 +534,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // get all boocking relevant data as array
     try {
       timesheetData = await filters(filter, clipboarsString)
-      console.log("💽 dlc filter (timesheet " + filter + ") data: ", timesheetData)
+      console.log("💽 Selected Filter-DLC: " + filter + " | Filtered data: ", timesheetData)
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error);
       // notification(true, false, '')
@@ -528,15 +542,15 @@ document.addEventListener('DOMContentLoaded', async function () {
       message(true, 'error', 'ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
       return
     }
-    console.log("🔘 selected platform: " + bookingPlatform)
     try {
+      console.log("🔘 Selected Platform-DLC: " + bookingPlatform)
       let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
       if (bookEntries) {
         console.log("✅ Booking process return okey | ", bookEntries)
         lockActionButtons('false',fillButton)
         message(true, 'information', 'Buchungsprozess beendet', bookingPlatform)
       } else {
-        console.log("error entries: ", bookEntries)
+        console.log("❌ Problem with booking entries: ", bookEntries)
       }
     } catch (error) {
       lockActionButtons('false',fillButton)
@@ -591,6 +605,15 @@ document.addEventListener('DOMContentLoaded', async function () {
       localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'true')
     }else {
       localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'false')
+    }
+    configUserChanges = true
+  }
+
+  function dlcProTimeUseLatencyMode(){
+    if(config_check_useLatencyModeproTime.checked){
+      localStorage.setItem('tc_c_dlc_protimeuselatencymode', 'true')
+    }else {
+      localStorage.setItem('tc_c_dlc_protimeuselatencymode', 'false')
     }
     configUserChanges = true
   }

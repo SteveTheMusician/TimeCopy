@@ -1,3 +1,5 @@
+import { anyProjectNomber } from "../variables/AmagProTime.variables";
+
 export async function TestPageLoadPerformance() {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     let result = await chrome.scripting.executeScript({

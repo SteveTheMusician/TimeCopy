@@ -105,8 +105,8 @@
 
 ## V 0.9.80
 
-- feature: DLC Amag ProTime - recode,
-- feature: Button-Titles on hover (DE)
+- feature: DLC Amag ProTime - recode, latency-mode
+- feature: Input- and Text-Titles on hover (DE)
 - other: cursor pointer for select
 - other: Theme adjustments
 - other: better html

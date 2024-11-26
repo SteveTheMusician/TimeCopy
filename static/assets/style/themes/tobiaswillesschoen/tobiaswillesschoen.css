@@ -162,10 +162,6 @@ input[type=text], select {
   background-color: var(--color-icon-default);
 }
 
-input:checked + .switch_slider {
-  background-color: var(--color-highlight);
-}
-
 .switch_slider {
   background-color: var(--color-second);
 }

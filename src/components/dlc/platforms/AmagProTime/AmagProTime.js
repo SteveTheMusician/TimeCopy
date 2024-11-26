@@ -1,25 +1,46 @@
-import { TestPageLoadPerformance,filterPrefix,filterAddPrefix,filterAllPrefixes,filterBookingNomber } from "./services/AmagProTime.services.js";
+import {
+  TestPageLoadPerformance,
+  filterPrefix,
+  filterAddPrefix,
+  filterAllPrefixes,
+  filterBookingNomber
+} from "./services/AmagProTime.services.js";
 import { message } from "../../../ui/message/message.js";
 import { notification } from "../../../ui/notification/notification.js";
+import {
+  bookingLoopCount,
+  lowLatency,
+  useLowLatency,
+  forceLowLatency,
+  noTicketNomberFill,
+  noTicketDiscFill
+} from "./variables/AmagProTime.variables.js";
 
-let anyProjectNomber = "*"
-let bookingLoopCount = 0
-let lowLatency = false
-let forceLowLatency = false
+// let anyProjectNomber = "*"
+// let bookingLoopCount = 0
+// let lowLatency = false
+// let forceLowLatency = false
+// element box not working at the moment
 
+// 🍎 initial script to filter data and start the booking process
 export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest) {
 
   let valideTickets = [];
   let failedTickets = [];
   let errorDetailMessage = ''
 
-  // extra force-wert übergeben der dann den anderen auf true setzt, doppelte ID verhindern
-  if(localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === 'true') {
+  // use force low latency
+  if (localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === 'true') {
     lowLatency = true
     forceLowLatency = true
-    message(true,'warning','Low Latency Mode' , 'Force Low Latency Modus ist in den ProTime DLC-Funktionen aktiviert. Time Copy wird die Daten langsamer, dafür sicherer übertragen.')
+    message(true, 'warning', 'Low Latency Mode', 'Force Low Latency Modus ist in den ProTime DLC-Funktionen aktiviert. Time Copy wird die Daten langsamer, dafür sicherer übertragen.')
+  }
+  // deaktivate use low latency, when false
+  if (localStorage.getItem('tc_c_dlc_protimeuselatencymode') === 'false') {
+    useLowLatency = false
   }
 
+  // match tickets to the given filters (functions in service.js)
   try {
     bookingData.forEach((ticket) => {
       let ticketPrefixMatches = filterPrefix(ticket, detectionItemsProTime);
@@ -28,10 +49,10 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
       let ticketRefineBookingNomber = filterBookingNomber(ticket, ticketRefinePrefixesMatches);
 
       if (ticket.item_ticketdisc.length < 2) {
-        throw ({ errorstatus: 'error', errorheadline: "Ticket hat keine Discription", errortext: ticket.item_ticketnumber + ' ' + ticket.item_bookingnumber })
+        throw ({ errorstatus: 'error', errorheadline: "Ticket hat keine Beschreibung", errortext: ticket.item_ticketnumber + ' ' + ticket.item_bookingnumber })
       }
       if (ticketRefineBookingNomber.length > 1) {
-        throw ({ errorstatus: 'error', errorheadline: "Ticket Mehrfachmatches", errortext: "Ticket hat mehrfache Matches | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc });
+        throw ({ errorstatus: 'error', errorheadline: "Ticket Mehrfachmatches", errortext: "Ticket hat mehrfache Ergebnisse | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc });
       } else if (ticketRefineBookingNomber.length === 1) {
         valideTickets.push([ticket, ticketRefineBookingNomber[0]]);
       } else if (ticketRefineBookingNomber.length === 0) {
@@ -51,23 +72,24 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
   } catch (error) {
     throw error
   }
-
+  // put all missmatch tickets in to an array 
   if (failedTickets.length) {
     let notificationTimeOut = 0
-    console.log("⛔️ failed tickets ", failedTickets);
+    console.log("⛔️ [DLC Platforms: AmagProTime] failed tickets: ", failedTickets);
     failedTickets.forEach((failedTicketItem) => {
       let ticketnumber;
       let ticketdisc;
       if (!failedTicketItem.item_ticketnumber.length) {
-        ticketnumber = "NO NOMBER";
+        ticketnumber = noTicketNomberFill;
       } else {
         ticketnumber = failedTicketItem.item_ticketnumber;
       }
       if (!failedTicketItem.item_ticketdisc.length) {
-        ticketdisc = "NO DISCRIPTION";
+        ticketdisc = noTicketDiscFill;
       } else {
         ticketdisc = failedTicketItem.item_ticketdisc;
       }
+      // message feedback
       notificationTimeOut += 150
       setTimeout(function () {
         message(true, 'warning', 'Ticket nicht übernommen', ticketnumber + ': ' + ticketdisc)
@@ -75,12 +97,14 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
     });
     notificationTimeOut = 0
   }
-  console.log("🔄 valid tickets ", valideTickets);
+  // console.log("🔄 [DLC Platforms: AmagProTime] valid tickets: ", valideTickets);
+
+  // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
-      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, lowLatency)
+      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, lowLatency, useLowLatency)
       bookingLoopCount++
-      console.log('iChrTab:', iChrTab);
+      // console.log('iChrTab:', iChrTab);
       if (iChrTab.result !== null && iChrTab.result.success === false) {
         throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
       }
@@ -95,28 +119,28 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
   return "ProTime Buchung beendet";
 }
 
-async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, lowLatency) {
-  // Check Page Latency
-  try{
-  let proTimeJSPageTime = await TestPageLoadPerformance()
-  console.log("current Page Time:" + proTimeJSPageTime)
-  proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
-  if (proTimeJSPageTime > 60) {
-    if(forceLowLatency){
-      console.log('ProTime force low latency activated')
+// 🍎 chrom tab scripts
+async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, lowLatency, useLowLatency) {
+  // check latency in current tab + only when use low latency is aktivated
+  if (useLowLatency) {
+    try {
+      let proTimeJSPageTime = await TestPageLoadPerformance()
+      proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
+      // use low latency only when page ping is low
+      if (proTimeJSPageTime > 60) {
+        console.log("[DLC Platforms: AmagProTime] ⚠️ Warning: ProTime Page low latency " + proTimeJSPageTime + " ms")
+        notification(true, false, "Webseite hat niedige Latenz. (" + proTimeJSPageTime + " ms) Buchungen werden länger brauchen.")
+        lowLatency = true
+      }
+      chrome.windows.getCurrent(function (window) {
+        chrome.windows.update(window.id, { focused: true });
+      });
+    } catch (error) {
+      console.log('❌ [DLC Platforms: AmagProTime] TestPageLoadPerformance Error:', error)
+      throw ({ errorstatus: 'error', errorheadline: 'Chrome Performance Test', errortext: '"Amag ProTime" hat Probleme, einen Performance-Test im aktuellem Tab durchzuführen.' })
     }
-    console.log("warning: ProTime Page low latency " + proTimeJSPageTime + " ms")
-    notification(true, false, "Webseite hat niedige Latenz. ("+proTimeJSPageTime+" ms) Buchungen werden länger brauchen.")
-    lowLatency = true
   }
-  console.log('Page latenz:'+proTimeJSPageTime)
-  chrome.windows.getCurrent(function (window) {
-    chrome.windows.update(window.id, { focused: true });
-  });
-  }catch(error){
-    console.log('ProTime Chrome Window Error:',error)
-    throw ({ errorstatus: 'error', errorheadline: 'Chrome Window URL', errortext: '"Amag ProTime" hat keinen zugriff auf eine gültige Chrome URL' })
-  }
+  // inject booking script to current chrome tab
   try {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     let chromeExecScript = await chrome.scripting.executeScript({
@@ -137,15 +161,15 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
     throw ({ errorstatus: 'error', errorheadline: 'Chrome Tab Execution', errortext: errObj })
   }
 }
-
+// 🍎 main booking logic
 async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCount, lowLatency) {
 
-  // function for checking if loader exists / disappears
+  // element change observer
   async function observeElement(selector, boolean, selectorNumber) {
-    const checkInterval = 500; // Intervall für wiederholte Checks
-    const timeout = 8000; // maximale Wartezeit
-    console.log('🟡 [Element Observer] Wait Element Started, Element Boolean:' + boolean);
-  
+    const checkInterval = 500;
+    const timeout = 8000;
+    console.log('🟡 [Time Copy] [Element Observer] Wait Element Started, Element Boolean:' + boolean);
+
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
         reject({
@@ -153,38 +177,34 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           textdetails: selector + " #" + boolean + ": Element wurde nicht gefunden oder hat nicht die gewünschten Änderungen übernehmen können. Grund dafür können Verbindungsprobleme sein."
         });
       }, timeout);
-  
-      // Funktion zur Prüfung und Beobachtung des Elements
+
       const checkAndObserve = () => {
         const element = document.querySelectorAll(selector)[selectorNumber];
         console.log('Element: ', element);
-  
+
         if (element) {
-          // Sofortige Prüfung, ob das Element bereits den gewünschten Zustand erfüllt
           if ((boolean && element.value) || (!boolean && !element.value) || (boolean && element) || (!boolean && !element)) {
             clearTimeout(timeoutId);
-            resolve('🟢 [Element Observer] Element found immediately');
+            resolve('🟢 [Time Copy] [Element Observer] Element found immediately');
             return;
           }
-  
-          // MutationObserver starten, um auf Änderungen zu reagieren
+
           const observer = new MutationObserver(() => {
             if (boolean) {
               if (element.value) {
                 clearTimeout(timeoutId);
                 observer.disconnect();
-                resolve('🟢 [Element Observer] Element found after waiting for mutation');
+                resolve('🟢 [Time Copy] [Element Observer] Element found after waiting for mutation');
               }
             } else {
               if (!element.value) {
                 clearTimeout(timeoutId);
                 observer.disconnect();
-                resolve('🟢 [Element Observer] Element gone after waiting for mutation');
+                resolve('🟢 [Time Copy] [Element Observer] Element gone after waiting for mutation');
               }
             }
           });
-  
-          // Starten des Observers für Änderungen am Element
+
           observer.observe(element, {
             childList: true,
             subtree: true,
@@ -193,11 +213,8 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           });
         }
       };
-  
-      // Einmalige Prüfung beim Start, um vorhandene Elemente sofort zu erkennen
+
       checkAndObserve();
-  
-      // Intervall-Check, falls das Element später hinzugefügt wird
       const existenceCheck = setInterval(() => {
         const element = document.querySelectorAll(selector)[selectorNumber];
         if (element) {
@@ -207,11 +224,11 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
       }, checkInterval);
     });
   }
-
+  // element visibility observer (more for the loading dots on pt)
   async function observeVisibility(selector, shouldBeVisible) {
-    const checkInterval = 500; // Intervall für wiederholte Checks in Millisekunden
-    const timeout = 8000; // Timeout in Millisekunden
-  
+    const checkInterval = 500;
+    const timeout = 8000;
+
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
         reject({
@@ -219,13 +236,11 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           textdetails: `Timeout: Die Sichtbarkeitsbedingung für das Element mit dem Selektor "${selector}" wurde nicht innerhalb der Zeit erfüllt.`,
         });
       }, timeout);
-  
+
       const checkAndObserve = () => {
         const element = document.querySelector(selector);
-  
-        // Prüft, ob das Element sichtbar ist
         const isVisible = element && element.style.display !== 'none' && element.style.visibility !== 'hidden';
-  
+
         if (shouldBeVisible && isVisible) {
           clearInterval(intervalId);
           clearTimeout(timeoutId);
@@ -236,18 +251,17 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           resolve(`Element "${selector}" ist unsichtbar oder wurde entfernt.`);
         }
       };
-  
       const intervalId = setInterval(checkAndObserve, checkInterval);
     });
   }
-  
-  
-  
+  // variables 
+  const proTimeElem_loadingBox = '#ur-loading'
   // timing variables for wait timer
   const bookingWaitingTimerDefault = "250"
   const bookingWaitingTimer500 = "500"
   const bookingWaitingTimer1000 = "1000"
-  // wait timer
+
+  // Wait timer function
   async function waitTimer(ms) {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -255,167 +269,176 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
       }, ms)
     })
   }
-  if(lowLatency === true){
-    console.log('[Time Copy] 🏓 Low Latency Mode Activated')
+  // Enter Key Event
+  const keyEventEnter = new KeyboardEvent('keydown', {
+    key: 'Enter',
+    code: 'Enter',
+    which: 13,
+    keyCode: 13,
+  })
+  // mouse over event
+  let mover = new MouseEvent('mouseover', {
+    'view': window,
+    'bubbles': true,
+    'cancelable': true
+  });
+  // 🏁 loading dots checkpoint function
+  // use a boolean for a quick-check without timer
+  async function checkpointLoadingDots(forceQuickCheckLoadingDots) {
+    if (lowLatency === true) {
+      try {
+        await waitTimer(bookingWaitingTimer1000)
+        await waitTimer(bookingWaitingTimer1000)
+        await waitTimer(bookingWaitingTimer1000)
+        await waitTimer(bookingWaitingTimerDefault)
+      } catch (error) {
+        alert('Time Copy ' + error)
+        return
+      }
+      console.log('checkpoint low latency: 3s over')
+      try {
+        await observeVisibility(proTimeElem_loadingBox, false)
+      } catch (error) {
+        return result = { success: false, message: error };
+      }
+    } else if (forceQuickCheckLoadingDots) {
+      try {
+        await observeVisibility(proTimeElem_loadingBox, false)
+      } catch (error) {
+        return result = { success: false, message: error };
+      }
+    }
   }
 
-  // Booking Proccess
-  try {
-    for (const ticket of valideTickets) {
-      try {
-        console.log("Booking Loop Count: ",bookingLoopCount)
-        function checkFirstBookingLoop(bookingLoopCount) {
-          return new Promise((resolve) => {
-            // If Click-Overlay already exists duo error / plugin reload - remove it
-            if (document.getElementById('timeCopyProTimeClick')) {
-              document.getElementById('timeCopyProTimeClick').remove()
-            }
-            if (bookingLoopCount === 0) {
-              if (!document.getElementById('timeCopyProTimeClick')) {
-                let dom_clickContainer = document.createElement("div")
-                let dom_clickContainerInner = document.createElement("div")
-                dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
-                dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
-                dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
-                dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
-                dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
-                dom_clickContainerInner.innerHTML = "Click here to focus window"
-                dom_clickContainer.appendChild(dom_clickContainerInner)
-                document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
-                dom_clickContainer.addEventListener("click", resolveFirstBookingLoop);
-              }
-            } else {
-              resolveFirstBookingLoop()
-            }
-            function resolveFirstBookingLoop() {
-              resolve('first booking loop ok')
-            }
-          })
+  // 🟩 check booking loop and place overlay functions
+  function checkFirstBookingLoop(bookingLoopCount) {
+    return new Promise((resolve) => {
+      // If Click-Overlay already exists duo error / plugin reload - remove it
+      if (document.getElementById('timeCopyProTimeClick')) {
+        document.getElementById('timeCopyProTimeClick').remove()
+      }
+      if (bookingLoopCount === 0) {
+        if (!document.getElementById('timeCopyProTimeClick')) {
+          let dom_clickContainer = document.createElement("div")
+          let dom_clickContainerInner = document.createElement("div")
+          dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
+          dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
+          dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
+          dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
+          dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
+          dom_clickContainerInner.innerHTML = "Click here to focus window"
+          dom_clickContainer.appendChild(dom_clickContainerInner)
+          document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
+          dom_clickContainer.addEventListener("click", resolveFirstBookingLoop);
         }
+      } else {
+        resolveFirstBookingLoop()
+      }
+      function resolveFirstBookingLoop() {
+        resolve('first booking loop ok')
+      }
+    })
+  }
 
+  let retryTicketList = []
+  let retryTicketCount = 0
+
+  async function ticketBookingLoop(valideTickets) {
+    console.log("[Time Copy] ProTime Testmode: " + dev_pttest)
+    try {
+      // all functions executed for each valide ticket
+      for (const ticket of valideTickets) {
         try {
-          await checkFirstBookingLoop(bookingLoopCount)
-          // console.log(firstBookingLoop)
-        } catch (error) {
-          alert('Time Copy ' + error)
-          console.error("[Time Copy] Error in checkFirstBookingLoop: ", error);
-          return
-        }
-        const keyEventEnter = new KeyboardEvent('keydown', {
-          key: 'Enter',
-          code: 'Enter',
-          which: 13,
-          keyCode: 13,
-        })
+          console.log('>> RETRY COUNT: '+retryTicketCount)
+          if(retryTicketCount > 1) {
+            // -------------> retry fixen, wenn nur eins fehlerhaft war
+            console.log('RE ERROR')
+            let retryTicketListErrorNames = []
+            for (const ticketErrorName of retryTicketList) {
+              let thisRetryTicketListErrorNumber = ticketErrorName[0].item_ticketnumber
+              retryTicketListErrorNames.push(thisRetryTicketListErrorNumber)
+            }
+            return result = { success: false, message: {
+              text: 'Tickets nicht übertragen',
+              textdetails: `Die folgenden Tickets konntent trotz mehrere Versuche nicht gebucht werden. Bitte kopiere diese separat. Tickets: `+retryTicketListErrorNames,
+            } };
+          }
+          try {
+            // use the booking-loop function to check where we are at the process and if we need the overlay
+            await checkFirstBookingLoop(bookingLoopCount)
+          } catch (error) {
+            alert('Time Copy ' + error)
+            console.error("[Time Copy] Error in checkFirstBookingLoop: ", error);
+            return
+          }
 
-        // Wait for empty textarea (true only when page is reloaded or ticket was booked)
-        try {
-          await observeElement('textarea', false,'0');
-        } catch (error) {
-          console.log("result error: ", error);
-          let errorMessage = error
-          return result = { success: false, message: errorMessage };
-        }
-        // check if loadingspinner is gone
-        try{
-          await observeVisibility('#ur-loading', false)
-        }catch(error){
-          return result = { success: false, message: error };
-        }
+          // Wait for empty textarea (true only when page is reloaded or ticket was booked)
+          try {
+            await observeElement('textarea', false, '0');
+          } catch (error) {
+            console.log('Observer Error: ', error)
+            return result = { success: false, message: error };
+          }
+          // checkpoint loading dots (quick-check)
+          await checkpointLoadingDots(true)
 
-        const eventChange = new Event("change")
-        const ticketObject = ticket[0]
-        const detectionObject = ticket[1]
-        let protime_hours
-        let protime_ticketNumber
-        let protime_activityDropdown
-        let protime_activityDropdownList
-        let protime_ticketElemNom
+          const eventChange = new Event("change")
+          const ticketObject = ticket[0]
+          const detectionObject = ticket[1]
+          let protime_hours
+          let protime_ticketNumber
+          let protime_activityDropdown
+          let protime_activityDropdownList
+          let protime_ticketElemNom
 
-        let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
-        if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
+          let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
           let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber
-          if (proTime_projectNomber) {
-            protime_Innenauftrag.childNodes[0].value = proTime_projectNomber
-            protime_Innenauftrag.childNodes[0].dispatchEvent(keyEventEnter)
+          if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
+            if (proTime_projectNomber) {
+              protime_Innenauftrag.childNodes[0].value = proTime_projectNomber
+              protime_Innenauftrag.childNodes[0].dispatchEvent(keyEventEnter)
+            } else {
+              return
+            }
           } else {
             return
           }
-        } else {
-          return
-        }
 
-        try {
           await waitTimer(bookingWaitingTimer500)
-        } catch (error) {
-          alert('Time Copy ' + error)
-          console.error("[Time Copy] WaitTimer Error: ", error);
-          return
-        }
-        if(lowLatency === true){
-          await waitTimer(bookingWaitingTimer1000)
-          await waitTimer(bookingWaitingTimer1000)
-          await waitTimer(bookingWaitingTimer1000)
-          console.log('lowLatency activated - 1000')
-          // wait till spinner is gone - low latency
-          try{
-            await observeVisibility('#ur-loading', false)
-          }catch(error){
+          // checkpoint loading dots (loaw-latency)
+          await checkpointLoadingDots(false)
+          // service dropdown
+          try {
+            await observeElement('.lsField--list [aria-roledescription="Auswählen"]', true, '0');
+            let protime_leistung = document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]')[0]
+            let protime_leistungenOption;
+            const protime_leistungenArray = [{
+              "select_proTime_service_CSITEST": "[data-itemkey='ZCHN0730070']",
+              "select_proTime_service_CSITENT": "[data-itemkey='ZCHN0730080']",
+              "select_proTime_service_ITDNT": "[data-itemkey='ZCHN0730005']",
+              "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
+            }]
+            protime_leistung.click()
+            protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
+            protime_leistungenOption.click()
+            // console.log('Leistung dropdown selected')
+          } catch (error) {
+            // console.log("result error: ", error);
             return result = { success: false, message: error };
           }
-        }
 
-        // service dropdown
-        try {
-          await observeElement('.lsField--list [aria-roledescription="Auswählen"]', true, '0');
-          console.log('Leistung Dropdown ready')
-          let protime_leistung = document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]')[0]
-          let protime_leistungenOption;
-          const protime_leistungenArray = [{
-            "select_proTime_service_CSITEST": "[data-itemkey='ZCHN0730070']",
-            "select_proTime_service_CSITENT": "[data-itemkey='ZCHN0730080']",
-            "select_proTime_service_ITDNT": "[data-itemkey='ZCHN0730005']",
-            "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
-          }]
-          protime_leistung.click()
-          protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
-          protime_leistungenOption.click()
-          console.log('Leistung dropdown selected')
-        } catch (error) {
-          console.log("result error: ", error);
-          return result = { success: false, message: error };
-        }
-        //old --> let protime_leistung = document.getElementsByClassName('lsField--list')[1].childNodes[0];
-        try {
           await waitTimer(bookingWaitingTimerDefault)
-        } catch (error) {
-          alert('Time Copy ' + error)
-          console.error("[Time Copy] WaitTimer Error: ", error);
-          return
-        }
-        // if detection item has activity book it
-        // protime_activityDropdown = document.getElementsByClassName('lsField--list')[2].childNodes[0]
-        try {
+
+          // if detection item has activity book it
+          try {
             if (detectionObject.protimeactivity.length > 1) {
               let protime_activityDropdownSelector = '.lsField--list [aria-roledescription="Auswählen"]'
               await observeElement(protime_activityDropdownSelector, true, '0');
-              if(lowLatency === true){
-                try{
-                  await waitTimer(bookingWaitingTimer1000)
-                  await waitTimer(bookingWaitingTimer1000)
-                  await observeVisibility(protime_activityDropdownSelector, true)
-                  await observeVisibility('#ur-loading', false)
-                }catch(error){
-                  console.error('[Time Copy] WaitTimmer Error: ', error)
-                }
-                console.log('--> Activity low latency')
-              }
+              // checkpoint loading dots (loaw-latency)
+              await checkpointLoadingDots(false)
               await observeElement('.lsListbox__items', true, '1')
-              try {
-                await observeVisibility('#ur-loading', false)
-              }catch(error){
-                console.error('[Time Copy] Element Error: ', error)
-              }
+              // checkpoint loading dots (loaw-latency)
+              await checkpointLoadingDots(false)
               protime_activityDropdown = document.querySelectorAll(protime_activityDropdownSelector)[1]
               protime_activityDropdown.click()
               protime_activityDropdownList = document.getElementsByClassName('lsListbox__items')[1].childNodes[0]
@@ -425,195 +448,148 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
                   protime_activityDropdownItems[i].click()
                 }
               }
-              // set Ticket Nomber Child Nom
+              // set ticket nomber child nom to get next feeld correctly
               protime_ticketElemNom = 4
-            }else {
+            } else {
               protime_ticketElemNom = 3
             }
-        } catch (error) {
-          console.log("result error: ", error);
-          let errorMessage = error
-          return result = { success: false, message: errorMessage };
-        }
-        try {
-          await waitTimer(bookingWaitingTimer500)
-        } catch (error) {
-          alert('Time Copy ' + error)
-          console.error("[Time Copy] WaitTimer Error: ", error);
-          return
-        }
-
-        // Entry Ticket Data
-        if(lowLatency === true){
-          try {
-            await waitTimer(bookingWaitingTimer1000)
           } catch (error) {
-            alert('Time Copy ' + error)
-            console.error("[Time Copy] WaitTimer Error: ", error);
-            return
-          }
-        }
-        protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
-        protime_hours.focus()
-        protime_hours.click()        
-        protime_hours.value = ticketObject.item_tickettime
-
-        try {
-          await waitTimer(bookingWaitingTimerDefault)
-        } catch (error) {
-          alert('Time Copy ' + error)
-          console.error("[Time Copy] WaitTimer Error: ", error);
-          return
-        }
-        
-        if (!dev_pttest) {
-          console.log('Dev Test:', dev_pttest)
-          protime_hours.dispatchEvent(keyEventEnter)
-        }
-
-        if(lowLatency === true){
-          await waitTimer(bookingWaitingTimer1000)
-          await waitTimer(bookingWaitingTimer1000)
-          await waitTimer(bookingWaitingTimer1000)
-          // wait till spinner is gone - low latency
-          try{
-            let loadingDots = await observeVisibility('#ur-loading', false)
-            console.log('loading Dots waiting', loadingDots)
-          }catch(error){
             return result = { success: false, message: error };
           }
-        }
-
-        try{
-          let loadingDots = await observeVisibility('#ur-loading', false)
-          console.log('loading Dots waiting', loadingDots)
-        }catch(error){
-          return result = { success: false, message: error };
-        }
-
-        // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
-        let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
-
-        protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
-        protime_ticketNumber.focus()
-        protime_ticketNumber.click()
-        protime_ticketNumber.value = bookingItem_TicketNumber
-        if (!dev_pttest) {
-          protime_ticketNumber.dispatchEvent(keyEventEnter)
-        }
-        // if hours get lost
-        if(protime_hours.value = ''){
-          protime_hours.value = ticketObject.item_tickettime
-        }
-
-        try {
-          await waitTimer(bookingWaitingTimerDefault)
-        } catch (error) {
-          alert('Time Copy ' + error)
-          console.error("[Time Copy] WaitTimer Error: ", error);
-          return
-        }
-
-        if(lowLatency === true){
-          await waitTimer(bookingWaitingTimer1000)
-          await waitTimer(bookingWaitingTimer1000)
-          // wait till spinner is gone - low latency
-          try{
-            await observeVisibility('#ur-loading', false)
-          }catch(error){
-            return result = { success: false, message: error };
-          }
-        }
-
-        try{
-          await observeVisibility('#ur-loading', false)
-        }catch(error){
-          return result = { success: false, message: error };
-        }
-
-        let mover = new MouseEvent('mouseover', {
-          'view': window,
-          'bubbles': true,
-          'cancelable': true
-        });
-        // Join tickent number and discription
-        let ticketItemDisc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
-
-        let mdown = new Event('focus');
-
-        let protime_ticketText = document.getElementsByTagName('textarea')[0];
-        protime_ticketText.dispatchEvent(mover)
-        protime_ticketText.dispatchEvent(mdown)
-        protime_ticketText.focus()
-        protime_ticketText.click()
-        protime_ticketText.value = ticketItemDisc
-        document.getElementsByTagName('textarea')[0].dispatchEvent(eventChange);
-        // set focus to other textarea to accept befores area text
-        document.getElementsByTagName('textarea')[1].focus();
-        // Set the cursor position to the end of the text
-        document.getElementsByTagName('textarea')[1].setSelectionRange(document.getElementsByTagName('textarea')[1].value.length, document.getElementsByTagName('textarea')[1].value.length);
-
-        try {
-          await waitTimer(bookingWaitingTimerDefault)
-        } catch (error) {
-          alert('Time Copy ' + error)
-          console.error("[Time Copy] WaitTimer Error: ", error);
-          return
-        }
-
-        console.log("ProTime Testmode: " + dev_pttest)
-        if (!dev_pttest) {
-          let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
-          bookingButton.focus()
-          bookingButton.click()
-        }else {
-          // clear elements when test is on (Values will be visibile on next ticket)
-          protime_ticketNumber.value = ''
-          protime_ticketText.value = ''
-        }
-
-        try {
           await waitTimer(bookingWaitingTimer500)
-        } catch (error) {
-          alert('Time Copy ' + error)
-          console.error("[Time Copy] WaitTimer Error: ", error);
-          return
-        }
 
-        if(lowLatency === true){
-          await waitTimer(bookingWaitingTimer1000)
-          await waitTimer(bookingWaitingTimer1000)
-          await waitTimer(bookingWaitingTimer1000)
-          // wait till spinner is gone - low latency
-          try{
-            await observeVisibility('#ur-loading', false)
-          }catch(error){
-            return result = { success: false, message: error };
+          // 1s break on low latency mode
+          if (lowLatency === true) {
+            await waitTimer(bookingWaitingTimer1000)
+            await checkpointLoadingDots(true)
           }
-        }
-        try{
-          await observeVisibility('#ur-loading', false)
-        }catch(error){
-          return result = { success: false, message: error };
-        }
+          protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
+          protime_hours.focus()
+          protime_hours.click()
+          protime_hours.value = ticketObject.item_tickettime
 
-        try {
-          console.log('--> Last Textarea Check')
-          await observeElement('textarea', false,'0');
+          await waitTimer(bookingWaitingTimerDefault)
+
+          protime_hours.dispatchEvent(keyEventEnter)
+
+          await checkpointLoadingDots(false)
+          await checkpointLoadingDots(true)
+
+          // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
+          let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
+
+          protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
+          protime_ticketNumber.focus()
+          protime_ticketNumber.click()
+          protime_ticketNumber.value = bookingItem_TicketNumber
+          if (!dev_pttest) {
+            protime_ticketNumber.dispatchEvent(keyEventEnter)
+          }
+          await waitTimer(bookingWaitingTimerDefault)
+
+          await checkpointLoadingDots(false)
+          await checkpointLoadingDots(true)
+
+          // join tickent number and discription
+          let ticketItemDisc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
+
+          let mdown = new Event('focus');
+
+          let protime_ticketText = document.getElementsByTagName('textarea')[0];
+          protime_ticketText.dispatchEvent(mover)
+          protime_ticketText.dispatchEvent(mdown)
+          protime_ticketText.focus()
+          protime_ticketText.click()
+          protime_ticketText.value = ticketItemDisc
+          document.getElementsByTagName('textarea')[0].dispatchEvent(eventChange);
+          // set focus to other textarea to accept befores area text
+          document.getElementsByTagName('textarea')[1].focus();
+          // Set the cursor position to the end of the text
+          document.getElementsByTagName('textarea')[1].setSelectionRange(document.getElementsByTagName('textarea')[1].value.length, document.getElementsByTagName('textarea')[1].value.length);
+
+          await waitTimer(bookingWaitingTimerDefault)
+
+          // test timer
+          console.log('--> JETZT')
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          await waitTimer(bookingWaitingTimer1000)
+          // last check of the main inputs
+          // if any values are wrong, put the ticket in the retry array
+          if (document.getElementsByClassName('lsField--f4')[0].childNodes[0].value !== proTime_projectNomber ||
+            document.getElementsByClassName('lsField--right')[0].childNodes[0].value !== ticketObject.item_tickettime ||
+            document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0].value !== bookingItem_TicketNumber
+          ) {
+            console.log('projekt nummer, tickettime oder ticket nummer stimmen nicht mehr')
+            retryTicketList.push(ticket)
+            console.log('ticket wurde ins retry array geschrieben: ', retryTicketList)
+            protime_ticketText.value = ''
+          } else {
+            // press on book only when test-mode is unused and all fields are filled correctly
+            if (!dev_pttest) {
+              let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
+              bookingButton.focus()
+              bookingButton.click()
+            } else {
+              // clear elements when test is on (Values will be visibile on next ticket)
+              // protime_ticketNumber.value = ''
+              protime_ticketText.value = ''
+            }
+          }
+          await waitTimer(bookingWaitingTimer500)
+          await checkpointLoadingDots(false)
+          await checkpointLoadingDots(true)
+
+          try {
+            console.log('--> Last Textarea Check')
+            await observeElement('textarea', false, '0');
+          } catch (error) {
+            console.log("result error: ", error);
+            let errorMessage = error
+            return result = { success: false, message: errorMessage };
+          }
+          bookingLoopCount++
         } catch (error) {
-          console.log("result error: ", error);
-          let errorMessage = error
-          return result = { success: false, message: errorMessage };
+          throw error
         }
-        bookingLoopCount++
-      } catch (error) {
-        throw error
+        if (retryTicketList.length) {
+          retryTicketCount ++
+        }
+      }
+      // end of loop
+      if (retryTicketList.length) {
+        return result = { success: true, retryBooking: true, message: 'Einige Tickets haben während der Buchung ihre Daten verloren.' };
+      }else {
+        return result = { success: true, retryBooking: false, message: 'Alle Buchungen abgeschlossen' };
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  // 🟦 run main booking Proccess
+  try {
+    let ticketBookingLoopResult = await ticketBookingLoop(valideTickets)
+    if(!ticketBookingLoopResult.success){
+      return ticketBookingLoopResult
+    }
+    if(ticketBookingLoopResult.retryBooking){
+      console.log('[Time Copy] 🟡 Folgende Tickets hatten Fehler bei der Buchung und werden nun erneut übertragen: ', retryTicketList)
+      // setze noch low latency mode temp auf true
+      let ticketBookingLoopResult = await ticketBookingLoop(retryTicketList)
+      console.log('>> Loop Durch')
+      if(!ticketBookingLoopResult.success){
+        return ticketBookingLoopResult
       }
     }
-
   } catch (error) {
+    // console.log('^^^ ticket booking error: ', error)
     throw error
   }
+  
   return bookingLoopCount
+
 }
 
