@@ -13,6 +13,7 @@
 ## V 0.9.8*
 
 - Dokumentation
+- Nostalgica Theme fix: farbigen bg für messages und transparenten header bei einstellungen
  
 ## V 1.0.0
 
