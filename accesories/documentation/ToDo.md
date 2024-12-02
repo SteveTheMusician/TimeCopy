@@ -10,6 +10,9 @@
  - dlc: amagprotime - detection items - mehrere string match parameter mit kommas oder anderem symbol trennbar
 
 
+## V 0.9.8*
+
+- Dokumentation
  
 ## V 1.0.0
 
