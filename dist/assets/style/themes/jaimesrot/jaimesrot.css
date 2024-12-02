@@ -1,6 +1,8 @@
 :root {
   /* ---- Jaimes Rot Theme ---- */
 
+  --border-radius-default: 6px;
+
   /* color palette */
   --red: #590000;
   --red-49: #490000;
@@ -32,4 +34,12 @@
   /* Icon colors */
   --color-icon-default: var(--red-8);
   --color-icon-light: var(--white);
+}
+
+.switch_slider {
+  border-radius: var(--border-radius-default);
+}
+
+.switch_slider:before {
+  border-radius: var(--border-radius-default);
 }

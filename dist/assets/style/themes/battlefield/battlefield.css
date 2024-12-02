@@ -1,6 +1,8 @@
 :root {
   /* ---- Battlefield Theme ---- */
 
+  --border-radius-default: 4px;
+
   /* color palette */
   --black: #303841;
   --black-3a: #3A4750;
@@ -32,4 +34,12 @@
   /* Icon colors */
   --color-icon-default: var(--lightgray);
   --color-icon-light: var(--lightgray);
+}
+
+.switch_slider {
+  border-radius: var(--border-radius-default);
+}
+
+.switch_slider:before {
+  border-radius: var(--border-radius-default);
 }
