@@ -4,10 +4,10 @@
  - ❗️ ProTime DLC: checken, wenn Textarea leer ist, dann erst weiter + ggf auf andere elemente warten ->ProTime Loop Logik ändern
         +wenn inputs nicht da sind = warte (mit wait for elem aus utils)
         - Alle inputs am ende abgleichen -> wenn leer neu auffüllen
-        - wenn felder zu oft falsch befüllt sind oder der ladebalken auftaucht -> low latency mode
+        - wenn felder zu oft falsch befüllt sind oder der ladebalken auftaucht -> low latency mode ✅
  - DLC ProTime: Wenn Loading Screen -> Warte mit dem Eintragen/Buchen (:before element in "#ur-loading-box")
- - Buchungsfunktionen noch einmal genau testen
- - Checken ob Buchungsfehler bei merh als 4 verschiedenen Buchungsnummern hintereinander auftritt
+ - Buchungsfunktionen noch einmal genau testen ✅
+ - Checken ob Buchungsfehler bei merh als 4 verschiedenen Buchungsnummern hintereinander auftritt ✅
  - Kurzer Loadingscreen oder farbfläche, während die Page sich nach einer config änderung neu lädt (damit man den aufbau nicht sieht) ?
  
  - Protime dlc: funktion - force delay modus ✅
@@ -16,9 +16,9 @@
  
 ## V 0.9.8
  - dlc: stevegoogleexcel - wenn urhzeit im string filtern / raus löschen ? macht schon?
- - Switches zentriert zu den Texten
- - Alle Texte und Titles genau checken
- - Test auf Windows
+ - Switches zentriert zu den Texten ✅
+ - Alle Texte und Titles genau checken ✅
+ - Test auf Windows ✅
  
  - style: mr white theme überarbeiten ✅
  - Responsive Feature: small & kacheln nebeneinander auf large ✅

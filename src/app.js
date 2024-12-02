@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     let sMessageImported = sessionStorage.getItem('tc_c_messageImported')
     let sMessageProfileRemoved = sessionStorage.getItem('tc_c_messageProfileRemoved')
     let sExportFile_afterChange = sessionStorage.getItem('tc_c_exportFile_afterChange')
+    let sDLCCacheReloaded = sessionStorage.getItem('tc_c_messageDLCCacheReloaded')
     let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
     if (sMessageImported === 'true') {
       notification(true, true, 'Profil wurde erfolgreich importiert!')
@@ -152,6 +153,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     if (sChangeLanguage === 'true') {
       sessionStorage.removeItem('tc_c_changeLanguage')
+      configButton.click()
+    }
+    if (sDLCCacheReloaded === 'true') {
+      notification(true, true, 'DLC-Cache wurde neu geladen.')
+      sessionStorage.removeItem('tc_c_messageDLCCacheReloaded')
       configButton.click()
     }
 
@@ -263,6 +269,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     sessionStorage.removeItem('tc_c_messageImported')
     sessionStorage.removeItem('tc_c_messageProfileRemoved')
     sessionStorage.removeItem('tc_c_changeLanguage')
+    sessionStorage.removeItem('tc_c_messageDLCCacheReloaded')
   }
 
   function openConfigs() {
@@ -499,6 +506,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
   function reloadDLCCache() {
     clearDlcLocalStorages()
+    sessionStorage.setItem('tc_c_messageDLCCacheReloaded', 'true')
     window.location.reload()
   }
   // Main Functions

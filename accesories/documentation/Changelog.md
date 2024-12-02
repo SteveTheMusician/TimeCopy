@@ -103,10 +103,10 @@
 - fix: error log on empty chrome window for Automatic and ProTime DLC
 - other: Theme changes - Mr.White & Midnight GLow
 
-## V 0.9.80
-
-- feature: DLC Amag ProTime - recode, latency-mode
+## V 0.9.80 (Release)
+- feature: DLC Amag ProTime - recode, latency-mode and retry function on booking error
 - feature: Input- and Text-Titles on hover (DE)
+- feature: new theme nostalgica
 - other: cursor pointer for select
-- other: Theme adjustments
+- other: Theme adjustments and fixes
 - other: better html

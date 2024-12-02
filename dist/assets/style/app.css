@@ -648,7 +648,7 @@ label.configItem:hover {
 
 .configItem-content-row {
     width: 100%;
-    align-items: baseline;
+    align-items: center;
 }
 
 .configItem-content-left {
