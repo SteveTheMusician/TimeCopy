@@ -6,6 +6,9 @@ By Steve P.
 ## Allgemein
 Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere Web-Platformen zu übertragen.
 
+## Download Chrome Store
+https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfidbf
+
 ### Kurzeinweisung
 - Installiere die Extension entweder via Chrome Store oder importiere es als Git-Projekt
 - Öffne die Extension und gehe in die Einstellungen.

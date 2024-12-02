@@ -1,5 +1,9 @@
 export function message(messageShow,messageType,messageTextOverview,messageTextDetails){
 
+    if(messageTextDetails === '' || !messageTextDetails){
+        messageTextDetails = 'Keine Details verfügbar.'
+    }
+
     let currentMessageID = new Date().getTime().toString()
     let messageSection = document.getElementById('messages-section')
     let messageInformationIconHtml = `<?xml version="1.0" encoding="utf-8"?>
@@ -24,7 +28,7 @@ export function message(messageShow,messageType,messageTextOverview,messageTextD
                                   <path d="m736.4,170.71c-39.06,39.06-102.37,39.06-141.42,0-39.06-39.05-39.06-102.36,0-141.42s102.36-39.05,141.42,0c39.05,39.06,39.05,102.37,0,141.42Z"/>
                                 </svg>`
 
-    let messageHTML = `<div class="message dFlex message--hidden configItem message-`+ (messageType) +`" id="message_`+ (currentMessageID) +`">
+    let messageHTML = `<div class="message dFlex message--hidden configItem message-`+ (messageType) +`" id="message_`+ (currentMessageID) +`" title="Nachricht löschen.">
                             <div class="message-icon-container configItem-icon-container">
                                 ` + ( messageType === 'information'? messageInformationIconHtml: messageType === 'warning'? messageWarningIconHtml : messageType === 'error'? messageErrorIconHtml : '' ) + `
                                 

@@ -78,5 +78,35 @@
 - other: DLC wordings
 - other: clean console.logs
 
-## V 0.9.63
+## V 0.9.63 (Release)
 - other: detection activity filter added
+
+## V 0.9.70
+- feature: responsive style for large width
+- feature: button to clear DLC-Cache
+- fix: detection item style
+- other: placeholder text for empty message details
+- other: better error handling and response
+- feature: show loading spinner on pasting and lock action buttons
+- fix: catch chrome tab exec-error
+- fix: DLC AmagProTime - Renew page click overlay when reopen TimeCopy / paste again
+- fix: DLC AmagProTime - Show page click overlay after error 
+- other: Dynamic DLC-Import in Project-Detection select
+- other: XMas Update
+- other: DLC ProTime - get page js speed for better booking performance
+
+## V 0.9.71
+- feature: responsive style for detection Items
+
+## V 0.9.72
+- feature: cancel button
+- fix: error log on empty chrome window for Automatic and ProTime DLC
+- other: Theme changes - Mr.White & Midnight GLow
+
+## V 0.9.80 (Release)
+- feature: DLC Amag ProTime - recode, latency-mode and retry function on booking error
+- feature: Input- and Text-Titles on hover (DE)
+- feature: new theme nostalgica
+- other: cursor pointer for select
+- other: Theme adjustments and fixes
+- other: better html

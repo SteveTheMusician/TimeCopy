@@ -1,0 +1,226 @@
+:root {
+  /* ---- Nostalgica Theme ---- */
+
+  --white_e: #EEEEEE;
+  --lightyellow: #e6d1ab;
+  --color-main: #131634;
+  --color-second: #2e2e5f;
+  --color-third: #282855;
+  --color-darker: #010e12;
+  --color-highlight: #469afc;
+  --color-active: #93fbff;
+  --color-close: #fe5ca4;
+  --color-edit: #3886a8;
+  --color-disabled: #19162e;
+  --color-warning: #fde5ca;
+  --color-font: #65b7d7;
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: #dfe8ff;
+  --color-font-second: #80b4d4;
+  --color-font-headlabel: #eb82d7;
+  --color-font-subtext: #777c97;
+  --color-icon-default: var(--color-font-headlabel);
+  --color-icon-light: #5d7b83;
+}
+
+#buttonBackToMain {
+  margin-right: 10px;
+}
+
+.configuration-container {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.configItem-icon-container,
+.label-row .text-label {
+  /* background-color: var(--color-third); */
+  padding: 10px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border-radius: 20px;
+}
+
+.dlcItem-main .configItem-icon-container {
+  background-color: unset;
+  padding: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border-radius: 0;
+}
+
+.configItem {
+  background-color: transparent;
+  outline: 1px solid var(--color-active);
+  box-shadow: 0px 0px 6px var(--color-highlight);
+}
+
+.configItem-icon-container svg {
+  filter: drop-shadow( 0px 0px 6px var(--color-icon-default))
+}
+
+.button-tab--active svg{
+  filter: drop-shadow( 0px 0px 6px var(--color-highlight))
+}
+
+label.configItem:hover {
+  transform: scale(1);
+  box-shadow: 0px 0px 12px var(--color-highlight);
+}
+
+.label-row {
+  padding: 2px 5px;
+}
+
+.configItem-content-row .text-label {
+  background-color: transparent;
+}
+
+.configuration-tab-container {
+  border-radius: var(--border-radius-default);
+  margin-bottom: 10px;
+  background-color: var(--color-second);
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.button-config-tab {
+  border-radius: var(--border-radius-default);
+}
+
+.label-emoji {
+  display: flex;
+}
+
+input[type=text],
+select {
+  padding: 10px;
+  border-radius: 100px;
+  background-color: var(--color-third);
+}
+
+.input-size--small {
+  width: calc(35% - 20px);
+}
+
+.input-size--default {
+  width: calc(65% - 40px);
+}
+
+.input-size--large {
+  width: calc(100% - 45px);
+}
+
+.switch {
+  margin: 2px 10px;
+}
+
+.switch_slider {
+  background-color: var(--color-none);
+  outline: 1px solid var(--color-icon-default);
+}
+
+.switch_slider:before {
+  background-color: var(--color-icon-default);
+}
+
+input:checked+.switch_slider {
+  background-color: var(--color-none);
+  outline: 1px solid var(--color-highlight);
+}
+
+input:checked+.switch_slider:before {
+  background-color: var(--color-highlight);
+}
+
+.label-row-messageHeadline .text-label {
+  height: 14px;
+}
+
+.message-warning:hover {
+  box-shadow: 0px 0px 6px var(--color-warning);
+}
+
+.message-error:hover {
+  box-shadow: 0px 0px 6px var(--color-close);
+}
+
+@keyframes message-new-information {
+  0% {
+    outline-color: var(--color-highlight);
+    box-shadow: 0px 0px 6px var(--color-highlight);
+  }
+
+  80% {
+    outline-color: var(--color-highlight);
+    box-shadow: 0px 0px 6px var(--color-highlight);
+  }
+
+  100% {
+    outline: 1px solid var(--color-active);
+    box-shadow: 0px 0px 6px var(--color-highlight);
+  }
+}
+
+@keyframes message-new-warning {
+  0% {
+    outline-color: var(--color-warning);
+    box-shadow: 0px 0px 6px var(--color-warning);
+  }
+
+  80% {
+    outline-color: var(--color-warning);
+    box-shadow: 0px 0px 6px var(--color-warning);
+  }
+
+  100% {
+    outline: 1px solid var(--color-active);
+    box-shadow: 0px 0px 6px var(--color-highlight);
+  }
+}
+
+@keyframes message-new-error {
+  0% {
+    outline-color: var(--color-close);
+    box-shadow: 0px 0px 6px var(--color-close);
+  }
+
+  80% {
+    outline-color: var(--color-close);
+    box-shadow: 0px 0px 6px var(--color-close);
+  }
+
+  100% {
+    outline: 1px solid var(--color-active);
+    box-shadow: 0px 0px 6px var(--color-highlight);
+  }
+}
+
+/* xmas dlc style */
+
+@keyframes xmastreeanimation {
+  0% {
+      fill: var(--color-highlight);
+      filter: drop-shadow( 0px 0px 12px var(--color-highlight))
+  }
+  20% {
+      fill: var(--color-second);
+      filter: drop-shadow( 0px 0px 12px var(--color-second))
+  }
+  40% {
+      fill: var(--color-third);
+      filter: drop-shadow( 0px 0px 12px var(--color-third))
+  }
+  60% {
+      fill: var(--color-close);
+      filter: drop-shadow( 0px 0px 12px var(--color-close))
+  }
+  80% {
+      fill: var(--color-active);
+      filter: drop-shadow( 0px 0px 12px var(--color-active))
+  }
+  100% {
+      fill: var(--color-highlight);
+      filter: drop-shadow( 0px 0px 12px var(--color-highlight))
+  }
+}

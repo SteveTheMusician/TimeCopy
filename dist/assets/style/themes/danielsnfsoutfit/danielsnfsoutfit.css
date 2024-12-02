@@ -33,3 +33,8 @@
   --color-icon-default: var(--blue-dark);
   --color-icon-light: var(--black);
 }
+
+label.configItem:hover {
+  transform: scale(1);
+  box-shadow: unset;
+}

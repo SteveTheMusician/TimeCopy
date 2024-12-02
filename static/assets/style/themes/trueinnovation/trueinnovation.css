@@ -37,4 +37,6 @@
   /* Icon colors */
   --color-icon-default: var(--blue-pale);
   --color-icon-light: var(--blue-pale);
+    /* dlc snowflake color */
+  --color-dlc-snowflake: var(--blue-dark-ti);
 }
