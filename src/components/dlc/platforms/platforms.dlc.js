@@ -27,6 +27,7 @@ async function importNewPlatformData(){
 }
 
 export async function platformsContent() {
+  let loadedPlatformsFeedbackArray = []
   return new Promise(async (resolve) => { 
   let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
   if (!platformInfoData) {
@@ -43,11 +44,11 @@ export async function platformsContent() {
     try{
       plDataObject = platformInfoData.find(item => item[plKey])[plKey]
       if(!plDataObject){
-        throw new Error('DLC ERROR')
+        throw new Error('[DLC: Platforms] ERROR')
       }
     }catch(error){
       console.log(error)
-      console.log('Restart Extension...')
+      console.log('Restart Time Copy Extension.')
       localStorage.removeItem('tc_s_dlcplatforminformations')
       importNewPlatformData()
       return
@@ -65,7 +66,7 @@ export async function platformsContent() {
     }
     // dlc array (Foldername aso used as ID for saving)
     // for new items, just make a new dls, add it here to the array, make logo in assets folder and add css in style/dlc folder
-    let platformChild = `<label class="configItem dlcItem dlcItem-platform dlcItem-clickable dFlex">
+    let platformChild = `<label class="configItem dlcItem dlcItem-platform dlcItem-clickable dFlex" title="Platform wählen">
                 <div class="dlcItem-main-container dFlex">
                   <div class="dlcItem-main dFlex">
                     <div class="configItem-radio-container dFlex">
@@ -115,8 +116,9 @@ export async function platformsContent() {
                 </div>
               </label>`
     document.getElementById('window_bookingplatforms').innerHTML += platformChild
+    loadedPlatformsFeedbackArray.push(plDataObject.platform_id)
   }
-      resolve("DLC Content ready")
+      resolve("🟢 [DLC: Platforms] Content for "+loadedPlatformsFeedbackArray+" loaded.")
   })
 }
 

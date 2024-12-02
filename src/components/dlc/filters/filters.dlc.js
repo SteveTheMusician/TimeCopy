@@ -16,6 +16,7 @@ export async function filters(filter,clipboarsString) {
 }
 
 export async function filtersContent() {
+  let loadedFiltersFeedbackArray = []
    return new Promise(async (resolve) => { 
    let filterInfoData = localStorage.getItem('tc_s_dlcfilterinformations')
    if (!filterInfoData) {
@@ -41,7 +42,7 @@ export async function filtersContent() {
 
      // dlc array (Foldername aso used as ID for saving)
      // for new items, just make a new dls, add it here to the array, make logo in assets folder and add css in style/dlc folder
-     let filterChild = `<label class="configItem dlcItem dlcItem-filter dlcItem-clickable dFlex">
+     let filterChild = `<label class="configItem dlcItem dlcItem-filter dlcItem-clickable dFlex" title="Filter wählen">
                 <div class="dlcItem-main-container dFlex">
                   <div class="dlcItem-main dFlex">
                     <div class="configItem-radio-container dFlex">
@@ -84,7 +85,8 @@ export async function filtersContent() {
                 </div>
               </label>`
      document.getElementById('window_timesheetfilters').innerHTML += filterChild
+     loadedFiltersFeedbackArray.push(plDataObject.filter_id)
    }
-       resolve("DLC Content ready")
+    resolve("🟢 [DLC: Filters] Content for "+loadedFiltersFeedbackArray+" loaded.")
    })
  }

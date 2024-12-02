@@ -1,10 +1,13 @@
 # Time Copy
-#### V 0.9.6*
+#### V 0.9.8*
 By Steve P.
 04.07.2023
 
 ## Allgemein
 Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere Web-Platformen zu übertragen.
+
+## Download Chrome Store
+https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfidbf
 
 ### Kurzeinweisung
 - Installiere die Extension entweder via Chrome Store oder importiere es als Git-Projekt
@@ -15,14 +18,17 @@ Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filter
 - **Buchungsplatform** : Sagt dem PlugIn, auf welche Seite / Programm diene Daten eingefügt / verarbeitet werden.
 (Automatisch wählt Buchungsplatformen nach der Web-Url aus)
 
-> [!TIP] Um Änderungen zu übernehmen, klicke nach einem Change einfach auf den Zurück-Button oben Links oder öffne das PlugIn erneut
+> [!TIP] 
+> Um Änderungen zu übernehmen, klicke nach einem Change einfach auf den Zurück-Button oben Links oder öffne das PlugIn erneut
 
 ### Shortcuts
+
 > [!NOTE]
 > **Time Copy öffnen/schließen**: [Windows] Strg+b [MacOS] Cmd+b
 
-Du kannst die Shortcuts in den Chrome-Einstellungen ändern.
-chrome://extensions/shortcuts
+> [!TIP] 
+> Du kannst die Shortcuts in den Chrome-Einstellungen ändern.
+> chrome://extensions/shortcuts
 
 ### Plugin aus Git in Chrome importieren
 - Git Projekt clonen

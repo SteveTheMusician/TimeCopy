@@ -1,0 +1,313 @@
+:root {
+  /* ---- Exotic Theme ---- */
+
+  /* vars */
+  --blur-default: blur(20px);
+  /* color palette */
+  --color-none: transparent;
+  --white: #fefefe;
+  --mud-purple: #5a4e6f;
+  --dark-gray-30: #303637;
+  --black: #121212;
+  --black-3: #343434;
+  --dark-gray-3: #333133;
+  --dark-pink: #503c49;
+  --gold-dark: rgba(179, 173, 135, 1);
+  --gold-light: rgb(251 243 203);
+
+  /* theme colors */
+  --color-main: var(--black);
+  --color-second: var(--dark-gray-30);
+  --color-third: var(--dark-gray-30);
+  --color-highlight: #fff7d0;
+  --color-active: var(--white);
+  --color-disabled: var(--dark-pink);
+  --color-close: #d2428c;
+  --color-warning: #d2b442;
+
+  /* Font colors */
+  --color-font: #a7b1b3;
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: #948d6c;
+  --color-font-second: #a7b1b3;
+  --color-font-headlabel: #5f6566;
+  --color-font-subtext: #5f6566;
+  /* Icon colors */
+  --color-icon-default: #948c6c;
+  --color-icon-light: var(--white);
+
+  --transition-default: .5s;
+
+  /* dlc snowflake color */
+  --color-dlc-snowflake: var(--color-font-second);
+}
+
+body:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(280deg, rgb(35 45 46) 0%, rgb(42 42 42) 100%);
+  pointer-events: none;
+  z-index: -1;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  transition: all 0.5s;
+  background-size: 200% auto;
+  animation-name: backgroundAnimationIdle;
+}
+
+header {
+  background-color: var(--color-none);
+}
+
+.button-mainAction {
+  background: linear-gradient(45deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+  animation-name: backgroundAnimationIdle;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  transition: all 0.5s;
+  background-size: 200% auto;
+}
+
+.button-mainAction:disabled, .button-mainAction:disabled:hover, .button-mainAction--waiting:hover {
+  background: linear-gradient(280deg, rgb(35 45 46) 0%, rgb(42 42 42) 100%);
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  transition: all 0.5s;
+  animation-name: backgroundAnimationIdle;
+  transform: unset;
+  box-shadow: unset;
+}
+
+@keyframes backgroundAnimationIdle {
+  0% {
+    background-position: 0% 100%;
+    background-size: 200% auto;
+  }
+
+  30% {
+    background-position: 100% 100%;
+    background-size: 200% auto;
+  }
+
+  60% {
+    background-position: 0% 100%;
+    background-size: 200% auto;
+  }
+
+  90% {
+    background-position: 0% 100%;
+    background-size: 400% auto;
+  }
+
+  100% {
+    background-position: 0% 100%;
+    background-size: 200% auto;
+  }
+}
+
+#buttonBackToMain {
+  margin-right: 10px;
+}
+
+.button-mainAction:hover {
+  box-shadow: 0px 2px 13px #00000055;
+  transform: scale(1.02);
+  background: linear-gradient(45deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+}
+
+#configButton:hover svg {
+  transform: rotate(360deg);
+  transition: var(--transition-default) ease-in-out;
+}
+
+.button-config-tab svg {
+  fill: var(--color-icon-default);
+}
+
+.button-tab--active svg {
+  fill: var(--color-active);
+}
+
+.configuration-container {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.configItem-icon-container,
+.label-row .text-label {
+  background-color: var(--dark-gray-30);
+  padding: 10px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border-radius: 20px;
+}
+
+.dlcItem-main .configItem-icon-container {
+  background-color: unset;
+  padding: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border-radius: 0;
+}
+
+.configItem {
+  outline: 1px solid #5f6566;
+}
+
+.label-row {
+  padding: 2px 5px;
+}
+
+.configItem-content-row .text-label {
+  background-color: transparent;
+}
+
+.configuration-tab-container {
+  border-radius: var(--border-radius-default);
+  margin-bottom: 10px;
+  background-color: var(--color-second);
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.button-config-tab {
+  border-radius: var(--border-radius-default);
+}
+
+.label-emoji {
+  display: flex;
+}
+
+input[type=text],
+select {
+  padding: 10px;
+  border-radius: 100px;
+  background-color: #2a2f2f;
+}
+
+.input-size--small {
+  width: calc(35% - 20px);
+}
+
+.input-size--default {
+  width: calc(65% - 40px);
+}
+
+.input-size--large {
+  width: calc(100% - 45px);
+}
+
+.notification--ok {
+  background-color: var(--dark-gray-30);
+}
+
+.switch {
+  margin: 2px 10px;
+}
+
+.switch_slider:before {
+  background-color: var(--color-icon-default);
+}
+
+input:checked+.switch_slider {
+  background-color: var(--color-highlight);
+  outline: 1px solid var(--color-highlight);
+}
+
+.switch_slider {
+  background-color: var(--color-second);
+  outline: 1px solid #5f6566;
+}
+
+.message {
+  background-color: var(--color-second);
+}
+
+.message-icon-container {
+  height: 20px;
+}
+
+#button_clearAllMessages {
+  background-color: var(--color-second);
+}
+
+.label-row-messageHeadline .text-label {
+  height: 14px;
+}
+
+.message-error:hover {
+  background-color: #373033;
+}
+
+.message-warning:hover {
+  background-color: #373630;
+}
+
+.message-information:hover {
+  background-color: #373630;
+}
+
+.button-mainAction--waiting:after {
+  animation: waitingSpinnerRotation 2s linear infinite;
+}
+
+
+@keyframes item--new-animation {
+  0% {
+    outline: 1px solid #5f6566;
+  }
+
+  30% {
+    outline: 1px solid var(--color-highlight);
+  }
+
+  100% {
+    outline: 1px solid #5f6566;
+  }
+}
+
+@keyframes message-new-information {
+  0% {
+    outline-color: var(--color-highlight);
+  }
+
+  80% {
+    outline-color: var(--color-highlight);
+  }
+
+  100% {
+    outline-color: #5f6566;
+  }
+}
+
+@keyframes message-new-warning {
+  0% {
+    outline-color: var(--color-warning);
+  }
+
+  80% {
+    outline-color: var(--color-warning);
+  }
+
+  100% {
+    outline-color: #5f6566;
+  }
+}
+
+@keyframes message-new-error {
+  0% {
+    outline-color: var(--color-close);
+  }
+
+  80% {
+    outline-color: var(--color-close);
+  }
+
+  100% {
+    outline-color: #5f6566;
+  }
+}

@@ -1,0 +1,56 @@
+snowflakes {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #282c34;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.snowflake {
+    position: absolute;
+    top: -10%;
+    border-radius: 50%;
+    background-color: white;
+    opacity: 0.8;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Zufällige Position, Größe, Animation Dauer und Fallrichtung */
+.snowflake:nth-child(1) { left: 5%; width: 8px; height: 8px; animation-duration: 5s; transform: translateX(-5%); }
+.snowflake:nth-child(2) { left: 15%; width: 10px; height: 10px; animation-duration: 6s; transform: translateX(-10%); }
+.snowflake:nth-child(3) { left: 25%; width: 7px; height: 7px; animation-duration: 7s; transform: translateX(5%); }
+.snowflake:nth-child(4) { left: 35%; width: 12px; height: 12px; animation-duration: 4s; transform: translateX(-8%); }
+.snowflake:nth-child(5) { left: 45%; width: 6px; height: 6px; animation-duration: 8s; transform: translateX(3%); }
+.snowflake:nth-child(6) { left: 55%; width: 11px; height: 11px; animation-duration: 5s; transform: translateX(-2%); }
+.snowflake:nth-child(7) { left: 65%; width: 9px; height: 9px; animation-duration: 6s; transform: translateX(10%); }
+.snowflake:nth-child(8) { left: 75%; width: 5px; height: 5px; animation-duration: 7s; transform: translateX(-3%); }
+.snowflake:nth-child(9) { left: 85%; width: 10px; height: 10px; animation-duration: 4s; transform: translateX(7%); }
+.snowflake:nth-child(10) { left: 95%; width: 8px; height: 8px; animation-duration: 8s; transform: translateX(-4%); }
+.snowflake:nth-child(11) { left: 12%; width: 9px; height: 9px; animation-duration: 5s; transform: translateX(6%); }
+.snowflake:nth-child(12) { left: 22%; width: 6px; height: 6px; animation-duration: 6s; transform: translateX(-7%); }
+.snowflake:nth-child(13) { left: 32%; width: 10px; height: 10px; animation-duration: 7s; transform: translateX(2%); }
+.snowflake:nth-child(14) { left: 42%; width: 11px; height: 11px; animation-duration: 4s; transform: translateX(-5%); }
+.snowflake:nth-child(15) { left: 52%; width: 7px; height: 7px; animation-duration: 8s; transform: translateX(3%); }
+.snowflake:nth-child(16) { left: 62%; width: 12px; height: 12px; animation-duration: 5s; transform: translateX(-6%); }
+.snowflake:nth-child(17) { left: 72%; width: 8px; height: 8px; animation-duration: 6s; transform: translateX(5%); }
+.snowflake:nth-child(18) { left: 82%; width: 5px; height: 5px; animation-duration: 7s; transform: translateX(-3%); }
+.snowflake:nth-child(19) { left: 92%; width: 10px; height: 10px; animation-duration: 4s; transform: translateX(4%); }
+.snowflake:nth-child(20) { left: 30%; width: 9px; height: 9px; animation-duration: 8s; transform: translateX(-8%); }
+
+/* Einfallwinkel um 45 Grad */
+.snowflake {
+    transform: rotate(45deg);
+}

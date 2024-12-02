@@ -1,4 +1,17 @@
+import { importPlatforms } from "../../dlc/platforms/platforms.import"
+
 export function detectionItem(detectionItems) {
+  let platformSelectItems = []
+  let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
+  platformInfoData = JSON.parse(platformInfoData)
+  let plDataObject = ''
+  for (let plKey of importPlatforms){
+    plDataObject = platformInfoData.find(item => item[plKey])[plKey]
+    if(plKey !== 'Automatic'){
+      let platformSelectOption = `<option value="select_bookingPlatform_`+(plKey)+`" >`+ (plDataObject.platform_name) +`</option>`
+      platformSelectItems.push(platformSelectOption)
+    }
+  }
   if (detectionItems) {
     document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem =>
       `<div class="configItem detectionItem flex" name="item_detection" id="` + detectionItem.id + `">
@@ -8,18 +21,17 @@ export function detectionItem(detectionItems) {
           </div>
           <div class="configItem-content-row dFlex">
             <div class="detectionItem-content-smaller">
-              <select id="select_bookingPlatform_`+ detectionItem.id + `">
-                <option value="" selected disabled hidden>Keine</option>
-                <option value="select_bookingPlatform_AmagProTime" >ProTime</option>
+              <select id="select_bookingPlatform_`+ detectionItem.id + `" title="Weise der Erkennung eine Buchungsplatform zu.">
+                <option value="" selected disabled hidden>Keine</option>`+ (platformSelectItems) +`
               </select>
             </div>
             <div class="detectionItem-content-larger">
-              <input type="text" class="input-size--large `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_ticketPrefix" id="input_ticketPrefix` + detectionItem.id + `" placeholder="Ticket Prefix" value="` + detectionItem.ticketprefix + `" />
+              <input type="text" class="input-size--large `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_ticketPrefix" id="input_ticketPrefix` + detectionItem.id + `" placeholder="Ticket Prefix" value="` + detectionItem.ticketprefix + `" title="Gebe hier einen Teil der Ticketnummer, Prefixes oder Namen ein, der immer konstant bleibt."/>
             </div>
           </div>
           <div class="configItem-content-row dFlex">
             <div class="configItem-content-fullWidth">
-              <input type="text" class="input-size--large `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_additionalPrefix" id="input_additionalPrefix` + detectionItem.id + `" placeholder="String Match (Optional)" value="` + detectionItem.addprefix + `"/>
+              <input type="text" class="input-size--large `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_additionalPrefix" id="input_additionalPrefix` + detectionItem.id + `" placeholder="String Match (Optional)" value="` + detectionItem.addprefix + `" title="Einzigartige Ticket-Titel oder Beschreibungen, können über dieses Feld erkannt und als Kriterium verwendet werden."/>
             </div>
           </div>
           <div class="configItem-title-row flex `+ (detectionItem.bookingsheet === "AmagProTime" ? null : "dNone") + `">
@@ -28,7 +40,7 @@ export function detectionItem(detectionItems) {
           <div class="project-detectionItem--amagprotime `+ (detectionItem.bookingsheet === "AmagProTime" ? null : "dNone") + `">
             <div class="configItem-content-row dFlex">
               <div class="detectionItem-content-larger">
-                <select name="select_proTimeService" id="select_proTimeService_`+ detectionItem.id + `">
+                <select name="select_proTimeService" id="select_proTimeService_`+ detectionItem.id + `" title="Wähle den Service aus, unter welchen du buchen willst.">
                   <option value="select_proTime_service_ITD" `+ ("select_proTime_service_ITD" === detectionItem.protimeservice ? "selected" : "") + `>IT Dienstleistungen</option>
                   <option value="select_proTime_service_ITDST" `+ ("select_proTime_service_ITDST" === detectionItem.protimeservice ? "selected" : "") + `>IT Dienstleistungen ST</option>
                   <option value="select_proTime_service_CSITEST" `+ ("select_proTime_service_CSITEST" === detectionItem.protimeservice ? "selected" : "") + `>Corporate Service IT Ext ST</option>
@@ -36,12 +48,12 @@ export function detectionItem(detectionItems) {
                 </select>
               </div>
               <div class="detectionItem-content-smaller">
-                <input type="text" class="input-size--large" name="input_projectNomber" id="input_projectNomber`+ detectionItem.id + `" placeholder="Projektnum." value="` + detectionItem.projectnomber + `"/>
+                <input type="text" class="input-size--large" name="input_projectNomber" id="input_projectNomber`+ detectionItem.id + `" placeholder="Projektnum." value="` + detectionItem.projectnomber + `" title="Die Projektnummer, mit der das Ticket hier gebucht werden soll."/>
               </div>
             </div>
             <div class="configItem-content-row dFlex">
               <div class="configItem-content-fullWidth">
-                <input type="text" class="input-size--large input-padding--medium" name="input_activity" id="input_activity`+ detectionItem.id + `" list="datalist_activity` + detectionItem.id + `" placeholder="Aktivität (Wenn vorhanden)"/>
+                <input type="text" class="input-size--large" name="input_activity" id="input_activity`+ detectionItem.id + `" list="datalist_activity` + detectionItem.id + `" placeholder="Aktivität (Wenn vorhanden)" title="Bei zusätzlichen Aktivitäts-Felder, kannst du hier eine Auswahl oder Eingabe treffen."/>
                 <datalist id="datalist_activity`+ detectionItem.id + `">
                   <option>- WP2 - AEM Dashboard</option>
                   <option>AP01 - Front-end</option>
@@ -52,7 +64,7 @@ export function detectionItem(detectionItems) {
           </div>
         </div>
       <div class="configItem-action-container">
-        <button class="button-primary button-reset button_deleteDetection">
+        <button class="button-primary button-reset button_deleteDetection" title="Löschen">
           <?xml version="1.0" encoding="utf-8"?>
           <!-- Designed by Empty Soul  -->
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"

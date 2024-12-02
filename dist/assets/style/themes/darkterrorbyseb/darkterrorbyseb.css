@@ -34,3 +34,7 @@
   --color-icon-default: var(--sand);
   --color-icon-light: var(--sand);
 }
+
+.button-mainAction{
+  border-radius: var(--border-radius-round);
+}
