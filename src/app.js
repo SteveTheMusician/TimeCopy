@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const extensionVersion = data_version.extension_version
   const extensionBuild = data_version.extension_build
   const extensionAuthor = data_version.extension_author
-  const extensionCoAuthor = data_version.extension_co_author
+  const extensionTesting = data_version.extension_testing
   const extensionUpdateTextOverview = data_version.extension_update_text_overview
   const extensionUpdateTextDetails = data_version.extension_update_text_details
   let tcprofileVersion = data_version.profile_version
@@ -654,7 +654,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     label_version.insertAdjacentHTML('beforeend', extensionVersion)
     label_build_version.insertAdjacentHTML('beforeend', extensionBuild)
     label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor)
-    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionCoAuthor)
+    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionTesting)
     // Main Buttons Listener
     fillButton.addEventListener('click', execReadClipboardText)
     fillCancelButton.addEventListener('click', cancelPasteData)
