@@ -5,8 +5,6 @@
   "version": "0.9.81",
   "permissions": [
     "clipboardRead",
-    "storage",
-    "declarativeContent",
     "activeTab",
     "scripting",
     "sidePanel"
