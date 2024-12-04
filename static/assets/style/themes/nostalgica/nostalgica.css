@@ -23,6 +23,10 @@
   --color-icon-light: #5d7b83;
 }
 
+header {
+  background-color: var(--color-none);
+}
+
 #buttonBackToMain {
   margin-right: 10px;
 }
@@ -34,7 +38,6 @@
 
 .configItem-icon-container,
 .label-row .text-label {
-  /* background-color: var(--color-third); */
   padding: 10px;
   margin-block-start: 0;
   margin-block-end: 0;
@@ -131,6 +134,10 @@ input:checked+.switch_slider {
 
 input:checked+.switch_slider:before {
   background-color: var(--color-highlight);
+}
+
+.message {
+  background-color: var(--color-second);
 }
 
 .label-row-messageHeadline .text-label {
