@@ -853,6 +853,7 @@ input:checked+.switch_slider:before {
     /* border-bottom-right-radius: 0; */
     justify-content: space-between;
     transition: var(--transition-mid);
+    z-index: 100;
 }
 
 .text-notification {

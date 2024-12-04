@@ -107,6 +107,7 @@ box-shadow: inset 1px 1px 5px #00000099;
     animation-duration: 6s;
     animation-iteration-count: infinite;
     animation-play-state: paused;
+	z-index: 99;
 }
 
 .dlc-xmastree:hover {
