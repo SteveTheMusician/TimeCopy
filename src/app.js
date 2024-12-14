@@ -107,7 +107,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
   let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
   let lstorage_appVersion = localStorage.getItem('tc_appVersion')
-  let lstorage_appWelcome = localStorage.getItem('tc_appWelcome')
   let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
   // Some vars
   let configOpen = false
@@ -173,17 +172,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     if (lstorage_appVersion) {
       if (lstorage_appVersion !== extensionVersion) {
-        localStorage.setItem('tc_appWelcome', 'true')
         localStorage.setItem('tc_appVersion', extensionVersion)
         // reset dlc information cache
         clearDlcLocalStorages()
         // show update message
         message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
-      } else {
-        localStorage.setItem('tc_appWelcome', 'false')
       }
     } else {
-      localStorage.setItem('tc_appWelcome', 'true')
       localStorage.setItem('tc_appVersion', extensionVersion)
       message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
     }
@@ -250,7 +245,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_c_profileName')
     localStorage.removeItem('tc_c_bookingPlatform')
     localStorage.removeItem('tc_appVersion')
-    localStorage.removeItem('tc_appWelcome')
     localStorage.removeItem('tc_ee_exoticTheme')
     clearDlcLocalStorages()
   }
