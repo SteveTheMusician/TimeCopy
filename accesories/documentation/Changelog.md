@@ -115,3 +115,8 @@
 - fix: nostalgica theme
 - fix: notification style in front of xmas dlc
 - other: remove storage and declarative Content premission
+
+## V 0.9.82
+- fix: invisible texts in themes
+- other: renaming low latency to high latency
+- other: new public file structure
