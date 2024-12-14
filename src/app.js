@@ -1,7 +1,7 @@
 import { filters } from "./components/dlc/filters/filters.dlc.js";
 import { filtersContent } from "./components/dlc/filters/filters.dlc.js";
 import { filter_timesheetFilterPreValue } from "./components/dlc/filters/filters.import.js";
-import data_version from "../static/version.json" with { type: "json" };
+import data_version from "../public/version.json" with { type: "json" };
 import { notification } from "./components/ui/notification/notification.js";
 import { message } from "./components/ui/message/message.js";
 import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
@@ -195,16 +195,16 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       themeSelect.value = lstorage_cThemes
       if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
-        link_cssTheme.setAttribute('href', './assets/style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
+        link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
       } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {
         themeSelect.value = defaultTheme
         lstorage_cThemes = defaultTheme
       } else {
-        link_cssTheme.setAttribute('href', './assets/style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
+        link_cssTheme.setAttribute('href', './static/Style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
       }
     } else {
       themeSelect.value = defaultTheme
-      link_cssTheme.setAttribute('href', './assets/style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
+      link_cssTheme.setAttribute('href', './static/Style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
     }
     if (lstorage_cFilter) {
       document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
@@ -385,9 +385,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   function switchTheme() {
     let currentThemeValue = themeSelect.value
     if (currentThemeValue === 'exotic') {
-      link_cssTheme.setAttribute('href', './assets/style/themes/ee/exotisch/' + currentThemeValue + '.css')
+      link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + currentThemeValue + '.css')
     } else {
-      link_cssTheme.setAttribute('href', './assets/style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
+      link_cssTheme.setAttribute('href', './static/Style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
     }
     localStorage.setItem('tc_c_theme', currentThemeValue)
     configUserChanges = true
@@ -653,8 +653,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Display version
     label_version.insertAdjacentHTML('beforeend', extensionVersion)
     label_build_version.insertAdjacentHTML('beforeend', extensionBuild)
-    label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor)
-    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionTesting)
     // Main Buttons Listener
     fillButton.addEventListener('click', execReadClipboardText)
     fillCancelButton.addEventListener('click', cancelPasteData)
@@ -701,11 +699,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     loadSessionStorages()
     // load xmas dlc between dezember (11) and march (2)
     if (dateMonth === 11 || dateMonth === 0 || dateMonth === 1 || dateMonth === 2) {
-      console.log('Winter')
       xmas()
     }
-    // devtool
-    developer()
   });
 })
 
