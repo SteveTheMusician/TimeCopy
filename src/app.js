@@ -653,6 +653,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Display version
     label_version.insertAdjacentHTML('beforeend', extensionVersion)
     label_build_version.insertAdjacentHTML('beforeend', extensionBuild)
+    label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor)
+    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionTesting)
     // Main Buttons Listener
     fillButton.addEventListener('click', execReadClipboardText)
     fillCancelButton.addEventListener('click', cancelPasteData)
