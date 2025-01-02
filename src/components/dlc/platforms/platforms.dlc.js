@@ -65,7 +65,7 @@ export async function platformsContent() {
       platformCustomContent = platformCustomImports.customContent
     }
     // dlc array (Foldername aso used as ID for saving)
-    // for new items, just make a new dls, add it here to the array, make logo in assets folder and add css in style/dlc folder
+    // for new items, just make a new dls, add it here to the array, make logo in static folder and add css in style/dlc folder
     let platformChild = `<label class="configItem dlcItem dlcItem-platform dlcItem-clickable dFlex" title="Platform wählen">
                 <div class="dlcItem-main-container dFlex">
                   <div class="dlcItem-main dFlex">
@@ -77,7 +77,7 @@ export async function platformsContent() {
                       </label>
                     </div>
                     <div class="configItem-logo-container flex configItem-logo-container--`+ (plDataObject.platform_id) + `">
-                      <img src="assets/gfx/dlc/platforms/logos/`+ (plKey + platformImageFormat) + `" class="icon-bookingItem" />
+                      <img src="static/DLC/Platforms/logos/`+ (plKey + platformImageFormat) + `" class="icon-bookingItem" />
                     </div>
                     <div class="dlcItem-headline-container flex">
                       <p class="text-label">`+ (plDataObject.platform_name) + `</p>
