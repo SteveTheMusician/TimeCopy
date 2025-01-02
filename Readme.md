@@ -1,5 +1,5 @@
 # Time Copy
-#### V 0.9.8* (Sidebar)
+#### V 0.9.8* (Sidebar Version)
 By Steve Pietrowski / EmptySoul
 </br>
 04.07.2023

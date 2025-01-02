@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktime_copy=self.webpackChunktime_copy||[]).push([[20],{20:e=>{e.exports=JSON.parse('{"filter_version":"1.2","filter_name":"Steve Google Excel","filter_id":"stevegoogleexcel","filter_shortname":"SteveExcel","filter_description":"Filter zur Erkennung von mehrspaltigen Google-Excel-Tabellen. Anwendbar auf maximal 1 Tag."}')}}]);
