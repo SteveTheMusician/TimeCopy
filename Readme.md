@@ -1,21 +1,30 @@
 # Time Copy
-#### V 0.9.8*
-By Steve P.
+#### V 0.9.8* (Sidebar Version)
+By Steve Pietrowski / EmptySoul
+</br>
 04.07.2023
 
-## Allgemein
-Time Copy ist dazu gedacht, Zeitangaben aus Tabellen in andere Web-Platformen zu übertragen.
+## Benutzerinformationen
 
-## Download Chrome Store
+### Allgemein
+
+Time Copy ist dazu gedacht, den Workflow zum Buchen der Zeiten 
+bei verschiedenen Kunden zu erleichtern.
+Als Nutzer kann man so Zeit-Informationen aus z.B. einer Excel-Tabelle
+in einem Online-Formular (Web-Platform) per "Copy Paste" übertragen.
+
+### Download Chrome Store
+
 https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfidbf
 
 ### Kurzeinweisung
 - Installiere die Extension entweder via Chrome Store oder importiere es als Git-Projekt
 - Öffne die Extension und gehe in die Einstellungen.
-- **Erkennungs-Items** : Ertselle hier neue Erkennungsmerkmale.
-- **Timesheet Filter** : Wähle aus, welche Excel-Tabelle / Input-Daten du selbst verwendest.
+- **_Allgemein_** : Allgemeine Einstellungen, wie z.B. Design-Auswahl.
+- **_Erkennungs-Items_** : Ertselle hier neue Erkennungsmerkmale.
+- **_Timesheet Filter_** : Wähle aus, welche Excel-Tabelle / Input-Daten du selbst verwendest.
 Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filtern.
-- **Buchungsplatform** : Sagt dem PlugIn, auf welche Seite / Programm diene Daten eingefügt / verarbeitet werden.
+- **_Buchungsplatform_** : Sagt dem PlugIn, auf welche Seite / Programm diene Daten eingefügt / verarbeitet werden.
 (Automatisch wählt Buchungsplatformen nach der Web-Url aus)
 
 > [!TIP] 
@@ -23,8 +32,9 @@ Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filter
 
 ### Shortcuts
 
-> [!NOTE]
-> **Time Copy öffnen/schließen**: [Windows] Strg+b [MacOS] Cmd+b
+
+- Time Copy öffnen / schließen (Windows): Strg+b
+- Time Copy öffnen / schließen (MacOS): Cmd+b
 
 > [!TIP] 
 > Du kannst die Shortcuts in den Chrome-Einstellungen ändern.
@@ -37,51 +47,80 @@ Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filter
   oben "Entwicklermodus" einschalten.
 - Auf "Entpackte Erweiterung laden" klicken, in den geklonten Ordner navigieren und anschließend
   in den Ordner "dist" gehen und diesen auswählen.
-- PlugIn erscheint in Chrome
+- Extension erscheint in Chrome
 - Oben rechts im Browser auf das PlugIn Icon klicken und PlugIn über das Pin-Icon anpinnen
-- Nun ist es per one-klick erreichbar.
+- Nun ist es per One-Klick erreichbar.
 - Über das Shortcut "Strg+b" oder "cmd+b" kann es geöffnet bzw geschlossen werden
 
 ### Plugin aus Chrome entfernen
-- In den Erweiterungs-Einstellungen das plugin aufsuchen und über den kleinen Switch ausschalten.
-- Wenn du es komplett entfernen willst, dann auf den großen Button "Entfernen" in der 
-  angezeigten Kachel klicken
+- In den Erweiterungs-Einstellungen das Plugin aufsuchen und über den kleinen Switch ausschalten.
+- Wenn du es komplett entfernen willst, klicke auf den großen Button "Entfernen" in der 
+  angezeigten Kachel.
 
 ### Time Copy Berechtigungen
 - <b>clipboardRead</b> : Daten die du am Rechner über die Kopieren-Funktion kopiert hast,  
                   kann das Plugin beim klicken auf Einfügen oder Test-Funktion lesen
 - <b>storage</b> : Um deine Einstellungen zu speichern/exportieren, 
             wird der Zugriff auf dein Browser-Storage benötigt (localStorage und SessionStorage)
-- <b>declarativeContent</b> : Erlaubt Time Copy das lesen deiner Web-URL, 
-                       damit diese z.B. automatisch erkennen kann, ob du dich auf der richtigen Buchungsseite befindest (Plattform: automatisch) 
 - <b>activeTab</b> : Erlaubt dem Plugin deinen Aktiven Tab zu leses, um z.B. die Zeiten auf einer Webseite einzutragen.
 - <b>scripting</b> : Erlaubt das Ausführen von Scripts auf Webseiten, die du in deinem aktuellen Tab offen hast.
 - <b>sidePane</b> : Dadurch kann das PlugIn als Side-Window angezeigt werden.
 
-### Hilfe
-Für detailierte Hilfe findest du Hier:
-https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/TimeCopy-Dokumentation.pdf
+### Dokumentation
+Detailierte Informationen findest du hier:
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/TimeCopy-Dokumentation.pdf
+
+### Changelog
+
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Changelog.md
+
+### Datenschutz
+
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Datenschutz/Datenschutz.md
+
+### Lizens (EN)
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/LICENSE
+
+### Downloads
+
+#### Test Profile
+Profil-Dateien zum selbst anpassen, weiter entwickeln oder Testen.
+Importierbar über den Einstellungspunkt "Import" im Profilbereich unter
+Einstellungen.
+
+- [Profile V1.1](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.1.tcprofile)
+- [Profile V1.2](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.2.tcprofile)
+- [Profile V1.3](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.3.tcprofile)
+- [Profile V1.6](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.6.tcprofile)
+
+#### Time Copy Chrome Extension (als Datei)
+
+- [Time Copy V 0.9.63 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Extensions/Chrome/Time-Copy-Chrome-V0.9.63.crx)
+- [Time Copy V 0.9.81 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Extensions/Chrome/Time-Copy-Chrome-V0.9.81.crx)
 
 ### Reporting
-Bei Anfragen oder Bug-Reports kannst du dich an folgende E-Mail wenden:
+Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende E-Mail wenden:
 steveemptysoul.official@gmail.com
 
 ## Technische Informationen
-Das Projekt verwendet Webpack und braucht Node Version 20.11.0 oder höher.
 
 ### Node Version
-Verwendet: V 20.11.0
-Auch möglich: V 16.13.0
+Empfohlen: V 20.11.0
 
-### Installieren
+### Packages Installieren
 npm i
 
-### Build
+### Build / Run
 npm run build
 
-Npm run build läuf in produktions modus zusammen mit einem Watcher. 
-Solange dieser aktiv ist, werden alle änderungen aus "src" oder "static" erfasst.
+Npm run build läuf in Produktions-Modus zusammen mit einem Watcher. 
+Solange dieser aktiv ist, werden alle Änderungen aus "src" oder "public" erfasst.
 Wenn du nur die App bauen möchtest, kannst du nach erfolgreichem "Compiled", den Prozess einfach mit Strg+C beenden.
 
-Bei Fehlermeldungen wie "Unexpected token '??='" im Build-Prozess, wird wahrscheinlich eine zu alte Node-Version benutzt.
-Bitte verwende dann einer der oben genannten.
+Die Extension an sich kann über den "dist" Ordner in Chrome reingeladen werden.
+
+### Bekannte Fehlermeldungen
+
+- "Unexpected token '??='" im Build-Prozess: 
+  Es wird eine zu alte Node-version für den Build verwendet.
+  Stelle die Node-Version auf die oben empfohlene.

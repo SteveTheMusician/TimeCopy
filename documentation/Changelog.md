@@ -121,3 +121,4 @@
 - other: code clean up
 - other: renaming low latency to high latency
 - other: new public file structure
+- other: readme, license, documentation
