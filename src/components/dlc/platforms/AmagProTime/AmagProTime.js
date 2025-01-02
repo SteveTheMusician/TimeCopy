@@ -9,9 +9,9 @@ import { message } from "../../../ui/message/message.js";
 import { notification } from "../../../ui/notification/notification.js";
 import {
   bookingLoopCount,
-  lowLatency,
-  useLowLatency,
-  forceLowLatency,
+  highLatency,
+  useHighLatency,
+  forceHighLatency,
   noTicketNomberFill,
   noTicketDiscFill
 } from "./variables/AmagProTime.variables.js";
@@ -23,15 +23,15 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
   let failedTickets = [];
   let errorDetailMessage = ''
 
-  // use force low latency
+  // use force latency mode
   if (localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === 'true') {
-    lowLatency = true
-    forceLowLatency = true
-    message(true, 'warning', 'Low Latency Mode', 'Force Low Latency Modus ist in den ProTime DLC-Funktionen aktiviert. Time Copy wird die Daten langsamer, dafür sicherer übertragen.')
+    highLatency = true
+    forceHighLatency = true
+    message(true, 'warning', 'High Latency Mode', 'Erzwinge High Latency-Modus ist in den ProTime DLC-Funktionen aktiviert. Time Copy wird die Daten langsamer, dafür sicherer übertragen.')
   }
-  // deaktivate use low latency, when false
+  // deaktivate use high latency, when false
   if (localStorage.getItem('tc_c_dlc_protimeuselatencymode') === 'false') {
-    useLowLatency = false
+    useHighLatency = false
   }
 
   // match tickets to the given filters (functions in service.js)
@@ -96,7 +96,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
-      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, lowLatency, useLowLatency)
+      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency)
       bookingLoopCount++
       // console.log('iChrTab:', iChrTab);
       if (iChrTab.result !== null && iChrTab.result.success === false) {
@@ -114,17 +114,17 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
 }
 
 // 🍎 chrom tab scripts
-async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, lowLatency, useLowLatency) {
-  // check latency in current tab + only when use low latency is aktivated
-  if (useLowLatency) {
+async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency) {
+  // check latency in current tab + only when use high latency is aktivated
+  if (useHighLatency) {
     try {
       let proTimeJSPageTime = await TestPageLoadPerformance()
       proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
-      // use low latency only when page ping is low
+      // use high latency only when page ping is low
       if (proTimeJSPageTime > 150) {
-        console.warn("[Time Copy][DLC Platforms: AmagProTime] ⚠️ Warning: ProTime Page low latency " + proTimeJSPageTime + " ms")
+        console.warn("[Time Copy][DLC Platforms: AmagProTime] ⚠️ Warning: ProTime Page high latency " + proTimeJSPageTime + " ms")
         notification(true, false, "Webseite hat niedige Latenz. (" + proTimeJSPageTime + " ms) Buchungen werden länger brauchen.")
-        lowLatency = true
+        highLatency = true
       }
       chrome.windows.getCurrent(function (window) {
         chrome.windows.update(window.id, { focused: true });
@@ -140,7 +140,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
     let chromeExecScript = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: AmagProTimeBookTickets,
-      args: [valideTickets, dev_pttest, bookingLoopCount, lowLatency, useLowLatency]
+      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency]
     });
 
     if (chromeExecScript[0].result && chromeExecScript[0].result.error) {
@@ -156,7 +156,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
   }
 }
 // 🍎 main booking logic
-async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCount, lowLatency, useLowLatency) {
+async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency) {
 
   let crossObserver_mutationObserver
 
@@ -174,8 +174,8 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
       if (isVisible) {
         appearanceCount++;
         if (appearanceCount === 2) {
-          lowLatency = true
-          // console.log(`[Time Copy] [Cross Observer] Appearance, `,element, 'Low latency: ', lowLatency);
+          highLatency = true
+          // console.log(`[Time Copy] [Cross Observer] Appearance, `,element, 'high latency: ', highLatency);
           crossObserver_mutationObserver.disconnect()
           }
         }
@@ -317,7 +317,7 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
   // 🏁 loading dots checkpoint function
   // use a boolean for a quick-check without timer
   async function checkpointLoadingDots(forceQuickCheckLoadingDots) {
-    if (lowLatency === true) {
+    if (highLatency === true) {
       try {
         await waitTimer(bookingWaitingTimer1000)
         await waitTimer(bookingWaitingTimer1000)
@@ -475,8 +475,8 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           }
           await waitTimer(bookingWaitingTimer500)
 
-          // 1s break on low latency mode
-          if (lowLatency === true) {
+          // 1s break on high latency mode
+          if (highLatency === true) {
             await waitTimer(bookingWaitingTimer1000)
             await checkpointLoadingDots(true)
           }
@@ -601,14 +601,14 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
       for ( let i = 0; i < 4 ; i++ ) {
         try {
           // console.log('[Time Copy] 🔁 Retryloop ',i, 'Current Result: ',ticketBookingLoopResult, 'Retrylist: ', retryTicketList)
-          // activate low latency, after 1st retry failed
-          if(i > 0 && useLowLatency) {
-            lowLatency = true
+          // activate high latency, after 1st retry failed
+          if(i > 0 && useHighLatency) {
+            highLatency = true
           }
           // error after 3 tries
           if(i >= 3) {
             console.error('[Time Copy] 🕤 🔴 Retry process max count reached')
-            lowLatency = false
+            highLatency = false
             return result = { success: false, message: {text: 'Maximale Retries erreicht',textdetails: `Time Copy konnte nach mehrfache Versuche einige Tickets nicht buchen und hat den Prozess desshalb unterbrochhen.`}}
           }
           // try to re-book tickets from retrylist
@@ -617,12 +617,12 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
             retryTicketList = []
             ticketBookingLoopResult = await ticketBookingLoop(newTicketList)
             if(!ticketBookingLoopResult.success){
-              lowLatency = false
+              highLatency = false
               return ticketBookingLoopResult
             }
             // succsess
             if(ticketBookingLoopResult.success && !ticketBookingLoopResult.retryBooking) {
-              lowLatency = false
+              highLatency = false
               console.log('[Time Copy] 🕤 🟢 Retry process finished')
               return { success: true }
             }
