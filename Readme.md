@@ -68,8 +68,28 @@ Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filter
 Detailierte Informationen findest du hier:
 https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/TimeCopy-Dokumentation.pdf
 
+### Changelog
+
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Changelog.md
+
+### Datenschutz
+
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Datenschutz/Datenschutz.md
+
 ### Lizens (EN)
 https://github.com/EmptySoulOfficial/TimeCopy/blob/main/LICENSE.md
+
+### Downloads
+
+#### Test Profile
+Profil-Dateien zum selbst anpassen, weiter entwickeln oder Testen.
+Importierbar über den Einstellungspunkt "Import" im Profilbereich unter
+Einstellungen.
+
+- [Profile V1.1](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/downloads/timecopy-profile_V1.1.tcprofile)
+- [Profile V1.2](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/downloads/timecopy-profile_V1.2.tcprofile)
+- [Profile V1.3](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/downloads/timecopy-profile_V1.3.tcprofile)
+- [Profile V1.6](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/downloads/timecopy-profile_V1.6.tcprofile)
 
 ### Reporting
 Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende E-Mail wenden:
@@ -96,4 +116,4 @@ Die Extension an sich kann über den "dist" Ordner in Chrome reingeladen werden.
 
 - "Unexpected token '??='" im Build-Prozess: 
   Es wird eine zu alte Node-version für den Build verwendet.
-  Stelle die Node-version auf die oben empfohlene.
+  Stelle die Node-Version auf die oben empfohlene.
