@@ -16,6 +16,7 @@ Desktop.ini
 # Folder notes #
 ################
 _ignore/
+dist/
 
 # Log files & folders #
 #######################
