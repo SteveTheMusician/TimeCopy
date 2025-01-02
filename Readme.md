@@ -79,7 +79,7 @@ https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Changelog.
 https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Datenschutz/Datenschutz.md
 
 ### Lizens (EN)
-https://github.com/EmptySoulOfficial/TimeCopy/blob/main/LICENSE.md
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/LICENSE
 
 ### Downloads
 
@@ -88,10 +88,10 @@ Profil-Dateien zum selbst anpassen, weiter entwickeln oder Testen.
 Importierbar über den Einstellungspunkt "Import" im Profilbereich unter
 Einstellungen.
 
-- [Profile V1.1](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/timecopy-profile_V1.1.tcprofile)
-- [Profile V1.2](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/timecopy-profile_V1.2.tcprofile)
-- [Profile V1.3](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/timecopy-profile_V1.3.tcprofile)
-- [Profile V1.6](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/timecopy-profile_V1.6.tcprofile)
+- [Profile V1.1](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.1.tcprofile)
+- [Profile V1.2](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.2.tcprofile)
+- [Profile V1.3](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.3.tcprofile)
+- [Profile V1.6](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.6.tcprofile)
 
 #### Time Copy Chrome Extension (als Datei)
 
