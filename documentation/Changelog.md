@@ -118,5 +118,7 @@
 
 ## V 0.9.82
 - fix: invisible texts in themes
+- other: code clean up
 - other: renaming low latency to high latency
 - other: new public file structure
+- other: readme, license, documentation
