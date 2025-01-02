@@ -18,11 +18,11 @@ https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfi
 ### Kurzeinweisung
 - Installiere die Extension entweder via Chrome Store oder importiere es als Git-Projekt
 - Öffne die Extension und gehe in die Einstellungen.
-- **Allgemein** : Allgemeine Einstellungen, wie z.B. Design-Auswahl.
-- **Erkennungs-Items** : Ertselle hier neue Erkennungsmerkmale.
-- **Timesheet Filter** : Wähle aus, welche Excel-Tabelle / Input-Daten du selbst verwendest.
+- **_Allgemein_** : Allgemeine Einstellungen, wie z.B. Design-Auswahl.
+- **_Erkennungs-Items_** : Ertselle hier neue Erkennungsmerkmale.
+- **_Timesheet Filter_** : Wähle aus, welche Excel-Tabelle / Input-Daten du selbst verwendest.
 Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filtern.
-- **Buchungsplatform** : Sagt dem PlugIn, auf welche Seite / Programm diene Daten eingefügt / verarbeitet werden.
+- **_Buchungsplatform_** : Sagt dem PlugIn, auf welche Seite / Programm diene Daten eingefügt / verarbeitet werden.
 (Automatisch wählt Buchungsplatformen nach der Web-Url aus)
 
 > [!TIP] 
@@ -30,8 +30,9 @@ Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filter
 
 ### Shortcuts
 
-> [!NOTE]
-> **Time Copy öffnen/schließen**: [Windows] Strg+b [MacOS] Cmd+b
+
+- Time Copy öffnen / schließen (Windows): Strg+b
+- Time Copy öffnen / schließen (MacOS): Cmd+b
 
 > [!TIP] 
 > Du kannst die Shortcuts in den Chrome-Einstellungen ändern.
@@ -63,11 +64,11 @@ Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filter
 - <b>scripting</b> : Erlaubt das Ausführen von Scripts auf Webseiten, die du in deinem aktuellen Tab offen hast.
 - <b>sidePane</b> : Dadurch kann das PlugIn als Side-Window angezeigt werden.
 
-## Dokumentation
+### Dokumentation
 Detailierte Informationen findest du hier:
 https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/TimeCopy-Dokumentation.pdf
 
-## Lizens (EN)
+### Lizens (EN)
 https://github.com/EmptySoulOfficial/TimeCopy/blob/main/LICENSE.md
 
 ### Reporting
@@ -79,7 +80,7 @@ steveemptysoul.official@gmail.com
 ### Node Version
 Empfohlen: V 20.11.0
 
-### Installieren
+### Packages Installieren
 npm i
 
 ### Build / Run
