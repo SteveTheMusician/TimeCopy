@@ -115,9 +115,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   let configUserChanges = false
   const dlc_details_classHidden = 'dlc-details--hidden'
 
-  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/TimeCopy-Dokumentation.pdf"
-  let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Changelog.md"
-  let datenschutzUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Datenschutz/Datenschutz.md"
+  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/TimeCopy-Dokumentation.pdf"
+  let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Changelog.md"
+  let datenschutzUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Datenschutz/Datenschutz.md"
   let readmeUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/Readme.md"
   let storeUrl = "https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfidbf"
   const extensionVersion = data_version.extension_version

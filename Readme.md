@@ -7,12 +7,14 @@ By Steve Pietrowski / EmptySoul
 ## Benutzerinformationen
 
 ### Allgemein
+
 Time Copy ist dazu gedacht, den Workflow zum Buchen der Zeiten 
 bei verschiedenen Kunden zu erleichtern.
 Als Nutzer kann man so Zeit-Informationen aus z.B. einer Excel-Tabelle
 in einem Online-Formular (Web-Platform) per "Copy Paste" übertragen.
 
 ### Download Chrome Store
+
 https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfidbf
 
 ### Kurzeinweisung
@@ -66,15 +68,15 @@ Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filter
 
 ### Dokumentation
 Detailierte Informationen findest du hier:
-https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/TimeCopy-Dokumentation.pdf
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/TimeCopy-Dokumentation.pdf
 
 ### Changelog
 
-https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Changelog.md
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Changelog.md
 
 ### Datenschutz
 
-https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Datenschutz/Datenschutz.md
+https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Datenschutz/Datenschutz.md
 
 ### Lizens (EN)
 https://github.com/EmptySoulOfficial/TimeCopy/blob/main/LICENSE.md
@@ -86,10 +88,15 @@ Profil-Dateien zum selbst anpassen, weiter entwickeln oder Testen.
 Importierbar über den Einstellungspunkt "Import" im Profilbereich unter
 Einstellungen.
 
-- [Profile V1.1](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/downloads/timecopy-profile_V1.1.tcprofile)
-- [Profile V1.2](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/downloads/timecopy-profile_V1.2.tcprofile)
-- [Profile V1.3](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/downloads/timecopy-profile_V1.3.tcprofile)
-- [Profile V1.6](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/downloads/timecopy-profile_V1.6.tcprofile)
+- [Profile V1.1](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/timecopy-profile_V1.1.tcprofile)
+- [Profile V1.2](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/timecopy-profile_V1.2.tcprofile)
+- [Profile V1.3](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/timecopy-profile_V1.3.tcprofile)
+- [Profile V1.6](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/timecopy-profile_V1.6.tcprofile)
+
+#### Time Copy Chrome Extension (als Datei)
+
+- [Time Copy V 0.9.63 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Extensions/Chrome/Time-Copy-Chrome-V0.9.63.crx)
+- [Time Copy V 0.9.81 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Extensions/Chrome/Time-Copy-Chrome-V0.9.81.crx)
 
 ### Reporting
 Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende E-Mail wenden:
