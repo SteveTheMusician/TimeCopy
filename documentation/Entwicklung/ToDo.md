@@ -16,6 +16,10 @@
 - update readme
 - Nostalgica Theme fix: farbigen bg für messages und transparenten header bei einstellungen ✅
 - FIX: error message taucht nach erstem mal fehlerhaftem import nicht mehr auf
+
+## V 0.9*
+
+- Halloween Update
  
 ## V 1.0.0
 

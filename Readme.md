@@ -131,3 +131,5 @@ Die Extension an sich kann über den "dist" Ordner in Chrome reingeladen werden.
 - "Unexpected token '??='" im Build-Prozess: 
   Es wird eine zu alte Node-version für den Build verwendet.
   Stelle die Node-Version auf die oben empfohlene.
+- Vulnerabilities nach dem Ausführen von "npm i":
+  Zum fixen der Findings, mit der empfohlenen Node-Version "npm audit fix" ausführen.
