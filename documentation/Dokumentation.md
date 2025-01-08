@@ -31,7 +31,7 @@ eine Extension zu installieren.
 - Pinne diese am Besten in deiner Chrome-Leiste an, damit du sie per One-Click bzw. Shortcut
   besser erreichen kannst
 
-> [!INFORMATION]  
+> [!NOTE]  
 > Du kannst die Extension nur über die URL erreichen, da diese im Chrome-Web-Store als "nicht gelistet" steht.
 > Sie ist also von außen nicht oder nur schwer auffindbar.
 
