@@ -122,3 +122,6 @@
 - other: renaming low latency to high latency
 - other: new public file structure
 - other: readme, license, documentation
+
+## V 1.0.0
+- other: new Theme "Japan's White"
