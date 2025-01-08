@@ -113,7 +113,7 @@ Nachteil ist, dass es natürlich ein bisschen Programmierkenntnisse und eine Ent
 >
 >Um Änderungen in der Extension wirksam zu machen, musst du diese kurz schließen und wieder auf machen. (Z.B. über den Shortcut Srtg+b (cmd+b auf macOS))
 
->[!NOTE]
+>[!IMPORTANT]
 >Bei der Installation der NPM-Packages kann es zu **vulnerabilities** kommen.
 >Diese dann einfach mit der empfohlenen Node-Version über **"npm audit fix"** beseitigen
 
@@ -130,7 +130,7 @@ Nachteil ist, dass es natürlich ein bisschen Programmierkenntnisse und eine Ent
 Die Extension bekommt "automatisch" keine Updates wie eine fertige Chrome-Extension.
 Du kannst allerdings diese dir immer relativ schnell ziehen, in dem per Terminal in dein Git-Projekt wechselst und dort den Befehl "git pull" ausführst.
 
->[!NOTE]
+>[!IMPORTANT]
 >Beachte, dass für Git-Pull natürlich Änderungen vom Entwickler gegeben sein müssen.
 >Aktuelle Änderungen sind nur in den Branches "develop" oder "Test-Release" zu erwarten.
 >In allen anderen kommen Updates nur zum Release. (Auf Version achten)
