@@ -106,8 +106,9 @@ Einstellungen.
 - [Time Copy V 0.9.81 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Builds/Chrome/TimeCopy_V0.9.81.zip)
 
 ### Reporting
-Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende E-Mail wenden:
-steveemptysoul.official@gmail.com
+Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende Adressen wenden
+
+- E-Mail-Adresse: [contact@emptysoul.de](mailto:contact@emptysoul.de)
 
 ## Technische Informationen
 

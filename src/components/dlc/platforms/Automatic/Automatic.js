@@ -28,7 +28,6 @@ export async function Automatic() {
         }
         return automaticValue
     } catch (error) {
-        console.log('error', error)
         throw error
     }
 }

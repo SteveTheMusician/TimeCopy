@@ -1,5 +1,11 @@
 # Changelog
 
+## General Information
+
+Some versions in the changelog were skipped because they were released or pushed 
+as part of a later version.
+Time Copy was only converted into a side-bar version from version 0.8.7.
+
 ## V 0.8.80
 - fix: text-label styling on small resolution
 - feature: get new "Master-Booking-Number" marked with "°" as Ticketnumber, when exists.
@@ -124,4 +130,7 @@
 - other: readme, license, documentation
 
 ## V 1.0.0
+- feature: show / hide messages
+- fix: remove automatic error json feedback
 - other: new Theme "Japan's White"
+- other: documentation
