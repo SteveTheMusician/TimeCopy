@@ -1,0 +1,22 @@
+{
+    "tcprofile": {
+        "author": "steve",
+        "version": "1.6",
+        "extension_version": "1",
+        "extension_build": "S25.01092314",
+        "profile_name": "Default",
+        "cfg": {
+            "theme": "midnightglow",
+            "language": "de",
+            "show_all_messages": "false",
+            "filter": "",
+            "platform": "Automatic",
+            "detections": [
+                {
+                    "id": "deci1736463231104",
+                    "bookingsheet": ""
+                }
+            ]
+        }
+    }
+}
