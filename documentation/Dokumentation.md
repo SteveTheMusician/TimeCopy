@@ -141,6 +141,8 @@ Du kannst allerdings diese dir immer relativ schnell ziehen, in dem per Terminal
 
 ## Entwickler
 
+## Easter Eggs
+
 ## Weitere Dokumentationen
 
 Readme.md
