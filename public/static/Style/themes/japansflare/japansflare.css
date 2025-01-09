@@ -1,0 +1,65 @@
+:root {
+  /* ---- Japan's Flare Theme ---- */
+
+  --border-radius-default: 12px;
+
+  /* theme colors */
+  --color-main: #dde3eb;
+  --color-second: #ecf3ff;
+  --color-third: #d8dee5;
+  --color-highlight: #bb0136;
+  --color-active: #bf1334;
+  --color-disabled: #909090;
+  --color-close: #d10000;
+  --color-warning: #e18507;
+
+  /* Font colors */
+  --color-font: #354565;
+  --color-font-navigation: #323232;
+  --color-font-headline: #354565;
+  --color-font-second: #354565;
+  --color-font-headlabel: #354565;
+  --color-font-subtext: #69737f;
+  /* Icon colors */
+  --color-icon-default: #354565;
+  --color-icon-light: #354565;
+  /* dlc snowflake color */
+  --color-dlc-snowflake: #354565;
+}
+
+.button-mainAction{
+  outline: 2px solid var(--color-none);
+  background: var(--color-second);
+}
+
+.button-mainAction:hover{
+  outline: 2px solid var(--color-highlight);
+  background: var(--color-second);
+}
+
+.button-mainAction:hover:disabled{
+  transform:translateY(0px);
+  box-shadow: inset 0px 4px 10px #00000033;
+}
+
+.switch_slider {
+  border-radius: var(--border-radius-default);
+}
+
+.switch_slider:before {
+  border-radius: var(--border-radius-default);
+}
+
+.notification--ok {
+  background-color: var(--color-active);
+}
+
+label.configItem {
+  outline: 2px solid var(--color-none);
+}
+
+label.configItem:hover {
+  transform: scale(1);
+  box-shadow: unset;
+  outline: 2px solid var(--color-highlight);
+}

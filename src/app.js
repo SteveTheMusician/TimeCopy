@@ -116,7 +116,13 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Some vars
   let configOpen = false
   let dev_pttest = false
-  let showAllMessages = true
+  let showAllMessages = "true"
+  // Default variables
+  const defaultProfileName = "Default"
+  const defaultTheme = "oceanswave"
+  let defaultBookingPlatform = platform_functionName_automatic
+  //language settings may released in a later version
+  const defaultLanguage = 'de'
   const consoleWarnMessage_showMessageTurnedOff = "⚠ Time Copy Messages are turned off!"
 
   // this variable activates tc reloading after pressing the back button when its set to true
@@ -142,7 +148,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   function loadSessionStorages() {
     let sMessageImported = sessionStorage.getItem('tc_c_messageImported')
     let sMessageProfileRemoved = sessionStorage.getItem('tc_c_messageProfileRemoved')
-    let sExportFile_afterChange = sessionStorage.getItem('tc_c_exportFile_afterChange')
+    let sExportProfile_afterChange = sessionStorage.getItem('tc_c_exportProfile_afterChange')
     let sDLCCacheReloaded = sessionStorage.getItem('tc_c_messageDLCCacheReloaded')
     let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
     if (sMessageImported === 'true') {
@@ -155,10 +161,10 @@ document.addEventListener('DOMContentLoaded', async function () {
       sessionStorage.removeItem('tc_c_messageProfileRemoved')
       configButton.click()
     }
-    if (sExportFile_afterChange === 'true') {
-      sessionStorage.removeItem('tc_c_exportFile_afterChange')
+    if (sExportProfile_afterChange === 'true') {
+      sessionStorage.removeItem('tc_c_exportProfile_afterChange')
       configButton.click()
-      exportFile()
+      exportProfile()
     }
     if (sChangeLanguage === 'true') {
       sessionStorage.removeItem('tc_c_changeLanguage')
@@ -173,13 +179,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
   // Load localstorage
   function loadStorage() {
-    // Default variables
-    const defaultProfileName = "Default"
-    const defaultTheme = "oceanswave"
-    let defaultBookingPlatform = platform_functionName_automatic
-    //language settings may released in a later version
-    const defaultLanguage = 'de'
-    let language = ''
 
     if (lstorage_appVersion) {
       if (lstorage_appVersion !== extensionVersion) {
@@ -229,17 +228,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     if(lstorage_cShowAllMessages === 'true') {
       switch_showAllMessages.checked = true
-      showAllMessages = true
+      showAllMessages = "true"
       messageSection.classList.remove('dNone')
       messagesHeadline.classList.remove('dNone')
     } else if (lstorage_cShowAllMessages === 'false') {
       switch_showAllMessages.checked = false
-      showAllMessages = false
+      showAllMessages = "false"
       messageSection.classList.add('dNone')
       messagesHeadline.classList.add('dNone')
     }else {
       switch_showAllMessages.checked = true
-      showAllMessages = true
+      showAllMessages = "true"
       messageSection.classList.remove('dNone')
       messagesHeadline.classList.remove('dNone')
     }
@@ -430,19 +429,20 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // import time copy profile
   let button_importConfigs = document.getElementById('button_importConfigs');
-  button_importConfigs.addEventListener("change", importFile, false);
+  button_importConfigs.addEventListener("change", importProfile, false);
 
-  function importFile(event) {
+  function importProfile(event) {
     let fileData
     var files = event.target.files,
       reader = new FileReader();
     reader.addEventListener("load", function (validateFileVersion) {
       fileData = this.result;
       fileData = JSON.parse(fileData)
-      validateFileVersion = checkImportFileVersion(fileData)
+      validateFileVersion = checkImportProfileVersion(fileData)
       if (validateFileVersion) {
         // set data
         localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
+        localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg.show_all_messages)
         localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
         localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
         localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     reader.readAsText(files[0])
   }
 
-  function checkImportFileVersion(fileData) {
+  function checkImportProfileVersion(fileData) {
     let versionValidated
     if (fileData.tcprofile.version === tcprofileVersion) {
       versionValidated = true
@@ -473,12 +473,12 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Export Configs as Json
   let button_exportConfigs = document.getElementById('button_exportConfigs');
-  button_exportConfigs.addEventListener('click', exportFile)
+  button_exportConfigs.addEventListener('click', exportProfile)
 
-  function exportFile() {
+  function exportProfile() {
 
     if (configUserChanges === true) {
-      sessionStorage.setItem('tc_c_exportFile_afterChange', 'true')
+      sessionStorage.setItem('tc_c_exportProfile_afterChange', 'true')
       window.location.reload()
       return
     } else {
@@ -488,9 +488,28 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (detectionItems === null) {
         detectionItems = []
       }
-      let saveObj = { "tcprofile": { "author": "steve", "version": tcprofileVersion, "extension_version": extensionVersion, "extension_build": extensionBuild, "profile_name": configProfileName.value } }
+      let saveObj = { "tcprofile": 
+        { 
+          "author": "steve", "version": tcprofileVersion, 
+          "extension_version": extensionVersion, "extension_build": extensionBuild, 
+          "profile_name": configProfileName.value 
+        } 
+      }
       // apply values
-      Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "language": lstorage_cLanguage, "filter": lstorage_cFilter, "platform": lstorage_cBookingPlatform, "detections": detectionItems } })
+      // checken ob storages existieren!!!
+      let themeExport = lstorage_cThemes ?? defaultTheme
+      let languageExport = lstorage_cLanguage ?? defaultLanguage
+      let showAllMessagesExport = lstorage_cShowAllMessages ?? showAllMessages
+      let filterExport = lstorage_cFilter ?? ''
+      Object.assign(
+        saveObj.tcprofile, 
+        { "cfg": 
+          { "theme": themeExport, "language": languageExport, 
+            "show_all_messages": showAllMessagesExport, "filter": filterExport, 
+            "platform": lstorage_cBookingPlatform, "detections": detectionItems 
+          } 
+        }
+      )
       // file setting
       const data = JSON.stringify(saveObj);
       const name = configProfileName.value + fileNameFixed;

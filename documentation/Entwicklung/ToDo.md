@@ -22,15 +22,14 @@
  
 ## V 1.0.0
 
-- use contanct mail from json
-- hilfe popup mit infos und links
-- benachrichtigungen verstecken (ausschalten)
+- "keine nachrichten" - Info im benachrichtigungsbereich
+- use contanct mail from json ✅
+- benachrichtigungen verstecken (ausschalten) ✅
+    - icon für feld ✅
 - FIX: error message taucht nach erstem mal fehlerhaftem import nicht mehr auf
 - code cleanup: kommentare und feedbacks verbessern
 - CSS Variabeln verbessern und auslagern
 - components unterteilen ?
 - erkennungs items zusammenklappbar ?
-- 10px abstand zwichen einzelnen Zeilen mit Inputs, die direkt übereinander sind in den einstellungen ?
-- Benachrichtigungen optionen in den einstellungen (z.b. Warnungen ausschalten) ?
 - Update benachrichtigung, wenn version gleich bleibt aber build sich ändert bzw wenn ein wert auf true für benachrichtigung gesetzt wird
  

@@ -385,7 +385,7 @@ export function xmas() {
   </div>`
   const configSnowFlakeOnOffHtml = `<div class="configItem-content-row dFlex  padding-top-bottom-10">
         <div class="configItem-content-left">
-          <p class="text-label text-margin--small">&#10052; Snow:</p>
+          <p class="text-label text-margin--small">&#10052; Schnee:</p>
         </div>
         <div class="configItem-content-right">
           <label class="switch">
