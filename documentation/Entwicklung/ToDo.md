@@ -22,14 +22,13 @@
  
 ## V 1.0.0
 
-- "keine nachrichten" - Info im benachrichtigungsbereich
 - use contanct mail from json ✅
 - benachrichtigungen verstecken (ausschalten) ✅
     - icon für feld ✅
-- FIX: error message taucht nach erstem mal fehlerhaftem import nicht mehr auf
+- FIX: error message taucht nach erstem mal fehlerhaftem import nicht mehr auf (Grund war: Import Button Value wird bei gleichen Dataien nicht zurück gesetzt) ✅
+- fix: fehlermeldung, wenn profil datei ungültig ist ✅
 - code cleanup: kommentare und feedbacks verbessern
 - CSS Variabeln verbessern und auslagern
 - components unterteilen ?
 - erkennungs items zusammenklappbar ?
-- Update benachrichtigung, wenn version gleich bleibt aber build sich ändert bzw wenn ein wert auf true für benachrichtigung gesetzt wird
  

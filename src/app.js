@@ -429,36 +429,64 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // import time copy profile
   let button_importConfigs = document.getElementById('button_importConfigs');
+
+  button_importConfigs.addEventListener("click", function () {
+    button_importConfigs.value = null // reset import button value to null before loading file, so we can reimport the same file again
+  }, false);
+
   button_importConfigs.addEventListener("change", importProfile, false);
 
-  function importProfile(event) {
-    let fileData
-    var files = event.target.files,
-      reader = new FileReader();
-    reader.addEventListener("load", function (validateFileVersion) {
-      fileData = this.result;
-      fileData = JSON.parse(fileData)
-      validateFileVersion = checkImportProfileVersion(fileData)
-      if (validateFileVersion) {
-        // set data
-        localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
-        localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg.show_all_messages)
-        localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
-        localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
-        localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
-        localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-        localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
-        loadStorage()
-        sessionStorage.setItem('tc_c_messageImported', 'true')
-        window.location.reload()
-        setTimeout(function () {
-        }, 2000)
-      } else {
-        notification(true, false, 'Import fehlgeschlagen: Version stimmt nicht überein.')
-        return
-      }
-    });
-    reader.readAsText(files[0])
+  async function importProfile(event) {
+    let importErrorMessage = ""; 
+
+    try {
+        const fileData = await new Promise((resolve, reject) => {
+            const files = event.target.files;
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function () {
+                try {
+                    const parsedData = JSON.parse(this.result);
+                    resolve(parsedData);
+                } catch (e) {
+                    reject(new Error('Import fehlgeschlagen: Datei konnte nicht gelesen werden.'));
+                }
+            });
+
+            reader.addEventListener("error", function () {
+                reject(new Error('Import fehlgeschlagen: Datei konnte nicht geladen werden.'));
+            });
+
+            reader.readAsText(files[0]);
+        });
+
+        const isValidVersion = checkImportProfileVersion(fileData);
+
+        if (isValidVersion) {
+          
+            localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
+            localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg.show_all_messages)
+            localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
+            localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
+            localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
+            localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
+            localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
+
+            loadStorage()
+            sessionStorage.setItem('tc_c_messageImported', 'true')
+            window.location.reload()
+
+            setTimeout(function () {}, 2000)
+        } else {
+            throw new Error('Import fehlgeschlagen: Version stimmt nicht überein.')
+        }
+    } catch (e) {
+      importErrorMessage = e.message
+    } finally {
+        if (importErrorMessage) {
+            notification(true, false, importErrorMessage)
+        }
+    }
   }
 
   function checkImportProfileVersion(fileData) {
@@ -472,7 +500,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // Export Configs as Json
-  let button_exportConfigs = document.getElementById('button_exportConfigs');
+  let button_exportConfigs = document.getElementById('button_exportConfigs')
   button_exportConfigs.addEventListener('click', exportProfile)
 
   function exportProfile() {
