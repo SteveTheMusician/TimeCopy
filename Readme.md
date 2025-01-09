@@ -92,7 +92,7 @@ Einstellungen.
 - [Profile V1.2](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.2.tcprofile)
 - [Profile V1.3](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.3.tcprofile)
 - [Profile V1.6-2024](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.6-2024.tcprofile)
-- [Profile V1.6-2025](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.6-2025.tcprofile)
+- [Profile V1.7](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.7.tcprofile)
 
 #### Time Copy Chrome Extension (als Datei)
 

@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const extensionUpdateTextOverview = data_version.extension_update_text_overview
   const extensionUpdateTextDetails = data_version.extension_update_text_details
   let tcprofileVersion = data_version.profile_version
+  let supportedTcprofileVersions = data_version.supported_profile_versions
 
   // sessionstorages for temp-messages and data
   function loadSessionStorages() {
@@ -491,7 +492,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function checkImportProfileVersion(fileData) {
     let versionValidated
-    if (fileData.tcprofile.version === tcprofileVersion) {
+    if (fileData.tcprofile.version === tcprofileVersion || supportedTcprofileVersions.includes(fileData.tcprofile.version)) {
       versionValidated = true
     } else {
       versionValidated = false
