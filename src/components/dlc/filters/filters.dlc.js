@@ -41,7 +41,7 @@ export async function filtersContent() {
      let filterImageFormat = '.jpg'
 
      // dlc array (Foldername aso used as ID for saving)
-     // for new items, just make a new dls, add it here to the array, make logo in assets folder and add css in style/dlc folder
+     // for new items, just make a new dls, add it here to the array, make logo in static folder and add css in style/dlc folder
      let filterChild = `<label class="configItem dlcItem dlcItem-filter dlcItem-clickable dFlex" title="Filter wählen">
                 <div class="dlcItem-main-container dFlex">
                   <div class="dlcItem-main dFlex">
@@ -52,7 +52,7 @@ export async function filtersContent() {
                         </label>
                     </div>
                     <div class="configItem-icon-container flex configItem-icon-container--`+ (plDataObject.filter_id) + `">
-                     <img src="assets/gfx/dlc/filters/icons/`+ (plKey + filterImageFormat) + `" class="icon-filterItem" />
+                     <img src="static/DLC/Filters/icons/`+ (plKey + filterImageFormat) + `" class="icon-filterItem" />
                     </div>
                     <div class="dlcItem-headline-container flex">
                       <p class="text-label">`+ (plDataObject.filter_name) + `</p>

@@ -1,7 +1,7 @@
 import { filters } from "./components/dlc/filters/filters.dlc.js";
 import { filtersContent } from "./components/dlc/filters/filters.dlc.js";
 import { filter_timesheetFilterPreValue } from "./components/dlc/filters/filters.import.js";
-import data_version from "../static/version.json" with { type: "json" };
+import data_version from "../public/version.json" with { type: "json" };
 import { notification } from "./components/ui/notification/notification.js";
 import { message } from "./components/ui/message/message.js";
 import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
   let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
   let lstorage_appVersion = localStorage.getItem('tc_appVersion')
-  let lstorage_appWelcome = localStorage.getItem('tc_appWelcome')
   let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
   // Some vars
   let configOpen = false
@@ -115,15 +114,15 @@ document.addEventListener('DOMContentLoaded', async function () {
   let configUserChanges = false
   const dlc_details_classHidden = 'dlc-details--hidden'
 
-  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/TimeCopy-Dokumentation.pdf"
-  let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Changelog.md"
-  let datenschutzUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/accesories/documentation/Datenschutz/Datenschutz.md"
+  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/TimeCopy-Dokumentation.pdf"
+  let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Changelog.md"
+  let datenschutzUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Datenschutz/Datenschutz.md"
   let readmeUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/Readme.md"
   let storeUrl = "https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfidbf"
   const extensionVersion = data_version.extension_version
   const extensionBuild = data_version.extension_build
   const extensionAuthor = data_version.extension_author
-  const extensionCoAuthor = data_version.extension_co_author
+  const extensionTesting = data_version.extension_testing
   const extensionUpdateTextOverview = data_version.extension_update_text_overview
   const extensionUpdateTextDetails = data_version.extension_update_text_details
   let tcprofileVersion = data_version.profile_version
@@ -172,17 +171,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     if (lstorage_appVersion) {
       if (lstorage_appVersion !== extensionVersion) {
-        localStorage.setItem('tc_appWelcome', 'true')
         localStorage.setItem('tc_appVersion', extensionVersion)
         // reset dlc information cache
         clearDlcLocalStorages()
         // show update message
         message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
-      } else {
-        localStorage.setItem('tc_appWelcome', 'false')
       }
     } else {
-      localStorage.setItem('tc_appWelcome', 'true')
       localStorage.setItem('tc_appVersion', extensionVersion)
       message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
     }
@@ -195,16 +190,16 @@ document.addEventListener('DOMContentLoaded', async function () {
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       themeSelect.value = lstorage_cThemes
       if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
-        link_cssTheme.setAttribute('href', './assets/style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
+        link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
       } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {
         themeSelect.value = defaultTheme
         lstorage_cThemes = defaultTheme
       } else {
-        link_cssTheme.setAttribute('href', './assets/style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
+        link_cssTheme.setAttribute('href', './static/Style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
       }
     } else {
       themeSelect.value = defaultTheme
-      link_cssTheme.setAttribute('href', './assets/style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
+      link_cssTheme.setAttribute('href', './static/Style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
     }
     if (lstorage_cFilter) {
       document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
@@ -249,7 +244,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_c_profileName')
     localStorage.removeItem('tc_c_bookingPlatform')
     localStorage.removeItem('tc_appVersion')
-    localStorage.removeItem('tc_appWelcome')
     localStorage.removeItem('tc_ee_exoticTheme')
     clearDlcLocalStorages()
   }
@@ -385,9 +379,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   function switchTheme() {
     let currentThemeValue = themeSelect.value
     if (currentThemeValue === 'exotic') {
-      link_cssTheme.setAttribute('href', './assets/style/themes/ee/exotisch/' + currentThemeValue + '.css')
+      link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + currentThemeValue + '.css')
     } else {
-      link_cssTheme.setAttribute('href', './assets/style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
+      link_cssTheme.setAttribute('href', './static/Style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
     }
     localStorage.setItem('tc_c_theme', currentThemeValue)
     configUserChanges = true
@@ -654,7 +648,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     label_version.insertAdjacentHTML('beforeend', extensionVersion)
     label_build_version.insertAdjacentHTML('beforeend', extensionBuild)
     label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor)
-    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionCoAuthor)
+    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionTesting)
     // Main Buttons Listener
     fillButton.addEventListener('click', execReadClipboardText)
     fillCancelButton.addEventListener('click', cancelPasteData)
@@ -701,11 +695,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     loadSessionStorages()
     // load xmas dlc between dezember (11) and march (2)
     if (dateMonth === 11 || dateMonth === 0 || dateMonth === 1 || dateMonth === 2) {
-      console.log('Winter')
       xmas()
     }
-    // devtool
-    developer()
   });
 })
 
