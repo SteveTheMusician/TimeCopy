@@ -131,6 +131,7 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 
 ## V 1.0.0
 - feature: show / hide messages
+- feature: amagprotime dlc - multiple string matches in detection item
 - fix: remove automatic error json feedback
 - fix: write default values into exported file on fresh profile
 - other: new Theme "Japan's White"

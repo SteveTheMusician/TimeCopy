@@ -12,7 +12,7 @@
 
 ## DLC Update
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
-- dlc: amagprotime - detection items - mehrere string match parameter mit kommas oder anderem symbol trennbar ❓
+- dlc: amagprotime - detection items - mehrere string match parameter mit kommas oder anderem symbol trennbar ✅
 
 ## V 0.9.8*
 
