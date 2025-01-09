@@ -43,3 +43,7 @@
 .switch_slider:before {
   border-radius: var(--border-radius-default);
 }
+
+.mainConfig-container, .button-mainAction {
+  filter: drop-shadow(2px 4px 6px #00000099);
+}
