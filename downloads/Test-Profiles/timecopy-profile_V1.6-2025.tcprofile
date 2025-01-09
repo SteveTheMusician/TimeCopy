@@ -8,7 +8,7 @@
         "cfg": {
             "theme": "midnightglow",
             "language": "de",
-            "show_all_messages": "false",
+            "show_all_messages": "true",
             "filter": "",
             "platform": "Automatic",
             "detections": [
