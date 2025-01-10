@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dateMonth = dateNow.getMonth();
   // vars
   const link_cssTheme = document.querySelector('link#link-theme');
-  const main = document.querySelector('main');
   const header = document.querySelector('header');
   const configurations = document.querySelector('div.configurations');
   const overview = document.querySelector('div.overview');
@@ -74,7 +73,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Configuration Buttons
   const themeSelect = document.querySelector('select#select-themes')
-  const languageSelect = document.querySelector('select#select-language')
   const button_clearConfigs = document.getElementById('button_clearConfigs')
   const button_reloadDLCCache = document.getElementById('button_reloadDLCCache')
   const switch_showAllMessages = document.getElementById('check_showAllNotifications')

@@ -6,7 +6,8 @@
  
 - dlc: stevegoogleexcel - wenn urhzeit im string filtern / raus löschen ? macht schon?
 - dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
-- json mit eigener sprache ? (Auslagerung vorallem der Benachrichtigungstexte in eine json)
+- json mit eigener sprache ? (Auslagerung vorallem der Benachrichtigungstexte in eine json) ?
+- eigene farbthemen importieren/ generieren
 
 - Firefox & Opera Version
 
@@ -29,6 +30,4 @@
 - fix: fehlermeldung, wenn profil datei ungültig ist ✅
 - code cleanup: kommentare und feedbacks verbessern
 - CSS Variabeln verbessern und auslagern
-- components unterteilen ?
-- erkennungs items zusammenklappbar ?
  

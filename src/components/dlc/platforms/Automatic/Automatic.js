@@ -5,9 +5,11 @@ export async function Automatic() {
         let automaticValue
         let queryOptions = { active: true, lastFocusedWindow: true };
         let [tab] = await chrome.tabs.query(queryOptions);
+
         if (!tab.url) {
             throw ({ errorstatus: 'error', errorheadline: 'Chrome Window URL', errortext: '"Automatisch" konnte nicht auf die Chrome-Tab API zugreifen. Vermutlich ist ein leeres Fenster geöffnet oder es gibt andere Probleme mit der URL.' })
         }
+        
         currentURL = tab.url
         let tc_s_dlcplatforminformations = localStorage.getItem('tc_s_dlcplatforminformations')
         tc_s_dlcplatforminformations = JSON.parse(tc_s_dlcplatforminformations)
