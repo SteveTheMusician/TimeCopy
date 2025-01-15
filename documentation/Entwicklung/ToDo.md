@@ -5,7 +5,6 @@
 ### Features & Fixes für die Zukunft
  
 - dlc: stevegoogleexcel - wenn urhzeit im string filtern / raus löschen ? macht schon?
-- dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
 - json mit eigener sprache ? (Auslagerung vorallem der Benachrichtigungstexte in eine json) ?
 - eigene farbthemen importieren/ generieren
 
@@ -14,6 +13,7 @@
 ## DLC Update
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
 - dlc: amagprotime - detection items - mehrere string match parameter mit kommas oder anderem symbol trennbar ✅
+- dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
 
 ## V 0.9.8*
 
@@ -30,4 +30,5 @@
 - fix: fehlermeldung, wenn profil datei ungültig ist ✅
 - code cleanup: kommentare und feedbacks verbessern
 - CSS Variabeln verbessern und auslagern
+- willkommens screen mit anleitung ❗️
  

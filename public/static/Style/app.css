@@ -1,9 +1,9 @@
 /* Global Style */
 
-@import url('fonts/Roboto.css');
+@import url('var/font.css');
 @import url('var/var.css');
 @import url('var/colors-default.css');
-@import url('dlc/dlc_styles.css');
+@import url('dlc/dlc.css');
 
 ::-webkit-scrollbar {
     display: none;
@@ -28,7 +28,6 @@ h1 {
     margin-block-end: 0;
     font-size: 20px;
     user-select: none;
-    font-family: Roboto;
 }
 
 h2 {
@@ -38,13 +37,11 @@ h2 {
     margin-block-end: 0;
     margin: 10px;
     user-select: none;
-    font-family: Roboto;
     font-weight: 700;
 }
 
 p {
     user-select: none;
-    font-family: Roboto;
     font-weight: 400;
 }
 
@@ -53,7 +50,6 @@ img {
 }
 
 button {
-    font-family: Roboto;
     font-weight: 400;
     color: var(--color-icon-default);
     border: 0px solid;
@@ -81,12 +77,10 @@ button svg {
 }
 
 input {
-    font-family: Roboto;
     font-weight: 400;
 }
 
 select {
-    font-family: Roboto;
     font-weight: 400;
     cursor: pointer;
 }

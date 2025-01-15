@@ -133,10 +133,12 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - feature: show / hide messages
 - feature: amagprotime dlc - multiple string matches in detection item
 - feature: compatibility with older profile versions / supported profile version list
+- feature: return message, if browser is offline
 - fix: show error notification when trying to import currupt profile
 - fix: show error notification after reimport same profile
 - fix: remove automatic error json feedback
 - fix: write default values into exported file on fresh profile
+- fix: font fallback
 - other: new profile version
 - other: new Theme "Japan's White"
 - other: documentation

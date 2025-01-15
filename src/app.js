@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // date variables
   const dateNow = new Date();
   const dateMonth = dateNow.getMonth();
+
   // vars
   const link_cssTheme = document.querySelector('link#link-theme');
   const header = document.querySelector('header');
@@ -62,8 +63,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookingsheets');
   const buttonTab_Projects = document.querySelector('button#button-tab-projects');
   const buttonBackToMain = document.querySelector('button#buttonBackToMain');
-
-  // WAS SCHAUST DU IN MEIN CODE REIN?? DER WIRD NOCH AUFGERÄUMT!!
 
   // Main Buttons
   const fillButton = document.querySelector('button#fillButton');
@@ -721,6 +720,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   projectDetection()
   // Extension load up
   window.addEventListener("load", (event) => {
+    // return message if offline
+    if (!navigator.onLine) {
+      message(true, 'error', 'Offline', 'Du bist offline. Einige Funktionen von Time Copy können eingeschrenkt sein.')
+    }
     // Display version
     label_version.insertAdjacentHTML('beforeend', extensionVersion)
     label_build_version.insertAdjacentHTML('beforeend', extensionBuild)
@@ -780,7 +783,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     // devtool
     developer()
-  });
+  },);
 })
 
 

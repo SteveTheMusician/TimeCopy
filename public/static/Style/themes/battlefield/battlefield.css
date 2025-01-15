@@ -31,6 +31,7 @@
   --color-font-second: var(--lightgray);
   --color-font-headlabel: var(--white);
   --color-font-subtext: var(--gray-95);
+  
   /* Icon colors */
   --color-icon-default: var(--lightgray);
   --color-icon-light: var(--lightgray);
