@@ -23,13 +23,13 @@ export async function filtersContent() {
      let importNewFilterData = await importFiltersData()
      try {
        if (importNewFilterData) {
-         console.log('dlc data created, restart time copy...')
+         console.warn('DLC Filters data created. Restart Time Copy.')
          window.location.reload()
        } else {
-         throw new Error('unable to import dlc filter data')
+         throw new Error('Unable to import DLC Filter data')
        }
      } catch (error) {
-       console.log(error)
+       console.error(error)
        window.location.reload()
      }
    } else {

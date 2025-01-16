@@ -1,5 +1,5 @@
 # Time Copy
-#### V 0.9.8* (Sidebar Version)
+#### V 1.0.0* (Sidebar Version)
 By Steve Pietrowski / EmptySoul
 </br>
 04.07.2023
@@ -91,16 +91,25 @@ Einstellungen.
 - [Profile V1.1](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.1.tcprofile)
 - [Profile V1.2](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.2.tcprofile)
 - [Profile V1.3](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.3.tcprofile)
-- [Profile V1.6](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.6.tcprofile)
+- [Profile V1.6-2024](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.6-2024.tcprofile)
+- [Profile V1.7](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.7.tcprofile)
 
 #### Time Copy Chrome Extension (als Datei)
 
 - [Time Copy V 0.9.63 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Extensions/Chrome/Time-Copy-Chrome-V0.9.63.crx)
 - [Time Copy V 0.9.81 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Extensions/Chrome/Time-Copy-Chrome-V0.9.81.crx)
 
+#### Time Copy Chrome Extension Builds (Compiled Code als Zip)
+
+- [Time Copy V 0.9.62 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Builds/Chrome/TimeCopy_V0.9.62.zip)
+- [Time Copy V 0.9.63 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Builds/Chrome/TimeCopy_V0.9.63.zip)
+- [Time Copy V 0.9.80 - Not Released (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Builds/Chrome/TimeCopy_V0.9.80_NotReleased.zip)
+- [Time Copy V 0.9.81 (Chrome)](https://github.com/EmptySoulOfficial/TimeCopy/blob/main/downloads/Builds/Chrome/TimeCopy_V0.9.81.zip)
+
 ### Reporting
-Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende E-Mail wenden:
-steveemptysoul.official@gmail.com
+Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende Adressen wenden
+
+- E-Mail-Adresse: [contact@emptysoul.de](mailto:contact@emptysoul.de)
 
 ## Technische Informationen
 
@@ -124,3 +133,5 @@ Die Extension an sich kann über den "dist" Ordner in Chrome reingeladen werden.
 - "Unexpected token '??='" im Build-Prozess: 
   Es wird eine zu alte Node-version für den Build verwendet.
   Stelle die Node-Version auf die oben empfohlene.
+- Vulnerabilities nach dem Ausführen von "npm i":
+  Zum fixen der Findings, mit der empfohlenen Node-Version "npm audit fix" ausführen.

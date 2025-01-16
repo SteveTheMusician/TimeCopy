@@ -22,11 +22,21 @@ export function filterPrefix(ticket, detectionItemsProTime) {
 
 export function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
     let filterAddPrefix_addPrefixMatches = []
-    detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixMatch) => {
+    detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixItem) => {
         let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
-        if (detectionItemPrefixMatch.addprefix.length > 0 && item_ticketdiscWithHiddenTag.includes(detectionItemPrefixMatch.addprefix) || detectionItemPrefixMatch.addprefix.length === 0) {
-            filterAddPrefix_addPrefixMatches.push(detectionItemPrefixMatch)
+        let detectionItemAddPrefixArray = []
+        if(detectionItemPrefixItem.addprefix.includes(';')){
+            detectionItemAddPrefixArray = detectionItemPrefixItem.addprefix.split(';')
+        }else {
+            detectionItemAddPrefixArray.push(detectionItemPrefixItem.addprefix)
         }
+        detectionItemAddPrefixArray.forEach((addPrefixArrayItem) => {
+            if (addPrefixArrayItem.length > 0 && item_ticketdiscWithHiddenTag.includes(addPrefixArrayItem) || addPrefixArrayItem.length === 0) {
+                if(!filterAddPrefix_addPrefixMatches.length){
+                    filterAddPrefix_addPrefixMatches.push(detectionItemPrefixItem)
+                }
+            }
+        })
     });
     return filterAddPrefix_addPrefixMatches ? filterAddPrefix_addPrefixMatches : null
 }

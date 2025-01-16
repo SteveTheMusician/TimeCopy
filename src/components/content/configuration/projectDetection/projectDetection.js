@@ -18,7 +18,12 @@ function updateDetectionItems(detectionItems) {
   localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
 }
 
-function addNewProjectDetection() {
+function addNewProjectDetection(e) {
+
+  if (e.shiftKey) {
+    button_addDetection.innerHTML = "🍌"
+  }
+
   let currentDate = new Date().getTime().toString()
   let newDetectionItemId = detectionItemID_Prefix + currentDate
   let detectionItemMainObject = { "id": newDetectionItemId, "bookingsheet": "" }
@@ -112,7 +117,6 @@ function changeDetectionItemData(itemId, objectKey, objectValue) {
 // Remove Item
 function removeProjectDetectionItem(i) {
   let currentItemID = i.target.closest("div").parentNode.id
-  // console.log(currentItemID)
   let currentItem = document.getElementById(currentItemID)
   currentItem.classList.add('configItem--remove')
   setTimeout(function () {

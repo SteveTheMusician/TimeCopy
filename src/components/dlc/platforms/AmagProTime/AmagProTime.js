@@ -91,14 +91,12 @@ export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest
     });
     notificationTimeOut = 0
   }
-  // console.log("🔄 [DLC Platforms: AmagProTime] valid tickets: ", valideTickets);
 
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
       const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency)
       bookingLoopCount++
-      // console.log('iChrTab:', iChrTab);
       if (iChrTab.result !== null && iChrTab.result.success === false) {
         throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
       }
@@ -144,12 +142,10 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
     });
 
     if (chromeExecScript[0].result && chromeExecScript[0].result.error) {
-      console.log('chrome error', chromeExecScript);
       throw new Error(chromeExecScript[0].result.error);
     }
     return chromeExecScript[0];
   } catch (errObj) {
-    console.log(errObj);
     console.error("Error in chromeTabScript execution: ", errObj);
     bookingLoopCount = 0
     throw ({ errorstatus: 'error', errorheadline: 'Chrome Tab Execution', errortext: errObj })
@@ -175,7 +171,6 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
         appearanceCount++;
         if (appearanceCount === 2) {
           highLatency = true
-          // console.log(`[Time Copy] [Cross Observer] Appearance, `,element, 'high latency: ', highLatency);
           crossObserver_mutationObserver.disconnect()
           }
         }
@@ -200,7 +195,6 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
   async function observeElement(selector, boolean, selectorNumber) {
     const checkInterval = 500;
     const timeout = 8000;
-    // console.log('[Time Copy] 👀 [Element Observer]' + boolean);
 
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
@@ -212,7 +206,6 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
 
       const checkAndObserve = () => {
         const element = document.querySelectorAll(selector)[selectorNumber];
-        // console.log('Element: ', element);
 
         if (element) {
           if ((boolean && element.value) || (!boolean && !element.value) || (boolean && element) || (!boolean && !element)) {
@@ -378,7 +371,6 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
       // all functions executed for each valide ticket
       for (const ticket of valideTickets) {
         try {
-          // console.log('[Time Copy] ⭐️ Bookingloop start | Retry-List: ',retryTicketList)
           try {
             // use the booking-loop function to check where we are at the process and if we need the overlay
             await checkFirstBookingLoop(bookingLoopCount)
@@ -563,7 +555,6 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           await checkpointLoadingDots(true)
 
           try {
-            // console.log('[Time Copy] Last textarea empty-check')
             await observeElement('textarea', false, '0');
           } catch (error) {
             return result = { success: false, message: error };
@@ -573,13 +564,11 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
           stopCrossObserver()
 
           bookingLoopCount++
-          // console.log('[Time Copy] ⭐️ Bookingloop ende')
         } catch (error) {
           throw error
         }
       }
       // End of bookingloop
-      // console.log('[Time Copy] 📋 Current retrylist: ',retryTicketList)
       if (retryTicketList.length) {
         return result = { success: true, retryBooking: true };
       }else {
@@ -600,7 +589,6 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
       console.log('[Time Copy] 🕤 🟡 Retry process started')
       for ( let i = 0; i < 4 ; i++ ) {
         try {
-          // console.log('[Time Copy] 🔁 Retryloop ',i, 'Current Result: ',ticketBookingLoopResult, 'Retrylist: ', retryTicketList)
           // activate high latency, after 1st retry failed
           if(i > 0 && useHighLatency) {
             highLatency = true

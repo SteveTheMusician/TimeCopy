@@ -1,15 +1,12 @@
-import { filters } from "./components/dlc/filters/filters.dlc.js";
-import { filtersContent } from "./components/dlc/filters/filters.dlc.js";
-import { filter_timesheetFilterPreValue } from "./components/dlc/filters/filters.import.js";
+
 import data_version from "../public/version.json" with { type: "json" };
 import { notification } from "./components/ui/notification/notification.js";
 import { message } from "./components/ui/message/message.js";
-import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
-import { platformsContent } from "./components/dlc/platforms/platforms.dlc.js";
-import { platform_functionName_automatic } from "./components/dlc/platforms/platforms.import.js";
-import { platform_bookingPlatformPreValue } from "./components/dlc/platforms/platforms.import.js";
-import { xmas } from "./components/dlc/xmas/xmas.dlc.js";
+import { clearDlcLocalStorages, xmasDlc, platform_functionName_automatic, 
+          platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./components/dlc/dlc.js";
+
+import { developer } from "./developer/developer.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
   // import DLC's
@@ -37,15 +34,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     clearDlcLocalStorages()
     return
   }
-  // date variables
-  const dateNow = new Date();
-  const dateMonth = dateNow.getMonth();
+
   // vars
   const link_cssTheme = document.querySelector('link#link-theme');
-  const main = document.querySelector('main');
   const header = document.querySelector('header');
   const configurations = document.querySelector('div.configurations');
   const overview = document.querySelector('div.overview');
+  const messagesHeadline = document.getElementById('messages-headline')
   const messageSection = document.getElementById('messages-section')
   const configurationsContainer = document.getElementById('config-container')
   const configWindow_getAll = document.getElementsByClassName('configuration-window');
@@ -62,8 +57,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const buttonTab_Projects = document.querySelector('button#button-tab-projects');
   const buttonBackToMain = document.querySelector('button#buttonBackToMain');
 
-  // WAS SCHAUST DU IN MEIN CODE REIN?? DER WIRD NOCH AUFGERÄUMT!!
-
   // Main Buttons
   const fillButton = document.querySelector('button#fillButton');
   const fillCancelButton = document.querySelector('button#fillCancelButton');
@@ -72,15 +65,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // Configuration Buttons
   const themeSelect = document.querySelector('select#select-themes')
-  const languageSelect = document.querySelector('select#select-language')
   const button_clearConfigs = document.getElementById('button_clearConfigs')
   const button_reloadDLCCache = document.getElementById('button_reloadDLCCache')
+  const switch_showAllMessages = document.getElementById('check_showAllNotifications')
   const radios_filter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
   const button_docuReadme = document.getElementById('button_openReadme')
   const button_docuChangelog = document.getElementById('button_openChangelog')
   const button_docuDatenschutz = document.getElementById('button_openDatenschutz')
   const button_openStore = document.getElementById('button_openStore')
+  const button_openLicense = document.getElementById('button_openLicense')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
 
   // Platform-DLC Elements and Listener
@@ -107,18 +101,31 @@ document.addEventListener('DOMContentLoaded', async function () {
   let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
   let lstorage_appVersion = localStorage.getItem('tc_appVersion')
   let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
+  let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessages')
+
   // Some vars
   let configOpen = false
   let dev_pttest = false
+  let showAllMessages = "true"
+  // Default variables
+  const defaultProfileName = "Default"
+  const defaultTheme = "oceanswave"
+  let defaultBookingPlatform = platform_functionName_automatic
+  //language settings may released in a later version
+  const defaultLanguage = 'de'
+  const consoleWarnMessage_showMessageTurnedOff = "⚠ Time Copy Messages are turned off!"
+
   // this variable activates tc reloading after pressing the back button when its set to true
   let configUserChanges = false
   const dlc_details_classHidden = 'dlc-details--hidden'
 
-  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/TimeCopy-Dokumentation.pdf"
-  let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Changelog.md"
-  let datenschutzUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Datenschutz/Datenschutz.md"
-  let readmeUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/Readme.md"
-  let storeUrl = "https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfidbf"
+  const dokuUrl = data_version.extension_documentation
+  const changelogUrl = data_version.extension_changelog
+  const privacyUrl = data_version.extension_privacy
+  const readmeUrl = data_version.extension_readme
+  const chromeStoreUrl = data_version.extension_chromestore
+  const licenseUrl = data_version.extension_license
+
   const extensionVersion = data_version.extension_version
   const extensionBuild = data_version.extension_build
   const extensionAuthor = data_version.extension_author
@@ -126,12 +133,13 @@ document.addEventListener('DOMContentLoaded', async function () {
   const extensionUpdateTextOverview = data_version.extension_update_text_overview
   const extensionUpdateTextDetails = data_version.extension_update_text_details
   let tcprofileVersion = data_version.profile_version
+  let supportedTcprofileVersions = data_version.supported_profile_versions
 
-  // some sessionstorages for temp-messages and data
+  // sessionstorages for temp-messages and data
   function loadSessionStorages() {
     let sMessageImported = sessionStorage.getItem('tc_c_messageImported')
     let sMessageProfileRemoved = sessionStorage.getItem('tc_c_messageProfileRemoved')
-    let sExportFile_afterChange = sessionStorage.getItem('tc_c_exportFile_afterChange')
+    let sExportProfile_afterChange = sessionStorage.getItem('tc_c_exportProfile_afterChange')
     let sDLCCacheReloaded = sessionStorage.getItem('tc_c_messageDLCCacheReloaded')
     let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
     if (sMessageImported === 'true') {
@@ -144,10 +152,10 @@ document.addEventListener('DOMContentLoaded', async function () {
       sessionStorage.removeItem('tc_c_messageProfileRemoved')
       configButton.click()
     }
-    if (sExportFile_afterChange === 'true') {
-      sessionStorage.removeItem('tc_c_exportFile_afterChange')
+    if (sExportProfile_afterChange === 'true') {
+      sessionStorage.removeItem('tc_c_exportProfile_afterChange')
       configButton.click()
-      exportFile()
+      exportProfile()
     }
     if (sChangeLanguage === 'true') {
       sessionStorage.removeItem('tc_c_changeLanguage')
@@ -162,22 +170,17 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
   // Load localstorage
   function loadStorage() {
-    // Default variables
-    const defaultProfileName = "Default"
-    const defaultTheme = "oceanswave"
-    const defaultLanguage = 'de'
-    let language = ''
-    let defaultBookingPlatform = platform_functionName_automatic
 
     if (lstorage_appVersion) {
       if (lstorage_appVersion !== extensionVersion) {
         localStorage.setItem('tc_appVersion', extensionVersion)
         // reset dlc information cache
-        clearDlcLocalStorages()
+        clearDlcLocalStorages(true)
         // show update message
         message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
       }
     } else {
+      // "First" app start
       localStorage.setItem('tc_appVersion', extensionVersion)
       message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
     }
@@ -215,6 +218,22 @@ document.addEventListener('DOMContentLoaded', async function () {
       document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
       localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
     }
+    if(lstorage_cShowAllMessages === 'true') {
+      switch_showAllMessages.checked = true
+      showAllMessages = "true"
+      messageSection.classList.remove('dNone')
+      messagesHeadline.classList.remove('dNone')
+    } else if (lstorage_cShowAllMessages === 'false') {
+      switch_showAllMessages.checked = false
+      showAllMessages = "false"
+      messageSection.classList.add('dNone')
+      messagesHeadline.classList.add('dNone')
+    }else {
+      switch_showAllMessages.checked = true
+      showAllMessages = "true"
+      messageSection.classList.remove('dNone')
+      messagesHeadline.classList.remove('dNone')
+    }
     loadDLCStorage()
     console.log('✅ [Time Copy] extension loaded')
   }
@@ -245,18 +264,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_c_bookingPlatform')
     localStorage.removeItem('tc_appVersion')
     localStorage.removeItem('tc_ee_exoticTheme')
+    localStorage.removeItem('tc_c_showAllMessages')
     clearDlcLocalStorages()
   }
 
-  function clearDlcLocalStorages() {
-    // DLC Storages
-    localStorage.removeItem('tc_s_dlcplatforminformations')
-    localStorage.removeItem('tc_s_dlcfilterinformations')
-    localStorage.removeItem('tc_c_dlc_protimetest')
-    localStorage.removeItem('tc_c_dlc_snowflakes')
-    localStorage.removeItem('tc_c_dlc_protimeforcelatencymode')
-    localStorage.removeItem('tc_c_dlc_protimeuselatencymode')
-  }
+
 
   function clearSessionStorage() {
     sessionStorage.removeItem('tc_c_messageImported')
@@ -387,68 +399,83 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
+  function showAllMessagesChange() {
+    let showAllMessagesSwitchCurrentStatus = switch_showAllMessages.checked
+    console.log(showAllMessagesSwitchCurrentStatus)
+    localStorage.setItem('tc_c_showAllMessages', showAllMessagesSwitchCurrentStatus )
+    configUserChanges = true
+  }
+
   function switchFilter(e) {
     localStorage.setItem('tc_c_filter', e.target.value)
     configUserChanges = true
   }
 
-  function docuOpenHelp() {
-    window.open(helpUrl)
-  }
-
-  function docuOpenChangelog() {
-    window.open(changelogUrl)
-  }
-
-  function docuOpenDatenschutz() {
-    window.open(datenschutzUrl)
-  }
-
-  function docuOpenReadme() {
-    window.open(readmeUrl)
-  }
-
-  function openStore() {
-    window.open(storeUrl)
-  }
-
-
   // import time copy profile
   let button_importConfigs = document.getElementById('button_importConfigs');
-  button_importConfigs.addEventListener("change", importFile, false);
 
-  function importFile(event) {
-    let fileData
-    var files = event.target.files,
-      reader = new FileReader();
-    reader.addEventListener("load", function (validateFileVersion) {
-      fileData = this.result;
-      fileData = JSON.parse(fileData)
-      validateFileVersion = checkImportFileVersion(fileData)
-      if (validateFileVersion) {
-        // set data
-        localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
-        localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
-        localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
-        localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
-        localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-        localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
-        loadStorage()
-        sessionStorage.setItem('tc_c_messageImported', 'true')
-        window.location.reload()
-        setTimeout(function () {
-        }, 2000)
-      } else {
-        notification(true, false, 'Import fehlgeschlagen: Version stimmt nicht überein.')
-        return
-      }
-    });
-    reader.readAsText(files[0])
+  button_importConfigs.addEventListener("click", function () {
+    button_importConfigs.value = null // reset import button value to null before loading file, so we can reimport the same file again
+  }, false);
+
+  button_importConfigs.addEventListener("change", importProfile, false);
+
+  async function importProfile(event) {
+    let importErrorMessage = ""; 
+
+    try {
+        const fileData = await new Promise((resolve, reject) => {
+            const files = event.target.files;
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function () {
+                try {
+                    const parsedData = JSON.parse(this.result);
+                    resolve(parsedData);
+                } catch (e) {
+                    reject(new Error('Import fehlgeschlagen: Datei konnte nicht gelesen werden.'));
+                }
+            });
+
+            reader.addEventListener("error", function () {
+                reject(new Error('Import fehlgeschlagen: Datei konnte nicht geladen werden.'));
+            });
+
+            reader.readAsText(files[0]);
+        });
+
+        const isValidVersion = checkImportProfileVersion(fileData);
+
+        if (isValidVersion) {
+          
+            localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
+            localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg.show_all_messages)
+            localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
+            localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
+            localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
+            localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
+            localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
+
+            loadStorage()
+            sessionStorage.setItem('tc_c_messageImported', 'true')
+            window.location.reload()
+
+            setTimeout(function () {}, 2000)
+        } else {
+            throw new Error('Import fehlgeschlagen: Version stimmt nicht überein.')
+        }
+    } catch (e) {
+      importErrorMessage = e.message
+    } finally {
+        if (importErrorMessage) {
+            notification(true, false, importErrorMessage)
+        }
+    }
   }
 
-  function checkImportFileVersion(fileData) {
+  function checkImportProfileVersion(fileData) {
     let versionValidated
-    if (fileData.tcprofile.version === tcprofileVersion) {
+    if (fileData.tcprofile.version === tcprofileVersion || supportedTcprofileVersions.includes(fileData.tcprofile.version)) {
       versionValidated = true
     } else {
       versionValidated = false
@@ -457,13 +484,13 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // Export Configs as Json
-  let button_exportConfigs = document.getElementById('button_exportConfigs');
-  button_exportConfigs.addEventListener('click', exportFile)
+  let button_exportConfigs = document.getElementById('button_exportConfigs')
+  button_exportConfigs.addEventListener('click', exportProfile)
 
-  function exportFile() {
+  function exportProfile() {
 
     if (configUserChanges === true) {
-      sessionStorage.setItem('tc_c_exportFile_afterChange', 'true')
+      sessionStorage.setItem('tc_c_exportProfile_afterChange', 'true')
       window.location.reload()
       return
     } else {
@@ -473,9 +500,28 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (detectionItems === null) {
         detectionItems = []
       }
-      let saveObj = { "tcprofile": { "author": "steve", "version": tcprofileVersion, "extension_version": extensionVersion, "extension_build": extensionBuild, "profile_name": configProfileName.value } }
+      let saveObj = { "tcprofile": 
+        { 
+          "author": "steve", "version": tcprofileVersion, 
+          "extension_version": extensionVersion, "extension_build": extensionBuild, 
+          "profile_name": configProfileName.value 
+        } 
+      }
       // apply values
-      Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "language": lstorage_cLanguage, "filter": lstorage_cFilter, "platform": lstorage_cBookingPlatform, "detections": detectionItems } })
+      // checken ob storages existieren!!!
+      let themeExport = lstorage_cThemes ?? defaultTheme
+      let languageExport = lstorage_cLanguage ?? defaultLanguage
+      let showAllMessagesExport = lstorage_cShowAllMessages ?? showAllMessages
+      let filterExport = lstorage_cFilter ?? ''
+      Object.assign(
+        saveObj.tcprofile, 
+        { "cfg": 
+          { "theme": themeExport, "language": languageExport, 
+            "show_all_messages": showAllMessagesExport, "filter": filterExport, 
+            "platform": lstorage_cBookingPlatform, "detections": detectionItems 
+          } 
+        }
+      )
       // file setting
       const data = JSON.stringify(saveObj);
       const name = configProfileName.value + fileNameFixed;
@@ -524,7 +570,11 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     } catch (error) {
       lockActionButtons('false',fillButton)
-      message(true, 'warning', error, '')
+      if(showAllMessages) {
+        message(true, 'warning', error, '')
+      } else {
+        console.log(consoleWarnMessage_showMessageTurnedOff+' | '+error)
+      }
       return
     }
   }
@@ -540,7 +590,11 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.error("❌ Unable to call bookingData: ", error);
       // notification(true, false, '')
       lockActionButtons('false',fillButton)
-      message(true, 'error', 'ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
+      if(showAllMessages) {
+        message(true, 'error', 'ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
+      } else {
+        console.log(consoleWarnMessage_showMessageTurnedOff+' | '+error)
+      }
       return
     }
     try {
@@ -549,13 +603,21 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (bookEntries) {
         console.log("✅ Booking process return okey | ", bookEntries)
         lockActionButtons('false',fillButton)
-        message(true, 'information', 'Buchungsprozess beendet', bookingPlatform)
+        if(showAllMessages) {
+          message(true, 'information', 'Buchungsprozess beendet', bookingPlatform)
+        } else {
+          console.log(consoleWarnMessage_showMessageTurnedOff)
+        }
       } else {
         console.log("❌ Problem with booking entries: ", bookEntries)
       }
     } catch (error) {
       lockActionButtons('false',fillButton)
-      message(true, error.errorstatus, 'Fehler: ' + error.errorheadline, error.errortext || bookingPlatform)
+      if(showAllMessages) {
+        message(true, error.errorstatus, 'Fehler: ' + error.errorheadline, error.errortext || bookingPlatform)
+      } else {
+        console.log(consoleWarnMessage_showMessageTurnedOff)
+      }
       console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext)
       return
     }
@@ -644,6 +706,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   projectDetection()
   // Extension load up
   window.addEventListener("load", (event) => {
+    // return message if offline
+    if (!navigator.onLine) {
+      message(true, 'error', 'Offline', 'Du bist offline. Einige Funktionen von Time Copy können eingeschrenkt sein.')
+    }
     // Display version
     label_version.insertAdjacentHTML('beforeend', extensionVersion)
     label_build_version.insertAdjacentHTML('beforeend', extensionBuild)
@@ -665,13 +731,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Configs Listener
     button_clearConfigs.addEventListener('click', removeProfile)
     button_reloadDLCCache.addEventListener('click', reloadDLCCache)
-    button_docuHelp.addEventListener('click', docuOpenHelp)
-    // button_docuChangelog.addEventListener('click', docuOpenChangelog)
-    button_docuDatenschutz.addEventListener('click', docuOpenDatenschutz)
-    button_docuReadme.addEventListener('click', docuOpenReadme)
-    button_openStore.addEventListener('click', openStore)
+    switch_showAllMessages.addEventListener('click', showAllMessagesChange)
+    // Help Buttons
+    button_docuHelp.addEventListener('click', () => window.open(dokuUrl))
+    button_docuDatenschutz.addEventListener('click', () => window.open(privacyUrl))
+    button_docuChangelog.addEventListener('click', () => window.open(changelogUrl))
+    button_docuReadme.addEventListener('click', () => window.open(readmeUrl))
+    button_openStore.addEventListener('click', () => window.open(chromeStoreUrl))
+    button_openLicense.addEventListener('click', () => window.open(licenseUrl))
+    //Theme Select
     themeSelect.addEventListener('change', switchTheme)
-    // languageSelect.addEventListener('change', switchLanguage);
+
     // filter radios listener
     for (var i = 0, iLen = radios_filter.length; i < iLen; i++) {
       radios_filter[i].addEventListener('click', switchFilter);
@@ -693,11 +763,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Load local storages
     loadStorage()
     loadSessionStorages()
-    // load xmas dlc between dezember (11) and march (2)
-    if (dateMonth === 11 || dateMonth === 0 || dateMonth === 1 || dateMonth === 2) {
-      xmas()
-    }
-  });
+    // other dlcs
+    xmasDlc()
+    // devtool
+    developer()
+  },);
 })
 
 

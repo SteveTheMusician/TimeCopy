@@ -5,6 +5,7 @@
   --black: #252525;
   --black-3b: #2b2b2b;
   --white: #fefefe;
+  --gray-71: #717171;
 
   /* theme colors */
   --color-main: var(--black);
@@ -20,10 +21,11 @@
   --color-font: var(--white);
   --color-font-navigation: var(--color-font-second);
   --color-font-headline: var(--white);
-  --color-font-second: #717171;
+  --color-font-second: var(--gray-71);
   --color-font-headlabel: var(--white);
-  --color-font-subtext: #717171;
+  --color-font-subtext: var(--gray-71);
+  
   /* Icon colors */
-  --color-icon-default: #717171;
+  --color-icon-default: var(--gray-71);
   --color-icon-light: var(--white);
 }

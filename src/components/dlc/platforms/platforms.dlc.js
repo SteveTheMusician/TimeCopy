@@ -15,10 +15,10 @@ async function importNewPlatformData(){
   let importNewPlatformData = await importPlatformsData()
     try {
       if (importNewPlatformData) {
-        console.log('dlc data created, restart time copy...')
+        console.log('DLC Platform data created. Restart Time Copy.')
         window.location.reload()
       } else {
-        throw new Error('unable to import dlc platform data')
+        throw new Error('Unable to import DLC Platform data')
       }
     } catch (error) {
       console.log(error)

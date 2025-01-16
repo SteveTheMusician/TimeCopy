@@ -62,7 +62,6 @@
 
 .radio-custom-container input:checked~.checkmark {
     background-color: var(--color-active);
-    /* background: linear-gradient(180deg, rgba(1,171,130,1) 0%, rgba(31,254,172,1) 42%, rgba(89,255,196,1) 47%, rgba(14,144,83,1) 83%, rgba(2,92,64,1) 100%); */
     box-shadow: 0 0 6px 2px var(--color-active);
 }
 
@@ -80,7 +79,7 @@ input:checked~.dlcItem-clickable:hover{
 }
 
 .dlcItem-clickable input:checked{
-box-shadow: inset 1px 1px 5px #00000099;
+	box-shadow: inset 1px 1px 5px #00000099;
 }
 
 .dlcItem .configItem-icon-container {
@@ -94,6 +93,10 @@ box-shadow: inset 1px 1px 5px #00000099;
 
 .row-cell-right {
     width: 50%;
+}
+
+.dlc-platform_custom-content {
+    padding-top: 10px;
 }
 
 .dlc-xmastree {

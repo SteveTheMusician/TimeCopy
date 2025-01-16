@@ -29,6 +29,7 @@
   --color-font-second: var(--gray-5b);
   --color-font-headlabel: var(--black);
   --color-font-subtext: var(--gray-5b);
+  
   /* Icon colors */
   --color-icon-default: var(--blue-dark);
   --color-icon-light: var(--black);

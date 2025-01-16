@@ -123,11 +123,10 @@
             </button>
           </div>
         </div>
-        <div class="label-row dFlex label-row-messageHeadline">
+        <div class="label-row dFlex label-row-messageHeadline" id="messages-headline">
           <p class="text-label">Benachrichtigungen</p>
           <button class="button-primary button-reset" id="button_clearAllMessages" title="Alle löschen">
             <?xml version="1.0" encoding="utf-8"?>
-            <!-- Designed by Empty Soul  -->
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
               y="0px" viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
               <g>
@@ -294,7 +293,7 @@
                           <p class="text-label">DLC-Cache</p>
                         </div>
                         <div class="configItem-content-right">
-                          <button class="button-primary button-padding--small" id="button_reloadDLCCache" title="Bei Problemen mit den DLC's, dessen Informationen oder Einstellungen (z.B. Buchungsplatformen), kannst du diesen Knopf hier verwenden.">Reload</button>
+                          <button class="button-primary button-padding--small" id="button_reloadDLCCache" title="Bei Problemen mit den DLC's, dessen Informationen oder Einstellungen (z.B. Buchungsplatformen), kannst du diesen Knopf hier verwenden.">Löschen</button>
                         </div>
                       </div>
                     </div>
@@ -338,6 +337,7 @@
                           <option value="mint">Mint</option>
                           <option value="mrwhite">Mr. White</option>
                           <option value="neonretrored">Neon Retro Red</option>
+                          <option value="japansflare">Japan's Flare</option>
                           <option disabled>Charaktäre</option>
                           <option value="danielsnfsoutfit">Daniel's NFS Outfit</option>
                           <option value="darkterrorbyseb">Dark Terror By Seb</option>
@@ -354,6 +354,37 @@
                       </div>
                     </div>
                     <!-- snowflake on/off here -->
+                  </div>
+                </div>
+                <div class="configItem">
+                  <div class="configItem-title-row flex" title="Benachrichtigungen innerhalb von Time Copy ein oder ausschalten.">
+                    <div class="configItem-icon-container flex">
+                      <?xml version="1.0" encoding="utf-8"?>
+                      <svg version="1.1" id="Bell" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         width="1000px" height="1000px" viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
+                      <path d="M368,815.9c20.4,40.6,74.4,51,107.5,19.8c0.5-0.5,1-1,1.5-1.5l178.5-178.3l178.5-178.3c0.5-0.5,1-1,1.5-1.5
+                        c31.3-33,21-87.1-19.7-107.6c-29.6-15-89.4-49.1-145.2-105C592.5,185.3,436-8,213.8,140.9c-14.5,9.7-25.5,17-40.6,32
+                        s-22.3,26-32.1,40.5C-8.1,435.5,185,592.3,263.3,670.6C319.1,726.5,353.1,786.2,368,815.9z"/>
+                      <path d="M698.1,896.3l198.2-198c23.4-23.4,23.4-61.3,0-84.7l0,0c-23.4-23.4-61.3-23.4-84.8,0l-198.2,198
+                        c-23.4,23.4-23.4,61.3,0,84.7l0,0C636.7,919.7,674.7,919.7,698.1,896.3z"/>
+                      </svg>
+                    </div>
+                    <div class="configItem-headline-container">
+                      <p class="text-label">Benachrichtigungen</p>
+                    </div>
+                  </div>
+                  <div class="configItem-content">
+                    <div class="configItem-content-row dFlex">
+                      <div class="configItem-content-left">
+                        <p class="text-label text-margin--small">Alle anzeigen</p>
+                      </div>
+                      <div class="configItem-content-right">
+                        <label class="switch">
+                          <input type="checkbox" class="" id="check_showAllNotifications" />
+                          <span class="switch_slider" title="Schaltet gesamtes Benachrichtigungsfenster an oder aus."></span>
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="configItem">
@@ -392,7 +423,17 @@
                     </div>
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
-                        <button class="button-primary button-padding--small" id="button_openStore">Zum Store</button>
+                        <button class="button-primary button-padding--small" id="button_openStore">Store</button>
+                      </div>
+                      <div class="configItem-content-right">
+                        <button class="button-primary button-padding--small"
+                          id="button_openChangelog">Changelog</button>
+                      </div>
+                    </div>
+                    <div class="configItem-content-row dFlex">
+                      <div class="configItem-content-left">
+                        <button class="button-primary button-padding--small"
+                          id="button_openLicense">Lizens</button>
                       </div>
                       <div class="configItem-content-right">
                         <button class="button-primary button-padding--small"
