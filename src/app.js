@@ -6,8 +6,6 @@ import { projectDetection } from "./components/content/configuration/projectDete
 import { clearDlcLocalStorages, xmasDlc, platform_functionName_automatic, 
           platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./components/dlc/dlc.js";
 
-import { developer } from "./developer/developer.js";
-
 document.addEventListener('DOMContentLoaded', async function () {
   // import DLC's
   try {
@@ -765,8 +763,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     loadSessionStorages()
     // other dlcs
     xmasDlc()
-    // devtool
-    developer()
   },);
 })
 
