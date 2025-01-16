@@ -142,3 +142,4 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - other: new profile version
 - other: new Theme "Japan's White"
 - other: documentation
+- other: restructure dlc cache

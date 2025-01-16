@@ -1,16 +1,12 @@
-import { filters } from "./components/dlc/filters/filters.dlc.js";
-import { filtersContent } from "./components/dlc/filters/filters.dlc.js";
-import { filter_timesheetFilterPreValue } from "./components/dlc/filters/filters.import.js";
+
 import data_version from "../public/version.json" with { type: "json" };
 import { notification } from "./components/ui/notification/notification.js";
 import { message } from "./components/ui/message/message.js";
-import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
+import { clearDlcLocalStorages, xmasDlc, platform_functionName_automatic, 
+          platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./components/dlc/dlc.js";
+
 import { developer } from "./developer/developer.js";
-import { platformsContent } from "./components/dlc/platforms/platforms.dlc.js";
-import { platform_functionName_automatic } from "./components/dlc/platforms/platforms.import.js";
-import { platform_bookingPlatformPreValue } from "./components/dlc/platforms/platforms.import.js";
-import { xmas } from "./components/dlc/xmas/xmas.dlc.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
   // import DLC's
@@ -38,9 +34,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     clearDlcLocalStorages()
     return
   }
-  // date variables
-  const dateNow = new Date();
-  const dateMonth = dateNow.getMonth();
 
   // vars
   const link_cssTheme = document.querySelector('link#link-theme');
@@ -182,11 +175,12 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (lstorage_appVersion !== extensionVersion) {
         localStorage.setItem('tc_appVersion', extensionVersion)
         // reset dlc information cache
-        clearDlcLocalStorages()
+        clearDlcLocalStorages(true)
         // show update message
         message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
       }
     } else {
+      // "First" app start
       localStorage.setItem('tc_appVersion', extensionVersion)
       message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
     }
@@ -274,16 +268,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     clearDlcLocalStorages()
   }
 
-  function clearDlcLocalStorages() {
-    // DLC Storages
-    localStorage.removeItem('tc_s_dlcplatforminformations')
-    localStorage.removeItem('tc_s_dlcfilterinformations')
-    localStorage.removeItem('tc_c_dlc_protimetest')
-    localStorage.removeItem('tc_c_dlc_xmassnowflakes')
-    localStorage.removeItem('tc_c_dlc_xmastree')
-    localStorage.removeItem('tc_c_dlc_protimeforcelatencymode')
-    localStorage.removeItem('tc_c_dlc_protimeuselatencymode')
-  }
+
 
   function clearSessionStorage() {
     sessionStorage.removeItem('tc_c_messageImported')
@@ -608,7 +593,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       if(showAllMessages) {
         message(true, 'error', 'ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
       } else {
-        console.log()
+        console.log(consoleWarnMessage_showMessageTurnedOff+' | '+error)
       }
       return
     }
@@ -778,10 +763,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Load local storages
     loadStorage()
     loadSessionStorages()
-    // load xmas dlc between dezember (11) and march (2)
-    if (dateMonth === 11 || dateMonth === 0 || dateMonth === 1 || dateMonth === 2) {
-      xmas()
-    }
+    // other dlcs
+    xmasDlc()
     // devtool
     developer()
   },);
