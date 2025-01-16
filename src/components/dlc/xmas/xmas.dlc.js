@@ -1,9 +1,10 @@
 export function xmas() {
   // dlc is controled by app js date
-  let lstorage_c_dlcSnowflakes = localStorage.getItem('tc_c_dlc_snowflakes')
+  let lstorage_c_dlcSnowflakes = localStorage.getItem('tc_c_dlc_xmassnowflakes')
+  let lstorage_c_dlcXmastree = localStorage.getItem('tc_c_dlc_xmastree')
   const mainHtml = document.getElementsByTagName('main')[0]
   const configItemDesign = document.getElementById('configItem-design-themes')
-  const xmastreeHtml = `<div class="dlc-xmastree">
+  const xmastreeHtml = `<div class="dlc-xmastree" id="xmastree">
     <?xml version="1.0" encoding="UTF-8"?>
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1200 1200">
       <g>
@@ -393,12 +394,25 @@ export function xmas() {
             <span class="switch_slider"></span>
         </label>
         </div>
+      </div>
+      <div class="configItem-content-row dFlex ">
+        <div class="configItem-content-left">
+          <p class="text-label text-margin--small">Weihnachtsbaum:</p>
+        </div>
+        <div class="configItem-content-right">
+          <label class="switch">
+            <input type="checkbox" class="" id="check_showDLCXmastree" checked/>
+            <span class="switch_slider"></span>
+        </label>
+        </div>
     </div>`
   mainHtml.insertAdjacentHTML('beforeend', xmastreeHtml);
   mainHtml.insertAdjacentHTML('beforeend', xmassnowflakesHtml);
   configItemDesign.insertAdjacentHTML('beforeend', configSnowFlakeOnOffHtml);
   const checkDLCSnow = document.getElementById('check_showDLCSnow')
   checkDLCSnow.addEventListener('change', (e) => snowflakeDLCOnOff(e))
+  const checkDLCXmastree = document.getElementById('check_showDLCXmastree')
+  checkDLCXmastree.addEventListener('change', (e) => xmastreeDLCOnOff(e))
 
   if (lstorage_c_dlcSnowflakes === 'true') {
     if (!document.getElementById('initial-snow')) {
@@ -410,15 +424,35 @@ export function xmas() {
     checkDLCSnow.checked = false
   }
 
+  if (lstorage_c_dlcXmastree === 'true') {
+    if (document.getElementById('xmastree').classList.contains('dNone')) {
+      document.getElementById('xmastree').classList.remove('dNone')
+    }
+    checkDLCXmastree.checked = true
+  } else if (lstorage_c_dlcXmastree === 'false') {
+    document.getElementById('xmastree').classList.add('dNone')
+    checkDLCXmastree.checked = false
+  }
+
   function snowflakeDLCOnOff(checkDLCSnowEvent) {
     if (checkDLCSnowEvent.target.checked === true) {
       if (!document.getElementById('initial-snow')) {
         mainHtml.insertAdjacentHTML('beforeend', xmassnowflakesHtml);
       }
-      localStorage.setItem('tc_c_dlc_snowflakes', 'true')
+      localStorage.setItem('tc_c_dlc_xmassnowflakes', 'true')
     } else {
-      document.getElementById('initial-snow').remove();
-      localStorage.setItem('tc_c_dlc_snowflakes', 'false')
+      document.getElementById('initial-snow').remove()
+      localStorage.setItem('tc_c_dlc_xmassnowflakes', 'false')
+    }
+  }
+
+  function xmastreeDLCOnOff(checkDLCTreeEvent) {
+    if (checkDLCTreeEvent.target.checked === true) {
+      document.getElementById('xmastree').classList.remove('dNone')
+      localStorage.setItem('tc_c_dlc_xmastree', 'true')
+    } else {
+      document.getElementById('xmastree').classList.add('dNone')
+      localStorage.setItem('tc_c_dlc_xmastree', 'false')
     }
   }
 }

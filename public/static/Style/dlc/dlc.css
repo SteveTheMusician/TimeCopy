@@ -2,7 +2,7 @@
 @import url('../../DLC/Platforms/platforms.css');
 
 :root {
-    --color-dlc-snowflake: var(--color-white);
+    --color-dlc-snowflake: #fefefe;
 }
 
 .dlcItem {

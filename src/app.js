@@ -279,7 +279,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.removeItem('tc_s_dlcplatforminformations')
     localStorage.removeItem('tc_s_dlcfilterinformations')
     localStorage.removeItem('tc_c_dlc_protimetest')
-    localStorage.removeItem('tc_c_dlc_snowflakes')
+    localStorage.removeItem('tc_c_dlc_xmassnowflakes')
+    localStorage.removeItem('tc_c_dlc_xmastree')
     localStorage.removeItem('tc_c_dlc_protimeforcelatencymode')
     localStorage.removeItem('tc_c_dlc_protimeuselatencymode')
   }

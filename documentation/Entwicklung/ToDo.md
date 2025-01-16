@@ -12,22 +12,13 @@
 
 ## DLC Update
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
-- dlc: amagprotime - detection items - mehrere string match parameter mit kommas oder anderem symbol trennbar ✅
 - dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
 
-## V 0.9.8*
-
-- Dokumentation
-- update readme
-- Nostalgica Theme fix: farbigen bg für messages und transparenten header bei einstellungen ✅
  
 ## V 1.0.0
 
-- use contanct mail from json ✅
-- benachrichtigungen verstecken (ausschalten) ✅
-    - icon für feld ✅
-- FIX: error message taucht nach erstem mal fehlerhaftem import nicht mehr auf (Grund war: Import Button Value wird bei gleichen Dataien nicht zurück gesetzt) ✅
-- fix: fehlermeldung, wenn profil datei ungültig ist ✅
+- Dokumentation
+- update readme
 - code cleanup: kommentare und feedbacks verbessern
 - CSS Variabeln verbessern und auslagern
 - willkommens screen mit anleitung ❗️
