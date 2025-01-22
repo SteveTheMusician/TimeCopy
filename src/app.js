@@ -1,10 +1,11 @@
 
 import data_version from "../public/version.json" with { type: "json" };
-import { notification } from "./components/ui/notification/notification.js";
 import { message } from "./components/ui/message/message.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
-import { clearDlcLocalStorages, xmasDlc, platform_functionName_automatic, 
+import { clearDlcLocalStorages, xmasDlc, 
           platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./components/dlc/dlc.js";
+import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform} from "./utils/appStorage.js";
+import { profileManager } from "./utils/profileManager.js";
 
 import { developer } from "./developer/developer.js";
 
@@ -90,27 +91,20 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData')
 
   // local storages
-  let lstorage_cThemes = localStorage.getItem('tc_c_theme')
-  let lstorage_cLanguage = localStorage.getItem('tc_c_language')
-  let lstorage_cFilter = localStorage.getItem('tc_c_filter')
-  let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
-  let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
-  let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
+
+  
+
+  
   let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
   let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
   let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
-  let lstorage_appVersion = localStorage.getItem('tc_appVersion')
-  let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
-  let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessages')
 
   // Some vars
   let configOpen = false
   let dev_pttest = false
   let showAllMessages = "true"
   // Default variables
-  const defaultProfileName = "Default"
-  const defaultTheme = "oceanswave"
-  let defaultBookingPlatform = platform_functionName_automatic
+
   //language settings may released in a later version
   const defaultLanguage = 'de'
   const consoleWarnMessage_showMessageTurnedOff = "⚠ Time Copy Messages are turned off!"
@@ -132,111 +126,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   const extensionTesting = data_version.extension_testing
   const extensionUpdateTextOverview = data_version.extension_update_text_overview
   const extensionUpdateTextDetails = data_version.extension_update_text_details
-  let tcprofileVersion = data_version.profile_version
-  let supportedTcprofileVersions = data_version.supported_profile_versions
 
-  // sessionstorages for temp-messages and data
-  function loadSessionStorages() {
-    let sMessageImported = sessionStorage.getItem('tc_c_messageImported')
-    let sMessageProfileRemoved = sessionStorage.getItem('tc_c_messageProfileRemoved')
-    let sExportProfile_afterChange = sessionStorage.getItem('tc_c_exportProfile_afterChange')
-    let sDLCCacheReloaded = sessionStorage.getItem('tc_c_messageDLCCacheReloaded')
-    let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
-    if (sMessageImported === 'true') {
-      notification(true, true, 'Profil wurde erfolgreich importiert!')
-      sessionStorage.removeItem('tc_c_messageImported')
-      configButton.click()
-    }
-    if (sMessageProfileRemoved === 'true') {
-      notification(true, true, 'Profil wurde zurückgesetzt.')
-      sessionStorage.removeItem('tc_c_messageProfileRemoved')
-      configButton.click()
-    }
-    if (sExportProfile_afterChange === 'true') {
-      sessionStorage.removeItem('tc_c_exportProfile_afterChange')
-      configButton.click()
-      exportProfile()
-    }
-    if (sChangeLanguage === 'true') {
-      sessionStorage.removeItem('tc_c_changeLanguage')
-      configButton.click()
-    }
-    if (sDLCCacheReloaded === 'true') {
-      notification(true, true, 'DLC-Cache wurde neu geladen.')
-      sessionStorage.removeItem('tc_c_messageDLCCacheReloaded')
-      configButton.click()
-    }
 
-  }
-  // Load localstorage
-  function loadStorage() {
 
-    if (lstorage_appVersion) {
-      if (lstorage_appVersion !== extensionVersion) {
-        localStorage.setItem('tc_appVersion', extensionVersion)
-        // reset dlc information cache
-        clearDlcLocalStorages(true)
-        // show update message
-        message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
-      }
-    } else {
-      // "First" app start
-      localStorage.setItem('tc_appVersion', extensionVersion)
-      message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
-    }
-
-    if (lstorage_eeTheme === 'true') {
-      document.getElementById('select-theme-exotic-categ').classList.remove('dNone');
-      document.getElementById('select-theme-exotic').classList.remove('dNone');
-    }
-
-    if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
-      themeSelect.value = lstorage_cThemes
-      if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
-        link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
-      } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {
-        themeSelect.value = defaultTheme
-        lstorage_cThemes = defaultTheme
-      } else {
-        link_cssTheme.setAttribute('href', './static/Style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
-      }
-    } else {
-      themeSelect.value = defaultTheme
-      link_cssTheme.setAttribute('href', './static/Style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
-    }
-    if (lstorage_cFilter) {
-      document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
-    }
-    if (lstorage_cProfileName) {
-      configProfileName.value = lstorage_cProfileName
-    } else {
-      configProfileName.value = defaultProfileName
-    }
-    if (lstorage_cBookingPlatform) {
-      document.querySelector('input[value="' + platform_bookingPlatformPreValue + lstorage_cBookingPlatform + '"]').checked = true
-    } else {
-      document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
-      localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
-    }
-    if(lstorage_cShowAllMessages === 'true') {
-      switch_showAllMessages.checked = true
-      showAllMessages = "true"
-      messageSection.classList.remove('dNone')
-      messagesHeadline.classList.remove('dNone')
-    } else if (lstorage_cShowAllMessages === 'false') {
-      switch_showAllMessages.checked = false
-      showAllMessages = "false"
-      messageSection.classList.add('dNone')
-      messagesHeadline.classList.add('dNone')
-    }else {
-      switch_showAllMessages.checked = true
-      showAllMessages = "true"
-      messageSection.classList.remove('dNone')
-      messagesHeadline.classList.remove('dNone')
-    }
-    loadDLCStorage()
-    console.log('✅ [Time Copy] extension loaded')
-  }
+  
 
   // local storage for dlcs
   function loadDLCStorage() {
@@ -254,28 +147,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   }
 
-  // Clear local storage
-  function clearLocalStorage() {
-    localStorage.removeItem('tc_c_theme')
-    localStorage.removeItem('tc_c_language')
-    localStorage.removeItem('tc_c_filter')
-    localStorage.removeItem('tc_c_projectDetection')
-    localStorage.removeItem('tc_c_profileName')
-    localStorage.removeItem('tc_c_bookingPlatform')
-    localStorage.removeItem('tc_appVersion')
-    localStorage.removeItem('tc_ee_exoticTheme')
-    localStorage.removeItem('tc_c_showAllMessages')
-    clearDlcLocalStorages()
-  }
 
 
 
-  function clearSessionStorage() {
-    sessionStorage.removeItem('tc_c_messageImported')
-    sessionStorage.removeItem('tc_c_messageProfileRemoved')
-    sessionStorage.removeItem('tc_c_changeLanguage')
-    sessionStorage.removeItem('tc_c_messageDLCCacheReloaded')
-  }
+
+
 
   function openConfigs() {
     if (configOpen) {
@@ -411,138 +287,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
-  // import time copy profile
-  let button_importConfigs = document.getElementById('button_importConfigs');
+  
 
-  button_importConfigs.addEventListener("click", function () {
-    button_importConfigs.value = null // reset import button value to null before loading file, so we can reimport the same file again
-  }, false);
 
-  button_importConfigs.addEventListener("change", importProfile, false);
-
-  async function importProfile(event) {
-    let importErrorMessage = ""; 
-
-    try {
-        const fileData = await new Promise((resolve, reject) => {
-            const files = event.target.files;
-            const reader = new FileReader();
-
-            reader.addEventListener("load", function () {
-                try {
-                    const parsedData = JSON.parse(this.result);
-                    resolve(parsedData);
-                } catch (e) {
-                    reject(new Error('Import fehlgeschlagen: Datei konnte nicht gelesen werden.'));
-                }
-            });
-
-            reader.addEventListener("error", function () {
-                reject(new Error('Import fehlgeschlagen: Datei konnte nicht geladen werden.'));
-            });
-
-            reader.readAsText(files[0]);
-        });
-
-        const isValidVersion = checkImportProfileVersion(fileData);
-
-        if (isValidVersion) {
-          
-            localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
-            localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg.show_all_messages)
-            localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
-            localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
-            localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
-            localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-            localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
-
-            loadStorage()
-            sessionStorage.setItem('tc_c_messageImported', 'true')
-            window.location.reload()
-
-            setTimeout(function () {}, 2000)
-        } else {
-            throw new Error('Import fehlgeschlagen: Version stimmt nicht überein.')
-        }
-    } catch (e) {
-      importErrorMessage = e.message
-    } finally {
-        if (importErrorMessage) {
-            notification(true, false, importErrorMessage)
-        }
-    }
-  }
-
-  function checkImportProfileVersion(fileData) {
-    let versionValidated
-    if (fileData.tcprofile.version === tcprofileVersion || supportedTcprofileVersions.includes(fileData.tcprofile.version)) {
-      versionValidated = true
-    } else {
-      versionValidated = false
-    }
-    return versionValidated
-  }
-
-  // Export Configs as Json
-  let button_exportConfigs = document.getElementById('button_exportConfigs')
-  button_exportConfigs.addEventListener('click', exportProfile)
-
-  function exportProfile() {
-
-    if (configUserChanges === true) {
-      sessionStorage.setItem('tc_c_exportProfile_afterChange', 'true')
-      window.location.reload()
-      return
-    } else {
-      let detectionItems = lstorage_cDetectionItems
-      detectionItems = JSON.parse(detectionItems)
-      const fileNameFixed = "-TimeCopy.tcprofile"
-      if (detectionItems === null) {
-        detectionItems = []
-      }
-      let saveObj = { "tcprofile": 
-        { 
-          "author": "steve", "version": tcprofileVersion, 
-          "extension_version": extensionVersion, "extension_build": extensionBuild, 
-          "profile_name": configProfileName.value 
-        } 
-      }
-      // apply values
-      // checken ob storages existieren!!!
-      let themeExport = lstorage_cThemes ?? defaultTheme
-      let languageExport = lstorage_cLanguage ?? defaultLanguage
-      let showAllMessagesExport = lstorage_cShowAllMessages ?? showAllMessages
-      let filterExport = lstorage_cFilter ?? ''
-      Object.assign(
-        saveObj.tcprofile, 
-        { "cfg": 
-          { "theme": themeExport, "language": languageExport, 
-            "show_all_messages": showAllMessagesExport, "filter": filterExport, 
-            "platform": lstorage_cBookingPlatform, "detections": detectionItems 
-          } 
-        }
-      )
-      // file setting
-      const data = JSON.stringify(saveObj);
-      const name = configProfileName.value + fileNameFixed;
-      const type = "text/plain";
-      // create file
-      const a = document.createElement("a");
-      const file = new Blob([data], { type: type });
-      a.href = URL.createObjectURL(file);
-      a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    }
-  }
-  // delete configs
-  function removeProfile() {
-    clearLocalStorage()
-    clearSessionStorage()
-    sessionStorage.setItem('tc_c_messageProfileRemoved', 'true')
-    window.location.reload()
-  }
   function reloadDLCCache() {
     clearDlcLocalStorages()
     sessionStorage.setItem('tc_c_messageDLCCacheReloaded', 'true')
@@ -760,13 +507,23 @@ document.addEventListener('DOMContentLoaded', async function () {
       let dropdownButton = dlc_filter_element[index].getElementsByClassName('button-dropdown')[0]
       dropdownButton.addEventListener('click', dlcFilterOpenDropdown);
     }
-    // Load local storages
-    loadStorage()
-    loadSessionStorages()
-    // other dlcs
-    xmasDlc()
-    // devtool
-    developer()
+        
+    try{
+      // Load local storages
+      profileManager(data_version,configProfileName)
+      appStorage(extensionVersion,extensionUpdateTextOverview,extensionUpdateTextDetails,themeSelect,configProfileName,
+        link_cssTheme,switch_showAllMessages,showAllMessages,messageSection,messagesHeadline)
+      // other dlcs
+      xmasDlc()
+      // devtool
+      developer()
+      console.log('✅ [Time Copy] extension loaded')
+    }catch(e){
+      message(true, 'error','App Fehler',e,true)
+      console.error(e)
+      return
+    }
+    
   },);
 })
 
