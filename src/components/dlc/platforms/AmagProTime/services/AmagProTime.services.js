@@ -1,4 +1,4 @@
-import { anyProjectNomber } from "../variables/AmagProTime.variables";
+import { anyProjectNomber,detectionItemAddPrefixSplit } from "../variables/AmagProTime.variables";
 
 export async function TestPageLoadPerformance() {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -25,8 +25,8 @@ export function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
     detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixItem) => {
         let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
         let detectionItemAddPrefixArray = []
-        if(detectionItemPrefixItem.addprefix.includes(';')){
-            detectionItemAddPrefixArray = detectionItemPrefixItem.addprefix.split(';')
+        if(detectionItemPrefixItem.addprefix.includes(detectionItemAddPrefixSplit)){
+            detectionItemAddPrefixArray = detectionItemPrefixItem.addprefix.split(detectionItemAddPrefixSplit)
         }else {
             detectionItemAddPrefixArray.push(detectionItemPrefixItem.addprefix)
         }
