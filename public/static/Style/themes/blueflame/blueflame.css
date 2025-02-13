@@ -36,5 +36,7 @@
   --color-icon-default: var(--lightblue);
   --color-icon-light: var(--lightblue);  
 }
-  
-  
+
+.configItem-logo-container,.configItem-icon-container img {
+  border-radius: var(--border-radius-default);
+}

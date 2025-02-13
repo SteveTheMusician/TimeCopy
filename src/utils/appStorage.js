@@ -1,7 +1,9 @@
+
+import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../dlc/dlc.js"
+import { defaultProfileName, defaultTheme } from "./defaults/defaultVariables.js"
 import { notification } from "../components/ui/notification/notification.js"
 import { message } from "../components/ui/message/message.js"
-import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../components/dlc/dlc.js"
-import { defaultProfileName, defaultTheme } from "./defaults/defaultVariables.js"
+import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 
@@ -18,17 +20,17 @@ export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
 
 export function appStorage(extensionVersion,extensionUpdateTextOverview,extensionUpdateTextDetails,themeSelect,configProfileName,
-    link_cssTheme,switch_showAllMessages,showAllMessages,messageSection,messagesHeadline) 
+    link_cssTheme,switch_showAllMessages,showAllMessages,messageSection,messagesHeadline,config_check_useLatencyModeproTime,config_check_forceLatencyModeproTime) 
     {
-
-    // Load localstorage
-    function loadStorage() {
-
+      
+      // Load localstorage
+      function loadStorage() {
+        
         if (lstorage_appVersion) {
           if (lstorage_appVersion !== extensionVersion) {
             localStorage.setItem('tc_appVersion', extensionVersion)
             // reset dlc information cache
-            // clearDlcLocalStorages(true)
+            clearDlcLocalStorages(true)
             // show update message
             message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
           }
@@ -37,14 +39,15 @@ export function appStorage(extensionVersion,extensionUpdateTextOverview,extensio
           localStorage.setItem('tc_appVersion', extensionVersion)
           message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
         }
-
+        
         if (lstorage_eeTheme === 'true') {
           document.getElementById('select-theme-exotic-categ').classList.remove('dNone');
           document.getElementById('select-theme-exotic').classList.remove('dNone');
         }
-
+        
         if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
-            themeSelect.value = lstorage_cThemes
+          themeSelect.value = lstorage_cThemes
+          console.log('-->',themeSelect.value, lstorage_cThemes)
           if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
             link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
           } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {
@@ -87,7 +90,7 @@ export function appStorage(extensionVersion,extensionUpdateTextOverview,extensio
           messageSection.classList.remove('dNone')
           messagesHeadline.classList.remove('dNone')
         }
-        // loadDLCStorage()
+        loadDLCStorage(config_check_useLatencyModeproTime,config_check_forceLatencyModeproTime)
     }
 
     // sessionstorages for temp-messages and data
@@ -137,7 +140,7 @@ export function clearLocalStorage() {
     localStorage.removeItem('tc_appVersion')
     localStorage.removeItem('tc_ee_exoticTheme')
     localStorage.removeItem('tc_c_showAllMessages')
-    // clearDlcLocalStorages()
+    clearDlcLocalStorages()
 }
 
 export function clearSessionStorage() {

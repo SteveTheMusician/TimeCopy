@@ -2,9 +2,10 @@
 import data_version from "../public/version.json" with { type: "json" };
 import { message } from "./components/ui/message/message.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
-import { clearDlcLocalStorages, xmasDlc, 
-          platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./components/dlc/dlc.js";
+import {xmasDlc, 
+          platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./dlc/dlc.js";
 import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform} from "./utils/appStorage.js";
+import { clearDlcLocalStorages, reloadDLCCache } from "./utils/dlcStorage.js";
 import { profileManager } from "./utils/profileManager.js";
 
 import { developer } from "./developer/developer.js";
@@ -64,10 +65,11 @@ document.addEventListener('DOMContentLoaded', async function () {
   const configButton = document.querySelector('button#configButton');
   const button_clearAllMessages = document.getElementById('button_clearAllMessages')
 
+  const button_reloadDLCCache = document.getElementById('button_reloadDLCCache')
+  
   // Configuration Buttons
   const themeSelect = document.querySelector('select#select-themes')
   const button_clearConfigs = document.getElementById('button_clearConfigs')
-  const button_reloadDLCCache = document.getElementById('button_reloadDLCCache')
   const switch_showAllMessages = document.getElementById('check_showAllNotifications')
   const radios_filter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
@@ -82,14 +84,14 @@ document.addEventListener('DOMContentLoaded', async function () {
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
-  const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
   const config_check_forceLatencyModeproTime = document.getElementById('check_forceLatencyModeproTime')
-  const config_check_useLatencyModeproTime = document.getElementById('check_useLatencyModeproTime')
-  config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton)
   config_check_forceLatencyModeproTime.addEventListener('change', dlcProTimeForceLatencyMode)
-  config_check_useLatencyModeproTime.addEventListener('change', dlcProTimeUseLatencyMode)
   const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData')
-
+  
+  const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
+  config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton)
+  const config_check_useLatencyModeproTime = document.getElementById('check_useLatencyModeproTime')
+  config_check_useLatencyModeproTime.addEventListener('change', dlcProTimeUseLatencyMode)
   // local storages
 
   
@@ -110,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const consoleWarnMessage_showMessageTurnedOff = "⚠ Time Copy Messages are turned off!"
 
   // this variable activates tc reloading after pressing the back button when its set to true
-  let configUserChanges = false
+  window.configUserChanges = false
   const dlc_details_classHidden = 'dlc-details--hidden'
 
   const dokuUrl = data_version.extension_documentation
@@ -129,23 +131,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
 
 
-  
-
-  // local storage for dlcs
-  function loadDLCStorage() {
-    if (lstorage_c_dlcProTimeTest === 'true') {
-      config_check_showProTimeTestButton.checked = true
-      dlcShowProTimeTestButtonDisplay()
-    }
-    if(lstorage_c_dlcProTimeForceLatencyMode === 'true') {
-      config_check_forceLatencyModeproTime.checked = true
-    }
-    if(lstorage_c_dlcProTimeUseLatencyMode === 'false') {
-      config_check_useLatencyModeproTime.checked = false
-    }else {
-      config_check_useLatencyModeproTime.checked = true
-    }
-  }
 
 
 
@@ -287,14 +272,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
-  
-
-
-  function reloadDLCCache() {
-    clearDlcLocalStorages()
-    sessionStorage.setItem('tc_c_messageDLCCacheReloaded', 'true')
-    window.location.reload()
-  }
   // Main Functions
   async function readClipboardText() {
 
@@ -507,12 +484,14 @@ document.addEventListener('DOMContentLoaded', async function () {
       let dropdownButton = dlc_filter_element[index].getElementsByClassName('button-dropdown')[0]
       dropdownButton.addEventListener('click', dlcFilterOpenDropdown);
     }
-        
+
     try{
+      window.appStorageArgs = [extensionVersion,extensionUpdateTextOverview,extensionUpdateTextDetails,themeSelect,configProfileName,
+        link_cssTheme,switch_showAllMessages,showAllMessages,messageSection,messagesHeadline,
+        config_check_useLatencyModeproTime,config_check_showProTimeTestButton,extensionBuild]
       // Load local storages
-      profileManager(data_version,configProfileName)
-      appStorage(extensionVersion,extensionUpdateTextOverview,extensionUpdateTextDetails,themeSelect,configProfileName,
-        link_cssTheme,switch_showAllMessages,showAllMessages,messageSection,messagesHeadline)
+      profileManager(data_version,...window.appStorageArgs,window.configUserChanges)
+      appStorage(...window.appStorageArgs)
       // other dlcs
       xmasDlc()
       // devtool

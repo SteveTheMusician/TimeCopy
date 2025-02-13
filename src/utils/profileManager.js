@@ -4,7 +4,8 @@ import { lstorage_cBookingPlatform,lstorage_cFilter,lstorage_cShowAllMessages,
     lstorage_cDetectionItems,lstorage_cLanguage,lstorage_cThemes } from "./appStorage.js";
 import { defaultTheme } from "./defaults/defaultVariables.js";
 
-export function profileManager(data_version,configProfileName) {
+export function profileManager(data_version,extensionVersion,extensionUpdateTextOverview,extensionUpdateTextDetails,themeSelect,configProfileName,
+    link_cssTheme,switch_showAllMessages,showAllMessages,messageSection,messagesHeadline,config_check_useLatencyModeproTime,config_check_forceLatencyModeproTime,extensionBuild) {
     
     let tcprofileVersion = data_version.profile_version
     let supportedTcprofileVersions = data_version.supported_profile_versions
@@ -51,9 +52,7 @@ export function profileManager(data_version,configProfileName) {
                 localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
                 localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
                 localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
-                 
-                //appstorage braucht die variabeln wie themeselect!
-                appStorage()
+                appStorage(...window.appStorageArgs)
                 sessionStorage.setItem('tc_c_messageImported', 'true')
                 window.location.reload()    
                 setTimeout(function () {}, 2000)

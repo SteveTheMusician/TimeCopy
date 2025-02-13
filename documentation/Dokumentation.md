@@ -143,6 +143,14 @@ Du kannst allerdings diese dir immer relativ schnell ziehen, in dem per Terminal
 
 ## Easter Eggs
 
+- **XMas:** Von Dezember bis März erscheint ein Tannenbaum mit schneeflocken.
+Der Tannenbaum ändert seine Farben, wenn du über ihn hoverst.
+Der Tannenbaum, wie auch die Schneeflocken lassen sich ein und ausschalten.
+- **Banana:** Drücke unter den Einstellungen, im Erkennungs-Tab mit gedrückter Shift-Taste auf das "+" (Erkennungs-Items hinzufügen).
+Das "+" wird durch eine Banane ersetzt. (Ab V. 1.0)
+- **Exotic Skin:** Tippe ins Namenfeld unter Einstellungen im Tab Allgemein, das wort "LOVE" ein und klicke auf Zurück.
+Danach kannst du im Design-Bereich den Skin "Exotic-Gold" auswählen.
+
 ## Weitere Dokumentationen
 
 Readme.md
