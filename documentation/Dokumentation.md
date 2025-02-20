@@ -198,7 +198,8 @@ Tag + Datum (In erste Zelle) | [TicketName-Ticketnummer] Beschreibung des Ticket
 
 Beispiel
 ```
-Mo. 14.06.2025 | [Ticket-1234] IT-Ticket Name : 2.5h
+Mi. 14.08.2024 | [TicketName-1234] Daily - Ticket : 2.5h 
+
 ````
 
 
