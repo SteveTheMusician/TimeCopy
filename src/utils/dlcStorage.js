@@ -8,7 +8,7 @@ let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protime
 export function loadDLCStorage(appGlobalArgs) {
   
   if (lstorage_c_dlcProTimeTest === 'true') {
-    config_check_showProTimeTestButton.checked = true
+    appGlobalArgs.config_check_showprotimetestbutton.checked = true
     dlcShowProTimeTestButtonDisplay()
   }
   if(lstorage_c_dlcProTimeForceLatencyMode === 'true') {
