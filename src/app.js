@@ -11,7 +11,7 @@ import { profileManager } from "./utils/profileManager.js";
 import { developer } from "./developer/developer.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
-  // import DLC's
+  // import platform and filter dlcs
   try {
     let dlc_platformContent = await platformsContent()
     if (!dlc_platformContent) {
@@ -37,13 +37,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     return
   }
 
-  // vars
   const link_cssTheme = document.querySelector('link#link-theme');
   const header = document.querySelector('header');
   const configurations = document.querySelector('div.configurations');
   const overview = document.querySelector('div.overview');
   const messagesHeadline = document.getElementById('messages-headline')
-  const messageSection = document.getElementById('messages-section')
+  const elem_messageSection = document.getElementById('messages-section')
   const configurationsContainer = document.getElementById('config-container')
   const configWindow_getAll = document.getElementsByClassName('configuration-window');
   const configWindow_General = document.getElementById('config-win-general');
@@ -58,16 +57,13 @@ document.addEventListener('DOMContentLoaded', async function () {
   const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookingsheets');
   const buttonTab_Projects = document.querySelector('button#button-tab-projects');
   const buttonBackToMain = document.querySelector('button#buttonBackToMain');
-
-  // Main Buttons
+  // main buttons
   const fillButton = document.querySelector('button#fillButton');
   const fillCancelButton = document.querySelector('button#fillCancelButton');
   const configButton = document.querySelector('button#configButton');
   const button_clearAllMessages = document.getElementById('button_clearAllMessages')
-
   const button_reloadDLCCache = document.getElementById('button_reloadDLCCache')
-  
-  // Configuration Buttons
+  // configuration buttons
   const themeSelect = document.querySelector('select#select-themes')
   const button_clearConfigs = document.getElementById('button_clearConfigs')
   const switch_showAllMessages = document.getElementById('check_showAllNotifications')
@@ -79,40 +75,32 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_openStore = document.getElementById('button_openStore')
   const button_openLicense = document.getElementById('button_openLicense')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
-
-  // Platform-DLC Elements and Listener
+  // dlc-platform element listeners
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
   const config_check_forceLatencyModeproTime = document.getElementById('check_forceLatencyModeproTime')
   config_check_forceLatencyModeproTime.addEventListener('change', dlcProTimeForceLatencyMode)
   const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData')
-  
+
   const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
   config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton)
   const config_check_useLatencyModeproTime = document.getElementById('check_useLatencyModeproTime')
   config_check_useLatencyModeproTime.addEventListener('change', dlcProTimeUseLatencyMode)
   // local storages
-
-  
-
-  
   let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
   let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
   let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
 
-  // Some vars
   let configOpen = false
   let dev_pttest = false
   let showAllMessages = "true"
-  // Default variables
-
-  //language settings may released in a later version
-  const defaultLanguage = 'de'
   const consoleWarnMessage_showMessageTurnedOff = "⚠ Time Copy Messages are turned off!"
-
   // this variable activates tc reloading after pressing the back button when its set to true
   window.configUserChanges = false
+  //language settings may released in a later version
+  const defaultLanguage = 'de'
+
   const dlc_details_classHidden = 'dlc-details--hidden'
 
   const dokuUrl = data_version.extension_documentation
@@ -129,18 +117,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   const extensionUpdateTextOverview = data_version.extension_update_text_overview
   const extensionUpdateTextDetails = data_version.extension_update_text_details
 
-
-
-
-
-
-
-
-
-
   function openConfigs() {
     if (configOpen) {
-      // main.classList.remove('main-extended')
       configButton.classList.remove('button--active')
       fillButton.classList.remove('object--hidden')
       configurations.classList.add('dNone')
@@ -151,7 +129,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         window.location.reload()
       }
     } else {
-      // main.classList.add('main-extended')
       configButton.classList.add('button--active')
       fillButton.classList.add('object--hidden')
       configurations.classList.remove('dNone')
@@ -418,12 +395,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function clearAllMessages() {
-    let messageSectionMessages = document.getElementsByClassName('message')
-    for (var index = 0, indexLen = messageSectionMessages.length; index < indexLen; index++) {
-      messageSectionMessages[index].classList.add('message--hiddenremove');
+    let elem_messageSectionMessages = document.getElementsByClassName('message')
+    for (var index = 0, indexLen = elem_messageSectionMessages.length; index < indexLen; index++) {
+      elem_messageSectionMessages[index].classList.add('message--hiddenremove');
     }
     setTimeout(function () {
-      messageSection.innerHTML = ''
+      elem_messageSection.innerHTML = ''
     }, 400)
   }
 
@@ -486,12 +463,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     try{
-      window.appStorageArgs = [extensionVersion,extensionUpdateTextOverview,extensionUpdateTextDetails,themeSelect,configProfileName,
-        link_cssTheme,switch_showAllMessages,showAllMessages,messageSection,messagesHeadline,
-        config_check_useLatencyModeproTime,config_check_showProTimeTestButton,extensionBuild]
+      window.appGlobalArgs = [{extensionversion: extensionVersion,extensionbuild: extensionBuild,extensionupdatetextoverview: extensionUpdateTextOverview,extensionupdatetextdetails: extensionUpdateTextDetails,
+        elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,showallmessages: showAllMessages,
+        elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, config_check_uselatencymodeprotime: config_check_useLatencyModeproTime,
+        config_check_showprotimetestbutton: config_check_showProTimeTestButton}]
       // Load local storages
-      profileManager(data_version,...window.appStorageArgs,window.configUserChanges)
-      appStorage(...window.appStorageArgs)
+      profileManager(data_version,...window.appGlobalArgs,window.configUserChanges)
+      appStorage(...window.appGlobalArgs)
       // other dlcs
       xmasDlc()
       // devtool

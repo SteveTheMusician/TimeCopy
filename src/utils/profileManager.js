@@ -4,9 +4,8 @@ import { lstorage_cBookingPlatform,lstorage_cFilter,lstorage_cShowAllMessages,
     lstorage_cDetectionItems,lstorage_cLanguage,lstorage_cThemes } from "./appStorage.js";
 import { defaultTheme } from "./defaults/defaultVariables.js";
 
-export function profileManager(data_version,extensionVersion,extensionUpdateTextOverview,extensionUpdateTextDetails,themeSelect,configProfileName,
-    link_cssTheme,switch_showAllMessages,showAllMessages,messageSection,messagesHeadline,config_check_useLatencyModeproTime,config_check_forceLatencyModeproTime,extensionBuild) {
-    
+export function profileManager(data_version,appGlobalArgs) {
+  
     let tcprofileVersion = data_version.profile_version
     let supportedTcprofileVersions = data_version.supported_profile_versions
     
@@ -98,15 +97,15 @@ export function profileManager(data_version,extensionVersion,extensionUpdateText
         let saveObj = { "tcprofile": 
           { 
             "author": "steve", "version": tcprofileVersion, 
-            "extension_version": extensionVersion, "extension_build": extensionBuild, 
-            "profile_name": configProfileName.value 
+            "extension_version": appGlobalArgs.extensionVersion, "extension_build": appGlobalArgs.extensionbuild, 
+            "profile_name": appGlobalArgs.configprofilename.value 
           } 
         }
         // apply values
         // checken ob storages existieren!!!
         let themeExport = lstorage_cThemes ?? defaultTheme
         let languageExport = lstorage_cLanguage ?? defaultLanguage
-        let showAllMessagesExport = lstorage_cShowAllMessages ?? showAllMessages
+        let showAllMessagesExport = lstorage_cShowAllMessages ?? appGlobalArgs.showallmessages
         let filterExport = lstorage_cFilter ?? ''
         Object.assign(
           saveObj.tcprofile, 
@@ -119,7 +118,7 @@ export function profileManager(data_version,extensionVersion,extensionUpdateText
         )
         // file setting
         const data = JSON.stringify(saveObj);
-        const name = configProfileName.value + fileNameFixed;
+        const name = appGlobalArgs.configprofilename.value + fileNameFixed;
         const type = "text/plain";
         // create file
         const a = document.createElement("a");

@@ -5,19 +5,19 @@ let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protime
 
 
 // local storage for dlcs
-export function loadDLCStorage(config_check_useLatencyModeproTime,config_check_forceLatencyModeproTime) {
+export function loadDLCStorage(appGlobalArgs) {
   
   if (lstorage_c_dlcProTimeTest === 'true') {
     config_check_showProTimeTestButton.checked = true
     dlcShowProTimeTestButtonDisplay()
   }
   if(lstorage_c_dlcProTimeForceLatencyMode === 'true') {
-    config_check_forceLatencyModeproTime.checked = true
+    appGlobalArgs.config_check_forcelatencymodeprotime.checked = true
   }
   if(lstorage_c_dlcProTimeUseLatencyMode === 'false') {
-    config_check_useLatencyModeproTime.checked = false
+    appGlobalArgs.config_check_uselatencymodeprotime.checked = false
   }else {
-    config_check_useLatencyModeproTime.checked = true
+    appGlobalArgs.config_check_uselatencymodeprotime.checked = true
   }
 }
 

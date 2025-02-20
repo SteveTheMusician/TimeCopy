@@ -19,25 +19,24 @@ export let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessage
 export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
 
-export function appStorage(extensionVersion,extensionUpdateTextOverview,extensionUpdateTextDetails,themeSelect,configProfileName,
-    link_cssTheme,switch_showAllMessages,showAllMessages,messageSection,messagesHeadline,config_check_useLatencyModeproTime,config_check_forceLatencyModeproTime) 
+export function appStorage(appGlobalArgs) 
     {
       
       // Load localstorage
       function loadStorage() {
         
         if (lstorage_appVersion) {
-          if (lstorage_appVersion !== extensionVersion) {
-            localStorage.setItem('tc_appVersion', extensionVersion)
+          if (lstorage_appVersion !== appGlobalArgs.extensionversion) {
+            localStorage.setItem('tc_appVersion', appGlobalArgs.extensionversion)
             // reset dlc information cache
             clearDlcLocalStorages(true)
             // show update message
-            message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
+            message(true, 'information', appGlobalArgs.extensionupdatetextoverview + appGlobalArgs.extensionversion, appGlobalArgs.extensionupdatetextdetails)
           }
         } else {
           // "First" app start
-          localStorage.setItem('tc_appVersion', extensionVersion)
-          message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
+          localStorage.setItem('tc_appVersion', appGlobalArgs.extensionversion)
+          message(true, 'information', appGlobalArgs.extensionupdatetextoverview + appGlobalArgs.extensionversion, appGlobalArgs.extensionupdatetextdetails)
         }
         
         if (lstorage_eeTheme === 'true') {
@@ -46,27 +45,27 @@ export function appStorage(extensionVersion,extensionUpdateTextOverview,extensio
         }
         
         if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
-          themeSelect.value = lstorage_cThemes
-          console.log('-->',themeSelect.value, lstorage_cThemes)
+          appGlobalArgs.elem_themeselect.value = lstorage_cThemes
+          console.log('-->',appGlobalArgs.elem_themeselect.value, lstorage_cThemes)
           if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
-            link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
+            appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
           } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {
-            themeSelect.value = defaultTheme
+            appGlobalArgs.elem_themeselect.value = defaultTheme
             lstorage_cThemes = defaultTheme
           } else {
-            link_cssTheme.setAttribute('href', './static/Style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
+            appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
           }
         } else {
-          themeSelect.value = defaultTheme
-          link_cssTheme.setAttribute('href', './static/Style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
+          appGlobalArgs.elem_themeselect.value = defaultTheme
+          appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
         }
         if (lstorage_cFilter) {
           document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
         }
         if (lstorage_cProfileName) {
-          configProfileName.value = lstorage_cProfileName
+          appGlobalArgs.configprofilename.value = lstorage_cProfileName
         } else {
-          configProfileName.value = defaultProfileName
+          appGlobalArgs.configprofilename.value = defaultProfileName
         }
         if (lstorage_cBookingPlatform) {
           document.querySelector('input[value="' + platform_bookingPlatformPreValue + lstorage_cBookingPlatform + '"]').checked = true
@@ -75,22 +74,22 @@ export function appStorage(extensionVersion,extensionUpdateTextOverview,extensio
           localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
         }
         if(lstorage_cShowAllMessages === 'true') {
-          switch_showAllMessages.checked = true
-          showAllMessages = "true"
-          messageSection.classList.remove('dNone')
-          messagesHeadline.classList.remove('dNone')
+          appGlobalArgs.switch_showallmessages.checked = true
+          appGlobalArgs.showallmessages = "true"
+          appGlobalArgs.elem_messagesection.classList.remove('dNone')
+          appGlobalArgs.messagesheadline.classList.remove('dNone')
         } else if (lstorage_cShowAllMessages === 'false') {
-          switch_showAllMessages.checked = false
-          showAllMessages = "false"
-          messageSection.classList.add('dNone')
-          messagesHeadline.classList.add('dNone')
+          appGlobalArgs.switch_showallmessages.checked = false
+          appGlobalArgs.showallmessages = "false"
+          appGlobalArgs.elem_messagesection.classList.add('dNone')
+          appGlobalArgs.messagesheadline.classList.add('dNone')
         }else {
-          switch_showAllMessages.checked = true
-          showAllMessages = "true"
-          messageSection.classList.remove('dNone')
-          messagesHeadline.classList.remove('dNone')
+          appGlobalArgs.switch_showallmessages.checked = true
+          appGlobalArgs.showallmessages = "true"
+          appGlobalArgs.elem_messagesection.classList.remove('dNone')
+          appGlobalArgs.messagesheadline.classList.remove('dNone')
         }
-        loadDLCStorage(config_check_useLatencyModeproTime,config_check_forceLatencyModeproTime)
+        loadDLCStorage(appGlobalArgs)
     }
 
     // sessionstorages for temp-messages and data
