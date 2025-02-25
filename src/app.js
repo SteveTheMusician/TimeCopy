@@ -7,7 +7,6 @@ import {xmasDlc,
 import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform} from "./utils/appStorage.js";
 import { clearDlcLocalStorages, reloadDLCCache } from "./utils/dlcStorage.js";
 import { profileManager } from "./utils/profileManager.js";
-
 import { developer } from "./developer/developer.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -79,18 +78,15 @@ document.addEventListener('DOMContentLoaded', async function () {
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
-  const config_check_forceLatencyModeproTime = document.getElementById('check_forceLatencyModeproTime')
-  config_check_forceLatencyModeproTime.addEventListener('change', dlcProTimeForceLatencyMode)
+
+  const dlcProTime_config_check_forceLatencyMode = document.getElementById('check_forceLatencyModeProTime')
+  dlcProTime_config_check_forceLatencyMode.addEventListener('change', dlcProTimeForceLatencyMode)
   
-  const dlcProTime_config_check_useLatencyMode = document.getElementById('check_useLatencyModeproTime')
+  const dlcProTime_config_check_useLatencyMode = document.getElementById('check_useLatencyModeProTime')
   dlcProTime_config_check_useLatencyMode.addEventListener('change', dlcProTimeUseLatencyMode)
-  const dlcProTime_config_check_usePTTest = document.getElementById('check_usePTTest')
+  const dlcProTime_config_check_usePTTest = document.getElementById('check_useProTimeTestMode')
   dlcProTime_config_check_usePTTest.addEventListener('change', dlcCheckUsePTTest)
-  const dlcItem_platform_amagProTime = document.getElementById('dlcItem_amagprotime')
-  // local storages
-  let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
-  let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
-  let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
+  const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
 
   window.dlcProTime_usePTTest = false
   let configOpen = false
@@ -126,8 +122,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,showallmessages: showAllMessages,
     elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline
   }]
-  window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode: dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,
-    dlcItem_platform_amagProTime: dlcItem_platform_amagProTime
+  window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
+    dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime
   }]
 
   function openConfigs() {
@@ -262,7 +258,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
-  // Main Functions
+  // main functions
   async function readClipboardText() {
 
     lockActionButtons('true',fillButton)
@@ -280,7 +276,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null) {
         throw new Error("Bitte erstelle mindestens eine Projekt-Erkennung !")
       }
-      processData(filter, clipboarsString, bookingPlatform)
+      processData(clipboarsString,filter,bookingPlatform)
 
     } catch (error) {
       lockActionButtons('false',fillButton)
@@ -293,7 +289,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   }
 
-  async function processData(filter, clipboarsString, bookingPlatform) {
+  async function processData(clipboarsString,filter,bookingPlatform) {
 
     let timesheetData = []
     // get all boocking relevant data as array
@@ -335,8 +331,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       return
     }
   }
-
-  // Main Action Buttons disable / enable functions
+  // Main action buttons disable / enable functions
   function lockActionButtons(lockStatus, actionButtonSpinner){
     if(lockStatus === 'true') {
       actionButtonSpinner.classList.add('button-mainAction--waiting')
@@ -350,18 +345,14 @@ document.addEventListener('DOMContentLoaded', async function () {
       configButton.removeAttribute('disabled', 'disabled')
     }
   }
-
-  // Cancel Functions
+  // cancel functions
   function cancelPasteData(){
     chrome.tabs.reload(function(){});
     window.location.reload()
   }
-
-  // DLC Functions
-
-
+  // dlc functions
   function dlcProTimeForceLatencyMode(){
-    if(config_check_forceLatencyModeproTime.checked){
+    if(dlcProTime_config_check_forceLatencyMode.checked){
       localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'true')
     }else {
       localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'false')
@@ -387,18 +378,11 @@ document.addEventListener('DOMContentLoaded', async function () {
       dlcItem_platform_amagProTime.classList.remove('dlcItem-amagProTime-TestMode')
     }
     configUserChanges = true
-    
   }
-
-  // Test protime function
-  async function testProTime() {
-    dlcProTime_usePTTest = true
-    readClipboardText()
-  }
-  
-  // Regular Paste Function
+  // paste function exec
   async function execReadClipboardText() {
-    // dlcProTime_usePTTest = false
+    // additional functions here
+    // start process
     readClipboardText()
   }
 
@@ -413,44 +397,42 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   projectDetection()
-  // Extension load up
+  // extension load up
   window.addEventListener("load", (event) => {
     // return message if offline
     if (!navigator.onLine) {
       message(true, 'error', 'Offline', 'Du bist offline. Einige Funktionen von Time Copy können eingeschrenkt sein.')
     }
-    // Display version
+    // display version
     label_version.insertAdjacentHTML('beforeend', version)
     label_build_version.insertAdjacentHTML('beforeend', buildVersion)
     label_extensionDevelop.insertAdjacentHTML('beforeend', author)
     label_extensionCoDevelop.insertAdjacentHTML('beforeend', tester)
-    // Main Buttons Listener
+    // main buttons listener
     fillButton.addEventListener('click', execReadClipboardText)
     fillCancelButton.addEventListener('click', cancelPasteData)
-    // button_dlcProTime_usePTTest.addEventListener('click', testProTime)
     configButton.addEventListener('click', openConfigs)
     button_clearAllMessages.addEventListener('click', clearAllMessages)
     buttonBackToMain.addEventListener('click', openConfigs)
-    // Configuration tabs listener
+    // configuration tabs listener
     buttonTab_General.addEventListener('click', configTabOpenGeneral)
     buttonTab_Projects.addEventListener('click', configTabOpenProjects)
     buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets)
     buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets)
     configProfileName.addEventListener('change', configSetProfileName)
-    // Configs Listener
+    // configs listener
     button_clearConfigs.addEventListener('click', removeProfile)
     button_reloadDLCCache.addEventListener('click', reloadDLCCache)
     switch_showAllMessages.addEventListener('click', showAllMessagesChange)
-    // Help Buttons
+    // config help buttons
     button_docuHelp.addEventListener('click', () => window.open(dokuUrl))
     button_docuDatenschutz.addEventListener('click', () => window.open(privacyUrl))
     button_docuChangelog.addEventListener('click', () => window.open(changelogUrl))
     button_docuReadme.addEventListener('click', () => window.open(readmeUrl))
     button_openStore.addEventListener('click', () => window.open(chromeStoreUrl))
     button_openLicense.addEventListener('click', () => window.open(licenseUrl))
-    //Theme Select
+    //theme Select
     themeSelect.addEventListener('change', switchTheme)
-
     // filter radios listener
     for (var i = 0, iLen = radios_filter.length; i < iLen; i++) {
       radios_filter[i].addEventListener('click', switchFilter);
@@ -469,10 +451,9 @@ document.addEventListener('DOMContentLoaded', async function () {
       let dropdownButton = dlc_filter_element[index].getElementsByClassName('button-dropdown')[0]
       dropdownButton.addEventListener('click', dlcFilterOpenDropdown);
     }
-
     try{
          // Load local storages
-      profileManager(...window.appGlobalArgs,...appVersionData,window.configUserChanges)
+      profileManager(...window.appGlobalArgs,...appVersionData,window.configUserChanges,...window.dlcGlobalArgs)
       appStorage(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       // other dlcs
       xmasDlc()
@@ -484,7 +465,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.error(e)
       return
     }
-    
   },);
 })
 

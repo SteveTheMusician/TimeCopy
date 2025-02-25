@@ -67,7 +67,7 @@ export async function platformsContent() {
       platformCustomImports.customAppFunctions ? platformCustomAppFunctions = platformCustomImports.customAppFunctions: ''
     }
     // dlc item
-    let platformChild = `<label class="configItem dlcItem dlcItem-platform dlcItem-clickable dFlex" title="Platform wählen" id="dlcItem_`+ (plDataObject.platform_id) +`">
+    let platformChild = `<label class="configItem dlcItem dlcItem-platform dlcItem-clickable dFlex" title="Platform wählen" id="dlcItemPlatform_`+ (plDataObject.platform_id) +`">
                 <div class="dlcItem-main-container dFlex">
                   <div class="dlcItem-main dFlex">
                     <div class="configItem-radio-container dFlex">

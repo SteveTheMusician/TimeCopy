@@ -46,7 +46,6 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs)
         
         if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
           appGlobalArgs.elem_themeselect.value = lstorage_cThemes
-          console.log('-->',appGlobalArgs.elem_themeselect.value, lstorage_cThemes)
           if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
             appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
           } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {

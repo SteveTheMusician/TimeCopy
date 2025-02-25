@@ -287,7 +287,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
   const bookingWaitingTimer500 = "500"
   const bookingWaitingTimer1000 = "1000"
 
-  // Wait timer function
+  // wait timer function
   async function waitTimer(ms) {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -295,7 +295,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       }, ms)
     })
   }
-  // Enter Key Event
+  // enter key event
   const keyEventEnter = new KeyboardEvent('keydown', {
     key: 'Enter',
     code: 'Enter',
@@ -337,8 +337,11 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
   // 🟩 check booking loop and place overlay functions
   function checkFirstBookingLoop(bookingLoopCount) {
+    if(dev_pttest){
+      console.warn('[Time Copy] ## ProTime Test-Mode ##')
+    }
     return new Promise((resolve) => {
-      // If Click-Overlay already exists duo error / plugin reload - remove it
+      // if click-overlay already exists duo error / plugin reload - remove it
       if (document.getElementById('timeCopyProTimeClick')) {
         document.getElementById('timeCopyProTimeClick').remove()
       }

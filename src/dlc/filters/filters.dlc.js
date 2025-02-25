@@ -3,7 +3,7 @@ import { filter_TobiasExcel } from "./TobiasExcel/TobiasExcel.js"
 import { importFilters } from "./filters.import.js"
 import { importFiltersData } from "./filters.import.js"
 
-// DLC function import
+// dlc function import
 const filterFunctionsMap = {
   "SteveGoogleExcel": filter_SteveGoogleExcel,
   "TobiasExcel": filter_TobiasExcel
@@ -42,7 +42,7 @@ export async function filtersContent() {
 
      // dlc array (Foldername aso used as ID for saving)
      // for new items, just make a new dls, add it here to the array, make logo in static folder and add css in style/dlc folder
-     let filterChild = `<label class="configItem dlcItem dlcItem-filter dlcItem-clickable dFlex" title="Filter wählen">
+     let filterChild = `<label class="configItem dlcItem dlcItem-filter dlcItem-clickable dFlex" title="Filter wählen" id="dlcItemFilter_`+ (plDataObject.filter_id) +`">
                 <div class="dlcItem-main-container dFlex">
                   <div class="dlcItem-main dFlex">
                     <div class="configItem-radio-container dFlex">

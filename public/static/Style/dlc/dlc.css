@@ -3,7 +3,7 @@
 
 :root {
     --color-dlc-snowflake: #fefefe;
-	--color-dlc-testmode: #363524;
+	--color-dlc-testmode: #a39d364a;
 	--color-dlc-testmode-highlight: #ffff00;
 }
 
@@ -103,7 +103,7 @@ input:checked~.dlcItem-clickable:hover{
 
 .dlcItem-amagProTime-TestMode {
 	background-color: var(--color-dlc-testmode) !important;
-    outline: 1px var(--color-dlc-testmode-highlight) dashed;
+    outline: 1px var(--color-dlc-testmode-highlight) dashed !important;
 }
 
 .dlcItem-amagProTime-TestMode .radio-custom-container input:checked~.checkmark {
