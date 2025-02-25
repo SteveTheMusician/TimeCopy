@@ -1,6 +1,6 @@
 {
     "extension_version": "1.0",
-    "extension_build": "S25.02251317",
+    "extension_build": "S25.02251617",
     "profile_version": "1.7",
     "supported_profile_versions": ["1.6"],
     "extension_discription": "Übertrage Informatinen aus Excel-Tabellen in eine Online-Platform.",
@@ -14,5 +14,5 @@
     "extension_license": "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/LICENSE",
     "extension_contact": "contact@emptysoul.de",
     "extension_update_text_overview": "👋🏻 Willkommen in V ",
-    "extension_update_text_details": "Das neue Update enthält Code-verbesserungen, Bugfixes und eine überarbeitete Dokumentation."
+    "extension_update_text_details": "Das neue Update enthält Code-verbesserungen, Bugfixes und die Möglichkeit, in der Erkennung mehrere String-Matches mit Semikolon zu trennen."
 }
