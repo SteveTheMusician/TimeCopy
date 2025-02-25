@@ -81,19 +81,19 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
   const config_check_forceLatencyModeproTime = document.getElementById('check_forceLatencyModeproTime')
   config_check_forceLatencyModeproTime.addEventListener('change', dlcProTimeForceLatencyMode)
-  const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData')
-
-  const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
-  config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton)
-  const config_check_useLatencyModeproTime = document.getElementById('check_useLatencyModeproTime')
-  config_check_useLatencyModeproTime.addEventListener('change', dlcProTimeUseLatencyMode)
+  
+  const dlcProTime_config_check_useLatencyMode = document.getElementById('check_useLatencyModeproTime')
+  dlcProTime_config_check_useLatencyMode.addEventListener('change', dlcProTimeUseLatencyMode)
+  const dlcProTime_config_check_usePTTest = document.getElementById('check_usePTTest')
+  dlcProTime_config_check_usePTTest.addEventListener('change', dlcCheckUsePTTest)
+  const dlcItem_platform_amagProTime = document.getElementById('dlcItem_amagprotime')
   // local storages
   let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
   let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
   let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
 
+  window.dlcProTime_usePTTest = false
   let configOpen = false
-  let dev_pttest = false
   let showAllMessages = "true"
   const consoleWarnMessage_showMessageTurnedOff = "⚠ Time Copy Messages are turned off!"
   // this variable activates tc reloading after pressing the back button when its set to true
@@ -102,20 +102,33 @@ document.addEventListener('DOMContentLoaded', async function () {
   const defaultLanguage = 'de'
 
   const dlc_details_classHidden = 'dlc-details--hidden'
-
+  // version json vars
   const dokuUrl = data_version.extension_documentation
   const changelogUrl = data_version.extension_changelog
   const privacyUrl = data_version.extension_privacy
   const readmeUrl = data_version.extension_readme
   const chromeStoreUrl = data_version.extension_chromestore
   const licenseUrl = data_version.extension_license
-
-  const extensionVersion = data_version.extension_version
-  const extensionBuild = data_version.extension_build
-  const extensionAuthor = data_version.extension_author
-  const extensionTesting = data_version.extension_testing
-  const extensionUpdateTextOverview = data_version.extension_update_text_overview
-  const extensionUpdateTextDetails = data_version.extension_update_text_details
+  const version = data_version.extension_version
+  const buildVersion = data_version.extension_build
+  const author = data_version.extension_author
+  const tester = data_version.extension_testing
+  const profileVersion = data_version.profile_version
+  const supportedProfileVersions = data_version.supported_profile_versions
+  const updateTextOverview = data_version.extension_update_text_overview
+  const updateTextDetails = data_version.extension_update_text_details
+  // globale vars
+  window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
+    chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, buildVersion:buildVersion,
+    author:author,tester:tester,profileVersion:profileVersion,supportedProfileVersions:supportedProfileVersions,
+    updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
+  }]
+  window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,showallmessages: showAllMessages,
+    elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline
+  }]
+  window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode: dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,
+    dlcItem_platform_amagProTime: dlcItem_platform_amagProTime
+  }]
 
   function openConfigs() {
     if (configOpen) {
@@ -267,7 +280,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null) {
         throw new Error("Bitte erstelle mindestens eine Projekt-Erkennung !")
       }
-      processData(filter, clipboarsString, bookingPlatform, dev_pttest)
+      processData(filter, clipboarsString, bookingPlatform)
 
     } catch (error) {
       lockActionButtons('false',fillButton)
@@ -280,7 +293,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   }
 
-  async function processData(filter, clipboarsString, bookingPlatform, dev_pttest) {
+  async function processData(filter, clipboarsString, bookingPlatform) {
 
     let timesheetData = []
     // get all boocking relevant data as array
@@ -289,7 +302,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.log("💽 Selected Filter-DLC: " + filter + " | Filtered data: ", timesheetData)
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error);
-      // notification(true, false, '')
       lockActionButtons('false',fillButton)
       if(showAllMessages) {
         message(true, 'error', 'ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
@@ -300,7 +312,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     try {
       console.log("🔘 Selected Platform-DLC: " + bookingPlatform)
-      let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
+      let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems)
       if (bookEntries) {
         console.log("✅ Booking process return okey | ", bookEntries)
         lockActionButtons('false',fillButton)
@@ -346,23 +358,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   // DLC Functions
-  function dlcShowProTimeTestButton() {
-    if (config_check_showProTimeTestButton.checked) {
-      localStorage.setItem('tc_c_dlc_protimetest', 'true')
-    } else {
-      localStorage.setItem('tc_c_dlc_protimetest', 'false')
-    }
-    dlcShowProTimeTestButtonDisplay()
-    configUserChanges = true
-  }
 
-  function dlcShowProTimeTestButtonDisplay() {
-    if (config_check_showProTimeTestButton.checked) {
-      button_dev_pttest.classList.remove('dNone')
-    } else {
-      button_dev_pttest.classList.add('dNone')
-    }
-  }
 
   function dlcProTimeForceLatencyMode(){
     if(config_check_forceLatencyModeproTime.checked){
@@ -374,7 +370,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function dlcProTimeUseLatencyMode(){
-    if(config_check_useLatencyModeproTime.checked){
+    if(dlcProTime_config_check_useLatencyMode.checked){
       localStorage.setItem('tc_c_dlc_protimeuselatencymode', 'true')
     }else {
       localStorage.setItem('tc_c_dlc_protimeuselatencymode', 'false')
@@ -382,15 +378,27 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
+  function dlcCheckUsePTTest(){
+    if(dlcProTime_config_check_usePTTest.checked){
+      localStorage.setItem('tc_c_dlc_protimetest', 'true')
+      dlcItem_platform_amagProTime.classList.add('dlcItem-amagProTime-TestMode')
+    }else {
+      localStorage.setItem('tc_c_dlc_protimetest', 'false')
+      dlcItem_platform_amagProTime.classList.remove('dlcItem-amagProTime-TestMode')
+    }
+    configUserChanges = true
+    
+  }
+
   // Test protime function
   async function testProTime() {
-    dev_pttest = true
+    dlcProTime_usePTTest = true
     readClipboardText()
   }
   
   // Regular Paste Function
   async function execReadClipboardText() {
-    dev_pttest = false
+    // dlcProTime_usePTTest = false
     readClipboardText()
   }
 
@@ -412,14 +420,14 @@ document.addEventListener('DOMContentLoaded', async function () {
       message(true, 'error', 'Offline', 'Du bist offline. Einige Funktionen von Time Copy können eingeschrenkt sein.')
     }
     // Display version
-    label_version.insertAdjacentHTML('beforeend', extensionVersion)
-    label_build_version.insertAdjacentHTML('beforeend', extensionBuild)
-    label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor)
-    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionTesting)
+    label_version.insertAdjacentHTML('beforeend', version)
+    label_build_version.insertAdjacentHTML('beforeend', buildVersion)
+    label_extensionDevelop.insertAdjacentHTML('beforeend', author)
+    label_extensionCoDevelop.insertAdjacentHTML('beforeend', tester)
     // Main Buttons Listener
     fillButton.addEventListener('click', execReadClipboardText)
     fillCancelButton.addEventListener('click', cancelPasteData)
-    button_dev_pttest.addEventListener('click', testProTime)
+    // button_dlcProTime_usePTTest.addEventListener('click', testProTime)
     configButton.addEventListener('click', openConfigs)
     button_clearAllMessages.addEventListener('click', clearAllMessages)
     buttonBackToMain.addEventListener('click', openConfigs)
@@ -463,13 +471,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     try{
-      window.appGlobalArgs = [{extensionversion: extensionVersion,extensionbuild: extensionBuild,extensionupdatetextoverview: extensionUpdateTextOverview,extensionupdatetextdetails: extensionUpdateTextDetails,
-        elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,showallmessages: showAllMessages,
-        elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, config_check_uselatencymodeprotime: config_check_useLatencyModeproTime,
-        config_check_showprotimetestbutton: config_check_showProTimeTestButton}]
-      // Load local storages
-      profileManager(data_version,...window.appGlobalArgs,window.configUserChanges)
-      appStorage(...window.appGlobalArgs)
+         // Load local storages
+      profileManager(...window.appGlobalArgs,...appVersionData,window.configUserChanges)
+      appStorage(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       // other dlcs
       xmasDlc()
       // devtool

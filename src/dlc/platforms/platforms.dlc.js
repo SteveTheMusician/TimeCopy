@@ -5,7 +5,7 @@ import { importPlatformCustomContent } from "./platforms.import.js";
 import { importPlatformsData } from "./platforms.import.js";
 import { platform_functionName_automatic } from "./platforms.import.js";
 
-// DLC function import - static map cuz eval is unsave
+// dlc function import / static map cuz eval is unsave
 const platformFunctionsMap = {
   "AmagProTime": AmagProTime,
   "Automatic": Automatic
@@ -37,9 +37,9 @@ export async function platformsContent() {
   }
 
   for (let plKey of importPlatforms) {
-
-    // If a new DLC is Imported it would crash, cuz there is no cached data for it.
-    // To slove this: if error -> throw it and try to restart plugin (with cleaned dlc cache and new data)
+    // generate dlc items for each platform
+    // if a new dlc is imported it would crash, cuz there is no cached data for it.
+    // to slove this: if error -> throw it and try to restart plugin (with cleaned dlc cache and new data)
     let plDataObject = ''
     try{
       plDataObject = platformInfoData.find(item => item[plKey])[plKey]
@@ -54,6 +54,7 @@ export async function platformsContent() {
       return
     }
     let platformCustomContent = ''
+    let platformCustomAppFunctions = ''
     let platformCustomImports
     let platformImageFormat = '.png'
     if (plKey === platform_functionName_automatic) {
@@ -63,10 +64,10 @@ export async function platformsContent() {
     if (plDataObject.platform_content === 'true') {
       platformCustomImports = await importPlatformCustomContent(plKey)
       platformCustomContent = platformCustomImports.customContent
+      platformCustomImports.customAppFunctions ? platformCustomAppFunctions = platformCustomImports.customAppFunctions: ''
     }
-    // dlc array (Foldername aso used as ID for saving)
-    // for new items, just make a new dls, add it here to the array, make logo in static folder and add css in style/dlc folder
-    let platformChild = `<label class="configItem dlcItem dlcItem-platform dlcItem-clickable dFlex" title="Platform wählen">
+    // dlc item
+    let platformChild = `<label class="configItem dlcItem dlcItem-platform dlcItem-clickable dFlex" title="Platform wählen" id="dlcItem_`+ (plDataObject.platform_id) +`">
                 <div class="dlcItem-main-container dFlex">
                   <div class="dlcItem-main dFlex">
                     <div class="configItem-radio-container dFlex">
@@ -117,15 +118,16 @@ export async function platformsContent() {
               </label>`
     document.getElementById('window_bookingplatforms').innerHTML += platformChild
     loadedPlatformsFeedbackArray.push(plDataObject.platform_id)
+    platformCustomAppFunctions
   }
       resolve("🟢 [DLC: Platforms] Content for "+loadedPlatformsFeedbackArray+" loaded.")
   })
 }
 
-export async function platforms(bookingPlatformSelectValue, bookingData, detectionItems, dev_pttest) {
+export async function platforms(bookingPlatformSelectValue, bookingData, detectionItems) {
 
   let bookingFunctionName = bookingPlatformSelectValue
-  // If "Automatic" then wait for new Value
+  // if "Automatic" then wait for new Value
   if (bookingFunctionName === platform_functionName_automatic) {
     bookingFunctionName = await Automatic()
     bookingPlatformSelectValue = bookingPlatformSelectValue.replace(platform_functionName_automatic, bookingFunctionName)
@@ -139,6 +141,6 @@ export async function platforms(bookingPlatformSelectValue, bookingData, detecti
       detectionFiltersMatch_booking = [...detectionFiltersMatch_booking, allDetectionFilters[i]];
     }
   }
-  return bookingFunctionName ? platformFunctionsMap[bookingFunctionName](bookingData, detectionFiltersMatch_booking, dev_pttest) : null
+  return bookingFunctionName ? platformFunctionsMap[bookingFunctionName](bookingData, detectionFiltersMatch_booking) : null
 }
 

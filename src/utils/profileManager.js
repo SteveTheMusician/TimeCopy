@@ -4,10 +4,10 @@ import { lstorage_cBookingPlatform,lstorage_cFilter,lstorage_cShowAllMessages,
     lstorage_cDetectionItems,lstorage_cLanguage,lstorage_cThemes } from "./appStorage.js";
 import { defaultTheme } from "./defaults/defaultVariables.js";
 
-export function profileManager(data_version,appGlobalArgs) {
+export function profileManager(appGlobalArgs,appVersionData,configUserChanges) {
   
-    let tcprofileVersion = data_version.profile_version
-    let supportedTcprofileVersions = data_version.supported_profile_versions
+    let tcprofileVersion = appVersionData.profileVersion
+    let supportedTcprofileVersions = appVersionData.supportedProfileVersions
     
     // import time copy profile
     let button_importConfigs = document.getElementById('button_importConfigs');
@@ -97,7 +97,7 @@ export function profileManager(data_version,appGlobalArgs) {
         let saveObj = { "tcprofile": 
           { 
             "author": "steve", "version": tcprofileVersion, 
-            "extension_version": appGlobalArgs.extensionVersion, "extension_build": appGlobalArgs.extensionbuild, 
+            "extension_version": appVersionData.version, "extension_build": appVersionData.buildVersion, 
             "profile_name": appGlobalArgs.configprofilename.value 
           } 
         }

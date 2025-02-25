@@ -23,6 +23,9 @@
 
 - * als ticketname im filter: ignoriert ticket namen mit oder ohne value
 
+- detectionItems von den platformen rendern
+- action buttons (protimeTest) von content rendern
+
 - Dokumentation
 - update readme
 - code cleanup: kommentare und feedbacks verbessern

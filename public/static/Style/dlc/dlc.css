@@ -3,6 +3,8 @@
 
 :root {
     --color-dlc-snowflake: #fefefe;
+	--color-dlc-testmode: #363524;
+	--color-dlc-testmode-highlight: #ffff00;
 }
 
 .dlcItem {
@@ -97,6 +99,24 @@ input:checked~.dlcItem-clickable:hover{
 
 .dlc-platform_custom-content {
     padding-top: 10px;
+}
+
+.dlcItem-amagProTime-TestMode {
+	background-color: var(--color-dlc-testmode) !important;
+    outline: 1px var(--color-dlc-testmode-highlight) dashed;
+}
+
+.dlcItem-amagProTime-TestMode .radio-custom-container input:checked~.checkmark {
+    background-color: var(--color-dlc-testmode-highlight);
+    box-shadow: 0 0 6px 2px var(--color-dlc-testmode-highlight);
+}
+
+.dlcItem-amagProTime-TestMode .button-dropdown--active svg {
+    fill: var(--color-dlc-testmode-highlight);
+}
+
+.dlcItem-amagProTime-TestMode .button-dropdown:hover svg {
+    fill: var(--color-dlc-testmode-highlight);
 }
 
 .dlc-xmastree {

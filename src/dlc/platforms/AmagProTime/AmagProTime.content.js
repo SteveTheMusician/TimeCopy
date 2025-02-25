@@ -1,3 +1,4 @@
+// customContent is automatically generated / imported in to the dlc-item by the platform.dlc
 export const customContent = `<div class="dlc-platform_custom-content">
     <p class="text-label">Funktionen</p>
     <div class="dlc-platform_custom-content-row dFlex">
@@ -24,15 +25,17 @@ export const customContent = `<div class="dlc-platform_custom-content">
     </div>
     <div class="dlc-platform_custom-content-row dFlex">
         <div class="row-cell-left">
-            <p class="subtext">Buchungstester</p>
+            <p class="subtext">Test-Modus</p>
         </div>
         <div class="row-cell-right">
             <label class="switch">
-                <input type="checkbox" class="" id="check_showProTimetestButton" />
-                <span class="switch_slider" title="Zeigt einen Test-Button an, welcher die Daten ohne zu Buchen überträgt."></span>
+                <input type="checkbox" class="" id="check_usePTTest" />
+                <span class="switch_slider" title="Aktiviert den Test-Modus, in dem die Daten übertragen werden, ohne diese final zu buchen."></span>
             </label>
         </div>
     </div>
 </div>`
 
-// custom function here
+// custom functions
+
+

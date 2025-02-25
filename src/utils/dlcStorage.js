@@ -3,21 +3,22 @@ let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
 let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
 let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
 
-
 // local storage for dlcs
-export function loadDLCStorage(appGlobalArgs) {
+export function loadDLCStorage(dlcGlobalArgs) {
   
   if (lstorage_c_dlcProTimeTest === 'true') {
-    appGlobalArgs.config_check_showprotimetestbutton.checked = true
-    dlcShowProTimeTestButtonDisplay()
+    dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = true
+    dlcGlobalArgs.dlcItem_platform_amagProTime.classList.add('dlcItem-amagProTime-TestMode')
+    window.dlcProTime_usePTTest = true
+    // dlcShowProTimeTestButtonDisplay()
   }
   if(lstorage_c_dlcProTimeForceLatencyMode === 'true') {
-    appGlobalArgs.config_check_forcelatencymodeprotime.checked = true
+    dlcGlobalArgs.dlcProTime_config_check_useLatencyMode.checked = true
   }
   if(lstorage_c_dlcProTimeUseLatencyMode === 'false') {
-    appGlobalArgs.config_check_uselatencymodeprotime.checked = false
+    dlcGlobalArgs.dlcProTime_config_check_useLatencyMode.checked = false
   }else {
-    appGlobalArgs.config_check_uselatencymodeprotime.checked = true
+    dlcGlobalArgs.dlcProTime_config_check_useLatencyMode.checked = true
   }
 }
 

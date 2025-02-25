@@ -19,24 +19,24 @@ export let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessage
 export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
 
-export function appStorage(appGlobalArgs) 
+export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) 
     {
       
       // Load localstorage
       function loadStorage() {
         
         if (lstorage_appVersion) {
-          if (lstorage_appVersion !== appGlobalArgs.extensionversion) {
-            localStorage.setItem('tc_appVersion', appGlobalArgs.extensionversion)
+          if (lstorage_appVersion !== appVersionData.version) {
+            localStorage.setItem('tc_appVersion', appVersionData.version)
             // reset dlc information cache
             clearDlcLocalStorages(true)
             // show update message
-            message(true, 'information', appGlobalArgs.extensionupdatetextoverview + appGlobalArgs.extensionversion, appGlobalArgs.extensionupdatetextdetails)
+            message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, appVersionData.updateTextDetails)
           }
         } else {
           // "First" app start
-          localStorage.setItem('tc_appVersion', appGlobalArgs.extensionversion)
-          message(true, 'information', appGlobalArgs.extensionupdatetextoverview + appGlobalArgs.extensionversion, appGlobalArgs.extensionupdatetextdetails)
+          localStorage.setItem('tc_appVersion', appVersionData.version)
+          message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, appVersionData.updateTextDetails)
         }
         
         if (lstorage_eeTheme === 'true') {
@@ -89,7 +89,7 @@ export function appStorage(appGlobalArgs)
           appGlobalArgs.elem_messagesection.classList.remove('dNone')
           appGlobalArgs.messagesheadline.classList.remove('dNone')
         }
-        loadDLCStorage(appGlobalArgs)
+        loadDLCStorage(dlcGlobalArgs)
     }
 
     // sessionstorages for temp-messages and data

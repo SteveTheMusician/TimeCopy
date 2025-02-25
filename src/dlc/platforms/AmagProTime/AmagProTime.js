@@ -17,11 +17,12 @@ import {
 } from "./variables/AmagProTime.variables.js";
 
 // 🍎 initial script to filter data and start the booking process
-export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest) {
+export async function AmagProTime(bookingData, detectionItemsProTime) {
 
   let valideTickets = [];
   let failedTickets = [];
   let errorDetailMessage = ''
+  let dev_pttest = window.dlcProTime_usePTTest
 
   // use force latency mode
   if (localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === 'true') {
@@ -152,7 +153,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
   }
 }
 // 🍎 main booking logic
-async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency) {
+async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency) {
 
   let crossObserver_mutationObserver
 
