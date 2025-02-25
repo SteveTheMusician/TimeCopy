@@ -138,10 +138,85 @@ Du kannst allerdings diese dir immer relativ schnell ziehen, in dem per Terminal
 
 ### Time Copy Benutzen
 
+#### Allgemeine Benutzung
+
+- Kopiere deine Daten aus einer beliebigen Excel Tabelle
+- Öffne die Webseite, auf der du die Informationen übertragen willst
+- Öffne Time Copy und klicke auf das Einfügen-Icon
+- Wenn alles Fertig ist, wird dich Time Copy benachrichtigen
+
+>[!IMPORTANT]
+>Die aktuellen DLCs unterstützen keine CSV Formate
+>Buchungs-Daten kännen nur von einem einzelnen Ticket bis zu maximal einen Tag kopiert werden
+>(Stand 19.02.2025)
+
+#### Erweiterte Benutzung
+
+##### Einstellen
+
+Damit Time Copy so funktioniert, wie du es möchtest, musst du zu erst Einstellungen vornehmen.
+Alle Einstellungen findest du unter dem Zahnrad-Icon.
+
+1) Filter einstellen
+Filter werden als DLCs (kleine Erweiterungen) mitgeliefert.
+Sie erkennen und verarbeiten die Daten, die du in dein Clipboard kopierst und geben sie an das Platform DLC weiter.
+Du findest sie unter das kleine Filter-Icon (zweiter Tab von oben).
+
+Wähle aus, welches Format du zum kopieren deiner Daten verwendest.
+
+>[!IMPORTANT]
+>Filter werden erst aktiv, sobald du auf Einfügen klickst
+
+2) Erkennung erstellen
+Erkennuns-parameter werden von Time Copy dazu benutzt, die Daten, die von den Filter kommen,
+einer Buchungsplatform zu zu ordnen.
+Du findest sie unter dem Auge-Icon (drittes Symbol von oben)
+
+- Klicke auf das "+" um eine neue Erkennung hinzuzufügen
+- Wähle im Select-Dropdown deine Erkennung aus.
+- Fülle die gewünschten Werte in der Erkennung aus
+- Änderungen speicherst du durch ein klick auf den Zurück-Pfeil oben links
+
+> [!NOTE]  
+> Die Eingaben eines Erkennungsitem hängen von den vorhandenen Platformen ab
+
+3) Buchungsplatform wählen
+Buchungsplatformen sind Webseiten, in denen deine verarbeitete Daten automatisch eingetragen werden sollen.
+Die Optionen findest du unter dem Kalender-Icon (viertes von oben).
+Du kanst entweder eine Auswählen, die dann immer benutzt wird, oder du wählst "Automatisch", welche dann je 
+nach Webseite die entsprächende Platform nutzt.
+
+
+#### Filter DLCs
+
+##### Tobias Excel
+
+Formtat
+```
+Tag + Datum (In erste Zelle) | [TicketName-Ticketnummer] Beschreibung des Tickets : Zeit+Zeitformat (In zweite Zelle)
+````
+
+Beispiel
+```
+Mi. 14.08.2024 | [TicketName-1234] Daily - Ticket : 2.5h 
+
+````
+
+
+#### Platform DLCs
+
 
 ## Entwickler
 
 ## Easter Eggs
+
+- **XMas:** Von Dezember bis März erscheint ein Tannenbaum mit schneeflocken.
+Der Tannenbaum ändert seine Farben, wenn du über ihn hoverst.
+Der Tannenbaum, wie auch die Schneeflocken lassen sich ein und ausschalten.
+- **Banana:** Drücke unter den Einstellungen, im Erkennungs-Tab mit gedrückter Shift-Taste auf das "+" (Erkennungs-Items hinzufügen).
+Das "+" wird durch eine Banane ersetzt. (Ab V. 1.0)
+- **Exotic Skin:** Tippe ins Namenfeld unter Einstellungen im Tab Allgemein, das wort "LOVE" ein und klicke auf Zurück.
+Danach kannst du im Design-Bereich den Skin "Exotic-Gold" auswählen.
 
 ## Weitere Dokumentationen
 

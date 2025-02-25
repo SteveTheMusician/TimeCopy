@@ -5,8 +5,8 @@ import {
   filterAllPrefixes,
   filterBookingNomber
 } from "./services/AmagProTime.services.js";
-import { message } from "../../../ui/message/message.js";
-import { notification } from "../../../ui/notification/notification.js";
+import { message } from "../../../components/ui/message/message.js";
+import { notification } from "../../../components/ui/notification/notification.js";
 import {
   bookingLoopCount,
   highLatency,
@@ -17,11 +17,12 @@ import {
 } from "./variables/AmagProTime.variables.js";
 
 // 🍎 initial script to filter data and start the booking process
-export async function AmagProTime(bookingData, detectionItemsProTime, dev_pttest) {
+export async function AmagProTime(bookingData, detectionItemsProTime) {
 
   let valideTickets = [];
   let failedTickets = [];
   let errorDetailMessage = ''
+  let dev_pttest = window.dlcProTime_usePTTest
 
   // use force latency mode
   if (localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === 'true') {
@@ -152,7 +153,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
   }
 }
 // 🍎 main booking logic
-async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency) {
+async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency) {
 
   let crossObserver_mutationObserver
 
@@ -286,7 +287,7 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
   const bookingWaitingTimer500 = "500"
   const bookingWaitingTimer1000 = "1000"
 
-  // Wait timer function
+  // wait timer function
   async function waitTimer(ms) {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -294,7 +295,7 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
       }, ms)
     })
   }
-  // Enter Key Event
+  // enter key event
   const keyEventEnter = new KeyboardEvent('keydown', {
     key: 'Enter',
     code: 'Enter',
@@ -336,8 +337,11 @@ async function AmagProTimeBookTickets(valideTickets, dev_pttest, bookingLoopCoun
 
   // 🟩 check booking loop and place overlay functions
   function checkFirstBookingLoop(bookingLoopCount) {
+    if(dev_pttest){
+      console.warn('[Time Copy] ## ProTime Test-Mode ##')
+    }
     return new Promise((resolve) => {
-      // If Click-Overlay already exists duo error / plugin reload - remove it
+      // if click-overlay already exists duo error / plugin reload - remove it
       if (document.getElementById('timeCopyProTimeClick')) {
         document.getElementById('timeCopyProTimeClick').remove()
       }

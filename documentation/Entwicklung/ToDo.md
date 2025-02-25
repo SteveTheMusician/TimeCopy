@@ -17,6 +17,15 @@
  
 ## V 1.0.0
 
+### Fehler durch refactor:
+- variabeln in global window auslagern und renamen
+- global variabeln als object bauen und dann nur was gebraucht wird über keys erfassen
+
+- * als ticketname im filter: ignoriert ticket namen mit oder ohne value
+
+- detectionItems von den platformen rendern
+- action buttons (protimeTest) von content rendern
+
 - Dokumentation
 - update readme
 - code cleanup: kommentare und feedbacks verbessern

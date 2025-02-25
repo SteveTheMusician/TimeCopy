@@ -1,4 +1,4 @@
-export function message(messageShow,messageType,messageTextOverview,messageTextDetails){
+export function message(messageShow,messageType,messageTextOverview,messageTextDetails,blockApp){
 
     if(messageTextDetails === '' || !messageTextDetails){
         messageTextDetails = 'Keine Details verfügbar.'
@@ -49,6 +49,9 @@ export function message(messageShow,messageType,messageTextOverview,messageTextD
         setTimeout(function(){
             currentMessage.classList.remove('message--hidden')
         },300)
+    }
+    if(blockApp){
+        document.body.style.pointerEvents = 'none'
     }
 }
 

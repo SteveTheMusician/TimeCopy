@@ -757,6 +757,7 @@ input:checked+.switch_slider:before {
 .notification--hidden {
     bottom: -60px;
     opacity: 0;
+    pointer-events: none;
 }
 
 .messageSection {
