@@ -4,10 +4,11 @@
 
 ### Features & Fixes für die Zukunft
  
-- dlc: stevegoogleexcel - wenn urhzeit im string filtern / raus löschen ? macht schon?
-- json mit eigener sprache ? (Auslagerung vorallem der Benachrichtigungstexte in eine json) ?
+- sprache in dlcs und html integrieren
 - eigene farbthemen importieren/ generieren
-
+- willkommens screen mit anleitung
+- * als ticketname im filter: ignoriert ticket namen mit oder ohne value
+- detectionItems von den platformen rendern
 - Firefox & Opera Version
 
 ## DLC Update
@@ -17,18 +18,10 @@
  
 ## V 1.0.0
 
-### Fehler durch refactor:
-- variabeln in global window auslagern und renamen
-- global variabeln als object bauen und dann nur was gebraucht wird über keys erfassen
-
-- * als ticketname im filter: ignoriert ticket namen mit oder ohne value
-
-- detectionItems von den platformen rendern
-- action buttons (protimeTest) von content rendern
-
 - Dokumentation
 - update readme
 - code cleanup: kommentare und feedbacks verbessern
 - CSS Variabeln verbessern und auslagern
-- willkommens screen mit anleitung ❗️
  
+## V 1.0.1 
+- dlc: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon

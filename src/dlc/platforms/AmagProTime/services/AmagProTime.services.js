@@ -58,7 +58,6 @@ export function filterAllPrefixes(ticket, ticketAddPrefixMatches) {
 
 export function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
     let refineBookingNomber_Matches = []
-
     if (ticketRefinePrefixesMatches.length > 1) {
         ticketRefinePrefixesMatches.forEach((detectionItemRefineBookingNomber) => {
             if (ticket.item_bookingnumber.length && detectionItemRefineBookingNomber.projectnomber === ticket.item_bookingnumber || ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber === anyProjectNomber) {

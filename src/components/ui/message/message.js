@@ -1,7 +1,7 @@
 export function message(messageShow,messageType,messageTextOverview,messageTextDetails,blockApp){
 
     if(messageTextDetails === '' || !messageTextDetails){
-        messageTextDetails = 'Keine Details verfügbar.'
+        messageTextDetails = window.languag.message_noDetailsAvailable
     }
 
     let currentMessageID = new Date().getTime().toString()

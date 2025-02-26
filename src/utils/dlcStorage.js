@@ -21,7 +21,7 @@ export function loadDLCStorage(dlcGlobalArgs) {
 }
 
 export function clearDlcLocalStorages(onlyImportantDLC) {
-  // DLC Storages
+  // dlc storages
   if(onlyImportantDLC) {
     localStorage.removeItem('tc_s_dlcplatforminformations')
     localStorage.removeItem('tc_s_dlcfilterinformations')

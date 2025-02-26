@@ -18,12 +18,10 @@ import {
 
 // 🍎 initial script to filter data and start the booking process
 export async function AmagProTime(bookingData, detectionItemsProTime) {
-
   let valideTickets = [];
   let failedTickets = [];
   let errorDetailMessage = ''
   let dev_pttest = window.dlcProTime_usePTTest
-
   // use force latency mode
   if (localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === 'true') {
     highLatency = true
@@ -34,7 +32,6 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   if (localStorage.getItem('tc_c_dlc_protimeuselatencymode') === 'false') {
     useHighLatency = false
   }
-
   // match tickets to the given filters (functions in service.js)
   try {
     bookingData.forEach((ticket) => {
@@ -92,7 +89,6 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
     });
     notificationTimeOut = 0
   }
-
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
@@ -154,20 +150,16 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
 }
 // 🍎 main booking logic
 async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency) {
-
   let crossObserver_mutationObserver
-
   function crossObserver(elementSelector) {
     let appearanceCount = 0;
     // return if observer is already running
     if (crossObserver_mutationObserver) {
       return crossObserver_mutationObserver;
     }
-
     const element = document.querySelector(elementSelector);
     crossObserver_mutationObserver = new MutationObserver(() => {
       const isVisible = element && element.style.display !== 'none' && element.style.visibility !== 'hidden';
-
       if (isVisible) {
         appearanceCount++;
         if (appearanceCount === 2) {
@@ -176,7 +168,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           }
         }
     });
-
     crossObserver_mutationObserver.observe(element, {
       childList: true,
       subtree: true,
@@ -191,12 +182,10 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       crossObserver_mutationObserver.disconnect();
     }
   }
-
   // element change observer
   async function observeElement(selector, boolean, selectorNumber) {
     const checkInterval = 500;
     const timeout = 8000;
-
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
         reject({
@@ -207,14 +196,12 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
       const checkAndObserve = () => {
         const element = document.querySelectorAll(selector)[selectorNumber];
-
         if (element) {
           if ((boolean && element.value) || (!boolean && !element.value) || (boolean && element) || (!boolean && !element)) {
             clearTimeout(timeoutId);
             resolve('[Time Copy] 👀 🟢 [Element Observer] Element found immediately');
             return;
           }
-
           const observer = new MutationObserver(() => {
             if (boolean) {
               if (element.value) {
@@ -230,7 +217,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
               }
             }
           });
-
           observer.observe(element, {
             childList: true,
             subtree: true,
@@ -239,7 +225,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           });
         }
       };
-
       checkAndObserve();
       const existenceCheck = setInterval(() => {
         const element = document.querySelectorAll(selector)[selectorNumber];
@@ -254,7 +239,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
   async function observeVisibility(selector, shouldBeVisible) {
     const checkInterval = 500;
     const timeout = 8000;
-
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
         reject({
@@ -266,7 +250,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       const checkAndObserve = () => {
         const element = document.querySelector(selector);
         const isVisible = element && element.style.display !== 'none' && element.style.visibility !== 'hidden';
-
         if (shouldBeVisible && isVisible) {
           clearInterval(intervalId);
           clearTimeout(timeoutId);
@@ -286,7 +269,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
   const bookingWaitingTimerDefault = "250"
   const bookingWaitingTimer500 = "500"
   const bookingWaitingTimer1000 = "1000"
-
   // wait timer function
   async function waitTimer(ms) {
     return new Promise((resolve) => {
@@ -334,7 +316,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       }
     }
   }
-
   // 🟩 check booking loop and place overlay functions
   function checkFirstBookingLoop(bookingLoopCount) {
     if(dev_pttest){
@@ -349,6 +330,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         if (!document.getElementById('timeCopyProTimeClick')) {
           let dom_clickContainer = document.createElement("div")
           let dom_clickContainerInner = document.createElement("div")
+          
           dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
           dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
           dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
@@ -367,9 +349,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       }
     })
   }
-
   let retryTicketList = []
-
   async function ticketBookingLoop(valideTickets) {
     try {
       // all functions executed for each valide ticket
@@ -385,7 +365,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           }
           // start observing loading dots for the whole process
           crossObserver(proTimeElem_loadingBox);
-
           // wait for empty textarea (true only when page is reloaded or ticket was booked)
           try {
             await observeElement('textarea', false, '0');
@@ -394,20 +373,18 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           }
           // checkpoint loading dots (quick-check)
           await checkpointLoadingDots(true)
-
           const eventChange = new Event("change")
           const ticketObject = ticket[0]
           const detectionObject = ticket[1]
+
           let protime_hours
           let protime_ticketNumber
           let protime_activityDropdown
           let protime_activityDropdownList
           let protime_ticketElemNom
-
-          
-
           let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
           let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber
+
           if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
             if (proTime_projectNomber) {
               protime_Innenauftrag.childNodes[0].value = proTime_projectNomber
@@ -418,7 +395,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           } else {
             return
           }
-
           await waitTimer(bookingWaitingTimer500)
           // checkpoint loading dots (loaw-latency)
           await checkpointLoadingDots(false)
@@ -439,9 +415,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           } catch (error) {
             return result = { success: false, message: error };
           }
-
           await waitTimer(bookingWaitingTimerDefault)
-
           // if detection item has activity book it
           try {
             if (detectionObject.protimeactivity.length > 1) {
@@ -469,6 +443,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           } catch (error) {
             return result = { success: false, message: error };
           }
+
           await waitTimer(bookingWaitingTimer500)
 
           // 1s break on high latency mode
@@ -476,12 +451,10 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             await waitTimer(bookingWaitingTimer1000)
             await checkpointLoadingDots(true)
           }
-
           // empty textarea when retryList has length
           if(retryTicketList.length) {
             document.getElementsByTagName('textarea')[0].value = ''
           }
-
           protime_hours = document.getElementsByClassName('lsField--right')[0].childNodes[0]
           protime_hours.focus()
           protime_hours.click()
@@ -498,7 +471,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
           // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
           let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
-
           protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
           protime_ticketNumber.focus()
           protime_ticketNumber.click()
@@ -506,6 +478,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           if (!dev_pttest) {
             protime_ticketNumber.dispatchEvent(keyEventEnter)
           }
+
           await waitTimer(bookingWaitingTimerDefault)
 
           await checkpointLoadingDots(false)
@@ -513,9 +486,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
           // join tickent number and discription
           let ticketItemDisc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
-
           let mdown = new Event('focus');
-
           let protime_ticketText = document.getElementsByTagName('textarea')[0];
           protime_ticketText.dispatchEvent(mover)
           protime_ticketText.dispatchEvent(mdown)
@@ -554,6 +525,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
               protime_ticketText.value = ''
             }
           }
+
           await waitTimer(bookingWaitingTimer500)
           await checkpointLoadingDots(false)
           await checkpointLoadingDots(true)
@@ -566,13 +538,12 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
           // disconnect cross observer
           stopCrossObserver()
-
           bookingLoopCount++
         } catch (error) {
           throw error
         }
       }
-      // End of bookingloop
+      // end of bookingloop
       if (retryTicketList.length) {
         return result = { success: true, retryBooking: true };
       }else {
@@ -582,8 +553,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       throw error
     }
   }
-
-  // 🟦 run main booking Proccess
+  // 🟦 run main booking proccess
   try {
     let ticketBookingLoopResult = await ticketBookingLoop(valideTickets)
     if(!ticketBookingLoopResult.success){

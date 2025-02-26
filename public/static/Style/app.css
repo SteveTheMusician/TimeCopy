@@ -76,8 +76,16 @@ button svg {
     height: 20px;
 }
 
+button:focus-visible {
+    outline: 1px dashed var(--color-active);
+}
+
 input {
     font-weight: 400;
+}
+
+input:focus-visible {
+    outline: 1px dashed var(--color-active);
 }
 
 select {
