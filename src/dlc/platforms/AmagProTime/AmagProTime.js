@@ -23,7 +23,6 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   let failedTickets = [];
   let errorDetailMessage = ''
   let dev_pttest = window.dlcProTime_usePTTest
-
   // use force latency mode
   if (localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === 'true') {
     highLatency = true
@@ -34,7 +33,6 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   if (localStorage.getItem('tc_c_dlc_protimeuselatencymode') === 'false') {
     useHighLatency = false
   }
-
   // match tickets to the given filters (functions in service.js)
   try {
     bookingData.forEach((ticket) => {
@@ -92,7 +90,6 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
     });
     notificationTimeOut = 0
   }
-
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
@@ -403,9 +400,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           let protime_activityDropdown
           let protime_activityDropdownList
           let protime_ticketElemNom
-
-          
-
           let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
           let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber
           if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
@@ -498,7 +492,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
           // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
           let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
-
           protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
           protime_ticketNumber.focus()
           protime_ticketNumber.click()
@@ -513,9 +506,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
           // join tickent number and discription
           let ticketItemDisc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
-
           let mdown = new Event('focus');
-
           let protime_ticketText = document.getElementsByTagName('textarea')[0];
           protime_ticketText.dispatchEvent(mover)
           protime_ticketText.dispatchEvent(mdown)
@@ -572,7 +563,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           throw error
         }
       }
-      // End of bookingloop
+      // end of bookingloop
       if (retryTicketList.length) {
         return result = { success: true, retryBooking: true };
       }else {
@@ -583,7 +574,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
     }
   }
 
-  // 🟦 run main booking Proccess
+  // 🟦 run main booking proccess
   try {
     let ticketBookingLoopResult = await ticketBookingLoop(valideTickets)
     if(!ticketBookingLoopResult.success){

@@ -1,0 +1,19 @@
+{
+    "error": "FEHLER",
+    "error_appError": "APP FEHLER",
+    "error_selectFilter":"Bitte wähle einen Filter.",
+    "error_selectPlatform":"Bitte wähle eine Buchungsplatform.",
+    "error_addDetection":"Bitte erstelle mindestens eine Projekt-Erkennung.",
+    "error_noBookingData": "Keine Buchungsdaten",
+    "error_noBookingData_disc": "Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.",
+    "message_bookingProcessEnded": "Buchungsprozess beendet",
+    "message_offline": "Offline",
+    "message_offline_disc": "Du bist offline. Einige Funktionen von Time Copy können eingeschrenkt sein.",
+    "notification_importError":"IMPORT FEHLER",
+    "notification_fileNotRead": "Datei konnte nicht gelesen werden.",
+    "notification_fileNotLoad": "Datei konnte nicht geladen werden.",
+    "notification_fileVersionNotMatch": "Version stimmt nicht überein.",
+    "notification_profileImported": "Profil wurde erfolgreich importiert!",
+    "notification_profileReset": "Profil wurde zurückgesetzt.",
+    "notification_dlcCacheReset": "DLC-Cache wurde zurückgesetzt."
+}

@@ -2,13 +2,12 @@ import { appStorage } from "./appStorage.js";
 import { notification } from "../components/ui/notification/notification.js";
 import { lstorage_cBookingPlatform,lstorage_cFilter,lstorage_cShowAllMessages,
     lstorage_cDetectionItems,lstorage_cLanguage,lstorage_cThemes } from "./appStorage.js";
-import { defaultTheme } from "./defaults/defaultVariables.js";
+import { defaultTheme,defaultLanguage,defaultShowAllMessages } from "./defaults/defaultVariables.js";
 
 export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dlcGlobalArgs) {
   
     let tcprofileVersion = appVersionData.profileVersion
     let supportedTcprofileVersions = appVersionData.supportedProfileVersions
-    
     // import time copy profile
     let button_importConfigs = document.getElementById('button_importConfigs');
     button_importConfigs.addEventListener("click", function () {
@@ -29,21 +28,19 @@ export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dl
                       const parsedData = JSON.parse(this.result);
                       resolve(parsedData);
                   } catch (e) {
-                      reject(new Error('Import fehlgeschlagen: Datei konnte nicht gelesen werden.'));
+                      reject(new Error(window.language.notification_importError+': '+window.language.notification_fileNotRead));
                   }
               });
 
               reader.addEventListener("error", function () {
-                  reject(new Error('Import fehlgeschlagen: Datei konnte nicht geladen werden.'));
+                  reject(new Error(window.language.notification_importError+': '+window.language.notification_fileNotLoad));
               });
 
               reader.readAsText(files[0]);
           });
 
           const isValidVersion = checkImportProfileVersion(fileData);
-
-          if (isValidVersion) {
-            
+          if (isValidVersion) {  
                 localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
                 localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg.show_all_messages)
                 localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
@@ -56,7 +53,7 @@ export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dl
                 window.location.reload()    
                 setTimeout(function () {}, 2000)
           } else {
-              throw new Error('Import fehlgeschlagen: Version stimmt nicht überein.')
+              throw new Error(window.language.notification_importError+': '+window.language.notification_fileVersionNotMatch)
           }
       } catch (e) {
         importErrorMessage = e.message
@@ -77,12 +74,11 @@ export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dl
       return versionValidated
     }
 
-    // Export Configs as Json
+    // export user configs as json
     let button_exportConfigs = document.getElementById('button_exportConfigs')
     button_exportConfigs.addEventListener('click', exportProfile)
 
     function exportProfile() {
-
       if (configUserChanges === true) {
         sessionStorage.setItem('tc_c_exportProfile_afterChange', 'true')
         window.location.reload()
@@ -101,11 +97,9 @@ export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dl
             "profile_name": appGlobalArgs.configprofilename.value 
           } 
         }
-        // apply values
-        // checken ob storages existieren!!!
         let themeExport = lstorage_cThemes ?? defaultTheme
         let languageExport = lstorage_cLanguage ?? defaultLanguage
-        let showAllMessagesExport = lstorage_cShowAllMessages ?? appGlobalArgs.showallmessages
+        let showAllMessagesExport = lstorage_cShowAllMessages ?? defaultShowAllMessages
         let filterExport = lstorage_cFilter ?? ''
         Object.assign(
           saveObj.tcprofile, 

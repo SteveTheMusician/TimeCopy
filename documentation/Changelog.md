@@ -146,3 +146,4 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - other: restructure dlc cache
 - other: error message block function
 - other: amagprotime dlc - remove test-button (use regular paste-button in test-mode)
+- other: js messages are now stored in a language json (other languages can be added in feature)
