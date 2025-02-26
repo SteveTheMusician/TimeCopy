@@ -122,14 +122,14 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - fix: notification style in front of xmas dlc
 - other: remove storage and declarative Content premission
 
-## V 0.9.82
+## V 0.9.82 (Release)
 - fix: invisible texts in themes
 - other: code clean up
 - other: renaming low latency to high latency
 - other: new public file structure
 - other: readme, license, documentation
 
-## V 1.0.0
+## V 1.0.0 (Release)
 - feature: configuration to show / hide messages
 - feature: amagprotime dlc - multiple string matches in detection item
 - feature: compatibility with older profile versions / supported profile version list
