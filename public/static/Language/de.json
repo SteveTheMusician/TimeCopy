@@ -1,5 +1,6 @@
 {
     "error": "FEHLER",
+    "warning": "WARNUNG",
     "error_appError": "APP FEHLER",
     "error_selectFilter":"Bitte wähle einen Filter.",
     "error_selectPlatform":"Bitte wähle eine Buchungsplatform.",
@@ -9,6 +10,7 @@
     "message_bookingProcessEnded": "Buchungsprozess beendet",
     "message_offline": "Offline",
     "message_offline_disc": "Du bist offline. Einige Funktionen von Time Copy können eingeschrenkt sein.",
+    "message_noDetailsAvailable": "Keine Details verfügbar.",
     "notification_importError":"IMPORT FEHLER",
     "notification_fileNotRead": "Datei konnte nicht gelesen werden.",
     "notification_fileNotLoad": "Datei konnte nicht geladen werden.",

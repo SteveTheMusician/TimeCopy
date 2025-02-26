@@ -4,11 +4,11 @@
 
 ### Features & Fixes für die Zukunft
  
-- json mit eigener sprache ? (Auslagerung vorallem der Benachrichtigungstexte in eine json) ?
+- sprache in dlcs und html integrieren
 - eigene farbthemen importieren/ generieren
 - willkommens screen mit anleitung
 - * als ticketname im filter: ignoriert ticket namen mit oder ohne value
-
+- detectionItems von den platformen rendern
 - Firefox & Opera Version
 
 ## DLC Update
@@ -17,13 +17,6 @@
 
  
 ## V 1.0.0
-
-### Fehler durch refactor:
-- variabeln in global window auslagern und renamen
-- global variabeln als object bauen und dann nur was gebraucht wird über keys erfassen
-
-
-- detectionItems von den platformen rendern
 
 - Dokumentation
 - update readme

@@ -1,6 +1,5 @@
 :root {
   /* ---- Tobias will alles schön Theme ---- */
-
   /* vars */
   --blur-default: blur(20px);
   /* color palette */
@@ -19,7 +18,6 @@
   --black-3: #343434;
   --light-gray: #5f6568;
   --dark-gray-3: #343434;
-
   /* theme colors */
   --color-main: var(--white-transparent);
   --color-second: var(--white-transparent);
@@ -29,7 +27,6 @@
   --color-disabled:#ffc9d74a;
   --color-close: #ff1856;
   --color-warning: #fcff18;
-
   /* Font colors */
   --color-font: #121212;
   --color-font-navigation: var(--color-font-second);

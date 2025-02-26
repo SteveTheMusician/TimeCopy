@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     clearDlcLocalStorages()
     return
   }
-
+  
   const link_cssTheme = document.querySelector('link#link-theme');
   const header = document.querySelector('header');
   const configurations = document.querySelector('div.configurations');
@@ -89,8 +89,14 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
   window.dlcProTime_usePTTest = false
   let configOpen = false
-  window.language = await useLanguage()
-  // console.log('Language Object: ',language)
+  try{
+    window.language = await useLanguage()
+  }catch(error){
+    console.error(error + ' The problem occurs, when useLanguage gets an country-code, which does not exist as json file.')
+    message(true, 'error', 'APP LANGUAGE ERROR' , error, true)
+    return
+  }
+  // console.log('Language Object: ',window.language)
   // this variable activates tc reloading after pressing the back button when its set to true
   window.configUserChanges = false
   // version json vars
@@ -148,7 +154,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
   // paste
   async function pastePrepairData() {
-
     lockActionButtons('true',fillButton)
     let clipboarsString = await navigator.clipboard.readText();
     let filter = lstorage_cFilter
@@ -176,9 +181,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       return
     }
   }
-  // process clipboardString through filter and start booking process
+  // process clipboard string through filter and start booking process
   async function pasteProcessData(clipboarsString,filter,bookingPlatform) {
-
     let filterData = []
     // get all boocking relevant data as array
     try {

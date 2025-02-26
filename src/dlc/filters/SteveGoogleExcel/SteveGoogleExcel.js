@@ -15,14 +15,12 @@ export function filter_SteveGoogleExcel(clipboarsString) {
   const regExp_ticketCustomBookingNumberAll = /\[#([^\]]+)\](?=[^\[]*$)/
   const regExp_ticketCustomBookingNumber = /(?<=\#).*?(?=\])/
   const regExp_ticketTime = /\d+[.,]?\d*$/
-
   let fullDateString = ''
   let workingBeginTime = ''
   let matches = []
   let match
   let bookingData = []
-
-  // if clipboard contains fulldatestring (Day and date)
+  // if clipboard contains fulldatestring (day and date)
   if (clipboarsString.match(regExp_fullDateString)) {
     fullDateString = clipboarsString.match(regExp_fullDateString)[0].trim()
     allTickets = clipboarsString.replace(regExp_fullDateString, '').trim()
@@ -33,9 +31,7 @@ export function filter_SteveGoogleExcel(clipboarsString) {
   } else {
     allTickets = clipboarsString.trim()
   }
-
   allTickets = allTickets.replaceAll("\t", " ")
-
   // if working time is in string
   if (allTickets.match(regExp_workBeginTime)) {
     workingBeginTime = allTickets.match(regExp_workBeginTime)[0].trim()
@@ -49,14 +45,12 @@ export function filter_SteveGoogleExcel(clipboarsString) {
   if (allTickets.match(regExp_statusLetters)) {
     allTickets = allTickets.replace(regExp_statusLetters, '').trim()
   }
-
   let markerSymbolTwoMatchesAll = allTickets.matchAll(regExp_markerSymbolTwo);
   for (const markerSym of markerSymbolTwoMatchesAll) {
     if (markerSym[2] && markerSym[2] !== ' ') {
       allTickets = allTickets.replace(markerSym[2], '').trim()
     }
   }
-
   // push into matches
   while ((match = regExp_Ticket.exec(allTickets)) !== null) {
     matches.push(match[1]);

@@ -7,5 +7,4 @@ export const defaultTheme = "oceanswave"
 export const consoleWarnMessage_showMessageTurnedOff = "Time Copy will not give any feedback. Messages are turned off."
 export const dlc_details_classHidden = 'dlc-details--hidden'
 export const defaultShowAllMessages = "true"
-  //language settings may released in a later version
 export const defaultLanguage = 'de'  

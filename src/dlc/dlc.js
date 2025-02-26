@@ -6,4 +6,5 @@ import { filter_timesheetFilterPreValue } from "./filters/filters.import.js"
 
 export {platform_functionName_automatic, 
         platformsContent, platforms, platform_bookingPlatformPreValue, filters, 
-        filtersContent, filter_timesheetFilterPreValue, xmasDlc}
+        filtersContent, filter_timesheetFilterPreValue, xmasDlc
+}
