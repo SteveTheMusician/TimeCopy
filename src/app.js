@@ -4,8 +4,9 @@ import { message } from "./components/ui/message/message.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
 import {xmasDlc, 
           platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./dlc/dlc.js";
-import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform} from "./utils/appStorage.js";
+import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform, lstorage_cShowAllMessages} from "./utils/appStorage.js";
 import { clearDlcLocalStorages, reloadDLCCache } from "./utils/dlcStorage.js";
+import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 import { developer } from "./developer/developer.js";
 
@@ -78,26 +79,20 @@ document.addEventListener('DOMContentLoaded', async function () {
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
-
   const dlcProTime_config_check_forceLatencyMode = document.getElementById('check_forceLatencyModeProTime')
   dlcProTime_config_check_forceLatencyMode.addEventListener('change', dlcProTimeForceLatencyMode)
-  
   const dlcProTime_config_check_useLatencyMode = document.getElementById('check_useLatencyModeProTime')
   dlcProTime_config_check_useLatencyMode.addEventListener('change', dlcProTimeUseLatencyMode)
   const dlcProTime_config_check_usePTTest = document.getElementById('check_useProTimeTestMode')
   dlcProTime_config_check_usePTTest.addEventListener('change', dlcCheckUsePTTest)
   const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
-
   window.dlcProTime_usePTTest = false
   let configOpen = false
   let showAllMessages = "true"
-  const consoleWarnMessage_showMessageTurnedOff = "⚠ Time Copy Messages are turned off!"
   // this variable activates tc reloading after pressing the back button when its set to true
   window.configUserChanges = false
   //language settings may released in a later version
-  const defaultLanguage = 'de'
-
-  const dlc_details_classHidden = 'dlc-details--hidden'
+  const defaultLanguage = 'de'  
   // version json vars
   const dokuUrl = data_version.extension_documentation
   const changelogUrl = data_version.extension_changelog
@@ -113,7 +108,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const supportedProfileVersions = data_version.supported_profile_versions
   const updateTextOverview = data_version.extension_update_text_overview
   const updateTextDetails = data_version.extension_update_text_details
-  // globale vars
+  // set global vars
   window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
     chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, buildVersion:buildVersion,
     author:author,tester:tester,profileVersion:profileVersion,supportedProfileVersions:supportedProfileVersions,
@@ -125,7 +120,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
     dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime
   }]
-
+  // main action buttons functions
+  async function execReadClipboardText() {
+    // additional functions here
+    // start process
+    readClipboardText()
+  }
   function openConfigs() {
     if (configOpen) {
       configButton.classList.remove('button--active')
@@ -146,7 +146,11 @@ document.addEventListener('DOMContentLoaded', async function () {
       configOpen = true
     }
   }
-
+  // cancel functions
+  function cancelPasteData(){
+    chrome.tabs.reload(function(){});
+    window.location.reload()
+  }
   // config tabs functions
   function removeTabActiveClass() {
     [].forEach.call(buttonsTab_getAll, function (buttonsTab_getAll) {
@@ -280,10 +284,10 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     } catch (error) {
       lockActionButtons('false',fillButton)
-      if(showAllMessages) {
+      if(lstorage_cShowAllMessages === 'true') {
         message(true, 'warning', error, '')
       } else {
-        console.log(consoleWarnMessage_showMessageTurnedOff+' | '+error)
+        console.warn(consoleWarnMessage_showMessageTurnedOff+' | '+error)
       }
       return
     }
@@ -299,10 +303,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error);
       lockActionButtons('false',fillButton)
-      if(showAllMessages) {
+      if(lstorage_cShowAllMessages === 'true') {
         message(true, 'error', 'ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
       } else {
-        console.log(consoleWarnMessage_showMessageTurnedOff+' | '+error)
+        console.warn(consoleWarnMessage_showMessageTurnedOff+' | '+error)
       }
       return
     }
@@ -312,20 +316,20 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (bookEntries) {
         console.log("✅ Booking process return okey | ", bookEntries)
         lockActionButtons('false',fillButton)
-        if(showAllMessages) {
+        if(lstorage_cShowAllMessages === 'true') {
           message(true, 'information', 'Buchungsprozess beendet', bookingPlatform)
         } else {
-          console.log(consoleWarnMessage_showMessageTurnedOff)
+          console.warn(consoleWarnMessage_showMessageTurnedOff)
         }
       } else {
         console.log("❌ Problem with booking entries: ", bookEntries)
       }
     } catch (error) {
       lockActionButtons('false',fillButton)
-      if(showAllMessages) {
+      if(lstorage_cShowAllMessages === 'true') {
         message(true, error.errorstatus, 'Fehler: ' + error.errorheadline, error.errortext || bookingPlatform)
       } else {
-        console.log(consoleWarnMessage_showMessageTurnedOff)
+        console.warn(consoleWarnMessage_showMessageTurnedOff)
       }
       console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext)
       return
@@ -344,11 +348,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       fillCancelButton.classList.add('dNone')
       configButton.removeAttribute('disabled', 'disabled')
     }
-  }
-  // cancel functions
-  function cancelPasteData(){
-    chrome.tabs.reload(function(){});
-    window.location.reload()
   }
   // dlc functions
   function dlcProTimeForceLatencyMode(){
@@ -378,12 +377,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       dlcItem_platform_amagProTime.classList.remove('dlcItem-amagProTime-TestMode')
     }
     configUserChanges = true
-  }
-  // paste function exec
-  async function execReadClipboardText() {
-    // additional functions here
-    // start process
-    readClipboardText()
   }
 
   function clearAllMessages() {

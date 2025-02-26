@@ -130,7 +130,7 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - other: readme, license, documentation
 
 ## V 1.0.0
-- feature: show / hide messages
+- feature: configuration to show / hide messages
 - feature: amagprotime dlc - multiple string matches in detection item
 - feature: compatibility with older profile versions / supported profile version list
 - feature: return message, if browser is offline
@@ -139,8 +139,10 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - fix: remove automatic error json feedback
 - fix: write default values into exported file on fresh profile
 - fix: font fallback
+- fix: style fixes
 - other: new profile version
 - other: new Theme "Japan's White"
 - other: documentation
 - other: restructure dlc cache
 - other: error message block function
+- other: amagprotime dlc - remove test-button (use regular paste-button in test-mode)
