@@ -1,0 +1,28 @@
+
+:root{
+  /* color palette from var/colors-default.css  */
+  --gray-a: #aaaaaa;
+  --blue-gray: #8a99a2;
+  /* theme colors */
+  --color-main: #131c21;
+  --color-second: #2d3840;
+  --color-third: #1d2930;
+  --color-darker: #010e12;
+  --color-highlight: #28b28d;
+  --color-active: #00ffa7;
+  --color-edit: var(--lightyellow);
+  --color-disabled: var(--color-third);
+  --color-close: #ad3156;
+  --color-warning: #ada931;
+  /* Font colors */
+  --color-font: var(--white_e);
+  --color-font-navigation: var(--gray-a);
+  --color-font-headline: var(--blue-gray);
+  --color-font-second: var(--gray-a);
+  --color-font-headlabel: var(--blue-gray);
+  --color-font-subtext: var(--gray-a);
+  /* Icon colors */
+  --color-icon-default: var(--gray-a);
+  --color-icon-light: var(--white_e);
+}
+  

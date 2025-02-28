@@ -134,6 +134,7 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - feature: amagprotime dlc - multiple string matches in detection item
 - feature: compatibility with older profile versions / supported profile version list
 - feature: return message, if browser is offline
+- feature: new theme "oceans ground" added
 - fix: show error notification when trying to import currupt profile
 - fix: show error notification after reimport same profile
 - fix: remove automatic error json feedback

@@ -10,7 +10,6 @@
   --gold-dark: #b5af8e;
   --rotten-blood: #3b2b2e;
   --white: #fefefe;
-  --color-warning: #d2f700;
   /* theme colors */
   --color-main: var(--black);
   --color-second: var(--black-17);
@@ -19,6 +18,7 @@
   --color-active: var(--gold);
   --color-disabled: var(--rotten-blood);
   --color-close: #c71154;
+  --color-warning: #d2f700;
   /* Font colors */
   --color-font: var(--silver-gray);
   --color-font-navigation: var(--color-font-second);
