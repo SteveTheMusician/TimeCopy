@@ -5,3 +5,4 @@ export let forceHighLatency = false
 export let useHighLatency = true
 export const noTicketNomberFill = "NO NOMBER"
 export const noTicketDiscFill = "NO DISCRIPTION"
+export const detectionItemAddPrefixSplit = ";"

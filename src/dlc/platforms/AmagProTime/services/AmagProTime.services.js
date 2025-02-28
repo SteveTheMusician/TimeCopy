@@ -1,4 +1,4 @@
-import { anyProjectNomber } from "../variables/AmagProTime.variables";
+import { anyProjectNomber,detectionItemAddPrefixSplit } from "../variables/AmagProTime.variables";
 
 export async function TestPageLoadPerformance() {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -22,11 +22,21 @@ export function filterPrefix(ticket, detectionItemsProTime) {
 
 export function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
     let filterAddPrefix_addPrefixMatches = []
-    detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixMatch) => {
+    detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixItem) => {
         let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
-        if (detectionItemPrefixMatch.addprefix.length > 0 && item_ticketdiscWithHiddenTag.includes(detectionItemPrefixMatch.addprefix) || detectionItemPrefixMatch.addprefix.length === 0) {
-            filterAddPrefix_addPrefixMatches.push(detectionItemPrefixMatch)
+        let detectionItemAddPrefixArray = []
+        if(detectionItemPrefixItem.addprefix.includes(detectionItemAddPrefixSplit)){
+            detectionItemAddPrefixArray = detectionItemPrefixItem.addprefix.split(detectionItemAddPrefixSplit)
+        }else {
+            detectionItemAddPrefixArray.push(detectionItemPrefixItem.addprefix)
         }
+        detectionItemAddPrefixArray.forEach((addPrefixArrayItem) => {
+            if (addPrefixArrayItem.length > 0 && item_ticketdiscWithHiddenTag.includes(addPrefixArrayItem) || addPrefixArrayItem.length === 0) {
+                if(!filterAddPrefix_addPrefixMatches.length){
+                    filterAddPrefix_addPrefixMatches.push(detectionItemPrefixItem)
+                }
+            }
+        })
     });
     return filterAddPrefix_addPrefixMatches ? filterAddPrefix_addPrefixMatches : null
 }
@@ -48,7 +58,6 @@ export function filterAllPrefixes(ticket, ticketAddPrefixMatches) {
 
 export function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
     let refineBookingNomber_Matches = []
-
     if (ticketRefinePrefixesMatches.length > 1) {
         ticketRefinePrefixesMatches.forEach((detectionItemRefineBookingNomber) => {
             if (ticket.item_bookingnumber.length && detectionItemRefineBookingNomber.projectnomber === ticket.item_bookingnumber || ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber === anyProjectNomber) {

@@ -18,7 +18,10 @@ function updateDetectionItems(detectionItems) {
   localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
 }
 
-function addNewProjectDetection() {
+function addNewProjectDetection(e) {
+  if (e.shiftKey) {
+    button_addDetection.innerHTML = "🍌"
+  }
   let currentDate = new Date().getTime().toString()
   let newDetectionItemId = detectionItemID_Prefix + currentDate
   let detectionItemMainObject = { "id": newDetectionItemId, "bookingsheet": "" }
@@ -35,8 +38,7 @@ function addNewProjectDetection() {
 
 function loadDetectionItems() {
   let buttons_removeDetection = document.getElementsByClassName('button_deleteDetection')
-
-  // Remove Deletion Listeners fist
+  // remove deletion listeners fist
   for (let i = 0, iLen = buttons_removeDetection.length; i < iLen; i++) {
     buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem)
   }
@@ -88,7 +90,7 @@ function setDetectionBookingPlatform(itemId, selected_bookingPlatform) {
   let currentObject = getCurrentObject(itemId)
   let selected_bookingPlatformName =  selected_bookingPlatform.split(selectBookingPlatformPreName)[1]
   let newData = {}
-  // Create new objects for the selected Platforms
+  // create new objects for the selected platforms
   if (selected_bookingPlatform === selectBookingPlatformPreName + "AmagProTime") {
     newData = { "ticketprefix": "", "addprefix": "", "protimeservice": selectProtimeService_defaultValue, "projectnomber": "", "protimeactivity": "" }
   } else if (selected_bookingPlatform === selectBookingPlatformPreName + "DZBankProRes") {
@@ -108,11 +110,9 @@ function changeDetectionItemData(itemId, objectKey, objectValue) {
   detectionItem(detectionItems)
   loadDetectionItems()
 }
-
-// Remove Item
+// remove item
 function removeProjectDetectionItem(i) {
   let currentItemID = i.target.closest("div").parentNode.id
-  // console.log(currentItemID)
   let currentItem = document.getElementById(currentItemID)
   currentItem.classList.add('configItem--remove')
   setTimeout(function () {

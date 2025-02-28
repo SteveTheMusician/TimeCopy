@@ -16,7 +16,7 @@ Steve Pietrowski
 Riesengebirgstraße 2a  
 65520 Bad Camberg
 
-E-Mail-Adresse: [steveemptysoul.official@gmail.com](mailto:steveemptysoul.official@gmail.com)
+E-Mail-Adresse: [contact@emptysoul.de](mailto:contact@emptysoul.de)
 
 ## Übersicht der Verarbeitungen
 

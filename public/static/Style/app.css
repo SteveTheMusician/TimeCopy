@@ -1,9 +1,9 @@
 /* Global Style */
 
-@import url('fonts/Roboto.css');
+@import url('var/font.css');
 @import url('var/var.css');
 @import url('var/colors-default.css');
-@import url('dlc/dlc_styles.css');
+@import url('dlc/dlc.css');
 
 ::-webkit-scrollbar {
     display: none;
@@ -28,7 +28,6 @@ h1 {
     margin-block-end: 0;
     font-size: 20px;
     user-select: none;
-    font-family: Roboto;
 }
 
 h2 {
@@ -38,20 +37,12 @@ h2 {
     margin-block-end: 0;
     margin: 10px;
     user-select: none;
-    font-family: Roboto;
     font-weight: 700;
 }
 
 p {
     user-select: none;
-    font-family: Roboto;
     font-weight: 400;
-}
-
-.fail-link,
-#fail-link {
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 img {
@@ -59,44 +50,51 @@ img {
 }
 
 button {
-    font-family: Roboto;
     font-weight: 400;
     color: var(--color-icon-default);
     border: 0px solid;
 }
 
-button[disabled], button[disabled]:hover, 
-input[disabled], select[disabled] {
+button[disabled],
+button[disabled]:hover,
+input[disabled],
+select[disabled] {
     background-color: var(--color-main);
     color: var(--color-disabled);
     cursor: not-allowed;
 }
 
-button[disabled] svg, button[disabled]:hover svg {
+button[disabled] svg,
+button[disabled]:hover svg {
     color: var(--color-disabled);
     fill: var(--color-disabled);
     cursor: not-allowed;
 }
 
+button svg {
+    width: 20px;
+    height: 20px;
+}
+
+button:focus-visible {
+    outline: 1px dashed var(--color-active);
+}
+
 input {
-    font-family: Roboto;
     font-weight: 400;
 }
 
+input:focus-visible {
+    outline: 1px dashed var(--color-active);
+}
+
 select {
-    font-family: Roboto;
     font-weight: 400;
     cursor: pointer;
 }
 
 input::placeholder {
     color: var(--color-font-subtext);
-}
-
-
-button svg {
-    width: 20px;
-    height: 20px;
 }
 
 .flex {
@@ -157,16 +155,6 @@ button svg {
 
 .subtext-top {
     padding-left: 10px;
-}
-
-.checkmark {
-    position: absolute;
-    left: 0;
-    height: 30px;
-    width: 6px;
-    background-color: var(--color-icon-default);
-    border-radius: var(--border-radius-default);
-    transition: 0.3s;
 }
 
 .text-label {
@@ -238,46 +226,6 @@ main {
 
 .mainSection {
     padding-bottom: 20px;
-}
-
-footer {
-    width: 100%;
-    height: 60px;
-    bottom: 0;
-    position: fixed;
-    align-items: center;
-    display: flex;
-    background-color: var(--color-second);
-}
-
-.footer-container {
-    padding: 10px;
-    width: calc(100% - 20px);
-    height: calc(100% - 20px);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-}
-
-.board {
-    width: 100%;
-    overflow-y: scroll;
-    max-height: 220px;
-    border-radius: var(--border-radius-default);
-    display: grid;
-    justify-items: center;
-}
-
-.noboard-text {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #4c6b77;
-    font-size: 12px;
-    user-select: none;
 }
 
 #configButton {
@@ -380,8 +328,8 @@ label:has(#button_importConfigs) {
     pointer-events: none;
 }
 
-.button-dropdown--active svg{
-    transform:scaleY(-1);
+.button-dropdown--active svg {
+    transform: scaleY(-1);
     fill: var(--color-active);
 }
 
@@ -410,96 +358,58 @@ label:has(#button_importConfigs) {
     fill: var(--color-highlight);
 }
 
-.footer-active-label {
-    font-size: 16px;
-    color: var(--color-font-subtext);
-    padding-left: 10px;
-    user-select: none;
+.button-mainAction--waiting {
+    cursor: wait !IMPORTANT;
 }
 
-.board-item {
-    width: 90%;
-    height: 100px;
-    border-radius: var(--border-radius-default);
-    background-color: #255b6a;
-    overflow: hidden;
-    display: flex;
-    margin-bottom: 20px;
+.button-mainAction--waiting:after {
+    content: '';
+    width: 68px;
+    height: 68px;
+    border: 4px solid var(--color-icon-default);
+    border-bottom-color: var(--color-none);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: waitingSpinnerRotation 1s linear infinite;
+    /* animation-delay: .3s; */
+    position: absolute;
+    opacity: 0;
+    transition: var(--transition-default);
 }
 
-.board-item-container {
-    width: -webkit-fill-available;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 10px;
+.button-config-tab {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
 }
 
-.board-item-logo-container {
-    padding: 10px;
-    background-color: #000000;
-    width: 80px;
-    height: calc(100% - 20px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.button-tab--active {
+    background-color: var(--color-second);
+    color: var(--color-highlight);
 }
 
-.board-item-logo {
-    width: 40px;
-    height: 40px;
-    background-image: url(../libraries/bookingsheets/amag-protime/logo/logo.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
+.button-tab--active svg {
+    fill: var(--color-active);
 }
 
-.board-item-container-last {
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.button-tab--active:hover svg {
+    fill: var(--color-active);
 }
 
-.input-text {
-    border: 1px solid transparent;
-    background-color: transparent;
-    font-size: 12px;
-    color: #689ead;
-    outline: none;
-    padding: 4px;
+.button-padding--small {
+    padding: 4px 0px;
 }
 
-.input-text:hover {
-    border: 1px dashed #689ead;
-}
+@keyframes waitingSpinnerRotation {
+    0% {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
 
-.input-ordernumber {
-    width: 76px;
-}
-
-.input-services {
-    width: 180px;
-}
-
-textarea {
-    border: 1px solid transparent;
-    background-color: transparent;
-    font-size: 12px;
-    color: #689ead;
-    outline: none;
-    padding: 4px;
-    resize: none;
-    width: 100%;
-}
-
-textarea:hover {
-    border: 1px dashed #689ead;
-}
-
-.number-hours {
-    text-align: center;
-    width: 20px;
+    100% {
+        opacity: 1;
+        transform: rotate(360deg);
+    }
 }
 
 .label-version {
@@ -538,28 +448,6 @@ textarea:hover {
 .configuration-tab-container {
     flex-direction: column;
     width: 36px;
-}
-
-.button-config-tab {
-    border-bottom-right-radius: 0px;
-    border-top-right-radius: 0px;
-}
-
-.button-tab--active {
-    background-color: var(--color-second);
-    color: var(--color-highlight);
-}
-
-.button-tab--active svg {
-    fill: var(--color-active);
-}
-
-.button-tab--active:hover svg {
-    fill: var(--color-active);
-}
-
-.button-padding--small {
-    padding: 4px;
 }
 
 .configuration-window-content {
@@ -657,7 +545,7 @@ label.configItem:hover {
     word-break: break-all;
 }
 
-.configItem-content-right{
+.configItem-content-right {
     width: 50%;
     height: fit-content;
     word-break: break-all;
@@ -688,22 +576,19 @@ input[type=text]:focus {
 }
 
 .input-size--default {
-    /* width: 120px; */
+
     width: calc(65% - 20px);
 }
 
 .input-size--medium {
-    /* width: 120px; */
     width: calc(100% - 16px);
 }
 
 .input-size--small {
-    /* width: 80px; */
     width: calc(35% - 20px);
 }
 
 .input-size--large {
-    /* width: 215px; */
     width: calc(100% - 12px);
 }
 
@@ -714,7 +599,7 @@ input[type=text]:focus {
 .text-projectNomber {
     width: 80px;
 }
- 
+
 .icon-bookingItem {
     width: 30px;
     height: 30px;
@@ -732,7 +617,7 @@ input[type=text]:focus {
     margin-right: 10px;
 }
 
-.configItem-icon-container svg{
+.configItem-icon-container svg {
     width: 20px;
     height: 20px;
     fill: var(--color-icon-default);
@@ -760,7 +645,6 @@ select {
     font-size: 12px;
     border: 0px solid;
     width: 100%;
-    /* margin: 5px; */
 }
 
 .detectionItem-main {
@@ -777,12 +661,14 @@ select {
     padding: 5px;
 }
 
-
-.label-emoji {
-    font-size: 20px;
-    margin-block-start: 0;
-    margin-block-end: 0;
-    /* padding-left: 5px; */
+.checkmark {
+    position: absolute;
+    left: 0;
+    height: 30px;
+    width: 6px;
+    background-color: var(--color-icon-default);
+    border-radius: var(--border-radius-default);
+    transition: 0.3s;
 }
 
 .switch {
@@ -812,7 +698,6 @@ input:checked+.switch_slider:before {
     transform: translateX(16px);
 }
 
-/* Rounded sliders */
 .switch_slider {
     position: absolute;
     cursor: pointer;
@@ -849,8 +734,6 @@ input:checked+.switch_slider:before {
     bottom: 0px;
     opacity: 1;
     border-radius: var(--border-radius-default);
-    /* border-bottom-left-radius: 0; */
-    /* border-bottom-right-radius: 0; */
     justify-content: space-between;
     transition: var(--transition-mid);
     z-index: 100;
@@ -882,6 +765,7 @@ input:checked+.switch_slider:before {
 .notification--hidden {
     bottom: -60px;
     opacity: 0;
+    pointer-events: none;
 }
 
 .messageSection {
@@ -903,42 +787,6 @@ input:checked+.switch_slider:before {
     animation-fill-mode: none;
     animation-direction: normal;
     /* transition-delay: 2s; */
-}
-
-@keyframes message-new-information {
-    0% {
-        outline-color: var(--color-highlight);
-    }
-    80% {
-        outline-color: var(--color-highlight);
-    }
-    100% {
-        outline-color: var(--color-second);
-    }
-}
-
-@keyframes message-new-warning {
-    0% {
-        outline-color: var(--color-warning);
-    }
-    80% {
-        outline-color: var(--color-warning);
-    }
-    100% {
-        outline-color: var(--color-second);
-    }
-}
-
-@keyframes message-new-error {
-    0% {
-        outline-color: var(--color-close);
-    }
-    80% {
-        outline-color: var(--color-close);
-    }
-    100% {
-        outline-color: var(--color-second);
-    }
 }
 
 .message-icon-container {
@@ -1008,8 +856,50 @@ input:checked+.switch_slider:before {
     transform: translateX(200px);
 }
 
+@keyframes message-new-information {
+    0% {
+        outline-color: var(--color-highlight);
+    }
+
+    80% {
+        outline-color: var(--color-highlight);
+    }
+
+    100% {
+        outline-color: var(--color-second);
+    }
+}
+
+@keyframes message-new-warning {
+    0% {
+        outline-color: var(--color-warning);
+    }
+
+    80% {
+        outline-color: var(--color-warning);
+    }
+
+    100% {
+        outline-color: var(--color-second);
+    }
+}
+
+@keyframes message-new-error {
+    0% {
+        outline-color: var(--color-close);
+    }
+
+    80% {
+        outline-color: var(--color-close);
+    }
+
+    100% {
+        outline-color: var(--color-second);
+    }
+}
+
 /* responsive */
-@media only screen and (max-width: 400px){
+@media only screen and (max-width: 400px) {
 
     .text-message {
         padding-left: 0 !important;
@@ -1018,7 +908,7 @@ input:checked+.switch_slider:before {
     .overview .text-label {
         padding-left: 10px;
     }
-    
+
     .text-label {
         padding-left: 0px;
     }
@@ -1032,20 +922,21 @@ input:checked+.switch_slider:before {
     }
 
     .configItem {
-        padding: 10px 10px;   
+        padding: 10px 10px;
     }
 }
 
-@media only screen and (min-width: 706px){
+@media only screen and (min-width: 706px) {
 
     .configuration-window-content {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+
     #config-win-projects .configuration-window-content {
         display: flex;
     }
-    
+
 }
 
 @media only screen and (min-width: 960px) {
@@ -1060,42 +951,10 @@ input:checked+.switch_slider:before {
     }
 }
 
-@media only screen and (min-width: 1280px){
+@media only screen and (min-width: 1280px) {
 
     .configuration-window-content {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 }
-
-.button-mainAction--waiting {
-    cursor: wait !IMPORTANT;
-}
-
-.button-mainAction--waiting:after {
-    content: '';
-    width: 68px;
-    height: 68px;
-    border: 4px solid var(--color-icon-default);
-    border-bottom-color: var(--color-none);
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: waitingSpinnerRotation 1s linear infinite;
-    /* animation-delay: .3s; */
-    position: absolute;
-    opacity: 0;
-    transition: var(--transition-default);
-}
-
-
-@keyframes waitingSpinnerRotation {
-    0% {
-        opacity: 1;
-        transform: rotate(0deg);
-    }
-    100% {
-        opacity: 1;
-        transform: rotate(360deg);
-    }
-    } 

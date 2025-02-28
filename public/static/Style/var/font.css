@@ -1,0 +1,25 @@
+@import url('../fonts/Roboto.css');
+
+h1 {
+    font-family: Roboto, sans-serif;
+}
+
+h2 {
+    font-family: Roboto, sans-serif;
+}
+
+p {
+    font-family: Roboto, sans-serif;
+}
+
+button {
+    font-family: Roboto, sans-serif;
+}
+
+input {
+    font-family: Roboto, sans-serif;
+}
+
+select {
+    font-family: Roboto, sans-serif;
+}
