@@ -1,0 +1,22 @@
+{
+    "tcprofile": {
+        "author": "steve",
+        "version": "1.7",
+        "extension_version": "1.0",
+        "extension_build": "S25.02262222",
+        "profile_name": "Test Profil 1.7",
+        "cfg": {
+            "theme": "oceansground",
+            "language": "de",
+            "show_all_messages": "true",
+            "filter": "TobiasExcel",
+            "platform": "Automatic",
+            "detections": [
+                {
+                    "id": "tcdi1740738128037",
+                    "bookingsheet": ""
+                }
+            ]
+        }
+    }
+}

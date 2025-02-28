@@ -1,18 +1,17 @@
-import { filters } from "./components/dlc/filters/filters.dlc.js";
-import { filtersContent } from "./components/dlc/filters/filters.dlc.js";
-import { filter_timesheetFilterPreValue } from "./components/dlc/filters/filters.import.js";
+
 import data_version from "../public/version.json" with { type: "json" };
-import { notification } from "./components/ui/notification/notification.js";
+import { useLanguage } from "./utils/language.js";
 import { message } from "./components/ui/message/message.js";
-import { platforms } from "./components/dlc/platforms/platforms.dlc.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
-import { platformsContent } from "./components/dlc/platforms/platforms.dlc.js";
-import { platform_functionName_automatic } from "./components/dlc/platforms/platforms.import.js";
-import { platform_bookingPlatformPreValue } from "./components/dlc/platforms/platforms.import.js";
-import { xmas } from "./components/dlc/xmas/xmas.dlc.js";
+import {xmasDlc, 
+          platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./dlc/dlc.js";
+import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform} from "./utils/appStorage.js";
+import { clearDlcLocalStorages, reloadDLCCache } from "./utils/dlcStorage.js";
+import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden} from "./utils/defaults/defaultVariables.js";
+import { profileManager } from "./utils/profileManager.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
-  // import DLC's
+  // import platform and filter dlcs
   try {
     let dlc_platformContent = await platformsContent()
     if (!dlc_platformContent) {
@@ -37,16 +36,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     clearDlcLocalStorages()
     return
   }
-  // date variables
-  const dateNow = new Date();
-  const dateMonth = dateNow.getMonth();
-  // vars
+  
   const link_cssTheme = document.querySelector('link#link-theme');
-  const main = document.querySelector('main');
   const header = document.querySelector('header');
   const configurations = document.querySelector('div.configurations');
   const overview = document.querySelector('div.overview');
-  const messageSection = document.getElementById('messages-section')
+  const messagesHeadline = document.getElementById('messages-headline')
+  const elem_messageSection = document.getElementById('messages-section')
   const configurationsContainer = document.getElementById('config-container')
   const configWindow_getAll = document.getElementsByClassName('configuration-window');
   const configWindow_General = document.getElementById('config-win-general');
@@ -61,213 +57,77 @@ document.addEventListener('DOMContentLoaded', async function () {
   const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookingsheets');
   const buttonTab_Projects = document.querySelector('button#button-tab-projects');
   const buttonBackToMain = document.querySelector('button#buttonBackToMain');
-
-  // WAS SCHAUST DU IN MEIN CODE REIN?? DER WIRD NOCH AUFGERÄUMT!!
-
-  // Main Buttons
+  // main buttons
   const fillButton = document.querySelector('button#fillButton');
   const fillCancelButton = document.querySelector('button#fillCancelButton');
   const configButton = document.querySelector('button#configButton');
   const button_clearAllMessages = document.getElementById('button_clearAllMessages')
-
-  // Configuration Buttons
-  const themeSelect = document.querySelector('select#select-themes')
-  const languageSelect = document.querySelector('select#select-language')
-  const button_clearConfigs = document.getElementById('button_clearConfigs')
   const button_reloadDLCCache = document.getElementById('button_reloadDLCCache')
+  // configuration buttons
+  const themeSelect = document.querySelector('select#select-themes')
+  const button_clearConfigs = document.getElementById('button_clearConfigs')
+  const switch_showAllMessages = document.getElementById('check_showAllNotifications')
   const radios_filter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
   const button_docuReadme = document.getElementById('button_openReadme')
   const button_docuChangelog = document.getElementById('button_openChangelog')
   const button_docuDatenschutz = document.getElementById('button_openDatenschutz')
   const button_openStore = document.getElementById('button_openStore')
+  const button_openLicense = document.getElementById('button_openLicense')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
-
-  // Platform-DLC Elements and Listener
+  // dlc-platform element listeners
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
   const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
-  const config_check_showProTimeTestButton = document.getElementById('check_showProTimetestButton')
-  const config_check_forceLatencyModeproTime = document.getElementById('check_forceLatencyModeproTime')
-  const config_check_useLatencyModeproTime = document.getElementById('check_useLatencyModeproTime')
-  config_check_showProTimeTestButton.addEventListener('change', dlcShowProTimeTestButton)
-  config_check_forceLatencyModeproTime.addEventListener('change', dlcProTimeForceLatencyMode)
-  config_check_useLatencyModeproTime.addEventListener('change', dlcProTimeUseLatencyMode)
-  const button_dev_pttest = document.querySelector('button#button_test_pasteTicketData')
-
-  // local storages
-  let lstorage_cThemes = localStorage.getItem('tc_c_theme')
-  let lstorage_cLanguage = localStorage.getItem('tc_c_language')
-  let lstorage_cFilter = localStorage.getItem('tc_c_filter')
-  let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
-  let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
-  let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
-  let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
-  let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
-  let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
-  let lstorage_appVersion = localStorage.getItem('tc_appVersion')
-  let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
-  // Some vars
+  const dlcProTime_config_check_forceLatencyMode = document.getElementById('check_forceLatencyModeProTime')
+  dlcProTime_config_check_forceLatencyMode.addEventListener('change', dlcProTimeForceLatencyMode)
+  const dlcProTime_config_check_useLatencyMode = document.getElementById('check_useLatencyModeProTime')
+  dlcProTime_config_check_useLatencyMode.addEventListener('change', dlcProTimeUseLatencyMode)
+  const dlcProTime_config_check_usePTTest = document.getElementById('check_useProTimeTestMode')
+  dlcProTime_config_check_usePTTest.addEventListener('change', dlcCheckUsePTTest)
+  const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
+  window.dlcProTime_usePTTest = false
   let configOpen = false
-  let dev_pttest = false
+  try{
+    window.language = await useLanguage()
+  }catch(error){
+    console.error(error + ' The problem occurs, when useLanguage gets an country-code, which does not exist as json file.')
+    message(true, 'error', 'APP LANGUAGE ERROR' , error, true)
+    return
+  }
+  // console.log('Language Object: ',window.language)
   // this variable activates tc reloading after pressing the back button when its set to true
-  let configUserChanges = false
-  const dlc_details_classHidden = 'dlc-details--hidden'
-
-  let helpUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/TimeCopy-Dokumentation.pdf"
-  let changelogUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Changelog.md"
-  let datenschutzUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/documentation/Datenschutz/Datenschutz.md"
-  let readmeUrl = "https://github.com/EmptySoulOfficial/TimeCopy/blob/main/Readme.md"
-  let storeUrl = "https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfidbf"
-  const extensionVersion = data_version.extension_version
-  const extensionBuild = data_version.extension_build
-  const extensionAuthor = data_version.extension_author
-  const extensionTesting = data_version.extension_testing
-  const extensionUpdateTextOverview = data_version.extension_update_text_overview
-  const extensionUpdateTextDetails = data_version.extension_update_text_details
-  let tcprofileVersion = data_version.profile_version
-
-  // some sessionstorages for temp-messages and data
-  function loadSessionStorages() {
-    let sMessageImported = sessionStorage.getItem('tc_c_messageImported')
-    let sMessageProfileRemoved = sessionStorage.getItem('tc_c_messageProfileRemoved')
-    let sExportFile_afterChange = sessionStorage.getItem('tc_c_exportFile_afterChange')
-    let sDLCCacheReloaded = sessionStorage.getItem('tc_c_messageDLCCacheReloaded')
-    let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
-    if (sMessageImported === 'true') {
-      notification(true, true, 'Profil wurde erfolgreich importiert!')
-      sessionStorage.removeItem('tc_c_messageImported')
-      configButton.click()
-    }
-    if (sMessageProfileRemoved === 'true') {
-      notification(true, true, 'Profil wurde zurückgesetzt.')
-      sessionStorage.removeItem('tc_c_messageProfileRemoved')
-      configButton.click()
-    }
-    if (sExportFile_afterChange === 'true') {
-      sessionStorage.removeItem('tc_c_exportFile_afterChange')
-      configButton.click()
-      exportFile()
-    }
-    if (sChangeLanguage === 'true') {
-      sessionStorage.removeItem('tc_c_changeLanguage')
-      configButton.click()
-    }
-    if (sDLCCacheReloaded === 'true') {
-      notification(true, true, 'DLC-Cache wurde neu geladen.')
-      sessionStorage.removeItem('tc_c_messageDLCCacheReloaded')
-      configButton.click()
-    }
-
-  }
-  // Load localstorage
-  function loadStorage() {
-    // Default variables
-    const defaultProfileName = "Default"
-    const defaultTheme = "oceanswave"
-    const defaultLanguage = 'de'
-    let language = ''
-    let defaultBookingPlatform = platform_functionName_automatic
-
-    if (lstorage_appVersion) {
-      if (lstorage_appVersion !== extensionVersion) {
-        localStorage.setItem('tc_appVersion', extensionVersion)
-        // reset dlc information cache
-        clearDlcLocalStorages()
-        // show update message
-        message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
-      }
-    } else {
-      localStorage.setItem('tc_appVersion', extensionVersion)
-      message(true, 'information', extensionUpdateTextOverview + extensionVersion, extensionUpdateTextDetails)
-    }
-
-    if (lstorage_eeTheme === 'true') {
-      document.getElementById('select-theme-exotic-categ').classList.remove('dNone');
-      document.getElementById('select-theme-exotic').classList.remove('dNone');
-    }
-
-    if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
-      themeSelect.value = lstorage_cThemes
-      if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
-        link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
-      } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {
-        themeSelect.value = defaultTheme
-        lstorage_cThemes = defaultTheme
-      } else {
-        link_cssTheme.setAttribute('href', './static/Style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
-      }
-    } else {
-      themeSelect.value = defaultTheme
-      link_cssTheme.setAttribute('href', './static/Style/themes/' + defaultTheme + '/' + defaultTheme + '.css')
-    }
-    if (lstorage_cFilter) {
-      document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
-    }
-    if (lstorage_cProfileName) {
-      configProfileName.value = lstorage_cProfileName
-    } else {
-      configProfileName.value = defaultProfileName
-    }
-    if (lstorage_cBookingPlatform) {
-      document.querySelector('input[value="' + platform_bookingPlatformPreValue + lstorage_cBookingPlatform + '"]').checked = true
-    } else {
-      document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
-      localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
-    }
-    loadDLCStorage()
-    console.log('✅ [Time Copy] extension loaded')
-  }
-
-  // local storage for dlcs
-  function loadDLCStorage() {
-    if (lstorage_c_dlcProTimeTest === 'true') {
-      config_check_showProTimeTestButton.checked = true
-      dlcShowProTimeTestButtonDisplay()
-    }
-    if(lstorage_c_dlcProTimeForceLatencyMode === 'true') {
-      config_check_forceLatencyModeproTime.checked = true
-    }
-    if(lstorage_c_dlcProTimeUseLatencyMode === 'false') {
-      config_check_useLatencyModeproTime.checked = false
-    }else {
-      config_check_useLatencyModeproTime.checked = true
-    }
-  }
-
-  // Clear local storage
-  function clearLocalStorage() {
-    localStorage.removeItem('tc_c_theme')
-    localStorage.removeItem('tc_c_language')
-    localStorage.removeItem('tc_c_filter')
-    localStorage.removeItem('tc_c_projectDetection')
-    localStorage.removeItem('tc_c_profileName')
-    localStorage.removeItem('tc_c_bookingPlatform')
-    localStorage.removeItem('tc_appVersion')
-    localStorage.removeItem('tc_ee_exoticTheme')
-    clearDlcLocalStorages()
-  }
-
-  function clearDlcLocalStorages() {
-    // DLC Storages
-    localStorage.removeItem('tc_s_dlcplatforminformations')
-    localStorage.removeItem('tc_s_dlcfilterinformations')
-    localStorage.removeItem('tc_c_dlc_protimetest')
-    localStorage.removeItem('tc_c_dlc_snowflakes')
-    localStorage.removeItem('tc_c_dlc_protimeforcelatencymode')
-    localStorage.removeItem('tc_c_dlc_protimeuselatencymode')
-  }
-
-  function clearSessionStorage() {
-    sessionStorage.removeItem('tc_c_messageImported')
-    sessionStorage.removeItem('tc_c_messageProfileRemoved')
-    sessionStorage.removeItem('tc_c_changeLanguage')
-    sessionStorage.removeItem('tc_c_messageDLCCacheReloaded')
-  }
-
+  window.configUserChanges = false
+  // version json vars
+  const dokuUrl = data_version.extension_documentation
+  const changelogUrl = data_version.extension_changelog
+  const privacyUrl = data_version.extension_privacy
+  const readmeUrl = data_version.extension_readme
+  const chromeStoreUrl = data_version.extension_chromestore
+  const licenseUrl = data_version.extension_license
+  const version = data_version.extension_version
+  const buildVersion = data_version.extension_build
+  const author = data_version.extension_author
+  const tester = data_version.extension_testing
+  const profileVersion = data_version.profile_version
+  const supportedProfileVersions = data_version.supported_profile_versions
+  const updateTextOverview = data_version.extension_update_text_overview
+  const updateTextDetails = data_version.extension_update_text_details
+  // set global vars
+  window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
+    chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, buildVersion:buildVersion,
+    author:author,tester:tester,profileVersion:profileVersion,supportedProfileVersions:supportedProfileVersions,
+    updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
+  }]
+  window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
+    elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline
+  }]
+  window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
+    dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime
+  }]
+  // main action buttons functions
   function openConfigs() {
     if (configOpen) {
-      // main.classList.remove('main-extended')
       configButton.classList.remove('button--active')
       fillButton.classList.remove('object--hidden')
       configurations.classList.add('dNone')
@@ -278,7 +138,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         window.location.reload()
       }
     } else {
-      // main.classList.add('main-extended')
       configButton.classList.add('button--active')
       fillButton.classList.add('object--hidden')
       configurations.classList.remove('dNone')
@@ -287,7 +146,96 @@ document.addEventListener('DOMContentLoaded', async function () {
       configOpen = true
     }
   }
+  // cancel
+  function cancelPasteData(){
+    chrome.tabs.reload(function(){});
+    window.location.reload()
+  }
+  // paste
+  async function pastePrepairData() {
+    lockActionButtons('true',fillButton)
+    let clipboarsString = await navigator.clipboard.readText();
+    let filter = lstorage_cFilter
+    let bookingPlatform = lstorage_cBookingPlatform
+    // check whitch filter to use
+    try {
+      if (filter === '' || filter === null) {
+        throw new Error(window.language.error_selectFilter)
+      }
+      if (bookingPlatform === '' || bookingPlatform === null) {
+        throw new Error(window.language.error_selectPlatform)
+      }
+      if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null) {
+        throw new Error(window.language.error_addDetection)
+      }
+      pasteProcessData(clipboarsString,filter,bookingPlatform)
 
+    } catch (error) {
+      lockActionButtons('false',fillButton)
+      if(switch_showAllMessages.checked) {
+        message(true, 'warning', error, '')
+      } else {
+        console.warn(consoleWarnMessage_showMessageTurnedOff+' | '+error)
+      }
+      return
+    }
+  }
+  // process clipboard string through filter and start booking process
+  async function pasteProcessData(clipboarsString,filter,bookingPlatform) {
+    let filterData = []
+    // get all boocking relevant data as array
+    try {
+      filterData = await filters(filter, clipboarsString)
+      console.log("💽 Selected Filter-DLC: " + filter + " | Filtered data: ", filterData)
+    } catch (error) {
+      console.error("❌ Unable to call bookingData: ", error);
+      lockActionButtons('false',fillButton)
+      if(switch_showAllMessages.checked) {
+        message(true, 'error', window.language.error+': '+window.language.error_noBookingData, window.language.error_noBookingData_disc)
+      } else {
+        console.warn(consoleWarnMessage_showMessageTurnedOff+' | '+error)
+      }
+      return
+    }
+    try {
+      console.log("🔘 Selected Platform-DLC: " + bookingPlatform)
+      let bookEntries = await platforms(bookingPlatform, filterData, lstorage_cDetectionItems)
+      if (bookEntries) {
+        console.log("✅ Booking process return okey | ", bookEntries)
+        lockActionButtons('false',fillButton)
+        if(switch_showAllMessages.checked) {
+          message(true, 'information', window.language.message_bookingProcessEnded, bookingPlatform)
+        } else {
+          console.warn(consoleWarnMessage_showMessageTurnedOff)
+        }
+      } else {
+        console.log("❌ Problem with booking entries: ", bookEntries)
+      }
+    } catch (error) {
+      lockActionButtons('false',fillButton)
+      if(switch_showAllMessages.checked) {
+        message(true, error.errorstatus, window.language.error + ': ' + error.errorheadline, error.errortext || bookingPlatform)
+      } else {
+        console.warn(consoleWarnMessage_showMessageTurnedOff)
+      }
+      console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext)
+      return
+    }
+  }
+  // Main action buttons disable / enable functions
+  function lockActionButtons(lockStatus, actionButtonSpinner){
+    if(lockStatus === 'true') {
+      actionButtonSpinner.classList.add('button-mainAction--waiting')
+      fillButton.setAttribute('disabled', 'disabled')
+      fillCancelButton.classList.remove('dNone')
+      configButton.setAttribute('disabled', 'disabled')
+    }else if(lockStatus === 'false'){
+      actionButtonSpinner.classList.remove('button-mainAction--waiting')
+      fillButton.removeAttribute('disabled', 'disabled')
+      fillCancelButton.classList.add('dNone')
+      configButton.removeAttribute('disabled', 'disabled')
+    }
+  }
   // config tabs functions
   function removeTabActiveClass() {
     [].forEach.call(buttonsTab_getAll, function (buttonsTab_getAll) {
@@ -297,9 +245,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       configWindow_getAll.classList.add('dNone');
     });
   }
-
   function configTabOpenGeneral() {
-    // buttonsTab_getAll configWindow_getAll
     removeTabActiveClass()
     buttonTab_General.classList.add('button-tab--active')
     configWindow_General.classList.remove('dNone')
@@ -311,7 +257,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     buttonTab_Projects.classList.add('button-tab--active')
     configWindow_Projects.classList.remove('dNone')
     configurationsContainer.classList.remove('configuration-container-first-tab-selected')
-    // set user changes to tro to make shure any changes are saved
     configUserChanges = true
   }
 
@@ -342,6 +287,36 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
+  function configSetProfileName() {
+    localStorage.setItem('tc_c_profileName', configProfileName.value)
+    configUserChanges = true
+    if (configProfileName.value === 'LOVE') {
+      localStorage.setItem('tc_ee_exoticTheme', 'true')
+    }
+  }
+
+  function switchTheme() {
+    let currentThemeValue = themeSelect.value
+    if (currentThemeValue === 'exotic') {
+      link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + currentThemeValue + '.css')
+    } else {
+      link_cssTheme.setAttribute('href', './static/Style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
+    }
+    localStorage.setItem('tc_c_theme', currentThemeValue)
+    configUserChanges = true
+  }
+
+  function showAllMessagesChange() {
+    let showAllMessagesSwitchCurrentStatus = switch_showAllMessages.checked
+    localStorage.setItem('tc_c_showAllMessages', showAllMessagesSwitchCurrentStatus )
+    configUserChanges = true
+  }
+
+  function switchFilter(e) {
+    localStorage.setItem('tc_c_filter', e.target.value)
+    configUserChanges = true
+  }
+  // dlc functions
   function dlcPlatformOpenDropdown(e) {
     let dlc_platformElement = e.target.closest(".dlcItem-platform")
     let dlc_platformDropDownButton = e.target.closest("button")
@@ -368,241 +343,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   }
 
-  function configSetProfileName() {
-    localStorage.setItem('tc_c_profileName', configProfileName.value)
-    configUserChanges = true
-    if (configProfileName.value === 'LOVE') {
-      localStorage.setItem('tc_ee_exoticTheme', 'true')
-    }
-  }
-
-  function switchTheme() {
-    let currentThemeValue = themeSelect.value
-    if (currentThemeValue === 'exotic') {
-      link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + currentThemeValue + '.css')
-    } else {
-      link_cssTheme.setAttribute('href', './static/Style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
-    }
-    localStorage.setItem('tc_c_theme', currentThemeValue)
-    configUserChanges = true
-  }
-
-  function switchFilter(e) {
-    localStorage.setItem('tc_c_filter', e.target.value)
-    configUserChanges = true
-  }
-
-  function docuOpenHelp() {
-    window.open(helpUrl)
-  }
-
-  function docuOpenChangelog() {
-    window.open(changelogUrl)
-  }
-
-  function docuOpenDatenschutz() {
-    window.open(datenschutzUrl)
-  }
-
-  function docuOpenReadme() {
-    window.open(readmeUrl)
-  }
-
-  function openStore() {
-    window.open(storeUrl)
-  }
-
-
-  // import time copy profile
-  let button_importConfigs = document.getElementById('button_importConfigs');
-  button_importConfigs.addEventListener("change", importFile, false);
-
-  function importFile(event) {
-    let fileData
-    var files = event.target.files,
-      reader = new FileReader();
-    reader.addEventListener("load", function (validateFileVersion) {
-      fileData = this.result;
-      fileData = JSON.parse(fileData)
-      validateFileVersion = checkImportFileVersion(fileData)
-      if (validateFileVersion) {
-        // set data
-        localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
-        localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
-        localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
-        localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
-        localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-        localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
-        loadStorage()
-        sessionStorage.setItem('tc_c_messageImported', 'true')
-        window.location.reload()
-        setTimeout(function () {
-        }, 2000)
-      } else {
-        notification(true, false, 'Import fehlgeschlagen: Version stimmt nicht überein.')
-        return
-      }
-    });
-    reader.readAsText(files[0])
-  }
-
-  function checkImportFileVersion(fileData) {
-    let versionValidated
-    if (fileData.tcprofile.version === tcprofileVersion) {
-      versionValidated = true
-    } else {
-      versionValidated = false
-    }
-    return versionValidated
-  }
-
-  // Export Configs as Json
-  let button_exportConfigs = document.getElementById('button_exportConfigs');
-  button_exportConfigs.addEventListener('click', exportFile)
-
-  function exportFile() {
-
-    if (configUserChanges === true) {
-      sessionStorage.setItem('tc_c_exportFile_afterChange', 'true')
-      window.location.reload()
-      return
-    } else {
-      let detectionItems = lstorage_cDetectionItems
-      detectionItems = JSON.parse(detectionItems)
-      const fileNameFixed = "-TimeCopy.tcprofile"
-      if (detectionItems === null) {
-        detectionItems = []
-      }
-      let saveObj = { "tcprofile": { "author": "steve", "version": tcprofileVersion, "extension_version": extensionVersion, "extension_build": extensionBuild, "profile_name": configProfileName.value } }
-      // apply values
-      Object.assign(saveObj.tcprofile, { "cfg": { "theme": lstorage_cThemes, "language": lstorage_cLanguage, "filter": lstorage_cFilter, "platform": lstorage_cBookingPlatform, "detections": detectionItems } })
-      // file setting
-      const data = JSON.stringify(saveObj);
-      const name = configProfileName.value + fileNameFixed;
-      const type = "text/plain";
-      // create file
-      const a = document.createElement("a");
-      const file = new Blob([data], { type: type });
-      a.href = URL.createObjectURL(file);
-      a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    }
-  }
-  // delete configs
-  function removeProfile() {
-    clearLocalStorage()
-    clearSessionStorage()
-    sessionStorage.setItem('tc_c_messageProfileRemoved', 'true')
-    window.location.reload()
-  }
-  function reloadDLCCache() {
-    clearDlcLocalStorages()
-    sessionStorage.setItem('tc_c_messageDLCCacheReloaded', 'true')
-    window.location.reload()
-  }
-  // Main Functions
-  async function readClipboardText() {
-
-    lockActionButtons('true',fillButton)
-    let clipboarsString = await navigator.clipboard.readText();
-    let filter = lstorage_cFilter
-    let bookingPlatform = lstorage_cBookingPlatform
-    // check whitch filter to use
-    try {
-      if (filter === '' || filter === null) {
-        throw new Error("Bitte wähle zuerst einen Filter!")
-      }
-      if (bookingPlatform === '' || bookingPlatform === null) {
-        throw new Error("Bitte wähle eine Buchungsplatform!")
-      }
-      if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null) {
-        throw new Error("Bitte erstelle mindestens eine Projekt-Erkennung !")
-      }
-      processData(filter, clipboarsString, bookingPlatform, dev_pttest)
-
-    } catch (error) {
-      lockActionButtons('false',fillButton)
-      message(true, 'warning', error, '')
-      return
-    }
-  }
-
-  async function processData(filter, clipboarsString, bookingPlatform, dev_pttest) {
-
-    let timesheetData = []
-    // get all boocking relevant data as array
-    try {
-      timesheetData = await filters(filter, clipboarsString)
-      console.log("💽 Selected Filter-DLC: " + filter + " | Filtered data: ", timesheetData)
-    } catch (error) {
-      console.error("❌ Unable to call bookingData: ", error);
-      // notification(true, false, '')
-      lockActionButtons('false',fillButton)
-      message(true, 'error', 'ERROR: Keine Buchungsdaten', 'Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.')
-      return
-    }
-    try {
-      console.log("🔘 Selected Platform-DLC: " + bookingPlatform)
-      let bookEntries = await platforms(bookingPlatform, timesheetData, lstorage_cDetectionItems, dev_pttest)
-      if (bookEntries) {
-        console.log("✅ Booking process return okey | ", bookEntries)
-        lockActionButtons('false',fillButton)
-        message(true, 'information', 'Buchungsprozess beendet', bookingPlatform)
-      } else {
-        console.log("❌ Problem with booking entries: ", bookEntries)
-      }
-    } catch (error) {
-      lockActionButtons('false',fillButton)
-      message(true, error.errorstatus, 'Fehler: ' + error.errorheadline, error.errortext || bookingPlatform)
-      console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext)
-      return
-    }
-  }
-
-  // Main Action Buttons disable / enable functions
-  function lockActionButtons(lockStatus, actionButtonSpinner){
-    if(lockStatus === 'true') {
-      actionButtonSpinner.classList.add('button-mainAction--waiting')
-      fillButton.setAttribute('disabled', 'disabled')
-      fillCancelButton.classList.remove('dNone')
-      configButton.setAttribute('disabled', 'disabled')
-    }else if(lockStatus === 'false'){
-      actionButtonSpinner.classList.remove('button-mainAction--waiting')
-      fillButton.removeAttribute('disabled', 'disabled')
-      fillCancelButton.classList.add('dNone')
-      configButton.removeAttribute('disabled', 'disabled')
-    }
-  }
-
-  // Cancel Functions
-  function cancelPasteData(){
-    chrome.tabs.reload(function(){});
-    window.location.reload()
-  }
-
-  // DLC Functions
-  function dlcShowProTimeTestButton() {
-    if (config_check_showProTimeTestButton.checked) {
-      localStorage.setItem('tc_c_dlc_protimetest', 'true')
-    } else {
-      localStorage.setItem('tc_c_dlc_protimetest', 'false')
-    }
-    dlcShowProTimeTestButtonDisplay()
-    configUserChanges = true
-  }
-
-  function dlcShowProTimeTestButtonDisplay() {
-    if (config_check_showProTimeTestButton.checked) {
-      button_dev_pttest.classList.remove('dNone')
-    } else {
-      button_dev_pttest.classList.add('dNone')
-    }
-  }
-
   function dlcProTimeForceLatencyMode(){
-    if(config_check_forceLatencyModeproTime.checked){
+    if(dlcProTime_config_check_forceLatencyMode.checked){
       localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'true')
     }else {
       localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'false')
@@ -611,7 +353,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function dlcProTimeUseLatencyMode(){
-    if(config_check_useLatencyModeproTime.checked){
+    if(dlcProTime_config_check_useLatencyMode.checked){
       localStorage.setItem('tc_c_dlc_protimeuselatencymode', 'true')
     }else {
       localStorage.setItem('tc_c_dlc_protimeuselatencymode', 'false')
@@ -619,59 +361,64 @@ document.addEventListener('DOMContentLoaded', async function () {
     configUserChanges = true
   }
 
-  // Test protime function
-  async function testProTime() {
-    dev_pttest = true
-    readClipboardText()
-  }
-  
-  // Regular Paste Function
-  async function execReadClipboardText() {
-    dev_pttest = false
-    readClipboardText()
+  function dlcCheckUsePTTest(){
+    if(dlcProTime_config_check_usePTTest.checked){
+      localStorage.setItem('tc_c_dlc_protimetest', 'true')
+      dlcItem_platform_amagProTime.classList.add('dlcItem-amagProTime-TestMode')
+    }else {
+      localStorage.setItem('tc_c_dlc_protimetest', 'false')
+      dlcItem_platform_amagProTime.classList.remove('dlcItem-amagProTime-TestMode')
+    }
+    configUserChanges = true
   }
 
   function clearAllMessages() {
-    let messageSectionMessages = document.getElementsByClassName('message')
-    for (var index = 0, indexLen = messageSectionMessages.length; index < indexLen; index++) {
-      messageSectionMessages[index].classList.add('message--hiddenremove');
+    let elem_messageSectionMessages = document.getElementsByClassName('message')
+    for (var index = 0, indexLen = elem_messageSectionMessages.length; index < indexLen; index++) {
+      elem_messageSectionMessages[index].classList.add('message--hiddenremove');
     }
     setTimeout(function () {
-      messageSection.innerHTML = ''
+      elem_messageSection.innerHTML = ''
     }, 400)
   }
 
   projectDetection()
-  // Extension load up
+  // extension load up
   window.addEventListener("load", (event) => {
-    // Display version
-    label_version.insertAdjacentHTML('beforeend', extensionVersion)
-    label_build_version.insertAdjacentHTML('beforeend', extensionBuild)
-    label_extensionDevelop.insertAdjacentHTML('beforeend', extensionAuthor)
-    label_extensionCoDevelop.insertAdjacentHTML('beforeend', extensionTesting)
-    // Main Buttons Listener
-    fillButton.addEventListener('click', execReadClipboardText)
+    // return message if offline
+    if (!navigator.onLine) {
+      message(true, 'error', window.language.message_offline, window.language.message_offline_disc)
+    }
+    // display version
+    label_version.insertAdjacentHTML('beforeend', version)
+    label_build_version.insertAdjacentHTML('beforeend', buildVersion)
+    label_extensionDevelop.insertAdjacentHTML('beforeend', author)
+    label_extensionCoDevelop.insertAdjacentHTML('beforeend', tester)
+    // main action buttons listener
+    fillButton.addEventListener('click', pastePrepairData)
     fillCancelButton.addEventListener('click', cancelPasteData)
-    button_dev_pttest.addEventListener('click', testProTime)
     configButton.addEventListener('click', openConfigs)
     button_clearAllMessages.addEventListener('click', clearAllMessages)
     buttonBackToMain.addEventListener('click', openConfigs)
-    // Configuration tabs listener
+    // configuration tabs listener
     buttonTab_General.addEventListener('click', configTabOpenGeneral)
     buttonTab_Projects.addEventListener('click', configTabOpenProjects)
     buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets)
     buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets)
     configProfileName.addEventListener('change', configSetProfileName)
-    // Configs Listener
+    // configs listener
     button_clearConfigs.addEventListener('click', removeProfile)
     button_reloadDLCCache.addEventListener('click', reloadDLCCache)
-    button_docuHelp.addEventListener('click', docuOpenHelp)
-    // button_docuChangelog.addEventListener('click', docuOpenChangelog)
-    button_docuDatenschutz.addEventListener('click', docuOpenDatenschutz)
-    button_docuReadme.addEventListener('click', docuOpenReadme)
-    button_openStore.addEventListener('click', openStore)
+    switch_showAllMessages.addEventListener('click', showAllMessagesChange)
+    // config help buttons
+    button_docuHelp.addEventListener('click', () => window.open(dokuUrl))
+    button_docuDatenschutz.addEventListener('click', () => window.open(privacyUrl))
+    button_docuChangelog.addEventListener('click', () => window.open(changelogUrl))
+    button_docuReadme.addEventListener('click', () => window.open(readmeUrl))
+    button_openStore.addEventListener('click', () => window.open(chromeStoreUrl))
+    button_openLicense.addEventListener('click', () => window.open(licenseUrl))
+    //theme select
     themeSelect.addEventListener('change', switchTheme)
-    // languageSelect.addEventListener('change', switchLanguage);
     // filter radios listener
     for (var i = 0, iLen = radios_filter.length; i < iLen; i++) {
       radios_filter[i].addEventListener('click', switchFilter);
@@ -690,14 +437,18 @@ document.addEventListener('DOMContentLoaded', async function () {
       let dropdownButton = dlc_filter_element[index].getElementsByClassName('button-dropdown')[0]
       dropdownButton.addEventListener('click', dlcFilterOpenDropdown);
     }
-    // Load local storages
-    loadStorage()
-    loadSessionStorages()
-    // load xmas dlc between dezember (11) and march (2)
-    if (dateMonth === 11 || dateMonth === 0 || dateMonth === 1 || dateMonth === 2) {
-      xmas()
+    try{
+      // load needed app functions
+      profileManager(...window.appGlobalArgs,...appVersionData,window.configUserChanges,...window.dlcGlobalArgs)
+      appStorage(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
+      xmasDlc()
+      console.log('✅ [Time Copy] extension loaded')
+    }catch(e){
+      message(true, 'error',window.language.error_appError,e,true)
+      console.error(e)
+      return
     }
-  });
+  },);
 })
 
 

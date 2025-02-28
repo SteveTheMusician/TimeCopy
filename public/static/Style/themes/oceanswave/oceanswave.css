@@ -8,11 +8,10 @@
   --color-darker: #010e12;
   --color-highlight: #5ecac3;
   --color-active: var(--turquoise);
-  --color-close: #e37d4a;
   --color-edit: var(--lightyellow);
   --color-disabled: var(--color-third);
+  --color-close: #e37d4a;
   --color-warning: #daff1f;
-  
   /* Font colors */
   --color-font: var(--white_e);
   --color-font-navigation: var(--color-font-second);

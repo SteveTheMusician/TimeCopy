@@ -1,23 +1,23 @@
 :root {
   /* ---- Neon Retro Red Theme ---- */
-
+  --flesh-pink: #ff9d9d;
+  --yellow-fd: #ffd192;
   /* theme colors */
   --color-main: #900C3F;
-  --color-second: #C70039;
+  --color-second: #c70039;
   --color-third: #f60046;
   --color-highlight: #cfc262;
   --color-active: #F8DE22;
   --color-disabled: #612424;
   --color-close: #ff9300;
   --color-warning: #6d18ae;
-
   /* Font colors */
   --color-font: #ffdcdc;
   --color-font-headline: #fdfdfd;
-  --color-font-second: #ff9d9d;
-  --color-font-headlabel: #ffacac;
-  --color-font-subtext: #f098b1;
+  --color-font-second: var(--flesh-pink);
+  --color-font-headlabel: var(--flesh-pink);
+  --color-font-subtext: var(--flesh-pink);
   /* Icon colors */
-  --color-icon-default: #ffd192;
-  --color-icon-light: #ffd192;
+  --color-icon-default: var(--yellow-fd);
+  --color-icon-light: var(--yellow-fd);
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## General Information
+
+Some versions in the changelog were skipped because they were released or pushed 
+as part of a later version.
+Time Copy was only converted into a side-bar version from version 0.8.7.
+
 ## V 0.8.80
 - fix: text-label styling on small resolution
 - feature: get new "Master-Booking-Number" marked with "°" as Ticketnumber, when exists.
@@ -116,9 +122,29 @@
 - fix: notification style in front of xmas dlc
 - other: remove storage and declarative Content premission
 
-## V 0.9.82
+## V 0.9.82 (Release)
 - fix: invisible texts in themes
 - other: code clean up
 - other: renaming low latency to high latency
 - other: new public file structure
 - other: readme, license, documentation
+
+## V 1.0.0 (Release)
+- feature: configuration to show / hide messages
+- feature: amagprotime dlc - multiple string matches in detection item
+- feature: compatibility with older profile versions / supported profile version list
+- feature: return message, if browser is offline
+- feature: new theme "oceans ground" added
+- fix: show error notification when trying to import currupt profile
+- fix: show error notification after reimport same profile
+- fix: remove automatic error json feedback
+- fix: write default values into exported file on fresh profile
+- fix: font fallback
+- fix: style fixes
+- other: new profile version
+- other: new Theme "Japan's White"
+- other: documentation
+- other: restructure dlc cache
+- other: error message block function
+- other: amagprotime dlc - remove test-button (use regular paste-button in test-mode)
+- other: js messages are now stored in a language json (other languages can be added in feature)

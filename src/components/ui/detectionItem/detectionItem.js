@@ -1,4 +1,4 @@
-import { importPlatforms } from "../../dlc/platforms/platforms.import"
+import { importPlatforms } from "../../../dlc/platforms/platforms.import.js"
 
 export function detectionItem(detectionItems) {
   let platformSelectItems = []

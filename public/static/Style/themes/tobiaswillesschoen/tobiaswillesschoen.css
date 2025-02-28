@@ -1,25 +1,16 @@
 :root {
   /* ---- Tobias will alles schön Theme ---- */
-
   /* vars */
   --blur-default: blur(20px);
   /* color palette */
   --color-none: transparent;
   --white: #fefefe;
   --white-df: #dfdfdf;
-  --dark-blue: #283d45;
-  --light-blue: #1576be;
-  --purple: #8168e4;
-  --purple-pale: #985fd2;
-  --mud-purple-8: #8364a3;
-  --mud-purple: #5a4e6f;
   --white-transparent: #ffffff55;
   --white-transparent-d: #d8d8d88f;
   --black: #121212;
-  --black-3: #343434;
   --light-gray: #5f6568;
   --dark-gray-3: #343434;
-
   /* theme colors */
   --color-main: var(--white-transparent);
   --color-second: var(--white-transparent);
@@ -29,9 +20,8 @@
   --color-disabled:#ffc9d74a;
   --color-close: #ff1856;
   --color-warning: #fcff18;
-
   /* Font colors */
-  --color-font: #121212;
+  --color-font: var(--black);
   --color-font-navigation: var(--color-font-second);
   --color-font-headline: #3b4953;
   --color-font-second: #566469;

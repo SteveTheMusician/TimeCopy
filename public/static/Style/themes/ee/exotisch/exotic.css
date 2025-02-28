@@ -3,17 +3,24 @@
 
   /* vars */
   --blur-default: blur(20px);
+  --transition-default: .5s;
+
   /* color palette */
   --color-none: transparent;
   --white: #fefefe;
-  --mud-purple: #5a4e6f;
   --dark-gray-30: #303637;
   --black: #121212;
-  --black-3: #343434;
   --dark-gray-3: #333133;
   --dark-pink: #503c49;
   --gold-dark: rgba(179, 173, 135, 1);
   --gold-light: rgb(251 243 203);
+  --gold-dark-94: #948d6c;
+  --blue-gray: #a7b1b3;
+  --blue-gray-dark: #5f6566;
+  /* Message hover background colors */
+  --red-mud: #373033;
+  --yellow-mud: #373630;
+  --gold-mud: #373630;
 
   /* theme colors */
   --color-main: var(--black);
@@ -26,17 +33,16 @@
   --color-warning: #d2b442;
 
   /* Font colors */
-  --color-font: #a7b1b3;
+  --color-font: var(--blue-gray);
   --color-font-navigation: var(--color-font-second);
-  --color-font-headline: #948d6c;
-  --color-font-second: #a7b1b3;
-  --color-font-headlabel: #5f6566;
-  --color-font-subtext: #5f6566;
-  /* Icon colors */
-  --color-icon-default: #948c6c;
-  --color-icon-light: var(--white);
+  --color-font-headline: var(--gold-dark-94);
+  --color-font-second: var(--blue-gray);
+  --color-font-headlabel: var(--blue-gray-dark);
+  --color-font-subtext: var(--blue-gray-dark);
 
-  --transition-default: .5s;
+  /* Icon colors */
+  --color-icon-default: var(--gold-dark-94);
+  --color-icon-light: var(--white);
 
   /* dlc snowflake color */
   --color-dlc-snowflake: var(--color-font-second);
@@ -155,7 +161,7 @@ header {
 }
 
 .configItem {
-  outline: 1px solid #5f6566;
+  outline: 1px solid var(--blue-gray-dark);
 }
 
 .label-row {
@@ -220,7 +226,7 @@ input:checked+.switch_slider {
 
 .switch_slider {
   background-color: var(--color-second);
-  outline: 1px solid #5f6566;
+  outline: 1px solid var(--blue-gray-dark);
 }
 
 .message {
@@ -240,15 +246,15 @@ input:checked+.switch_slider {
 }
 
 .message-error:hover {
-  background-color: #373033;
+  background-color: var(--red-mud);
 }
 
 .message-warning:hover {
-  background-color: #373630;
+  background-color: var(--yellow-mud);
 }
 
 .message-information:hover {
-  background-color: #373630;
+  background-color: var(--gold-mud);
 }
 
 .button-mainAction--waiting:after {
@@ -258,7 +264,7 @@ input:checked+.switch_slider {
 
 @keyframes item--new-animation {
   0% {
-    outline: 1px solid #5f6566;
+    outline: 1px solid var(--blue-gray-dark);
   }
 
   30% {
@@ -266,7 +272,7 @@ input:checked+.switch_slider {
   }
 
   100% {
-    outline: 1px solid #5f6566;
+    outline: 1px solid var(--blue-gray-dark);
   }
 }
 
@@ -280,7 +286,7 @@ input:checked+.switch_slider {
   }
 
   100% {
-    outline-color: #5f6566;
+    outline-color: var(--blue-gray-dark);
   }
 }
 
@@ -294,7 +300,7 @@ input:checked+.switch_slider {
   }
 
   100% {
-    outline-color: #5f6566;
+    outline-color: var(--blue-gray-dark);
   }
 }
 
@@ -308,6 +314,6 @@ input:checked+.switch_slider {
   }
 
   100% {
-    outline-color: #5f6566;
+    outline-color: var(--blue-gray-dark);
   }
 }
