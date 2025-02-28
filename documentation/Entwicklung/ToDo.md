@@ -10,18 +10,10 @@
 - * als ticketname im filter: ignoriert ticket namen mit oder ohne value
 - detectionItems von den platformen rendern
 - Firefox & Opera Version
+- Themes dynamisch in html ausgeben
+- Generell mehr dynamisches html
 
-## DLC Update
+## DLC Update (V 1.0.01)
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
 - dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
-
- 
-## V 1.0.0
-
-- Dokumentation
-- update readme
-- code cleanup: kommentare und feedbacks verbessern
-- CSS Variabeln verbessern und auslagern
- 
-## V 1.0.1 
 - dlc: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon
