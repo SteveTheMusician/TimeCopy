@@ -146,8 +146,8 @@ Du kannst allerdings diese dir immer relativ schnell ziehen, in dem per Terminal
 - Wenn alles Fertig ist, wird dich Time Copy benachrichtigen
 
 >[!IMPORTANT]
->Die aktuellen DLCs unterstützen keine CSV Formate
->Buchungs-Daten kännen nur von einem einzelnen Ticket bis zu maximal einen Tag kopiert werden
+>Die aktuellen DLCs unterstützen keine CSV Formate.
+>Buchungs-Daten kännen nur von einem einzelnen Ticket bis zu maximal einen Tag kopiert werden.
 >(Stand 19.02.2025)
 
 #### Erweiterte Benutzung
@@ -157,18 +157,19 @@ Du kannst allerdings diese dir immer relativ schnell ziehen, in dem per Terminal
 Damit Time Copy so funktioniert, wie du es möchtest, musst du zu erst Einstellungen vornehmen.
 Alle Einstellungen findest du unter dem Zahnrad-Icon.
 
-1) Filter einstellen
+1) Filter einstellen:
 Filter werden als DLCs (kleine Erweiterungen) mitgeliefert.
 Sie erkennen und verarbeiten die Daten, die du in dein Clipboard kopierst und geben sie an das Platform DLC weiter.
-Du findest sie unter das kleine Filter-Icon (zweiter Tab von oben).
+Du findest sie unter dem Filter-Icon (zweiter Tab von oben).
 
 Wähle aus, welches Format du zum kopieren deiner Daten verwendest.
 
->[!IMPORTANT]
->Filter werden erst aktiv, sobald du auf Einfügen klickst
+>[!NOTE]
+>Filter werden erst aktiv, sobald du auf Einfügen klickst.
+>Deine Daten aus dem Clipboard werden also erst dann ausgelesen und nicht vorher.
 
-2) Erkennung erstellen
-Erkennuns-parameter werden von Time Copy dazu benutzt, die Daten, die von den Filter kommen,
+2) Erkennung erstellen:
+Erkennuns-Parameter werden von Time Copy dazu benutzt, die Daten, die von den Filter kommen,
 einer Buchungsplatform zu zu ordnen.
 Du findest sie unter dem Auge-Icon (drittes Symbol von oben)
 
@@ -191,16 +192,8 @@ nach Webseite die entsprächende Platform nutzt.
 
 ##### Tobias Excel
 
-Formtat
-```
-Tag + Datum (In erste Zelle) | [TicketName-Ticketnummer] Beschreibung des Tickets : Zeit+Zeitformat (In zweite Zelle)
-````
+![alt text](Images/image.png)
 
-Beispiel
-```
-Mi. 14.08.2024 | [TicketName-1234] Daily - Ticket : 2.5h 
-
-````
 
 
 #### Platform DLCs

@@ -134,7 +134,6 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - feature: amagprotime dlc - multiple string matches in detection item
 - feature: compatibility with older profile versions / supported profile version list
 - feature: return message, if browser is offline
-- feature: new theme "oceans ground" added
 - fix: show error notification when trying to import currupt profile
 - fix: show error notification after reimport same profile
 - fix: remove automatic error json feedback
@@ -142,9 +141,9 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - fix: font fallback
 - fix: style fixes
 - other: new profile version
-- other: new Theme "Japan's White"
+- other: new Theme "Japan's White" & "Oceans ground"
 - other: documentation
 - other: restructure dlc cache
-- other: error message block function
+- other: block app on critical errors
 - other: amagprotime dlc - remove test-button (use regular paste-button in test-mode)
 - other: js messages are now stored in a language json (other languages can be added in feature)
