@@ -129,6 +129,8 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - other: new public file structure
 - other: readme, license, documentation
 
+### March Update
+
 ## V 1.0.0 (Release)
 - feature: configuration to show / hide messages
 - feature: amagprotime dlc - multiple string matches in detection item
@@ -147,3 +149,7 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - other: block app on critical errors
 - other: amagprotime dlc - remove test-button (use regular paste-button in test-mode)
 - other: js messages are now stored in a language json (other languages can be added in feature)
+
+## V 1.0.01 (Release)
+- fix: messages not showing after reset cache
+- other: showing message, when ProTime test-Mode is activated
