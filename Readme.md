@@ -2,7 +2,7 @@
 #### V 1.0.0* (Sidebar Version)
 By Steve Pietrowski / EmptySoul
 </br>
-04.07.2023 - 02.2025
+04.07.2023 - 03.2025
 
 ## Benutzerinformationen
 
