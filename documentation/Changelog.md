@@ -150,6 +150,6 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - other: amagprotime dlc - remove test-button (use regular paste-button in test-mode)
 - other: js messages are now stored in a language json (other languages can be added in feature)
 
-## V 1.0.01 (Release)
+## V 1.0.01 (Release / V 1.0.011 cuz chromestore upload issue)
 - fix: messages not showing after reset cache
 - other: showing message, when ProTime test-Mode is activated
