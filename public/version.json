@@ -1,6 +1,7 @@
 {
-    "extension_version": "1.0.01",
-    "extension_build": "S25.03040939",
+    "extension_version": "1.0.2",
+    "extension_version_name": "Soft Cookie",
+    "extension_build": "S25.03051702",
     "profile_version": "1.7",
     "supported_profile_versions": ["1.6"],
     "extension_discription": "Übertrage Informatinen aus Excel-Tabellen in eine Online-Platform.",

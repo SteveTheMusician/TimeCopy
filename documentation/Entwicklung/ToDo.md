@@ -17,6 +17,7 @@
 - fix/code cleanup: dlc.GlobalsArgs an die Platformen übergeben und localstorage if abfragen dort mit den global args ersetzen
 - css clean up
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
+- better html text
 
 ## V 1.0.3
 - dlc: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon
@@ -24,3 +25,4 @@
 
 ## V 1.1.X
 - Themes dynamisch in html ausgeben
+- profil: datei einstellungen als dropdown

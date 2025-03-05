@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const chromeStoreUrl = data_version.extension_chromestore
   const licenseUrl = data_version.extension_license
   const version = data_version.extension_version
+  const versionName = data_version.extension_version_name
   const buildVersion = data_version.extension_build
   const author = data_version.extension_author
   const tester = data_version.extension_testing
@@ -223,7 +224,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       return
     }
   }
-  // Main action buttons disable / enable functions
+  // main action buttons disable / enable functions
   function lockActionButtons(lockStatus, actionButtonSpinner){
     if(lockStatus === 'true') {
       actionButtonSpinner.classList.add('button-mainAction--waiting')
@@ -317,6 +318,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     localStorage.setItem('tc_c_filter', e.target.value)
     configUserChanges = true
   }
+
+  function showBuildVersion(e){
+    if(e.shiftKey){
+      configItem_content_row_build_version.classList.remove('dNone')
+    }
+  }
   // dlc functions
   function dlcPlatformOpenDropdown(e) {
     let dlc_platformElement = e.target.closest(".dlcItem-platform")
@@ -392,6 +399,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     // display version
     label_version.insertAdjacentHTML('beforeend', version)
+    label_version_name.insertAdjacentHTML('beforeend', versionName)
     label_build_version.insertAdjacentHTML('beforeend', buildVersion)
     label_extensionDevelop.insertAdjacentHTML('beforeend', author)
     label_extensionCoDevelop.insertAdjacentHTML('beforeend', tester)
@@ -418,6 +426,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     button_docuReadme.addEventListener('click', () => window.open(readmeUrl))
     button_openStore.addEventListener('click', () => window.open(chromeStoreUrl))
     button_openLicense.addEventListener('click', () => window.open(licenseUrl))
+    // other
+    label_version_name.addEventListener('click', (e) => showBuildVersion(e))
     //theme select
     themeSelect.addEventListener('change', switchTheme)
     // filter radios listener
