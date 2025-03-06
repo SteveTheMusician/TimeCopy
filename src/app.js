@@ -9,7 +9,6 @@ import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, l
 import { clearDlcLocalStorages, reloadDLCCache } from "./utils/dlcStorage.js";
 import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
-import { developer } from "./developer/developer.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
   // import platform and filter dlcs
@@ -453,8 +452,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       profileManager(...window.appGlobalArgs,...appVersionData,window.configUserChanges,...window.dlcGlobalArgs)
       appStorage(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       xmasDlc()
-      // devtool
-      developer()
       console.log('✅ [Time Copy] extension loaded')
     }catch(e){
       message(true, 'error',window.language.error_appError,e,true)
