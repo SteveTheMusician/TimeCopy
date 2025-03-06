@@ -154,7 +154,7 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - fix: messages not showing after reset cache
 - other: showing message, when ProTime test-Mode is activated
 
-## V 1.0.2
+## V 1.0.20
 - feature: maximal 20 message items
 - fix: style on small screen
 - other: placeholder opacity
