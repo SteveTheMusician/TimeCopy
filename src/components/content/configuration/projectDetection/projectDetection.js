@@ -1,6 +1,7 @@
 
 import { detectionItem } from "../../../ui/detectionItem/detectionItem.js"
 import { selectBookingPlatformPreName,detectionItemID_Prefix, selectProtimeService_defaultValue } from "../../../../utils/defaults/defaultVariables.js"
+import { generateDateId } from "../../../../utils/generateDateId.js"
 
 const button_addDetection = document.getElementById('button_add_projectDetection')
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
@@ -22,7 +23,7 @@ function addNewProjectDetection(e) {
   if (e.shiftKey) {
     button_addDetection.innerHTML = "🍌"
   }
-  let currentDate = new Date().getTime().toString()
+  let currentDate = generateDateId()
   let newDetectionItemId = detectionItemID_Prefix + currentDate
   let detectionItemMainObject = { "id": newDetectionItemId, "bookingsheet": "" }
   if (detectionItems === null) {
@@ -46,7 +47,7 @@ function loadDetectionItems() {
   for (let i = 0, iLen = buttons_removeDetection.length; i < iLen; i++) {
     buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem)
   }
-  // add Item change-listeners
+  // add item change-listeners
   let detectionItemsHtml = document.getElementsByName('item_detection')
   for (let i = 0, iLength = detectionItemsHtml.length; i < iLength; i++) {
     let select_bookingPlatform = document.getElementById(selectBookingPlatformPreName + detectionItemsHtml[i].id)
@@ -73,7 +74,7 @@ function loadDetectionItems() {
     input_activity.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "protimeactivity", input_activity.value) });
   }
 }
-// get Items current object to change
+// get items current object to change
 function getCurrentObject(itemId) {
   let currentObject = detectionItems.find(x => x.id === itemId)
   return currentObject

@@ -3,7 +3,7 @@ import { filter_TobiasExcel } from "./TobiasExcel/TobiasExcel.js"
 import { importFilters } from "./filters.import.js"
 import { importFiltersData } from "./filters.import.js"
 
-// dlc function import
+// map filters
 const filterFunctionsMap = {
   "SteveGoogleExcel": filter_SteveGoogleExcel,
   "TobiasExcel": filter_TobiasExcel
@@ -40,8 +40,8 @@ export async function filtersContent() {
      let plDataObject = filterInfoData.find(item => item[plKey])[plKey]
      let filterImageFormat = '.jpg'
 
-     // dlc array (Foldername aso used as ID for saving)
-     // for new items, just make a new dls, add it here to the array, make logo in static folder and add css in style/dlc folder
+     // dlc array (Foldername aso used as id for saving)
+     // for new items, just make a new dlc, add it here to the array, make logo in static folder and add css in style/dlc folder
      let filterChild = `<label class="configItem dlcItem dlcItem-filter dlcItem-clickable dFlex" title="Filter wählen" id="dlcItemFilter_`+ (plDataObject.filter_id) +`">
                 <div class="dlcItem-main-container dFlex">
                   <div class="dlcItem-main dFlex">

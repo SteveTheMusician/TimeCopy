@@ -1,4 +1,4 @@
-// Enter here the Filder/File Names of the dlcs
+// enter the folder/file-names of the dlcs here
 export const importFilters = ["TobiasExcel", "SteveGoogleExcel"]
 export const filter_timesheetFilterPreValue = 'timesheetfilter_'
 

@@ -51,7 +51,7 @@ In allen anderen Varianten musst du das Update manuell ziehen
 
 #### Als Build (Zip File)
 
-**_Links:_** https://github.com/EmptySoulOfficial/TimeCopy?tab=readme-ov-file#time-copy-chrome-extension-builds-compiled-code-als-zip
+**_Links:_** https://github.com/SteveTheMusician/TimeCopy?tab=readme-ov-file#time-copy-chrome-extension-builds-compiled-code-als-zip
 
 Die Build-Versionen kannst du nur hier "manuell" über das Readme oder dem entsprechenden Ordner in Git herunterladen.
 Der Inhalt ist immer das zusammengebaute Projekt, welches so an den Chrome-Webstore eingereicht wurde.
@@ -194,8 +194,6 @@ nach Webseite die entsprächende Platform nutzt.
 
 ![alt text](Images/image.png)
 
-
-
 #### Platform DLCs
 
 
@@ -210,6 +208,8 @@ Der Tannenbaum, wie auch die Schneeflocken lassen sich ein und ausschalten.
 Das "+" wird durch eine Banane ersetzt. (Ab V. 1.0)
 - **Exotic Skin:** Tippe ins Namenfeld unter Einstellungen im Tab Allgemein, das wort "LOVE" ein und klicke auf Zurück.
 Danach kannst du im Design-Bereich den Skin "Exotic-Gold" auswählen.
+- **Build-Version anzeigen (ab V 1.0.2):**
+Shift + Click auf den Versionsnamen bei "Version-Name".
 
 ## Weitere Dokumentationen
 

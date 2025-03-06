@@ -31,7 +31,7 @@ export function detectionItem(detectionItems) {
           </div>
           <div class="configItem-content-row dFlex">
             <div class="configItem-content-fullWidth">
-              <input type="text" class="input-size--large `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_additionalPrefix" id="input_additionalPrefix` + detectionItem.id + `" placeholder="String Match (Optional)" value="` + detectionItem.addprefix + `" title="Einzigartige Ticket-Titel oder Beschreibungen, können über dieses Feld erkannt und als Kriterium verwendet werden."/>
+              <input type="text" class="input-size--large `+ (detectionItem.bookingsheet ? '' : 'dNone') + `" name="input_additionalPrefix" id="input_additionalPrefix` + detectionItem.id + `" placeholder="Mehrfache; Parameter; möglich" value="` + detectionItem.addprefix + `" title="Einzigartige Ticket-Titel oder Beschreibungen, können über dieses Feld erkannt und als Erkennungs-Kriterium verwendet werden. Mehrfache Parameter kannst du mit einem ; trennen"/>
             </div>
           </div>
           <div class="configItem-title-row flex `+ (detectionItem.bookingsheet === "AmagProTime" ? null : "dNone") + `">
