@@ -153,3 +153,10 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 ## V 1.0.01 (Release / V 1.0.011 cuz chromestore upload issue)
 - fix: messages not showing after reset cache
 - other: showing message, when ProTime test-Mode is activated
+
+## V 1.0.2
+- fix: style on small screen
+- other: new profile version & compatibility to older versions
+- other: code cleanup
+- other: de html texts
+- other: app version name

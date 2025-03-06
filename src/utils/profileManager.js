@@ -33,19 +33,24 @@ export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dl
             });
             reader.readAsText(files[0]);
         });
-        const isValidVersion = checkImportProfileVersion(fileData);
-        if (isValidVersion) {  
-              localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
-              localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg.show_all_messages)
-              localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
-              localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
-              localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
-              localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
-              localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
-              appStorage(appGlobalArgs,appVersionData,dlcGlobalArgs)
-              sessionStorage.setItem('tc_c_messageImported', 'true')
-              window.location.reload()    
-              setTimeout(function () {}, 2000)
+        const validProfileVersion = checkImportProfileVersion(fileData);
+        if (validProfileVersion.validated) {
+          if(validProfileVersion.version < '1.8'){
+            localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg.show_all_messages)
+            localStorage.setItem('tc_c_profileName', fileData.tcprofile.profile_name)
+          }else {
+            localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg.showAllMessages)
+            localStorage.setItem('tc_c_profileName', fileData.tcprofile.profileName)
+          }
+          localStorage.setItem('tc_c_theme', fileData.tcprofile.cfg.theme)
+          localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
+          localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
+          localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
+          localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
+          appStorage(appGlobalArgs,appVersionData,dlcGlobalArgs)
+          sessionStorage.setItem('tc_c_messageImported', 'true')
+          window.location.reload()    
+          setTimeout(function () {}, 2000)
         } else {
             throw new Error(window.language.notification_importError+': '+window.language.notification_fileVersionNotMatch)
         }
@@ -59,12 +64,14 @@ export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dl
   }
   function checkImportProfileVersion(fileData) {
     let versionValidated
+    let validateResponse = {}
     if (fileData.tcprofile.version === tcprofileVersion || supportedTcprofileVersions.includes(fileData.tcprofile.version)) {
       versionValidated = true
     } else {
       versionValidated = false
     }
-    return versionValidated
+    validateResponse = {"validated": versionValidated, "version":fileData.tcprofile.version}
+    return validateResponse
   }
   // export user configs as json
   let button_exportConfigs = document.getElementById('button_exportConfigs')
@@ -84,8 +91,8 @@ export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dl
       let saveObj = { "tcprofile": 
         { 
           "author": "steve", "version": tcprofileVersion, 
-          "extension_version": appVersionData.version, "extension_build": appVersionData.buildVersion, 
-          "profile_name": appGlobalArgs.configprofilename.value 
+          "appVersion": appVersionData.version, "appVersionName": appVersionData.versionName,"appBuild": appVersionData.buildVersion, 
+          "profileName": appGlobalArgs.configprofilename.value 
         } 
       }
       let themeExport = lstorage_cThemes ?? defaultTheme
@@ -96,7 +103,7 @@ export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dl
         saveObj.tcprofile, 
         { "cfg": 
           { "theme": themeExport, "language": languageExport, 
-            "show_all_messages": showAllMessagesExport, "filter": filterExport, 
+            "showAllMessages": showAllMessagesExport, "filter": filterExport, 
             "platform": lstorage_cBookingPlatform, "detections": detectionItems 
           } 
         }

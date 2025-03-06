@@ -911,6 +911,14 @@ input:checked+.switch_slider:before {
 
     .text-label {
         padding-left: 0px;
+        overflow: hidden;
+        word-break: normal;
+        margin-right: 5px;
+    }
+
+    .dlcItem-headline-container .text-label {
+        margin-right: 0;
+        max-height: 14px;
     }
 
     .configItem-main {
@@ -923,6 +931,28 @@ input:checked+.switch_slider:before {
 
     .configItem {
         padding: 10px 10px;
+    }
+
+    .button-primary {
+        word-break: normal;
+        overflow: hidden;
+        max-width: 72px;
+    }
+
+    .button-add {
+        max-width: 100%;
+    }
+
+    .row-cell-left {
+        width: 50%;
+        display: flex;
+        align-items: center;
+    }
+
+    .row-cell-right {
+        width: 50%;
+        display: flex;
+        align-items: center;
     }
 }
 

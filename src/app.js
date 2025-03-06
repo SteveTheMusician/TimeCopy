@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const updateTextDetails = data_version.extension_update_text_details
   // set global vars
   window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
-    chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, buildVersion:buildVersion,
+    chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, versionName: versionName, buildVersion:buildVersion,
     author:author,tester:tester,profileVersion:profileVersion,supportedProfileVersions:supportedProfileVersions,
     updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
   }]
