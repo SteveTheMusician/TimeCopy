@@ -51,7 +51,7 @@ In allen anderen Varianten musst du das Update manuell ziehen
 
 #### Als Build (Zip File)
 
-**_Links:_** https://github.com/EmptySoulOfficial/TimeCopy?tab=readme-ov-file#time-copy-chrome-extension-builds-compiled-code-als-zip
+**_Links:_** https://github.com/SteveTheMusician/TimeCopy?tab=readme-ov-file#time-copy-chrome-extension-builds-compiled-code-als-zip
 
 Die Build-Versionen kannst du nur hier "manuell" über das Readme oder dem entsprechenden Ordner in Git herunterladen.
 Der Inhalt ist immer das zusammengebaute Projekt, welches so an den Chrome-Webstore eingereicht wurde.
