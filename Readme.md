@@ -110,6 +110,7 @@ Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende Adressen wend
 ### Unterstützte Profil-Versionen
 - *.tcprofile V 1.6
 - *.tcprofile V 1.7
+- *.tcprofile V 1.8
 
 ### Node Version
 Empfohlen: V 20.11.0
