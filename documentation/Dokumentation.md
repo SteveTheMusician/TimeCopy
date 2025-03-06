@@ -194,8 +194,6 @@ nach Webseite die entsprächende Platform nutzt.
 
 ![alt text](Images/image.png)
 
-
-
 #### Platform DLCs
 
 

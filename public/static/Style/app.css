@@ -95,6 +95,7 @@ select {
 
 input::placeholder {
     color: var(--color-font-subtext);
+    opacity: 0.6;
 }
 
 .flex {

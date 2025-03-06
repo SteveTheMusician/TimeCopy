@@ -45,6 +45,10 @@ export function message(messageShow,messageType,messageTextOverview,messageTextD
     let thisMessageElement = document.getElementById('message_'+currentMessageID)
     thisMessageElement.addEventListener('click', closeMessage);
     thisMessageElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    if(messageSection.children.length > 20) {
+        messageSection.firstElementChild.remove()
+    }
 
     if(messageShow) {
         let currentMessage = document.getElementById('message_'+currentMessageID)
@@ -52,6 +56,7 @@ export function message(messageShow,messageType,messageTextOverview,messageTextD
             currentMessage.classList.remove('message--hidden')
         },300)
     }
+
     if(blockApp){
         document.body.style.pointerEvents = 'none'
     }

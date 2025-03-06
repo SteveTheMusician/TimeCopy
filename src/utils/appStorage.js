@@ -13,7 +13,6 @@ export let lstorage_cThemes = localStorage.getItem('tc_c_theme')
 export let lstorage_cLanguage = localStorage.getItem('tc_c_language')
 export let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
 export let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessages')
-// dlc storage?
 export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
 

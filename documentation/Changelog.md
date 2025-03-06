@@ -155,7 +155,9 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - other: showing message, when ProTime test-Mode is activated
 
 ## V 1.0.2
+- feature: maximal 20 message items
 - fix: style on small screen
+- other: placeholder opacity
 - other: new profile version & compatibility to older versions
 - other: code cleanup
 - other: de html texts

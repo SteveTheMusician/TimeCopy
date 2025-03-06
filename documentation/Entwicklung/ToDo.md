@@ -18,6 +18,7 @@
 - css clean up
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
 - better html text
+- wenn mehr als 20 benachrichtigungen, dann lösche das letzte, so das immer maximal 20 angezeigt werden
 
 ## V 1.0.3
 - dlc: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon
