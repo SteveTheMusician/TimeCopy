@@ -1,5 +1,5 @@
 # Time Copy
-#### V 1.0.0* (Sidebar Version)
+#### V 1.0.2* (Sidebar Version)
 By Steve Pietrowski / EmptySoul
 </br>
 04.07.2023 - 03.2025
