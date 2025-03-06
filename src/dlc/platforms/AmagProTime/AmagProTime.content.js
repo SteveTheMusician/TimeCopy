@@ -1,4 +1,4 @@
-// customContent is automatically generated / imported in to the dlc-item by the platform.dlc
+// customContent is automatically generated / imported in to the dlc-item by platform.dlc
 export const customContent = `<div class="dlc-platform_custom-content">
     <p class="text-label">Funktionen</p>
     <div class="dlc-platform_custom-content-row dFlex">

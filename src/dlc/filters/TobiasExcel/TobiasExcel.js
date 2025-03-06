@@ -5,12 +5,11 @@ export function filter_TobiasExcel(clipboarsString) {
     fullDateString = clipboarsString.split('	')[0];
   }
   if(clipboarsString.includes('""')) {
-    // replace ALL "" with empty
+    // replace all "" with empty
     clipboarsString = clipboarsString.replace(/""/g, "")
   }
-
   let allTickets = clipboarsString.split('"')[1]?? clipboarsString.split('	');
-  // the regExp to get all needed Informations
+  // the regexp to get all needed informations
   const regExp_Ticket = /([^\n]+)/g
   const regExp_squareBrakets = /(?<=\[).*?(?=\])/g;
   const regExp_ticketDiscription = /(?<=\]).*(?=\:)/g;
@@ -25,7 +24,7 @@ export function filter_TobiasExcel(clipboarsString) {
   while ((match = regExp_Ticket.exec(allTickets)) !== null) {
     matches.push(match[1]);
   }
-  
+
   matches.forEach(function(ticket, i) {
 
     let item_bookingNumber = ''
@@ -46,7 +45,6 @@ export function filter_TobiasExcel(clipboarsString) {
     if(item_ticketCustomBookingNumber) {
       item_bookingNumber = item_ticketCustomBookingNumber;
     }
-
     let itemObject = {
       "item_bookingnumber":item_bookingNumber,
       "item_ticketmasternumber": item_ticketMasterNomber,

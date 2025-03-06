@@ -1,7 +1,7 @@
 export function filter_SteveGoogleExcel(clipboarsString) {
 
   let allTickets
-  // the regExp to get all needed Informations
+  // the regexp to get all needed informations
   const regExp_fullDateString = /(Mo\.|Di\.|Mi\.|Do\.|Fr\.|Sa\.|So\.)\s*\d{2}\.\d{2}\.\d{4}/
   const regExp_dateString = /^(\d{2}\.\d{2}\.\d{4})/
   const regExp_statusLetters = /^[a-zA-Z\s]{1,3}\s+/g
@@ -58,7 +58,6 @@ export function filter_SteveGoogleExcel(clipboarsString) {
   matches.forEach(function (ticket, i) {
 
     ticket = ticket.replaceAll("\t", " ")
-
     let item_date = ''
     let item_bookingNumber = ''
     let item_ticketNumber = ''
