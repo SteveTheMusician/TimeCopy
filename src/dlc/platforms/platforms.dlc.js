@@ -8,7 +8,7 @@ import { platform_functionName_automatic } from "./platforms.import.js";
 // dlc function import / static map cuz eval is unsave
 const platformFunctionsMap = {
   "AmagProTime": AmagProTime,
-  "Automatic": Automatic
+  "Automatic": Automatic,
 };
 
 async function importNewPlatformData(){
