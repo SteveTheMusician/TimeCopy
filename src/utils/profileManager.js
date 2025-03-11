@@ -4,7 +4,7 @@ import { lstorage_cBookingPlatform,lstorage_cFilter,lstorage_cShowAllMessages,
     lstorage_cDetectionItems,lstorage_cLanguage,lstorage_cThemes } from "./appStorage.js";
 import { defaultTheme,defaultLanguage,defaultShowAllMessages } from "./defaults/defaultVariables.js";
 
-export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dlcGlobalArgs) {
+export function profileManager(appGlobalArgs,appVersionData,dlcGlobalArgs) {
   let tcprofileVersion = appVersionData.profileVersion
   let supportedTcprofileVersions = appVersionData.supportedProfileVersions
   // import time copy profile
@@ -75,51 +75,53 @@ export function profileManager(appGlobalArgs,appVersionData,configUserChanges,dl
   }
   // export user configs as json
   let button_exportConfigs = document.getElementById('button_exportConfigs')
-  button_exportConfigs.addEventListener('click', exportProfile)
-  function exportProfile() {
-    if (configUserChanges === true) {
-      sessionStorage.setItem('tc_c_exportProfile_afterChange', 'true')
-      window.location.reload()
-      return
-    } else {
-      let detectionItems = lstorage_cDetectionItems
-      detectionItems = JSON.parse(detectionItems)
-      const fileNameFixed = "-TimeCopy.tcprofile"
-      if (detectionItems === null) {
-        detectionItems = []
-      }
-      let saveObj = { "tcprofile": 
-        { 
-          "author": "steve", "version": tcprofileVersion, 
-          "appVersion": appVersionData.version, "appVersionName": appVersionData.versionName,"appBuild": appVersionData.buildVersion, 
-          "profileName": appGlobalArgs.configprofilename.value 
+  button_exportConfigs.addEventListener('click', exportProfile.bind(null,appVersionData,appGlobalArgs),false)
+}
+
+export function exportProfile(appVersionData,appGlobalArgs) {
+  let configUserChanges = window.configUserChanges
+  if (configUserChanges === true) {
+    sessionStorage.setItem('tc_c_exportProfile_afterChange', 'true')
+    window.location.reload()
+    return
+  } else {
+    let detectionItems = lstorage_cDetectionItems
+    detectionItems = JSON.parse(detectionItems)
+    const fileNameFixed = "-TimeCopy.tcprofile"
+    if (detectionItems === null) {
+      detectionItems = []
+    }
+    let saveObj = { "tcprofile": 
+      { 
+        "author": "steve", "version": appVersionData.profileVersion, 
+        "appVersion": appVersionData.version, "appVersionName": appVersionData.versionName,"appBuild": appVersionData.buildVersion, 
+        "profileName": appGlobalArgs.configprofilename.value 
+      } 
+    }
+    let themeExport = lstorage_cThemes ?? defaultTheme
+    let languageExport = lstorage_cLanguage ?? defaultLanguage
+    let showAllMessagesExport = lstorage_cShowAllMessages ?? defaultShowAllMessages
+    let filterExport = lstorage_cFilter ?? ''
+    Object.assign(
+      saveObj.tcprofile, 
+      { "cfg": 
+        { "theme": themeExport, "language": languageExport, 
+          "showAllMessages": showAllMessagesExport, "filter": filterExport, 
+          "platform": lstorage_cBookingPlatform, "detections": detectionItems 
         } 
       }
-      let themeExport = lstorage_cThemes ?? defaultTheme
-      let languageExport = lstorage_cLanguage ?? defaultLanguage
-      let showAllMessagesExport = lstorage_cShowAllMessages ?? defaultShowAllMessages
-      let filterExport = lstorage_cFilter ?? ''
-      Object.assign(
-        saveObj.tcprofile, 
-        { "cfg": 
-          { "theme": themeExport, "language": languageExport, 
-            "showAllMessages": showAllMessagesExport, "filter": filterExport, 
-            "platform": lstorage_cBookingPlatform, "detections": detectionItems 
-          } 
-        }
-      )
-      // file setting
-      const data = JSON.stringify(saveObj);
-      const name = appGlobalArgs.configprofilename.value + fileNameFixed;
-      const type = "text/plain";
-      // create file
-      const a = document.createElement("a");
-      const file = new Blob([data], { type: type });
-      a.href = URL.createObjectURL(file);
-      a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-    }
+    )
+    // file setting
+    const data = JSON.stringify(saveObj);
+    const name = appGlobalArgs.configprofilename.value + fileNameFixed;
+    const type = "text/plain";
+    // create file
+    const a = document.createElement("a");
+    const file = new Blob([data], { type: type });
+    a.href = URL.createObjectURL(file);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
   }
 }
