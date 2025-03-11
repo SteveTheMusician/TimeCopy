@@ -13,14 +13,11 @@
 - DLC-Informationen werden im profil als eigenes object gespeichert
 - Kleine Statusleiste unten, die status der dlcs anzeigt oder feedback zum kopieren gibt
 
-## V 1.0.2
-- fix/code cleanup: dlc.GlobalsArgs an die Platformen übergeben und localstorage if abfragen dort mit den global args ersetzen
-- css clean up
-- dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
-- better html text
-- wenn mehr als 20 benachrichtigungen, dann lösche das letzte, so das immer maximal 20 angezeigt werden
+## V 1.0.21
+- Fix: erstellte detections, filter und theme sollen direkt gespeichert werden beim profil export
 
 ## V 1.0.3
+- dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
 - dlc: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon
 - dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
 

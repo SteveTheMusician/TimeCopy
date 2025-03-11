@@ -162,3 +162,7 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - other: code cleanup
 - other: de html texts
 - other: app version name
+
+## V 1.0.21
+- fix: export configs directly after changes
+- other: mini service for session storage
