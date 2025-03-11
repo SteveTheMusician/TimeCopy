@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
   }]
   window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
-    elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline
+    elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton
   }]
   window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
     dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       overview.classList.remove('dNone')
       header.classList.add('dNone')
       configOpen = false
-      if (configUserChanges === true) {
+      if (window.configUserChanges === true) {
         window.location.reload()
       }
     } else {
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     buttonTab_Projects.classList.add('button-tab--active')
     configWindow_Projects.classList.remove('dNone')
     configurationsContainer.classList.remove('configuration-container-first-tab-selected')
-    configUserChanges = true
+    window.configUserChanges = true
   }
 
   function configTabOpenTimesheets() {
@@ -279,18 +279,18 @@ document.addEventListener('DOMContentLoaded', async function () {
   function timesheetFilterChange(e) {
     let timesheetFilterValue = e.target.value.split(filter_timesheetFilterPreValue)[1]
     localStorage.setItem('tc_c_filter', timesheetFilterValue)
-    configUserChanges = true
+    window.configUserChanges = true
   }
 
   function bookingPlatformsChange(e) {
     let bookingPlatformValue = e.target.value.split(platform_bookingPlatformPreValue)[1]
     localStorage.setItem('tc_c_bookingPlatform', bookingPlatformValue)
-    configUserChanges = true
+    window.configUserChanges = true
   }
 
   function configSetProfileName() {
     localStorage.setItem('tc_c_profileName', configProfileName.value)
-    configUserChanges = true
+    window.configUserChanges = true
     if (configProfileName.value === 'LOVE') {
       localStorage.setItem('tc_ee_exoticTheme', 'true')
     }
@@ -304,18 +304,18 @@ document.addEventListener('DOMContentLoaded', async function () {
       link_cssTheme.setAttribute('href', './static/Style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
     }
     localStorage.setItem('tc_c_theme', currentThemeValue)
-    configUserChanges = true
+    window.configUserChanges = true
   }
 
   function showAllMessagesChange() {
     let showAllMessagesSwitchCurrentStatus = switch_showAllMessages.checked
     localStorage.setItem('tc_c_showAllMessages', showAllMessagesSwitchCurrentStatus )
-    configUserChanges = true
+    window.configUserChanges = true
   }
 
   function switchFilter(e) {
     localStorage.setItem('tc_c_filter', e.target.value)
-    configUserChanges = true
+    window.configUserChanges = true
   }
 
   function showBuildVersion(e){
@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }else {
       localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'false')
     }
-    configUserChanges = true
+    window.configUserChanges = true
   }
 
   function dlcProTimeUseLatencyMode(){
@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }else {
       localStorage.setItem('tc_c_dlc_protimeuselatencymode', 'false')
     }
-    configUserChanges = true
+    window.configUserChanges = true
   }
 
   function dlcCheckUsePTTest(){
@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       localStorage.setItem('tc_c_dlc_protimetest', 'false')
       dlcItem_platform_amagProTime.classList.remove('dlcItem-amagProTime-TestMode')
     }
-    configUserChanges = true
+    window.configUserChanges = true
   }
 
   function clearAllMessages() {
@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     try{
       // load needed app functions
-      profileManager(...window.appGlobalArgs,...appVersionData,window.configUserChanges,...window.dlcGlobalArgs)
+      profileManager(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       appStorage(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       xmasDlc()
       console.log('✅ [Time Copy] extension loaded')

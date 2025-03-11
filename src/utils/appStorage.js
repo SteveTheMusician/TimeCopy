@@ -4,6 +4,7 @@ import { defaultProfileName, defaultTheme } from "./defaults/defaultVariables.js
 import { notification } from "../components/ui/notification/notification.js"
 import { message } from "../components/ui/message/message.js"
 import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
+import { exportProfile } from "./profileManager.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -91,31 +92,32 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
     if (sMessageImported === 'true') {
       notification(true, true, window.language.notification_profileImported)
-      sessionStorage.removeItem('tc_c_messageImported')
-      configButton.click()
+      sessionReloadHandler('tc_c_messageImported')
     }
     if (sMessageProfileRemoved === 'true') {
       notification(true, true, window.language.notification_profileReset)
-      sessionStorage.removeItem('tc_c_messageProfileRemoved')
-      configButton.click()
+      sessionReloadHandler('tc_c_messageProfileRemoved')
     }
     if (sExportProfile_afterChange === 'true') {
-      sessionStorage.removeItem('tc_c_exportProfile_afterChange')
-      configButton.click()
-      exportProfile()
+      exportProfile(appVersionData,appGlobalArgs)
+      sessionReloadHandler('tc_c_exportProfile_afterChange')
     }
     if (sChangeLanguage === 'true') {
-      sessionStorage.removeItem('tc_c_changeLanguage')
-      configButton.click()
+      sessionReloadHandler('tc_c_changeLanguage')
     }
     if (sDLCCacheReloaded === 'true') {
       notification(true, true, window.language.notification_dlcCacheReset)
-      sessionStorage.removeItem('tc_c_messageDLCCacheReloaded')
-      configButton.click()
+      sessionReloadHandler('tc_c_messageDLCCacheReloaded')
     }
   }
   loadStorage()
   loadSessionStorages()
+  function sessionReloadHandler(remItem){
+    console.log()
+    let configButton = appGlobalArgs.elem_configButton
+    sessionStorage.removeItem(remItem)
+    configButton.click()
+  }
 }
 // clear local storage
 export function clearLocalStorage() {
