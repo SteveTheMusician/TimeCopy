@@ -22,5 +22,6 @@
 - dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
 
 ## V 1.1.X
+- Profil import/export encryption
 - Themes dynamisch in html ausgeben
 - profil: datei einstellungen als dropdown
