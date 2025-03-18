@@ -23,5 +23,6 @@
 
 ## V 1.1.X
 - Profil import/export encryption
+crypto-js (https://stackoverflow.com/questions/48664739/javascript-encryption-for-json-object)
 - Themes dynamisch in html ausgeben
 - profil: datei einstellungen als dropdown
