@@ -16,10 +16,11 @@
 ## V 1.0.21
 - Fix: erstellte detections, filter und theme sollen direkt gespeichert werden beim profil export
 
-## V 1.0.3
+## V 1.0.3 ??
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
 - dlc: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon
 - dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
+- proTimeDLC: checkswitch für TicketNummer in Beschreibung übernehmen (default an)
 
 ## V 1.1.X
 - Profil import/export encryption
