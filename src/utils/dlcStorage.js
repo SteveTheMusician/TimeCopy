@@ -1,22 +1,36 @@
 
-let lstorage_c_dlcProTimeTest = localStorage.getItem('tc_c_dlc_protimetest')
-let lstorage_c_dlcProTimeForceLatencyMode = localStorage.getItem('tc_c_dlc_protimeforcelatencymode')
-let lstorage_c_dlcProTimeUseLatencyMode = localStorage.getItem('tc_c_dlc_protimeuselatencymode')
+import { pAmagProTime_defaultUseTicketNomberInText, pAmagProTime_defaultHighLatencyMode, pAmagProTime_defaultForceHighLatencyMode, pAmagProTime_defaultUseProTimeTestMode } from "./defaults/defaultDLCVariables"
+
+let lstorage_c_dlcProTimeTest = JSON.parse(localStorage.getItem('tc_c_dlc_protimetest'))
+let lstorage_c_dlcProTimeForceLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeforcelatencymode'))
+let lstorage_c_dlcProTimeUseLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeuselatencymode'))
+let lstorage_c_dlcProtimeTicketNomberInText = JSON.parse(localStorage.getItem('tc_c_dlc_protimeticketnomberintext'))
 
 // local storage for dlcs
 export function loadDLCStorage(dlcGlobalArgs) {
-  if (lstorage_c_dlcProTimeTest === 'true') {
-    dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = true
-    dlcGlobalArgs.dlcItem_platform_amagProTime.classList.add('dlcItem-amagProTime-TestMode')
-    window.dlcProTime_usePTTest = true
-  }
-  if(lstorage_c_dlcProTimeForceLatencyMode === 'true') {
-    dlcGlobalArgs.dlcProTime_config_check_forceLatencyMode.checked = true
-  }
-  if(lstorage_c_dlcProTimeUseLatencyMode === 'false') {
-    dlcGlobalArgs.dlcProTime_config_check_useLatencyMode.checked = false
+
+
+  if (lstorage_c_dlcProTimeTest !== null) {
+    dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = lstorage_c_dlcProTimeTest
+    setDLCAmagProTimeTestStyle(lstorage_c_dlcProTimeTest,dlcGlobalArgs)
+    // window.dlcProTime_usePTTest = true
   }else {
-    dlcGlobalArgs.dlcProTime_config_check_useLatencyMode.checked = true
+    dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = pAmagProTime_defaultUseProTimeTestMode
+  }
+  if(lstorage_c_dlcProTimeForceLatencyMode !== null) {
+    dlcGlobalArgs.dlcProTime_config_check_forceLatencyMode.checked = lstorage_c_dlcProTimeForceLatencyMode
+  } else {
+    dlcGlobalArgs.dlcProTime_config_check_forceLatencyMode.checked = pAmagProTime_defaultForceHighLatencyMode
+  }
+  if(lstorage_c_dlcProTimeUseLatencyMode !== null) {
+    dlcGlobalArgs.dlcProTime_config_check_useLatencyMode.checked = lstorage_c_dlcProTimeUseLatencyMode
+  }else {
+    dlcGlobalArgs.dlcProTime_config_check_useLatencyMode.checked = pAmagProTime_defaultHighLatencyMode
+  }
+  if(lstorage_c_dlcProtimeTicketNomberInText !== null) {
+    dlcGlobalArgs.dlcProTime_config_check_useTicketnomberInText.checked = lstorage_c_dlcProtimeTicketNomberInText
+  }else {
+    dlcGlobalArgs.dlcProTime_config_check_useTicketnomberInText.checked = pAmagProTime_defaultUseTicketNomberInText
   }
 }
 
@@ -33,6 +47,7 @@ export function clearDlcLocalStorages(onlyImportantDLC) {
     localStorage.removeItem('tc_c_dlc_xmastree')
     localStorage.removeItem('tc_c_dlc_protimeforcelatencymode')
     localStorage.removeItem('tc_c_dlc_protimeuselatencymode')
+    localStorage.removeItem('tc_c_dlc_protimeticketnomberintext')
   }
 }
   
@@ -40,4 +55,12 @@ export function reloadDLCCache() {
   clearDlcLocalStorages()
   sessionStorage.setItem('tc_c_messageDLCCacheReloaded', 'true')
   window.location.reload()
+}
+
+export function setDLCAmagProTimeTestStyle (PTTestBoolean,dlcGlobalArgs){
+  if(PTTestBoolean){
+    dlcGlobalArgs.dlcItem_platform_amagProTime.classList.add('dlcItem-amagProTime-TestMode')
+  }else {
+    dlcGlobalArgs.dlcItem_platform_amagProTime.classList.remove('dlcItem-amagProTime-TestMode')
+  }
 }

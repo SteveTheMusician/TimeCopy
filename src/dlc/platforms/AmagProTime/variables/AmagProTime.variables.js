@@ -1,8 +1,9 @@
 export let anyProjectNomber = "*"
 export let bookingLoopCount = 0
 export let highLatency = false
-export let forceHighLatency = false
+export let forceHighLatency = true
 export let useHighLatency = true
+export let useTicketNomberInText = false
 export const noTicketNomberFill = "NO NOMBER"
 export const noTicketDiscFill = "NO DISCRIPTION"
 export const detectionItemAddPrefixSplit = ";"

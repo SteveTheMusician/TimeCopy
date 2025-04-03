@@ -857,6 +857,18 @@ input:checked+.switch_slider:before {
     transform: translateX(200px);
 }
 
+.row-cell-left {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.row-cell-right {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
 @keyframes message-new-information {
     0% {
         outline-color: var(--color-highlight);
@@ -943,18 +955,6 @@ input:checked+.switch_slider:before {
     .button-add {
         max-width: 100%;
     }
-
-    .row-cell-left {
-        width: 50%;
-        display: flex;
-        align-items: center;
-    }
-
-    .row-cell-right {
-        width: 50%;
-        display: flex;
-        align-items: center;
-    }
 }
 
 @media only screen and (min-width: 706px) {
@@ -967,7 +967,6 @@ input:checked+.switch_slider:before {
     #config-win-projects .configuration-window-content {
         display: flex;
     }
-
 }
 
 @media only screen and (min-width: 960px) {

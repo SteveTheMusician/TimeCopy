@@ -6,7 +6,7 @@ import { projectDetection } from "./components/content/configuration/projectDete
 import {xmasDlc, 
           platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./dlc/dlc.js";
 import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform} from "./utils/appStorage.js";
-import { clearDlcLocalStorages, reloadDLCCache } from "./utils/dlcStorage.js";
+import { clearDlcLocalStorages, reloadDLCCache,setDLCAmagProTimeTestStyle } from "./utils/dlcStorage.js";
 import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 
@@ -84,7 +84,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlcProTime_config_check_useLatencyMode = document.getElementById('check_useLatencyModeProTime')
   dlcProTime_config_check_useLatencyMode.addEventListener('change', dlcProTimeUseLatencyMode)
   const dlcProTime_config_check_usePTTest = document.getElementById('check_useProTimeTestMode')
-  dlcProTime_config_check_usePTTest.addEventListener('change', dlcCheckUsePTTest)
+  dlcProTime_config_check_usePTTest.addEventListener('change', dlcProTimeCheckUsePTTest)
+  const dlcProTime_config_check_useTicketnomberInText = document.getElementById('check_useTicketnomberInTextProTime')
+  dlcProTime_config_check_useTicketnomberInText.addEventListener('change', dlcProTimeUseTicketNomberInText)
   const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
   window.dlcProTime_usePTTest = false
   let configOpen = false
@@ -114,18 +116,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const supportedProfileVersions = data_version.supported_profile_versions
   const updateTextOverview = data_version.extension_update_text_overview
   const updateTextDetails = data_version.extension_update_text_details
-  // set global vars
-  window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
-    chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, versionName: versionName, buildVersion:buildVersion,
-    author:author,tester:tester,profileVersion:profileVersion,supportedProfileVersions:supportedProfileVersions,
-    updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
-  }]
-  window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
-    elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton
-  }]
-  window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
-    dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime
-  }]
+
   // main action buttons functions
   function openConfigs() {
     if (configOpen) {
@@ -323,6 +314,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       configItem_content_row_build_version.classList.remove('dNone')
     }
   }
+
   // dlc functions
   function dlcPlatformOpenDropdown(e) {
     let dlc_platformElement = e.target.closest(".dlcItem-platform")
@@ -352,29 +344,33 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function dlcProTimeForceLatencyMode(){
     if(dlcProTime_config_check_forceLatencyMode.checked){
-      localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'true')
+      localStorage.setItem('tc_c_dlc_protimeforcelatencymode', true)
     }else {
-      localStorage.setItem('tc_c_dlc_protimeforcelatencymode', 'false')
+      localStorage.setItem('tc_c_dlc_protimeforcelatencymode', false)
     }
     window.configUserChanges = true
   }
 
   function dlcProTimeUseLatencyMode(){
     if(dlcProTime_config_check_useLatencyMode.checked){
-      localStorage.setItem('tc_c_dlc_protimeuselatencymode', 'true')
+      localStorage.setItem('tc_c_dlc_protimeuselatencymode', true)
     }else {
-      localStorage.setItem('tc_c_dlc_protimeuselatencymode', 'false')
+      localStorage.setItem('tc_c_dlc_protimeuselatencymode', false)
     }
     window.configUserChanges = true
   }
 
-  function dlcCheckUsePTTest(){
-    if(dlcProTime_config_check_usePTTest.checked){
-      localStorage.setItem('tc_c_dlc_protimetest', 'true')
-      dlcItem_platform_amagProTime.classList.add('dlcItem-amagProTime-TestMode')
+  function dlcProTimeCheckUsePTTest(){
+    localStorage.setItem('tc_c_dlc_protimetest', dlcProTime_config_check_usePTTest.checked)
+    setDLCAmagProTimeTestStyle(dlcProTime_config_check_usePTTest.checked,...window.dlcGlobalArgs )
+    window.configUserChanges = true
+  }
+
+  function dlcProTimeUseTicketNomberInText(){
+    if(dlcProTime_config_check_useTicketnomberInText.checked){
+      localStorage.setItem('tc_c_dlc_protimeticketnomberintext', true)
     }else {
-      localStorage.setItem('tc_c_dlc_protimetest', 'false')
-      dlcItem_platform_amagProTime.classList.remove('dlcItem-amagProTime-TestMode')
+      localStorage.setItem('tc_c_dlc_protimeticketnomberintext', false)
     }
     window.configUserChanges = true
   }
@@ -392,6 +388,18 @@ document.addEventListener('DOMContentLoaded', async function () {
   projectDetection()
   // extension load up
   window.addEventListener("load", (event) => {
+      // set global vars
+  window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
+    chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, versionName: versionName, buildVersion:buildVersion,
+    author:author,tester:tester,profileVersion:profileVersion,supportedProfileVersions:supportedProfileVersions,
+    updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
+  }]
+  window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
+    elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton
+  }]
+  window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
+    dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText
+  }]
     // return message if offline
     if (!navigator.onLine) {
       message(true, 'error', window.language.message_offline, window.language.message_offline_disc)

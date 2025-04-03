@@ -25,6 +25,17 @@ export const customContent = `<div class="dlc-platform_custom-content">
     </div>
     <div class="dlc-platform_custom-content-row dFlex">
         <div class="row-cell-left">
+            <p class="subtext">Ticketnummer in Text übernehmen</p>
+        </div>
+        <div class="row-cell-right">
+            <label class="switch">
+                <input type="checkbox" class="" id="check_useTicketnomberInTextProTime"  />
+                <span class="switch_slider" title="Fügt die Ticketnummer zusätzlich in das Beschreibungsfeld ein."></span>
+            </label>
+        </div>
+    </div>
+    <div class="dlc-platform_custom-content-row dFlex">
+        <div class="row-cell-left">
             <p class="subtext">Test-Modus</p>
         </div>
         <div class="row-cell-right">

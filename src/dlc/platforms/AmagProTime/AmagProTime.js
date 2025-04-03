@@ -23,7 +23,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   let errorDetailMessage = ''
   let dev_pttest = window.dlcProTime_usePTTest
   // use force latency mode
-  if (localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === 'true') {
+  if (localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === true) {
     highLatency = true
     forceHighLatency = true
     message(true, 'warning', 'High Latency Modus', '"Erzwinge High Latency-Modus" ist in den ProTime DLC-Funktionen aktiviert. Time Copy wird die Daten langsamer, dafür sicherer übertragen.')
@@ -33,7 +33,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
     message(true, 'warning', 'Test Modus', 'Das Amag ProTime DLC befindet sich im Testmodus. Daten werden übertragen aber nicht gebucht.')
   }
   // deaktivate use high latency, when false
-  if (localStorage.getItem('tc_c_dlc_protimeuselatencymode') === 'false') {
+  if (localStorage.getItem('tc_c_dlc_protimeuselatencymode') === false) {
     useHighLatency = false
   }
   // match tickets to the given filters (functions in service.js)

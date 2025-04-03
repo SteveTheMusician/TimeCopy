@@ -1,7 +1,7 @@
 {
-    "extension_version": "1.0.21",
+    "extension_version": "1.0.26",
     "extension_version_name": "Unicorn",
-    "extension_build": "S25.03111545",
+    "extension_build": "S25.04031108",
     "profile_version": "1.8",
     "supported_profile_versions": ["1.6","1.7"],
     "extension_discription": "Übertrage Informatinen aus Excel-Tabellen in eine Online-Platform.",

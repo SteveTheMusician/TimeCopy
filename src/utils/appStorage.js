@@ -1,6 +1,6 @@
 
 import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../dlc/dlc.js"
-import { defaultProfileName, defaultTheme } from "./defaults/defaultVariables.js"
+import { defaultProfileName, defaultTheme, defaultShowAllMessages } from "./defaults/defaultVariables.js"
 import { notification } from "../components/ui/notification/notification.js"
 import { message } from "../components/ui/message/message.js"
 import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
@@ -13,7 +13,7 @@ let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
 export let lstorage_cThemes = localStorage.getItem('tc_c_theme')
 export let lstorage_cLanguage = localStorage.getItem('tc_c_language')
 export let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
-export let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessages')
+export let lstorage_cShowAllMessages = JSON.parse(localStorage.getItem('tc_c_showAllMessages'))
 export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
 
@@ -68,19 +68,14 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
       localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
     }
-    if(lstorage_cShowAllMessages === 'true') {
-      appGlobalArgs.switch_showallmessages.checked = true
-      appGlobalArgs.elem_messagesection.classList.remove('dNone')
-      appGlobalArgs.messagesheadline.classList.remove('dNone')
-    } else if (lstorage_cShowAllMessages === 'false') {
-      appGlobalArgs.switch_showallmessages.checked = false
-      appGlobalArgs.elem_messagesection.classList.add('dNone')
-      appGlobalArgs.messagesheadline.classList.add('dNone')
-    }else {
-      appGlobalArgs.switch_showallmessages.checked = true
-      appGlobalArgs.elem_messagesection.classList.remove('dNone')
-      appGlobalArgs.messagesheadline.classList.remove('dNone')
+    if(lstorage_cShowAllMessages !== null) {
+      showHideAllMessages(lstorage_cShowAllMessages)
+      appGlobalArgs.switch_showallmessages.checked = lstorage_cShowAllMessages
+    } else {
+      appGlobalArgs.switch_showallmessages.checked = defaultShowAllMessages
+      showHideAllMessages(defaultShowAllMessages)
     }
+
     loadDLCStorage(dlcGlobalArgs)
   }
   // sessionstorages for temp-messages and data
@@ -117,6 +112,15 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     let configButton = appGlobalArgs.elem_configButton
     sessionStorage.removeItem(remItem)
     configButton.click()
+  }
+  function showHideAllMessages(showHideState){
+    if(showHideState) {
+      appGlobalArgs.elem_messagesection.classList.remove('dNone')
+      appGlobalArgs.messagesheadline.classList.remove('dNone')
+    } else {
+      appGlobalArgs.elem_messagesection.classList.add('dNone')
+      appGlobalArgs.messagesheadline.classList.add('dNone')
+    }
   }
 }
 // clear local storage

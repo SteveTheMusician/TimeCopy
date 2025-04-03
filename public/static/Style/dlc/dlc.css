@@ -89,14 +89,6 @@ input:checked~.dlcItem-clickable:hover{
     margin-right: 0;
 }
 
-.row-cell-left {
-    width: 50%;
-}
-
-.row-cell-right {
-    width: 50%;
-}
-
 .dlc-platform_custom-content {
     padding-top: 10px;
 }
