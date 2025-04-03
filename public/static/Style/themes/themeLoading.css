@@ -1,0 +1,14 @@
+body {
+    background-color: #131c21;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body:before {
+    content: 'Loading';
+    color: #fefefe;
+    font-size: 20px;
+}
+main {
+    display: none;
+}

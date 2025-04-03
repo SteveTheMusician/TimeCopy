@@ -25,7 +25,7 @@ export const customContent = `<div class="dlc-platform_custom-content">
     </div>
     <div class="dlc-platform_custom-content-row dFlex">
         <div class="row-cell-left">
-            <p class="subtext">Ticketnummer in Text übernehmen</p>
+            <p class="subtext">Ticketnummer im Textfeld</p>
         </div>
         <div class="row-cell-right">
             <label class="switch">

@@ -1,4 +1,4 @@
 export const pAmagProTime_defaultUseTicketNomberInText = true
 export const pAmagProTime_defaultHighLatencyMode = true
 export const pAmagProTime_defaultForceHighLatencyMode = false
-export const pAmagProTime_defaultUseProTimeTestMode = true
+export const pAmagProTime_defaultUseProTimeTestMode = false

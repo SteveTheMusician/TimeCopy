@@ -1,22 +1,20 @@
 
 import { pAmagProTime_defaultUseTicketNomberInText, pAmagProTime_defaultHighLatencyMode, pAmagProTime_defaultForceHighLatencyMode, pAmagProTime_defaultUseProTimeTestMode } from "./defaults/defaultDLCVariables"
 
-let lstorage_c_dlcProTimeTest = JSON.parse(localStorage.getItem('tc_c_dlc_protimetest'))
-let lstorage_c_dlcProTimeForceLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeforcelatencymode'))
-let lstorage_c_dlcProTimeUseLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeuselatencymode'))
-let lstorage_c_dlcProtimeTicketNomberInText = JSON.parse(localStorage.getItem('tc_c_dlc_protimeticketnomberintext'))
+export let lstorage_c_dlcProTimeTest = JSON.parse(localStorage.getItem('tc_c_dlc_protimetest'))
+export let lstorage_c_dlcProTimeForceLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeforcelatencymode'))
+export let lstorage_c_dlcProTimeUseLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeuselatencymode'))
+export let lstorage_c_dlcProtimeTicketNomberInText = JSON.parse(localStorage.getItem('tc_c_dlc_protimeticketnomberintext'))
 
 // local storage for dlcs
 export function loadDLCStorage(dlcGlobalArgs) {
-
-
   if (lstorage_c_dlcProTimeTest !== null) {
     dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = lstorage_c_dlcProTimeTest
-    setDLCAmagProTimeTestStyle(lstorage_c_dlcProTimeTest,dlcGlobalArgs)
     // window.dlcProTime_usePTTest = true
   }else {
     dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = pAmagProTime_defaultUseProTimeTestMode
   }
+  setDLCAmagProTimeTestStyle(dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked,dlcGlobalArgs)
   if(lstorage_c_dlcProTimeForceLatencyMode !== null) {
     dlcGlobalArgs.dlcProTime_config_check_forceLatencyMode.checked = lstorage_c_dlcProTimeForceLatencyMode
   } else {
@@ -58,7 +56,8 @@ export function reloadDLCCache() {
 }
 
 export function setDLCAmagProTimeTestStyle (PTTestBoolean,dlcGlobalArgs){
-  if(PTTestBoolean){
+
+  if(PTTestBoolean){ 
     dlcGlobalArgs.dlcItem_platform_amagProTime.classList.add('dlcItem-amagProTime-TestMode')
   }else {
     dlcGlobalArgs.dlcItem_platform_amagProTime.classList.remove('dlcItem-amagProTime-TestMode')

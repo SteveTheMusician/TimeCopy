@@ -20,11 +20,11 @@
 ## V 1.0.3 ??
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
 - dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
-- proTimeDLC: checkswitch für TicketNummer in Beschreibung übernehmen (default an)
-- fix: defaultShowAllMessages Variable currently not takken
+- proTimeDLC: checkswitch für TicketNummer in Beschreibung übernehmen (default an)✅
+- fix: defaultShowAllMessages Variable currently not takken ✅
 
 ## V 1.1.X
-- Profil import/export encryption
+- Profil import/export encryption ❌
 crypto-js (https://stackoverflow.com/questions/48664739/javascript-encryption-for-json-object)
 - Themes dynamisch in html ausgeben
 - custom theme (select custom und dann css importieren)

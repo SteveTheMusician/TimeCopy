@@ -12,9 +12,12 @@ import {
   highLatency,
   useHighLatency,
   forceHighLatency,
+  useTicketNomberInText,
   noTicketNomberFill,
   noTicketDiscFill
 } from "./variables/AmagProTime.variables.js";
+import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMode,
+  lstorage_c_dlcProtimeTicketNomberInText,lstorage_c_dlcProTimeTest } from "../../../utils/dlcStorage.js";
 
 // 🍎 initial script to filter data and start the booking process
 export async function AmagProTime(bookingData, detectionItemsProTime) {
@@ -23,18 +26,22 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   let errorDetailMessage = ''
   let dev_pttest = window.dlcProTime_usePTTest
   // use force latency mode
-  if (localStorage.getItem('tc_c_dlc_protimeforcelatencymode') === true) {
+  if (lstorage_c_dlcProTimeForceLatencyMode === true) {
     highLatency = true
     forceHighLatency = true
     message(true, 'warning', 'High Latency Modus', '"Erzwinge High Latency-Modus" ist in den ProTime DLC-Funktionen aktiviert. Time Copy wird die Daten langsamer, dafür sicherer übertragen.')
   }
-  console.log(localStorage.getItem('tc_c_dlc_protimetest'))
-  if(localStorage.getItem('tc_c_dlc_protimetest') === 'true'){
+  if(lstorage_c_dlcProTimeTest === true){
     message(true, 'warning', 'Test Modus', 'Das Amag ProTime DLC befindet sich im Testmodus. Daten werden übertragen aber nicht gebucht.')
+    console.warn('DLC Amag ProTime: Test Mode activated')
   }
-  // deaktivate use high latency, when false
-  if (localStorage.getItem('tc_c_dlc_protimeuselatencymode') === false) {
-    useHighLatency = false
+  // set use High Latency
+  useHighLatency = lstorage_c_dlcProTimeUseLatencyMode
+  // check if to use ticketnomber in the discription
+  useTicketNomberInText = lstorage_c_dlcProtimeTicketNomberInText
+  if (useTicketNomberInText === false) {
+    console.warn('DLC Amag ProTime: Use Ticketnomber in description is deaktivated')
+    useTicketNomberInText = false
   }
   // match tickets to the given filters (functions in service.js)
   try {
@@ -96,7 +103,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
-      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency)
+      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText)
       bookingLoopCount++
       if (iChrTab.result !== null && iChrTab.result.success === false) {
         throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
@@ -113,7 +120,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
 }
 
 // 🍎 chrom tab scripts
-async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency) {
+async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText) {
   // check latency in current tab + only when use high latency is aktivated
   if (useHighLatency) {
     try {
@@ -139,7 +146,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
     let chromeExecScript = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: AmagProTimeBookTickets,
-      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency]
+      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText]
     });
 
     if (chromeExecScript[0].result && chromeExecScript[0].result.error) {
@@ -153,7 +160,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
   }
 }
 // 🍎 main booking logic
-async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency) {
+async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText) {
   let crossObserver_mutationObserver
   function crossObserver(elementSelector) {
     let appearanceCount = 0;
@@ -488,15 +495,20 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           await checkpointLoadingDots(false)
           await checkpointLoadingDots(true)
 
-          // join tickent number and discription
-          let ticketItemDisc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
+          // join tickent number and discription if use ticket nomber in desc.
+          let ticketItemDesc
+          if(useTicketNomberInText){
+            ticketItemDesc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
+          }else {
+            ticketItemDesc = ticketObject.item_ticketdisc
+          }
           let mdown = new Event('focus');
           let protime_ticketText = document.getElementsByTagName('textarea')[0];
           protime_ticketText.dispatchEvent(mover)
           protime_ticketText.dispatchEvent(mdown)
           protime_ticketText.focus()
           protime_ticketText.click()
-          protime_ticketText.value = ticketItemDisc
+          protime_ticketText.value = ticketItemDesc
           document.getElementsByTagName('textarea')[0].dispatchEvent(eventChange);
           // set focus to other textarea to accept befores area text
           document.getElementsByTagName('textarea')[1].focus();
@@ -509,7 +521,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           // if values are incorrect (tickettime empty), put it into retry list
           if (document.getElementsByClassName('lsField--f4')[0].childNodes[0].value !== proTime_projectNomber ||
             document.getElementsByClassName('lsField--right')[0].childNodes[0].value === '' ||
-            document.getElementsByTagName('textarea')[0].value !== ticketItemDisc ||
+            document.getElementsByTagName('textarea')[0].value !== ticketItemDesc ||
             document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0].value !== bookingItem_TicketNumber
           ) {
             console.warn('[Time Copy] 🎫 Retry Ticket: ',ticket)
