@@ -494,6 +494,10 @@ label:has(#button_importConfigs) {
     border-top: 2px solid var(--color-font-second);
 }
 
+.profile-section {
+    margin-top: 22px;
+}
+
 .configItem-content-fullWidth {
     width: 100%;
     margin: 5px;
@@ -563,6 +567,11 @@ label.configItem:hover {
     justify-content: flex-start;
 }
 
+.configItem-title-row--center {
+    width: 100%;
+    justify-content: center;
+}
+
 input[type=text] {
     background-color: var(--color-second);
     color: var(--color-font);
@@ -597,6 +606,11 @@ input[type=text]:focus {
     margin: 5px;
 }
 
+.input-profile {
+    max-width: 50%;
+    text-align: center;
+}
+
 .text-projectNomber {
     width: 80px;
 }
@@ -629,6 +643,15 @@ input[type=text]:focus {
     height: 50px;
     border-radius: var(--border-radius-round);
     overflow: hidden;
+}
+
+#profile_picture {
+    border-radius: 100%;
+    padding: 10px;
+    background-color: var(--color-main);
+    justify-content: center;
+    margin: 10px;
+    cursor: pointer;
 }
 
 .configItem--remove {

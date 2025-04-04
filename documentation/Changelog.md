@@ -167,8 +167,11 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - fix: export configs directly after changes
 - other: mini service for session storage
 
-## V 1.0.30
-- feature: DLC Amag ProTime - Turn Ticketnomber pasting into Text on and off
+## V 1.0.22 - 1.0.33
+- feature: dlc amag protime - turn ticketnomber pasting into text on and off
+- feature: liquid silver theme
 - fix: small screen styles
 - fix: showAllMessages default value
 - other: restructure and clean up code
+- other: map theme select dynamicaly
+- other: profile cleanup (redesign and select options)

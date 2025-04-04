@@ -9,6 +9,7 @@ import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, l
 import { clearDlcLocalStorages, reloadDLCCache,setDLCAmagProTimeTestStyle } from "./utils/dlcStorage.js";
 import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
+import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
   // import platform and filter dlcs
@@ -62,10 +63,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   const fillCancelButton = document.querySelector('button#fillCancelButton');
   const configButton = document.querySelector('button#configButton');
   const button_clearAllMessages = document.getElementById('button_clearAllMessages')
-  const button_reloadDLCCache = document.getElementById('button_reloadDLCCache')
   // configuration buttons
+  const profileOptionsSelect = document.getElementById('selectProfileOptions')
   const themeSelect = document.querySelector('select#select-themes')
-  const button_clearConfigs = document.getElementById('button_clearConfigs')
+  // const button_clearConfigs = document.getElementById('button_clearConfigs')
   const switch_showAllMessages = document.getElementById('check_showAllNotifications')
   const radios_filter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
@@ -287,10 +288,29 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   }
 
+  function selectProfileOption() {
+    let selectProfileOptionResetvalue = "selectProfileOptions_none"
+    let currentProfileSelectValue = profileOptionsSelect.value
+    if(currentProfileSelectValue === 'selectProfile_import') {
+      button_importConfigs.click()
+    }
+    if(currentProfileSelectValue === 'selectProfile_export') {
+      button_exportConfigs.click()
+    }
+    if(currentProfileSelectValue === 'selectAppData_delete'){
+      removeProfile()
+    }
+    if(currentProfileSelectValue === 'selectAppData_deleteDLCCache'){
+      reloadDLCCache()
+    }
+    // reset select
+    profileOptionsSelect.value = selectProfileOptionResetvalue
+  }
+
   function switchTheme() {
     let currentThemeValue = themeSelect.value
-    if (currentThemeValue === 'exotic') {
-      link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + currentThemeValue + '.css')
+    if (currentThemeValue === 'exoticgold') {
+      link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotic/' + currentThemeValue + '.css')
     } else {
       link_cssTheme.setAttribute('href', './static/Style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
     }
@@ -384,22 +404,23 @@ document.addEventListener('DOMContentLoaded', async function () {
       elem_messageSection.innerHTML = ''
     }, 400)
   }
-
+  // load ui components
   projectDetection()
+  generateThemes()
   // extension load up
   window.addEventListener("load", (event) => {
-      // set global vars
-  window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
-    chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, versionName: versionName, buildVersion:buildVersion,
-    author:author,tester:tester,profileVersion:profileVersion,supportedProfileVersions:supportedProfileVersions,
-    updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
-  }]
-  window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
-    elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton
-  }]
-  window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
-    dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText
-  }]
+    // set global vars
+    window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
+      chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, versionName: versionName, buildVersion:buildVersion,
+      author:author,tester:tester,profileVersion:profileVersion,supportedProfileVersions:supportedProfileVersions,
+      updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
+    }]
+    window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
+      elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton
+    }]
+    window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
+      dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText
+    }]
     // return message if offline
     if (!navigator.onLine) {
       message(true, 'error', window.language.message_offline, window.language.message_offline_disc)
@@ -423,8 +444,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets)
     configProfileName.addEventListener('change', configSetProfileName)
     // configs listener
-    button_clearConfigs.addEventListener('click', removeProfile)
-    button_reloadDLCCache.addEventListener('click', reloadDLCCache)
     switch_showAllMessages.addEventListener('click', showAllMessagesChange)
     // config help buttons
     button_docuHelp.addEventListener('click', () => window.open(dokuUrl))
@@ -435,6 +454,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     button_openLicense.addEventListener('click', () => window.open(licenseUrl))
     // other
     label_version_name.addEventListener('click', (e) => showBuildVersion(e))
+    profileOptionsSelect.addEventListener('change', selectProfileOption)
     //theme select
     themeSelect.addEventListener('change', switchTheme)
     // filter radios listener

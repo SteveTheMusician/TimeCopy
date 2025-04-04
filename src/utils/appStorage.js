@@ -9,13 +9,15 @@ import { exportProfile } from "./profileManager.js"
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
 let lstorage_appVersion = localStorage.getItem('tc_appVersion')
-let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
+export let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
 export let lstorage_cThemes = localStorage.getItem('tc_c_theme')
 export let lstorage_cLanguage = localStorage.getItem('tc_c_language')
 export let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
-export let lstorage_cShowAllMessages = JSON.parse(localStorage.getItem('tc_c_showAllMessages'))
+export let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessages')
+let lstorage_cShowAllMessagesParsed =  JSON.parse(lstorage_cShowAllMessages)
 export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
+
 
 export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
   // load localstorage
@@ -35,16 +37,16 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, appVersionData.updateTextDetails)
     }
     
-    if (lstorage_eeTheme === 'true') {
-      document.getElementById('select-theme-exotic-categ').classList.remove('dNone');
-      document.getElementById('select-theme-exotic').classList.remove('dNone');
-    }
+    // if (lstorage_eeTheme === 'true') {
+      // document.getElementById('select-theme-exotic-categ').classList.remove('dNone');
+      // document.getElementById('select-theme-exotic').classList.remove('dNone');
+    // }
     
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       appGlobalArgs.elem_themeselect.value = lstorage_cThemes
-      if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
-        appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
-      } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {
+      if (lstorage_cThemes === 'exoticgold' && lstorage_eeTheme === 'true') {
+        appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/ee/exotic/' + lstorage_cThemes + '.css')
+      } else if (lstorage_cThemes === 'exoticgold' && lstorage_eeTheme !== 'true') {
         appGlobalArgs.elem_themeselect.value = defaultTheme
         lstorage_cThemes = defaultTheme
       } else {
@@ -68,9 +70,9 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
       localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
     }
-    if(lstorage_cShowAllMessages !== null) {
-      showHideAllMessages(lstorage_cShowAllMessages)
-      appGlobalArgs.switch_showallmessages.checked = lstorage_cShowAllMessages
+    if(lstorage_cShowAllMessagesParsed !== null) {
+      showHideAllMessages(lstorage_cShowAllMessagesParsed)
+      appGlobalArgs.switch_showallmessages.checked = lstorage_cShowAllMessagesParsed
     } else {
       appGlobalArgs.switch_showallmessages.checked = defaultShowAllMessages
       showHideAllMessages(defaultShowAllMessages)

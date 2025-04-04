@@ -6,8 +6,8 @@ body {
 }
 body:before {
     content: 'Loading';
-    color: #fefefe;
-    font-size: 20px;
+    color: #38525f;
+    font-size: 12px;
 }
 main {
     display: none;
