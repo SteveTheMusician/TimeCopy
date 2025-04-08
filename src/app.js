@@ -10,6 +10,7 @@ import { clearDlcLocalStorages, reloadDLCCache,setDLCAmagProTimeTestStyle } from
 import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
+import { notification } from "./components/ui/notification/notification.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
   // import platform and filter dlcs
@@ -38,30 +39,32 @@ document.addEventListener('DOMContentLoaded', async function () {
     return
   }
   
-  const link_cssTheme = document.querySelector('link#link-theme');
-  const header = document.querySelector('header');
-  const configurations = document.querySelector('div.configurations');
-  const overview = document.querySelector('div.overview');
+  const link_cssTheme = document.querySelector('link#link-theme')
+  const header = document.querySelector('header')
+  const configurations = document.querySelector('div.configurations')
+  const overview = document.querySelector('div.overview')
   const messagesHeadline = document.getElementById('messages-headline')
   const elem_messageSection = document.getElementById('messages-section')
   const configurationsContainer = document.getElementById('config-container')
-  const configWindow_getAll = document.getElementsByClassName('configuration-window');
-  const configWindow_General = document.getElementById('config-win-general');
-  const configWindow_Timesheets = document.getElementById('config-win-timesheets');
-  const configWindow_Bookingsheets = document.getElementById('config-win-bookingsheet');
-  const configWindow_Projects = document.getElementById('config-win-projects');
+  const configWindow_getAll = document.getElementsByClassName('configuration-window')
+  const configWindow_General = document.getElementById('config-win-general')
+  const configWindow_Timesheets = document.getElementById('config-win-timesheets')
+  const configWindow_Bookingsheets = document.getElementById('config-win-bookingsheet')
+  const configWindow_Projects = document.getElementById('config-win-projects')
   const configProfileName = document.getElementById('configProfileName')
+  const profilePictureUser = document.getElementById('profile_picture_user')
+  const profileSVG = document.getElementById('Profile')
   // tab buttons
-  const buttonsTab_getAll = document.getElementsByClassName('button-config-tab');
-  const buttonTab_General = document.querySelector('button#button-tab-general');
-  const buttonTab_Timesheets = document.querySelector('button#button-tab-timesheets');
-  const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookingsheets');
-  const buttonTab_Projects = document.querySelector('button#button-tab-projects');
-  const buttonBackToMain = document.querySelector('button#buttonBackToMain');
+  const buttonsTab_getAll = document.getElementsByClassName('button-config-tab')
+  const buttonTab_General = document.querySelector('button#button-tab-general')
+  const buttonTab_Timesheets = document.querySelector('button#button-tab-timesheets')
+  const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookingsheets')
+  const buttonTab_Projects = document.querySelector('button#button-tab-projects')
+  const buttonBackToMain = document.querySelector('button#buttonBackToMain')
   // main buttons
-  const fillButton = document.querySelector('button#fillButton');
-  const fillCancelButton = document.querySelector('button#fillCancelButton');
-  const configButton = document.querySelector('button#configButton');
+  const fillButton = document.querySelector('button#fillButton')
+  const fillCancelButton = document.querySelector('button#fillCancelButton')
+  const configButton = document.querySelector('button#configButton')
   const button_clearAllMessages = document.getElementById('button_clearAllMessages')
   // configuration buttons
   const profileOptionsSelect = document.getElementById('selectProfileOptions')
@@ -76,6 +79,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_openStore = document.getElementById('button_openStore')
   const button_openLicense = document.getElementById('button_openLicense')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
+  const profilePicture = document.getElementById('profile_picture')
+  const button_importProfilePicture = document.getElementById('button_importProfilePicture')
+  button_importProfilePicture.addEventListener('change', importProfilePicture, false)
   // dlc-platform element listeners
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
@@ -333,6 +339,36 @@ document.addEventListener('DOMContentLoaded', async function () {
     if(e.shiftKey){
       configItem_content_row_build_version.classList.remove('dNone')
     }
+  }
+
+  function importProfilePicture() {
+    const imageFile = button_importProfilePicture.files[0];
+  
+    if (!imageFile || !imageFile.type.startsWith('image/')) {
+      notification(true, false, "Datei Import fehlgeschlagen. Nur Bilddateien erlaubt.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const base64 = e.target.result;
+      const img = new Image();
+      img.onload = function () {
+        if (img.width > 1200 || img.height > 1200) {
+          console.error('maximalgröße überschritten')
+          notification(true, false, "Das Bild darf maximal 1200x1200 Pixel groß sein.");
+          return;
+        }
+        localStorage.setItem('tc_c_profilePicture', base64);
+        profilePictureUser.classList.remove('dNone')
+        profilePictureUser.src = base64;
+        profileSVG.classList.add('dNone')
+        profilePicture.classList.add('profileFrame--full')
+      };
+      
+      img.src = base64;
+    };
+  
+    reader.readAsDataURL(imageFile);
   }
 
   // dlc functions

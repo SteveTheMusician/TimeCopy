@@ -9,7 +9,7 @@
   --color-none: transparent;
   --white: #fefefe;
   --dark-gray-30: #303637;
-  --black: #121212;
+  --gray-gold: #2a2f2f;
   --dark-gray-3: #333133;
   --dark-pink: #503c49;
   --gold-dark: rgba(179, 173, 135, 1);
@@ -23,7 +23,7 @@
   --gold-mud: #373630;
 
   /* theme colors */
-  --color-main: var(--black);
+  --color-main: var(--gray-gold);
   --color-second: var(--dark-gray-30);
   --color-third: var(--dark-gray-30);
   --color-highlight: #fff7d0;
@@ -67,6 +67,15 @@ body:before {
 
 header {
   background-color: var(--color-none);
+  height: 80px;
+}
+
+.main-window {
+  padding-top: 80px;
+}
+
+.overview {
+  padding: 20px 20px;
 }
 
 .button-mainAction {
@@ -192,7 +201,7 @@ input[type=text],
 select {
   padding: 10px;
   border-radius: 100px;
-  background-color: #2a2f2f;
+  background-color: var(--color-main);
 }
 
 .input-size--small {
@@ -259,6 +268,10 @@ input:checked+.switch_slider {
 
 .button-mainAction--waiting:after {
   animation: waitingSpinnerRotation 2s linear infinite;
+}
+
+#profile_picture {
+  background-color: var(--color-main);
 }
 
 

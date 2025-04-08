@@ -237,17 +237,21 @@
               </section>
               <div class="configuration-window-content" id="config-win-general--content">
                 <div class="configItem">
-                  <div class="configItem-title-row--center flex" title="Steuerung deines Profils">
-                    <div class="configItem-icon-container flex" id="profile_picture">
-                      <?xml version="1.0" encoding="utf-8"?>
-                      <svg version="1.1" id="Profile" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
-                        style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
-                        <path d="M600,678.8L600,678.8c-154.3,0-279.4-125.1-279.4-279.4v0C320.6,245.1,445.7,120,600,120h0c154.3,0,279.4,125.1,279.4,279.4
-                            v0C879.4,553.7,754.3,678.8,600,678.8z" />
-                        <path d="M920,1198.8H280c-154.6,0-280-125.4-280-280v0c0-66.3,53.7-120,120-120h960c66.3,0,120,53.7,120,120v0
-                            C1200,1073.4,1074.6,1198.8,920,1198.8z" />
-                      </svg>
+                  <div class="configItem-title-row--center flex" title="Wähle ein Profilbild">
+                    <div class="configItem-icon-container profileFrame flex" id="profile_picture">
+                      <label class="dFlex">
+                        <img src="" id="profile_picture_user" class="dNone"/>
+                        <?xml version="1.0" encoding="utf-8"?>
+                        <svg version="1.1" id="Profile" xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
+                          style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
+                          <path d="M600,678.8L600,678.8c-154.3,0-279.4-125.1-279.4-279.4v0C320.6,245.1,445.7,120,600,120h0c154.3,0,279.4,125.1,279.4,279.4
+                              v0C879.4,553.7,754.3,678.8,600,678.8z" />
+                          <path d="M920,1198.8H280c-154.6,0-280-125.4-280-280v0c0-66.3,53.7-120,120-120h960c66.3,0,120,53.7,120,120v0
+                              C1200,1073.4,1074.6,1198.8,920,1198.8z" />
+                        </svg>
+                        <input type="file" class="object--hidden" id="button_importProfilePicture" accept=".jpg;.jpeg;.png" />
+                      </label>
                     </div>
                   </div>
                   <div class="configItem-content">
@@ -262,8 +266,8 @@
                           </div>
                         </div>
                         <div class="configItem-content-right">
-                          <select class="input-size--medium" id="selectProfileOptions" >
-                            <option value="selectProfileOptions_none" disabled selected>Datei</option>
+                          <select id="selectProfileOptions" title="Optionen zu deinen Profil- oder App-Daten" >
+                            <option value="selectProfileOptions_none" disabled selected>Wählen</option>
                             <optgroup label="Profil"/>
                               <option value="selectProfile_import">Importieren</option>
                               <option value="selectProfile_export">Exportieren</option>

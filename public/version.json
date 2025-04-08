@@ -1,7 +1,7 @@
 {
-    "extension_version": "1.0.33",
+    "extension_version": "1.0.40",
     "extension_version_name": "Silver Liquid",
-    "extension_build": "S25.04041613",
+    "extension_build": "S25.04081551",
     "profile_version": "1.8",
     "supported_profile_versions": ["1.6","1.7"],
     "extension_discription": "Übertrage Informatinen aus Excel-Tabellen in eine Online-Platform.",

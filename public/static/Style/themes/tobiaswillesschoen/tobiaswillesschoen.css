@@ -48,6 +48,15 @@ body:before {
 
 header {
   background-color: var(--color-none);
+  height: 80px;
+}
+
+.main-window {
+  padding-top: 80px;
+}
+
+.overview {
+  padding: 20px 20px;
 }
 
 .button-mainAction, #buttonBackToMain {
