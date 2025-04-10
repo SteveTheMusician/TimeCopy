@@ -26,9 +26,9 @@
 ## V 1.1.X
 - Profil import/export encryption ❌
 - dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
-- profil bild hochladen
+- profil bild hochladen ✅
 crypto-js (https://stackoverflow.com/questions/48664739/javascript-encryption-for-json-object)
-- Themes dynamisch in html ausgeben
+- Themes dynamisch in html ausgeben ✅
 - custom theme (select custom und dann css importieren)
-- profil: datei einstellungen als dropdown
+- profil: datei einstellungen als dropdown ✅
 - DLC configs in profil speichern

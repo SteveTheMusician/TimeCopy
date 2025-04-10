@@ -1,6 +1,6 @@
 {
   "name": "time-copy",
-  "version": "1.0.33",
+  "version": "1.1.40",
   "description": "Übertrage Informatinen aus Excel-Tabellen in eine Online-Platform.",
   "main": "index.js",
   "scripts": {

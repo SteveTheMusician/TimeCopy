@@ -1,10 +1,10 @@
 
 import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../dlc/dlc.js"
-import { defaultProfileName, defaultTheme, defaultShowAllMessages } from "./defaults/defaultVariables.js"
+import { defaultProfileName, defaultTheme, defaultShowAllMessages,default_e } from "./defaults/defaultVariables.js"
 import { notification } from "../components/ui/notification/notification.js"
 import { message } from "../components/ui/message/message.js"
 import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
-import { exportProfile } from "./profileManager.js"
+import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -14,10 +14,14 @@ export let lstorage_cThemes = localStorage.getItem('tc_c_theme')
 export let lstorage_cLanguage = localStorage.getItem('tc_c_language')
 export let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
 export let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessages')
-let lstorage_cShowAllMessagesParsed =  JSON.parse(lstorage_cShowAllMessages)
+let lstorage_cShowAllMessagesParsed = ''
 export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
-
+export let lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture')
+// catch parse problems with show all message value
+if(lstorage_cShowAllMessages !== null && lstorage_cShowAllMessages !== '' && lstorage_cShowAllMessages !== 'undefined'){
+  lstorage_cShowAllMessagesParsed = JSON.parse(lstorage_cShowAllMessages)
+}
 
 export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
   // load localstorage
@@ -37,16 +41,12 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, appVersionData.updateTextDetails)
     }
     
-    // if (lstorage_eeTheme === 'true') {
-      // document.getElementById('select-theme-exotic-categ').classList.remove('dNone');
-      // document.getElementById('select-theme-exotic').classList.remove('dNone');
-    // }
-    
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       appGlobalArgs.elem_themeselect.value = lstorage_cThemes
-      if (lstorage_cThemes === 'exoticgold' && lstorage_eeTheme === 'true') {
-        appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/ee/exotic/' + lstorage_cThemes + '.css')
-      } else if (lstorage_cThemes === 'exoticgold' && lstorage_eeTheme !== 'true') {
+      if (lstorage_cThemes.includes(default_e) && lstorage_eeTheme === 'true') {
+        let newThemeValue = lstorage_cThemes.replace(default_e,'')
+        appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/ee/exotic/' + newThemeValue + '.css')
+      } else if (lstorage_cThemes.includes(default_e) && lstorage_eeTheme !== 'true') {
         appGlobalArgs.elem_themeselect.value = defaultTheme
         lstorage_cThemes = defaultTheme
       } else {
@@ -70,14 +70,16 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
       localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
     }
-    if(lstorage_cShowAllMessagesParsed !== null) {
+    if(lstorage_cShowAllMessagesParsed !== null && lstorage_cShowAllMessagesParsed !=='undefined') {
       showHideAllMessages(lstorage_cShowAllMessagesParsed)
       appGlobalArgs.switch_showallmessages.checked = lstorage_cShowAllMessagesParsed
     } else {
       appGlobalArgs.switch_showallmessages.checked = defaultShowAllMessages
       showHideAllMessages(defaultShowAllMessages)
     }
-
+    if(lstorage_cProfilePicture !== null) {
+      setUnsetProfilePicture(true,lstorage_cProfilePicture,appGlobalArgs)
+    }
     loadDLCStorage(dlcGlobalArgs)
   }
   // sessionstorages for temp-messages and data
@@ -136,6 +138,7 @@ export function clearLocalStorage() {
   localStorage.removeItem('tc_appVersion')
   localStorage.removeItem('tc_ee_exoticTheme')
   localStorage.removeItem('tc_c_showAllMessages')
+  localStorage.removeItem('tc_c_profilePicture')
   clearDlcLocalStorages()
 }
 

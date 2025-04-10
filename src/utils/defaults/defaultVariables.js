@@ -9,3 +9,5 @@ export const dlc_details_classHidden = 'dlc-details--hidden'
 export const defaultShowAllMessages = true
 export const defaultClearMessagesOnPaste = false
 export const defaultLanguage = 'de'
+export const default_e = "e_"
+export const defaultProfileAuthor = "Steve from TimeCopy"

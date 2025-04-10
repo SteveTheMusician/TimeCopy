@@ -8,8 +8,7 @@ export function generateThemes() {
         "midnightglow": "Midnight Glow",
         "nostalgica": "Nostalgica",
         "oceansground": "Oceans Ground",
-        "oceanswave": "Oceans Wave",
-        "silverliquid": "Silver Liquid"
+        "oceanswave": "Oceans Wave"
       },
       "Gefühle": {
         "battlefield": "Battlefield",
@@ -37,7 +36,8 @@ export function generateThemes() {
   
     const themeEEArray = [{
       "Exotisch": {
-        "exoticgold": "Exotic Gold"
+        "e_exoticgold": "Exotic Gold",
+        "e_silverliquid": "Silver Liquid"
       }
     }];
   

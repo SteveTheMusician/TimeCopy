@@ -7,7 +7,7 @@ import {xmasDlc,
           platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./dlc/dlc.js";
 import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform} from "./utils/appStorage.js";
 import { clearDlcLocalStorages, reloadDLCCache,setDLCAmagProTimeTestStyle } from "./utils/dlcStorage.js";
-import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden} from "./utils/defaults/defaultVariables.js";
+import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden,default_e} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { notification } from "./components/ui/notification/notification.js";
@@ -68,8 +68,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_clearAllMessages = document.getElementById('button_clearAllMessages')
   // configuration buttons
   const profileOptionsSelect = document.getElementById('selectProfileOptions')
+  const profilePicture = document.getElementById('profile_picture')
+  const button_importProfilePicture = document.getElementById('button_importProfilePicture')
   const themeSelect = document.querySelector('select#select-themes')
-  // const button_clearConfigs = document.getElementById('button_clearConfigs')
   const switch_showAllMessages = document.getElementById('check_showAllNotifications')
   const radios_filter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
@@ -79,9 +80,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_openStore = document.getElementById('button_openStore')
   const button_openLicense = document.getElementById('button_openLicense')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
-  const profilePicture = document.getElementById('profile_picture')
-  const button_importProfilePicture = document.getElementById('button_importProfilePicture')
-  button_importProfilePicture.addEventListener('change', importProfilePicture, false)
+
   // dlc-platform element listeners
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
@@ -120,7 +119,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   const author = data_version.extension_author
   const tester = data_version.extension_testing
   const profileVersion = data_version.profile_version
+  const profileType = data_version.profile_type
   const supportedProfileVersions = data_version.supported_profile_versions
+  const supportedProfileTypes = data_version.supported_profile_types
   const updateTextOverview = data_version.extension_update_text_overview
   const updateTextDetails = data_version.extension_update_text_details
 
@@ -315,8 +316,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function switchTheme() {
     let currentThemeValue = themeSelect.value
-    if (currentThemeValue === 'exoticgold') {
-      link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotic/' + currentThemeValue + '.css')
+    if (currentThemeValue.includes(default_e)) {
+      let newThemeValue = currentThemeValue.replace(default_e,'')
+      link_cssTheme.setAttribute('href', './static/Style/themes/ee/exotic/' + newThemeValue + '.css')
     } else {
       link_cssTheme.setAttribute('href', './static/Style/themes/' + currentThemeValue + '/' + currentThemeValue + '.css')
     }
@@ -340,37 +342,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       configItem_content_row_build_version.classList.remove('dNone')
     }
   }
-
-  function importProfilePicture() {
-    const imageFile = button_importProfilePicture.files[0];
-  
-    if (!imageFile || !imageFile.type.startsWith('image/')) {
-      notification(true, false, "Datei Import fehlgeschlagen. Nur Bilddateien erlaubt.");
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const base64 = e.target.result;
-      const img = new Image();
-      img.onload = function () {
-        if (img.width > 1200 || img.height > 1200) {
-          console.error('maximalgröße überschritten')
-          notification(true, false, "Das Bild darf maximal 1200x1200 Pixel groß sein.");
-          return;
-        }
-        localStorage.setItem('tc_c_profilePicture', base64);
-        profilePictureUser.classList.remove('dNone')
-        profilePictureUser.src = base64;
-        profileSVG.classList.add('dNone')
-        profilePicture.classList.add('profileFrame--full')
-      };
-      
-      img.src = base64;
-    };
-  
-    reader.readAsDataURL(imageFile);
-  }
-
   // dlc functions
   function dlcPlatformOpenDropdown(e) {
     let dlc_platformElement = e.target.closest(".dlcItem-platform")
@@ -448,11 +419,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     // set global vars
     window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
       chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, versionName: versionName, buildVersion:buildVersion,
-      author:author,tester:tester,profileVersion:profileVersion,supportedProfileVersions:supportedProfileVersions,
-      updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
+      author:author,tester:tester,profileVersion:profileVersion,profileType: profileType,supportedProfileVersions:supportedProfileVersions,
+      supportedProfileTypes: supportedProfileTypes,updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
     }]
     window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
-      elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton
+      elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton,elem_profilePictureUser: profilePictureUser, elem_profileSVG: profileSVG,
+      elem_profilePicture: profilePicture, elem_button_importProfilePicture: button_importProfilePicture
     }]
     window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
       dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText
@@ -467,6 +439,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     label_build_version.insertAdjacentHTML('beforeend', buildVersion)
     label_extensionDevelop.insertAdjacentHTML('beforeend', author)
     label_extensionCoDevelop.insertAdjacentHTML('beforeend', tester)
+    // add aceppted profile formats
+    button_importConfigs.setAttribute('accept',profileType+", "+supportedProfileTypes.toString())
     // main action buttons listener
     fillButton.addEventListener('click', pastePrepairData)
     fillCancelButton.addEventListener('click', cancelPasteData)
