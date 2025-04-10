@@ -10,7 +10,8 @@ import { clearDlcLocalStorages, reloadDLCCache,setDLCAmagProTimeTestStyle } from
 import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden,default_e} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
-import { notification } from "./components/ui/notification/notification.js";
+// remove developer on prod
+import { developer } from "./developer/developer.js";
 
 document.addEventListener('DOMContentLoaded', async function () {
   // import platform and filter dlcs
@@ -490,6 +491,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       profileManager(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       appStorage(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       xmasDlc()
+      // remove developer on prod
+      developer()
       console.log('✅ [Time Copy] extension loaded')
     }catch(e){
       message(true, 'error',window.language.error_appError,e,true)
