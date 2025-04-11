@@ -23,11 +23,13 @@
 - fix: defaultShowAllMessages Variable currently not takken ✅
 - import error show all messages anzeigen ✅
 
+- test-modus fixen (verursacht durch restructure)
+- liquid theme fertig machen
+
 ## V 1.1.X
 - Profil import/export encryption ❌
 - dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen
 - profil bild hochladen ✅
-crypto-js (https://stackoverflow.com/questions/48664739/javascript-encryption-for-json-object)
 - Themes dynamisch in html ausgeben ✅
 - custom theme (select custom und dann css importieren)
 - profil: datei einstellungen als dropdown ✅
