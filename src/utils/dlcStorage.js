@@ -10,7 +10,6 @@ export let lstorage_c_dlcProtimeTicketNomberInText = JSON.parse(localStorage.get
 export function loadDLCStorage(dlcGlobalArgs) {
   if (lstorage_c_dlcProTimeTest !== null) {
     dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = lstorage_c_dlcProTimeTest
-    // window.dlcProTime_usePTTest = true
   }else {
     dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = pAmagProTime_defaultUseProTimeTestMode
   }

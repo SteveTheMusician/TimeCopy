@@ -24,7 +24,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   let valideTickets = [];
   let failedTickets = [];
   let errorDetailMessage = ''
-  let dev_pttest = window.dlcProTime_usePTTest
+  let dev_pttest = lstorage_c_dlcProTimeTest
   // use force latency mode
   if (lstorage_c_dlcProTimeForceLatencyMode === true) {
     highLatency = true

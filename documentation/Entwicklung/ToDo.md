@@ -22,8 +22,6 @@
 - proTimeDLC: checkswitch für TicketNummer in Beschreibung übernehmen (default an)✅
 - fix: defaultShowAllMessages Variable currently not takken ✅
 - import error show all messages anzeigen ✅
-
-- test-modus fixen (verursacht durch restructure)
 - liquid theme fertig machen
 
 ## V 1.1.X

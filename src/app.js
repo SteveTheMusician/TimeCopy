@@ -95,7 +95,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlcProTime_config_check_useTicketnomberInText = document.getElementById('check_useTicketnomberInTextProTime')
   dlcProTime_config_check_useTicketnomberInText.addEventListener('change', dlcProTimeUseTicketNomberInText)
   const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
-  window.dlcProTime_usePTTest = false
   let configOpen = false
   try{
     window.language = await useLanguage()
