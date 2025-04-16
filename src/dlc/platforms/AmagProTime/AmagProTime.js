@@ -17,7 +17,7 @@ import {
   noTicketDiscFill
 } from "./variables/AmagProTime.variables.js";
 import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMode,
-  lstorage_c_dlcProtimeTicketNomberInText,lstorage_c_dlcProTimeTest } from "../../../utils/dlcStorage.js";
+  lstorage_c_dlcProtimeTicketNomberInText,lstorage_c_dlcProTimeTest, lstorage_c_dlcProtimeUseMatchBookingDay } from "../../../utils/dlcStorage.js";
 
 // 🍎 initial script to filter data and start the booking process
 export async function AmagProTime(bookingData, detectionItemsProTime) {
@@ -25,6 +25,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   let failedTickets = [];
   let errorDetailMessage = ''
   let dev_pttest = lstorage_c_dlcProTimeTest
+  let matchDateDay = lstorage_c_dlcProtimeUseMatchBookingDay
   // use force latency mode
   if (lstorage_c_dlcProTimeForceLatencyMode === true) {
     highLatency = true
@@ -103,7 +104,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
-      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText)
+      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay)
       bookingLoopCount++
       if (iChrTab.result !== null && iChrTab.result.success === false) {
         throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
@@ -120,7 +121,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
 }
 
 // 🍎 chrom tab scripts
-async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText) {
+async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay) {
   // check latency in current tab + only when use high latency is aktivated
   if (useHighLatency) {
     try {
@@ -146,7 +147,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
     let chromeExecScript = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: AmagProTimeBookTickets,
-      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText]
+      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay]
     });
 
     if (chromeExecScript[0].result && chromeExecScript[0].result.error) {
@@ -160,7 +161,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
   }
 }
 // 🍎 main booking logic
-async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText) {
+async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay) {
   let crossObserver_mutationObserver
   function crossObserver(elementSelector) {
     let appearanceCount = 0;
@@ -395,7 +396,12 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           let protime_ticketElemNom
           let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
           let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber
-
+          let proTime_activeDateElement = document.querySelector(`[design="SELECTED5"]`)
+          let proTime_activeDate = proTime_activeDateElement.getElementsByClassName('lsCalItemText')[0].innerHTML
+          // If Days not match
+          if(ticketObject.item_dateday && proTime_activeDate !== ticketObject.item_dateday && matchDateDay === true) {
+            return result = { success: false, message: {text: "Falsches Datum"+matchDateDay,textdetails: "Das Datum des ausgewählten Tages stimmt nicht mit deinem Eintrag überein."} };
+          }
           if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
             if (proTime_projectNomber) {
               protime_Innenauftrag.childNodes[0].value = proTime_projectNomber

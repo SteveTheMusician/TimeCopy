@@ -70,7 +70,7 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
       localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
     }
-    if(lstorage_cShowAllMessagesParsed !== null && lstorage_cShowAllMessagesParsed !=='undefined') {
+    if(lstorage_cShowAllMessagesParsed !== '' && lstorage_cShowAllMessagesParsed !=='undefined') {
       showHideAllMessages(lstorage_cShowAllMessagesParsed)
       appGlobalArgs.switch_showallmessages.checked = lstorage_cShowAllMessagesParsed
     } else {

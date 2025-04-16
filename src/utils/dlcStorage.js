@@ -1,10 +1,12 @@
 
-import { pAmagProTime_defaultUseTicketNomberInText, pAmagProTime_defaultHighLatencyMode, pAmagProTime_defaultForceHighLatencyMode, pAmagProTime_defaultUseProTimeTestMode } from "./defaults/defaultDLCVariables"
+import { pAmagProTime_defaultUseTicketNomberInText, pAmagProTime_defaultHighLatencyMode, pAmagProTime_defaultForceHighLatencyMode, 
+  pAmagProTime_defaultUseProTimeTestMode, pAmagProTime_defaultUseMatchBookingDay } from "./defaults/defaultDLCVariables"
 
 export let lstorage_c_dlcProTimeTest = JSON.parse(localStorage.getItem('tc_c_dlc_protimetest'))
 export let lstorage_c_dlcProTimeForceLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeforcelatencymode'))
 export let lstorage_c_dlcProTimeUseLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeuselatencymode'))
 export let lstorage_c_dlcProtimeTicketNomberInText = JSON.parse(localStorage.getItem('tc_c_dlc_protimeticketnomberintext'))
+export let lstorage_c_dlcProtimeUseMatchBookingDay = JSON.parse(localStorage.getItem('tc_c_protimematchbookingday'))
 
 // local storage for dlcs
 export function loadDLCStorage(dlcGlobalArgs) {
@@ -29,6 +31,11 @@ export function loadDLCStorage(dlcGlobalArgs) {
   }else {
     dlcGlobalArgs.dlcProTime_config_check_useTicketnomberInText.checked = pAmagProTime_defaultUseTicketNomberInText
   }
+  if(lstorage_c_dlcProtimeUseMatchBookingDay !== null) {
+    dlcGlobalArgs.dlcProTime_config_check_useMatchBookingDay.checked = lstorage_c_dlcProtimeUseMatchBookingDay
+  }else {
+    dlcGlobalArgs.dlcProTime_config_check_useMatchBookingDay.checked = pAmagProTime_defaultUseMatchBookingDay
+  }
 }
 
 export function clearDlcLocalStorages(onlyImportantDLC) {
@@ -45,6 +52,7 @@ export function clearDlcLocalStorages(onlyImportantDLC) {
     localStorage.removeItem('tc_c_dlc_protimeforcelatencymode')
     localStorage.removeItem('tc_c_dlc_protimeuselatencymode')
     localStorage.removeItem('tc_c_dlc_protimeticketnomberintext')
+    localStorage.removeItem('tc_c_protimematchbookingday')
   }
 }
   

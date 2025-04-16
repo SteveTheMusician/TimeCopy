@@ -95,6 +95,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlcProTime_config_check_useTicketnomberInText = document.getElementById('check_useTicketnomberInTextProTime')
   dlcProTime_config_check_useTicketnomberInText.addEventListener('change', dlcProTimeUseTicketNomberInText)
   const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
+  const dlcProTime_config_check_useMatchBookingDay = document.getElementById('check_useMatchBookingDayProTime')
+  dlcProTime_config_check_useMatchBookingDay.addEventListener('change', dlcProTimeUseMatchBookingDay)
   let configOpen = false
   try{
     window.language = await useLanguage()
@@ -394,10 +396,19 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function dlcProTimeUseTicketNomberInText(){
-    if(dlcProTime_config_check_useTicketnomberInText.checked){
+    if(dlcProTime_config_check_useTicketnomberInText.checked) {
       localStorage.setItem('tc_c_dlc_protimeticketnomberintext', true)
     }else {
       localStorage.setItem('tc_c_dlc_protimeticketnomberintext', false)
+    }
+    window.configUserChanges = true
+  }
+
+  function dlcProTimeUseMatchBookingDay() {
+    if(dlcProTime_config_check_useMatchBookingDay.checked) {
+      localStorage.setItem('tc_c_protimematchbookingday', true)
+    } else {
+      localStorage.setItem('tc_c_protimematchbookingday', false)
     }
     window.configUserChanges = true
   }
@@ -427,7 +438,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       elem_profilePicture: profilePicture, elem_button_importProfilePicture: button_importProfilePicture
     }]
     window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
-      dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText
+      dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText,
+      dlcProTime_config_check_useMatchBookingDay: dlcProTime_config_check_useMatchBookingDay
     }]
     // return message if offline
     if (!navigator.onLine) {

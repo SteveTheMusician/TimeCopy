@@ -36,6 +36,17 @@ export const customContent = `<div class="dlc-platform_custom-content">
     </div>
     <div class="dlc-platform_custom-content-row dFlex">
         <div class="row-cell-left">
+            <p class="subtext">Tage übereinstimmen</p>
+        </div>
+        <div class="row-cell-right">
+            <label class="switch">
+                <input type="checkbox" class="" id="check_useMatchBookingDayProTime"  />
+                <span class="switch_slider" title="Überprüft, ob der Tag (wenn vorhanden) mit dem in ProTime übereinstimmt. Wenn nicht, wird der Prozess unterbrochen."></span>
+            </label>
+        </div>
+    </div>
+    <div class="dlc-platform_custom-content-row dFlex">
+        <div class="row-cell-left">
             <p class="subtext">Test-Modus</p>
         </div>
         <div class="row-cell-right">

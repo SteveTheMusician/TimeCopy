@@ -1,7 +1,7 @@
 {
-    "filter_version": "1.2",
+    "filter_version": "1.3",
     "filter_name": "Steve Google Excel",
     "filter_id": "stevegoogleexcel",
     "filter_shortname": "SteveExcel",
-    "filter_description": "Filter zur Erkennung von mehrspaltigen Google-Excel-Tabellen. Anwendbar auf maximal 1 Tag."
+    "filter_description": "Filter zur Erkennung von mehrspaltigen Google-Excel-Tabellen. Anwendbar auf maximal 1 Tag. (Spezielles Format und ggf instabiler)"
 }

@@ -23,6 +23,9 @@
 - fix: defaultShowAllMessages Variable currently not takken ✅
 - import error show all messages anzeigen ✅
 - liquid theme fertig machen
+- status leiste untent mit infos
+
+- fix: showAllMessages und dlc Storages zu beginn auslösen und speichern wenn keine da sind
 
 ## V 1.1.X
 - Profil import/export encryption ❌
