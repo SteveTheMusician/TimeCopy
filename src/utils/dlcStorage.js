@@ -14,27 +14,32 @@ export function loadDLCStorage(dlcGlobalArgs) {
     dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = lstorage_c_dlcProTimeTest
   }else {
     dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked = pAmagProTime_defaultUseProTimeTestMode
+    localStorage.setItem('tc_c_dlc_protimetest',pAmagProTime_defaultUseProTimeTestMode)
   }
   setDLCAmagProTimeTestStyle(dlcGlobalArgs.dlcProTime_config_check_usePTTest.checked,dlcGlobalArgs)
   if(lstorage_c_dlcProTimeForceLatencyMode !== null) {
     dlcGlobalArgs.dlcProTime_config_check_forceLatencyMode.checked = lstorage_c_dlcProTimeForceLatencyMode
   } else {
     dlcGlobalArgs.dlcProTime_config_check_forceLatencyMode.checked = pAmagProTime_defaultForceHighLatencyMode
+    localStorage.setItem('tc_c_dlc_protimeforcelatencymode',pAmagProTime_defaultForceHighLatencyMode)
   }
   if(lstorage_c_dlcProTimeUseLatencyMode !== null) {
     dlcGlobalArgs.dlcProTime_config_check_useLatencyMode.checked = lstorage_c_dlcProTimeUseLatencyMode
   }else {
     dlcGlobalArgs.dlcProTime_config_check_useLatencyMode.checked = pAmagProTime_defaultHighLatencyMode
+    localStorage.setItem('tc_c_dlc_protimeuselatencymode',pAmagProTime_defaultHighLatencyMode)
   }
   if(lstorage_c_dlcProtimeTicketNomberInText !== null) {
     dlcGlobalArgs.dlcProTime_config_check_useTicketnomberInText.checked = lstorage_c_dlcProtimeTicketNomberInText
   }else {
     dlcGlobalArgs.dlcProTime_config_check_useTicketnomberInText.checked = pAmagProTime_defaultUseTicketNomberInText
+    localStorage.setItem('tc_c_dlc_protimeticketnomberintext',pAmagProTime_defaultUseTicketNomberInText)
   }
   if(lstorage_c_dlcProtimeUseMatchBookingDay !== null) {
     dlcGlobalArgs.dlcProTime_config_check_useMatchBookingDay.checked = lstorage_c_dlcProtimeUseMatchBookingDay
   }else {
     dlcGlobalArgs.dlcProTime_config_check_useMatchBookingDay.checked = pAmagProTime_defaultUseMatchBookingDay
+    localStorage.setItem('tc_c_protimematchbookingday',pAmagProTime_defaultUseMatchBookingDay)
   }
 }
 

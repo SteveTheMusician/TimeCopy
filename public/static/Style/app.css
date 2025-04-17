@@ -644,8 +644,8 @@ input[type=text]:focus {
 }
 
 .configItem-icon-container img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: var(--border-radius-round);
     overflow: hidden;
 }
@@ -662,8 +662,8 @@ input[type=text]:focus {
     cursor: pointer;
     outline: 1px solid var(--color-none);
     transition: var(--transition-default);
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 .profileFrame:hover {

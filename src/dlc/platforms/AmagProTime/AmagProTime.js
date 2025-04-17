@@ -400,7 +400,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           let proTime_activeDate = proTime_activeDateElement.getElementsByClassName('lsCalItemText')[0].innerHTML
           // If Days not match
           if(ticketObject.item_dateday && proTime_activeDate !== ticketObject.item_dateday && matchDateDay === true) {
-            return result = { success: false, message: {text: "Falsches Datum"+matchDateDay,textdetails: "Das Datum des ausgewählten Tages stimmt nicht mit deinem Eintrag überein."} };
+            return result = { success: false, message: {text: "Falsches Datum",textdetails: "Das Datum des ausgewählten Tages stimmt nicht mit deinem Eintrag überein."} };
           }
           if (protime_Innenauftrag && protime_Innenauftrag.childNodes && protime_Innenauftrag.childNodes.length > 0) {
             if (proTime_projectNomber) {

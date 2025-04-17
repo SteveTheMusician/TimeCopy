@@ -75,6 +75,7 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       appGlobalArgs.switch_showallmessages.checked = lstorage_cShowAllMessagesParsed
     } else {
       appGlobalArgs.switch_showallmessages.checked = defaultShowAllMessages
+      localStorage.setItem('tc_c_showAllMessages',defaultShowAllMessages)
       showHideAllMessages(defaultShowAllMessages)
     }
     if(lstorage_cProfilePicture !== null) {
