@@ -176,6 +176,7 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - fix: small screen styles
 - fix: showAllMessages default value
 - fix: other import/export issues
+- fix: create lstorasge on startup
 - other: restructure and clean up code
 - other: map theme select dynamicaly
 - other: profile cleanup (redesign and select options)

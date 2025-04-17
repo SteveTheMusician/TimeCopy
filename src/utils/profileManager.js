@@ -171,6 +171,12 @@ export function exportProfile(appVersionData, appGlobalArgs) {
       "detections": detectionItems
     },"profilePicture":profilePictureExport
   });
+  Object.assign(tcProfileObj.tcprofile, {
+    "dlccfg": {
+      "filters": {"FILTERNAME":{}},
+      "platforms": {"PLATFORMNAME":{}}
+    }
+  });
 
   const jsonString = JSON.stringify(tcProfileObj);
   const base64Data = btoa((encodeURIComponent(jsonString)));
