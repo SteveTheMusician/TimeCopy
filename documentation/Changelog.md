@@ -173,6 +173,7 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - feature: profile picture
 - feature: profile file encoding
 - feature: profile options as dropdown
+- feature: any-update -> every ticket can now applied to an platform via "*" in the ticketname
 - fix: small screen styles
 - fix: showAllMessages default value
 - fix: other import/export issues

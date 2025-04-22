@@ -5,5 +5,9 @@
 - version.json -> Version, Build-version, Overview- & Details-Text 
 - package.json -> Version
 
+## Documentation
+- documentation -> version, updates
+- changelog
+
 ## Build
 - Extension build, wenn der Dist-Ordner als Commit gewünscht ist (zB. für Tests)

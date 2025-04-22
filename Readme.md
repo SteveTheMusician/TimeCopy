@@ -1,8 +1,8 @@
 # Time Copy
-#### V 1.0.2* (Sidebar Version)
+#### V 1.1.XX (Sidebar Version)
 By Steve Pietrowski / EmptySoul
 </br>
-04.07.2023 - 03.2025
+04.07.2023 - 04.2025
 
 ## Benutzerinformationen
 
@@ -108,6 +108,7 @@ Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende Adressen wend
 - *.tcprofile V 1.6
 - *.tcprofile V 1.7
 - *.tcprofile V 1.8
+- *.tcprofile V 1.9 / 2.0
 
 ### Node Version
 Empfohlen: V 20.11.0

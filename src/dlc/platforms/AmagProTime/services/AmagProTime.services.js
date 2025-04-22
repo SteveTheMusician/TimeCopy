@@ -13,7 +13,7 @@ export function filterPrefix(ticket, detectionItemsProTime) {
     let filterPrefix_prefixMatches = [];
     detectionItemsProTime.forEach((detectionItemProTime) => {
         if (detectionItemProTime.ticketprefix.length > 0 && ticket.item_ticketnumber.includes(detectionItemProTime.ticketprefix) ||
-            detectionItemProTime.ticketprefix.length === 0 && ticket.item_ticketnumber.length === 0) {
+            detectionItemProTime.ticketprefix.length === 0 && ticket.item_ticketnumber.length === 0 || detectionItemProTime.ticketprefix === anyProjectNomber) {
             filterPrefix_prefixMatches.push(detectionItemProTime)
         }
     })
