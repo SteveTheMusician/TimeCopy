@@ -8,7 +8,7 @@ async function generatePlatformData() {
     return new Promise(async (resolve) => { 
         let dlcPlatformsData = []
         for (let importedPlatform of importPlatforms) {
-            let infoData = Promise.resolve(import(`./${importedPlatform}/info.json`))
+            let infoData = Promise.resolve(import(`../../../public/static/DLC/Platforms/${importedPlatform}/info.json`))
             await infoData.then(plInfo => {
                 let platformStorageObject = { [importedPlatform]: { ...plInfo } }
                 // let lstorage_sDLCPlatformInformations = 

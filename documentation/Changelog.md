@@ -183,3 +183,5 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - other: new profile file version (TCP1)
 - other: render theme and options dynamicaly to html
 - other: profile import type as dynamic attribute to html
+- other: disable highlatency-function on high ping
+- other: change high-ping notification to message

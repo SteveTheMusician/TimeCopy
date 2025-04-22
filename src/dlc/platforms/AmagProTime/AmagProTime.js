@@ -129,9 +129,9 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
       proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
       // use high latency only when page ping is low
       if (proTimeJSPageTime > 150) {
-        console.warn("[Time Copy][DLC Platforms: AmagProTime] ⚠️ Warning: ProTime Page high latency " + proTimeJSPageTime + " ms")
-        notification(true, false, "Webseite hat niedige Latenz. (" + proTimeJSPageTime + " ms) Buchungen werden länger brauchen.")
-        highLatency = true
+        console.warn("[Time Copy][DLC Platforms: AmagProTime] ⚠️ Warning: ProTime Page has low ping (" + proTimeJSPageTime + " ms )")
+        message(true, 'warning', 'ProTime hat hohen Ping', 'ProTime wurde mit einem Ping von '+ proTimeJSPageTime +'ms gemessen. Ein hoher Ping kann unter umständen zu Buchungsfehler führen. Bei Problemen wird TimeCopy automatisch den High-Latency-Mode aktivieren.')
+        // highLatency = true
       }
       chrome.windows.getCurrent(function (window) {
         chrome.windows.update(window.id, { focused: true });

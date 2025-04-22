@@ -77,7 +77,7 @@ export async function platformsContent() {
                         </label>
                       </div>
                       <div class="configItem-logo-container flex configItem-logo-container--`+ (plDataObject.platform_id) + `">
-                        <img src="static/DLC/Platforms/logos/`+ (plKey + platformImageFormat) + `" class="icon-bookingItem" />
+                        <img src="static/DLC/Platforms/`+ (plKey) + '/logo/' + (plKey + platformImageFormat) + `" class="icon-bookingItem" />
                       </div>
                       <div class="dlcItem-headline-container flex">
                         <p class="text-label">`+ (plDataObject.platform_name) + `</p>

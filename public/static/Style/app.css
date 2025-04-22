@@ -972,11 +972,6 @@ input:checked+.switch_slider:before {
         margin-right: 5px;
     }
 
-    .dlcItem-headline-container .text-label {
-        margin-right: 0;
-        max-height: 14px;
-    }
-
     .configItem-main {
         padding-left: 10px;
     }

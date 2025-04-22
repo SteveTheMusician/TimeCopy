@@ -35,3 +35,9 @@
 - custom theme (select custom und dann css importieren)
 - profil: datei einstellungen als dropdown ✅
 - DLC configs in profil speichern
+
+- dlc filter/platform fallback image, wenn ein neues einegbaut wird, es aber kein image hat
+- dlc info.json in public folder
+- dlc public ordner struktur
+- fab theme: kahlids coffe mug / redbull (türkis und pink)
+- dlc protime: ping modus verbessern

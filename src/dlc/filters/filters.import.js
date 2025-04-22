@@ -6,7 +6,7 @@ async function generateFilterData() {
     return new Promise(async (resolve) => { 
         let dlcFiltersData = []
         for (let importedFilter of importFilters) {
-            let infoData = Promise.resolve(import(`./${importedFilter}/info.json`))
+            let infoData = Promise.resolve(import(`../../../public/static/DLC/Filters/${importedFilter}/info.json`))
             await infoData.then(plInfo => {
                 let filterStorageObject = { [importedFilter]: { ...plInfo } }
                 // let lstorage_sDLCFilterInformations = 

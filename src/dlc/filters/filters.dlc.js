@@ -52,7 +52,7 @@ export async function filtersContent() {
                         </label>
                     </div>
                     <div class="configItem-icon-container flex configItem-icon-container--`+ (plDataObject.filter_id) + `">
-                     <img src="static/DLC/Filters/icons/`+ (plKey + filterImageFormat) + `" class="icon-filterItem" />
+                     <img src="static/DLC/Filters/`+ (plKey) + "/icon/" + (plKey + filterImageFormat) + `" class="icon-filterItem" />
                     </div>
                     <div class="dlcItem-headline-container flex">
                       <p class="text-label">`+ (plDataObject.filter_name) + `</p>

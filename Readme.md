@@ -25,9 +25,6 @@ Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filter
 - **_Buchungsplatform_** : Sagt dem PlugIn, auf welche Seite / Programm diene Daten eingefügt / verarbeitet werden.
 (Automatisch wählt Buchungsplatformen nach der Web-Url aus)
 
-> [!TIP] 
-> Um Änderungen zu übernehmen, klicke nach einem Change einfach auf den Zurück-Button oben Links oder öffne das PlugIn erneut
-
 ### Shortcuts
 - Time Copy öffnen / schließen (Windows): Strg+b
 - Time Copy öffnen / schließen (MacOS): Cmd+b
