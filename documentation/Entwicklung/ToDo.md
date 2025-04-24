@@ -42,3 +42,15 @@ Yosha Update:
 - dlc protime: ping modus verbessern
 
 - * im Ticketname nimmt alle Tickets an ✅
+
+- booking counter mit verschiedenen rang namen (ab 100 buchungen so und so) -> nach max level gibt es einen neuen skin (gold flake)
+
+- fix: error am ende der buchung durch counter ✅
+
+Rang Namen
+- Timecopyrier 0 - 8
+- Copycat 9 - 24
+- Copywarrior 25 - 100
+- Time Wizard 101 - 200
+- Copy Legend 201 - 1000
+- Time God 1000 - XXX

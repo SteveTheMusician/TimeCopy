@@ -4,7 +4,7 @@
 
 Some versions in the changelog were skipped because they were released or pushed 
 as part of a later version.
-Time Copy was only converted into a side-bar version from version 0.8.7.
+Time Copy was converted into a side-bar version from version 0.8.7.
 
 ## V 0.8.80
 - fix: text-label styling on small resolution
@@ -174,6 +174,7 @@ Time Copy was only converted into a side-bar version from version 0.8.7.
 - feature: profile file encoding
 - feature: profile options as dropdown
 - feature: any-update -> every ticket can now applied to an platform via "*" in the ticketname
+- feature: booking counter
 - fix: small screen styles
 - fix: showAllMessages default value
 - fix: other import/export issues

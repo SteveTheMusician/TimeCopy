@@ -1,7 +1,7 @@
 import { appStorage } from "./appStorage.js";
 import { notification } from "../components/ui/notification/notification.js";
 import { lstorage_cBookingPlatform,lstorage_cFilter,lstorage_cShowAllMessages,
-    lstorage_cDetectionItems,lstorage_cLanguage,lstorage_cThemes,lstorage_cProfilePicture } from "./appStorage.js";
+    lstorage_cDetectionItems,lstorage_cLanguage,lstorage_cThemes,lstorage_cProfilePicture,lstorage_cBookingScore } from "./appStorage.js";
 import { defaultTheme,defaultLanguage,defaultShowAllMessages,defaultProfileAuthor } from "./defaults/defaultVariables.js";
 
 export function profileManager(appGlobalArgs,appVersionData,dlcGlobalArgs) {
@@ -61,6 +61,7 @@ export function profileManager(appGlobalArgs,appVersionData,dlcGlobalArgs) {
           if(fileData.tcprofile.profilePicture !== null && typeof fileData.tcprofile.profilePicture !== 'undefined' && fileData.tcprofile.profilePicture !== ''){
             localStorage.setItem('tc_c_profilePicture',fileData.tcprofile.profilePicture)
           }
+          localStorage.setItem('tc_c_bookingScore', fileData.tcprofile.cfg.bookingScore)
           localStorage.setItem('tc_c_theme', importedThemevalue)
           localStorage.setItem('tc_c_language', fileData.tcprofile.cfg.language)
           localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
@@ -150,6 +151,7 @@ export function exportProfile(appVersionData, appGlobalArgs) {
   let filterExport = lstorage_cFilter ?? '';
   let platformExport = lstorage_cBookingPlatform ?? '';
   let profilePictureExport = lstorage_cProfilePicture ?? '';
+  let bookingScoreExport = lstorage_cBookingScore ?? 0
 
   let tcProfileObj = {
     "tcprofile": {
@@ -163,6 +165,7 @@ export function exportProfile(appVersionData, appGlobalArgs) {
   };
   Object.assign(tcProfileObj.tcprofile, {
     "cfg": {
+      "bookingScore": bookingScoreExport,
       "theme": themeExport,
       "language": languageExport,
       "showAllMessages": showAllMessagesExport,

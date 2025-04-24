@@ -11,3 +11,4 @@ export const defaultClearMessagesOnPaste = false
 export const defaultLanguage = 'de'
 export const default_e = "e_"
 export const defaultProfileAuthor = "Steve from TimeCopy"
+export const scoreTitles = ["Timecopyrier","Copycat","Copywarrior","Time Wizard","Copy Legend","Time God","The Creator"]

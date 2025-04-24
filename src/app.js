@@ -5,11 +5,12 @@ import { message } from "./components/ui/message/message.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
 import {xmasDlc, 
           platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./dlc/dlc.js";
-import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform} from "./utils/appStorage.js";
+import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform, lstorage_cBookingScore} from "./utils/appStorage.js";
 import { clearDlcLocalStorages, reloadDLCCache,setDLCAmagProTimeTestStyle } from "./utils/dlcStorage.js";
 import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden,default_e} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
+import { setScoreValues } from "./utils/setScorevalues.js";
 // remove developer on prod
 import { developer } from "./developer/developer.js";
 
@@ -55,6 +56,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   const configProfileName = document.getElementById('configProfileName')
   const profilePictureUser = document.getElementById('profile_picture_user')
   const profileSVG = document.getElementById('Profile')
+  const configProfileScore_RangScore = document.getElementById('configProfileScore_RangScore')
+  const configProfileScore_RangName = document.getElementById('configProfileScore_RangName')
   // tab buttons
   const buttonsTab_getAll = document.getElementsByClassName('button-config-tab')
   const buttonTab_General = document.querySelector('button#button-tab-general')
@@ -97,6 +100,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
   const dlcProTime_config_check_useMatchBookingDay = document.getElementById('check_useMatchBookingDayProTime')
   dlcProTime_config_check_useMatchBookingDay.addEventListener('change', dlcProTimeUseMatchBookingDay)
+  let bookingScore = 0
   let configOpen = false
   try{
     window.language = await useLanguage()
@@ -207,6 +211,17 @@ document.addEventListener('DOMContentLoaded', async function () {
         lockActionButtons('false',fillButton)
         if(switch_showAllMessages.checked) {
           message(true, 'information', window.language.message_bookingProcessEnded, bookingPlatform)
+          // score counter
+          if(lstorage_cBookingScore > "0") {
+            bookingScore = lstorage_cBookingScore
+          } 
+          bookingScore ++
+          localStorage.setItem('tc_c_bookingScore', bookingScore)
+          try {
+            setScoreValues(bookingScore,...window.appGlobalArgs)
+          } catch (error) {
+            message(true, 'error', window.language.error + ': Score Function', error)
+          }
         } else {
           console.warn(consoleWarnMessage_showMessageTurnedOff)
         }
@@ -435,7 +450,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     }]
     window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
       elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton,elem_profilePictureUser: profilePictureUser, elem_profileSVG: profileSVG,
-      elem_profilePicture: profilePicture, elem_button_importProfilePicture: button_importProfilePicture
+      elem_profilePicture: profilePicture, elem_button_importProfilePicture: button_importProfilePicture, elem_configProfileScore_RangScore: configProfileScore_RangScore,
+      elem_configProfileScore_RangName: configProfileScore_RangName
     }]
     window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
       dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText,

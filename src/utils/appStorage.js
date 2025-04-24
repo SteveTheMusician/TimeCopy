@@ -5,6 +5,7 @@ import { notification } from "../components/ui/notification/notification.js"
 import { message } from "../components/ui/message/message.js"
 import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
 import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
+import { setScoreValues } from "./setScorevalues.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -18,9 +19,14 @@ let lstorage_cShowAllMessagesParsed = ''
 export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
 export let lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture')
+export let lstorage_cBookingScore = localStorage.getItem('tc_c_bookingScore')
+let lstorage_cBookingScoreParsed
 // catch parse problems with show all message value
 if(lstorage_cShowAllMessages !== null && lstorage_cShowAllMessages !== '' && lstorage_cShowAllMessages !== 'undefined'){
   lstorage_cShowAllMessagesParsed = JSON.parse(lstorage_cShowAllMessages)
+}
+if(lstorage_cBookingScore !== null && lstorage_cBookingScore !== '' && lstorage_cBookingScore !== 'undefined'){
+  lstorage_cBookingScoreParsed = JSON.parse(lstorage_cBookingScore)
 }
 
 export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
@@ -81,6 +87,11 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     if(lstorage_cProfilePicture !== null) {
       setUnsetProfilePicture(true,lstorage_cProfilePicture,appGlobalArgs)
     }
+    if(lstorage_cBookingScoreParsed !== null) {
+      setScoreValues(lstorage_cBookingScoreParsed,appGlobalArgs)
+    } else {
+      setScoreValues('0',appGlobalArgs)
+    }
     loadDLCStorage(dlcGlobalArgs)
   }
   // sessionstorages for temp-messages and data
@@ -140,6 +151,7 @@ export function clearLocalStorage() {
   localStorage.removeItem('tc_ee_exoticTheme')
   localStorage.removeItem('tc_c_showAllMessages')
   localStorage.removeItem('tc_c_profilePicture')
+  localStorage.removeItem('tc_c_bookingScore')
   clearDlcLocalStorages()
 }
 

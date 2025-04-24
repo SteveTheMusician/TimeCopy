@@ -384,6 +384,10 @@ label:has(#button_importConfigs) {
     transition: var(--transition-default);
 }
 
+.button-helplink {
+    text-decoration: underline;
+}
+
 .button-config-tab {
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
