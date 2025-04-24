@@ -40,12 +40,26 @@ export function generateThemes() {
         "e_silverliquid": "Silver Liquid"
       }
     }];
+    const themeETimeGoldArray = [{
+      "XXXX": {
+        "e_timegod": "Time God"
+      }
+    }];
+    const themeECreatorArray = [{
+      "Creator Themes": {
+        "e_thecreator": "Der Erschaffer"
+      }
+    }];
   
-    let allThemes
+    let allThemes = [...themesArray]
     if(lstorage_eeTheme === 'true'){
-      allThemes = [...themesArray, ...themeEEArray];
-    } else {
-      allThemes = [...themesArray];
+      allThemes = [...allThemes, ...themeEEArray];
+    }
+    if(localStorage.getItem('tc_creator') === 'true'){
+      allThemes = [...allThemes, ...themeECreatorArray];
+    }
+    if(localStorage.getItem('tc_c_bookingScore') > "1000"){
+      allThemes = [...allThemes, ...themeETimeGoldArray];
     }
       
     const optionsHTML = allThemes.map(themeGroup =>

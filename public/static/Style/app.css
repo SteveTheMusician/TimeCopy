@@ -916,6 +916,70 @@ input:checked+.switch_slider:before {
     align-items: center;
 }
 
+.statusBar {
+    position: absolute;
+    background-color: var(--color-second);
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0;
+}
+
+.scoreTextSpecial-wizard {
+    animation: scoreTextSpecial-wizard 10s linear infinite;
+}
+
+.scoreTextSpecial-legend {
+    animation: scoreTextSpecial-legend 10s linear infinite;
+}
+
+.scoreTextSpecial-god {
+    animation: scoreTextSpecial-god 10s linear infinite;
+}
+
+.textAnimation-creator {
+    animation: textAnimation-creator 1s linear infinite;
+}
+
+@keyframes scoreTextSpecial-wizard {
+    0% {
+        color: #354ac2;
+    }
+    50% {
+        color: #1eddff;
+    }
+    100% {
+        color: #354ac2;
+    }
+}
+
+@keyframes scoreTextSpecial-legend {
+    0% {
+        color: #7c35c2;
+    }
+    50% {
+        color: #b97adb;
+    }
+    100% {
+        color: #7c35c2;
+    }
+}
+
+@keyframes scoreTextSpecial-god {
+    0% {
+        color: #927950;
+    }
+    30% {
+        color: #f3d991; 
+    }
+    60% {
+        color: #91f3d1;
+    }
+    100% {
+        color: #927950;
+    }
+}
+
 @keyframes message-new-information {
     0% {
         outline-color: var(--color-highlight);
@@ -955,6 +1019,48 @@ input:checked+.switch_slider:before {
 
     100% {
         outline-color: var(--color-second);
+    }
+}
+
+@keyframes textAnimation-creator {
+    0% {
+        color: #15a27c;
+    }
+    20% {
+        color: #15a27c; 
+    }
+    30% {
+        color: #d547e7;
+    }
+    40% {
+        color: #15a27c; ;
+    }
+    60% {
+        color: #38d4aa; ;
+    }
+    65% {
+        color: #d547e7;
+    }
+    67% {
+        color: #37ed58;
+    }
+    69% {
+        color: #3a37ed;
+    }
+    70% {
+        color: #38d4aa; ;
+    }
+    80% {
+        color: #2ee6b5; ;
+    }
+    85% {
+        color: #e31ac8;
+    }
+    90% {
+        color: #37ed58;
+    }
+    100% {
+        color: #15a27c;
     }
 }
 

@@ -20,7 +20,7 @@ export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
 export let lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture')
 export let lstorage_cBookingScore = localStorage.getItem('tc_c_bookingScore')
-let lstorage_cBookingScoreParsed
+let lstorage_cBookingScoreParsed = ''
 // catch parse problems with show all message value
 if(lstorage_cShowAllMessages !== null && lstorage_cShowAllMessages !== '' && lstorage_cShowAllMessages !== 'undefined'){
   lstorage_cShowAllMessagesParsed = JSON.parse(lstorage_cShowAllMessages)
@@ -32,7 +32,6 @@ if(lstorage_cBookingScore !== null && lstorage_cBookingScore !== '' && lstorage_
 export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
   // load localstorage
   function loadStorage() {
-    
     if (lstorage_appVersion) {
       if (lstorage_appVersion !== appVersionData.version) {
         localStorage.setItem('tc_appVersion', appVersionData.version)
@@ -87,10 +86,11 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     if(lstorage_cProfilePicture !== null) {
       setUnsetProfilePicture(true,lstorage_cProfilePicture,appGlobalArgs)
     }
-    if(lstorage_cBookingScoreParsed !== null) {
+    if(lstorage_cBookingScoreParsed !== '') {
       setScoreValues(lstorage_cBookingScoreParsed,appGlobalArgs)
     } else {
       setScoreValues('0',appGlobalArgs)
+      localStorage.setItem('tc_c_bookingScore','0')
     }
     loadDLCStorage(dlcGlobalArgs)
   }

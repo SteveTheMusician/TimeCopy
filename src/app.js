@@ -58,6 +58,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   const profileSVG = document.getElementById('Profile')
   const configProfileScore_RangScore = document.getElementById('configProfileScore_RangScore')
   const configProfileScore_RangName = document.getElementById('configProfileScore_RangName')
+  const statusBarProfileScore_RangScore = document.getElementById('statusBarProfileScore_RangScore')
+  const statusBarProfileScore_RangName = document.getElementById('statusBarProfileScore_RangName')
+  const statusBar = document.getElementById('statusBar')
   // tab buttons
   const buttonsTab_getAll = document.getElementsByClassName('button-config-tab')
   const buttonTab_General = document.querySelector('button#button-tab-general')
@@ -139,6 +142,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       configurations.classList.add('dNone')
       overview.classList.remove('dNone')
       header.classList.add('dNone')
+      statusBar.classList.remove('dNone')
       configOpen = false
       if (window.configUserChanges === true) {
         window.location.reload()
@@ -149,6 +153,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       configurations.classList.remove('dNone')
       overview.classList.add('dNone')
       header.classList.remove('dNone')
+      statusBar.classList.add('dNone')
       configOpen = true
     }
   }
@@ -451,7 +456,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
       elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton,elem_profilePictureUser: profilePictureUser, elem_profileSVG: profileSVG,
       elem_profilePicture: profilePicture, elem_button_importProfilePicture: button_importProfilePicture, elem_configProfileScore_RangScore: configProfileScore_RangScore,
-      elem_configProfileScore_RangName: configProfileScore_RangName
+      elem_configProfileScore_RangName: configProfileScore_RangName,elem_statusBarProfileScore_RangScore:statusBarProfileScore_RangScore,elem_statusBarProfileScore_RangName:statusBarProfileScore_RangName
     }]
     window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
       dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText,

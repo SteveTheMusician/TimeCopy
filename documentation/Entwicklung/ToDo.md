@@ -14,6 +14,8 @@
 Yosha Update:
 - - im Ticketname akzeptiert Leere Ticketnummer bzw Tickets ohne Nummer / Tobias Excel FIlter anpassen 
 (GGF eigenes DLC Nötig)
+- score ein aus schalten
+- status bar ein aus blenden
 
 ## V 1.0.21
 - Fix: erstellte detections, filter und theme sollen direkt gespeichert werden beim profil export ✅
@@ -43,9 +45,11 @@ Yosha Update:
 
 - * im Ticketname nimmt alle Tickets an ✅
 
-- booking counter mit verschiedenen rang namen (ab 100 buchungen so und so) -> nach max level gibt es einen neuen skin (gold flake)
+- booking counter mit verschiedenen rang namen (ab 100 buchungen so und so) -> nach max level gibt es einen neuen skin (gold flake) 
 
 - fix: error am ende der buchung durch counter ✅
+
+- score in statusleiste ✅
 
 Rang Namen
 - Timecopyrier 0 - 8

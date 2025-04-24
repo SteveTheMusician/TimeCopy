@@ -137,6 +137,10 @@ header {
   background-color: var(--color-second);
 }
 
+.statusBar {
+  backdrop-filter: var(--blur-default) brightness(1.05);
+}
+
 .button-config-tab {
   border-radius: var(--border-radius-default);
 }
