@@ -332,7 +332,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
     if(dev_pttest){
       console.warn('[Time Copy] ## ProTime Test-Mode ##')
     }
-    return new Promise((resolve) => {
+    return new Promise((resolve,reject) => {
       // if click-overlay already exists duo error / plugin reload - remove it
       if (document.getElementById('timeCopyProTimeClick')) {
         document.getElementById('timeCopyProTimeClick').remove()
@@ -356,7 +356,14 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         resolveFirstBookingLoop()
       }
       function resolveFirstBookingLoop() {
-        resolve('first booking loop ok')
+        if(!document.getElementById('timeCopyProTimeClick')){
+          resolve('first booking loop ok')
+        } else {
+          reject({
+            text: 'Overlay nicht geschlossen',
+            textdetails: `Das Overlay konnte nicht geschlossen werden, was zu folge hat, dass der Buchungsprozess stehen geblieben ist. Überprüfe, ob du dich auf der richtigen Seite befindest.`,
+          });
+        }
       }
     })
   }
@@ -370,10 +377,10 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             // use the booking-loop function to check where we are at the process and if we need the overlay
             await checkFirstBookingLoop(bookingLoopCount)
           } catch (error) {
-            alert('Time Copy ' + error)
             console.error("[Time Copy] Error in checkFirstBookingLoop: ", error);
-            return
+            return result = { success: false, message: error };
           }
+          console.log('---->')
           // start observing loading dots for the whole process
           crossObserver(proTimeElem_loadingBox);
           // wait for empty textarea (true only when page is reloaded or ticket was booked)

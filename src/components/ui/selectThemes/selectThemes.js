@@ -55,12 +55,13 @@ export function generateThemes() {
     if(lstorage_eeTheme === 'true'){
       allThemes = [...allThemes, ...themeEEArray];
     }
-    if(localStorage.getItem('tc_creator') === 'true'){
-      allThemes = [...allThemes, ...themeECreatorArray];
-    }
-    if(localStorage.getItem('tc_c_bookingScore') > "1000"){
-      allThemes = [...allThemes, ...themeETimeGoldArray];
-    }
+    // special themes to unlock -> currently not used
+    // if(localStorage.getItem('tc_creator') === 'true'){
+      // allThemes = [...allThemes, ...themeECreatorArray];
+    // }
+    // if(localStorage.getItem('tc_c_bookingScore') > "1000"){
+      // allThemes = [...allThemes, ...themeETimeGoldArray];
+    // }
       
     const optionsHTML = allThemes.map(themeGroup =>
         Object.entries(themeGroup).map(([category, themes]) =>

@@ -938,7 +938,7 @@ input:checked+.switch_slider:before {
 }
 
 .textAnimation-creator {
-    animation: textAnimation-creator 1s linear infinite;
+    animation: textAnimation-creator 6s linear infinite;
 }
 
 @keyframes scoreTextSpecial-wizard {
