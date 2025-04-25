@@ -1,12 +1,13 @@
 
 import { pAmagProTime_defaultUseTicketNomberInText, pAmagProTime_defaultHighLatencyMode, pAmagProTime_defaultForceHighLatencyMode, 
-  pAmagProTime_defaultUseProTimeTestMode, pAmagProTime_defaultUseMatchBookingDay } from "./defaults/defaultDLCVariables"
-
+  pAmagProTime_defaultUseProTimeTestMode, pAmagProTime_defaultUseMatchBookingDay,pAmagProTime_defaultUseAutoSelectDay } from "./defaults/defaultDLCVariables"
+console.log(localStorage.getItem('tc_c_protimeautoselectday'))
 export let lstorage_c_dlcProTimeTest = JSON.parse(localStorage.getItem('tc_c_dlc_protimetest'))
 export let lstorage_c_dlcProTimeForceLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeforcelatencymode'))
 export let lstorage_c_dlcProTimeUseLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeuselatencymode'))
 export let lstorage_c_dlcProtimeTicketNomberInText = JSON.parse(localStorage.getItem('tc_c_dlc_protimeticketnomberintext'))
 export let lstorage_c_dlcProtimeUseMatchBookingDay = JSON.parse(localStorage.getItem('tc_c_protimematchbookingday'))
+export let lstorage_c_dlcProtimeUseAutoSelectDay = JSON.parse(localStorage.getItem('tc_c_protimeautoselectday'))
 
 // local storage for dlcs
 export function loadDLCStorage(dlcGlobalArgs) {
@@ -41,6 +42,12 @@ export function loadDLCStorage(dlcGlobalArgs) {
     dlcGlobalArgs.dlcProTime_config_check_useMatchBookingDay.checked = pAmagProTime_defaultUseMatchBookingDay
     localStorage.setItem('tc_c_protimematchbookingday',pAmagProTime_defaultUseMatchBookingDay)
   }
+  if(lstorage_c_dlcProtimeUseAutoSelectDay !== null) {
+    dlcGlobalArgs.dlcProTime_config_check_useAutoSelectDay.checked = lstorage_c_dlcProtimeUseAutoSelectDay
+  } else {
+    localStorage.setItem('tc_c_protimeautoselectday',pAmagProTime_defaultUseAutoSelectDay)
+    dlcGlobalArgs.dlcProTime_config_check_useAutoSelectDay.checked = pAmagProTime_defaultUseAutoSelectDay
+  }
 }
 
 export function clearDlcLocalStorages(onlyImportantDLC) {
@@ -58,6 +65,7 @@ export function clearDlcLocalStorages(onlyImportantDLC) {
     localStorage.removeItem('tc_c_dlc_protimeuselatencymode')
     localStorage.removeItem('tc_c_dlc_protimeticketnomberintext')
     localStorage.removeItem('tc_c_protimematchbookingday')
+    localStorage.removeItem('tc_c_protimeautoselectday')
   }
 }
   

@@ -41,7 +41,7 @@ Yosha Update:
 - fix: showAllMessages und dlc Storages zu beginn auslösen und speichern wenn keine da sind ✅
 - liquid theme fertig machen
 - farb theme: kahlids coffe mug / redbull (türkis und pink)
-- dlc protime: ping modus verbessern
+- dlc protime: ping modus verbessern ✅
 
 - * im Ticketname nimmt alle Tickets an ✅
 
@@ -50,6 +50,8 @@ Yosha Update:
 - fix: error am ende der buchung durch counter ✅
 
 - score in statusleiste ✅
+
+- dlc protime: auto select date sobald man auf einfügen klickt
 
 Rang Namen
 - Timecopyrier 0 - 8

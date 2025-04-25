@@ -103,6 +103,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
   const dlcProTime_config_check_useMatchBookingDay = document.getElementById('check_useMatchBookingDayProTime')
   dlcProTime_config_check_useMatchBookingDay.addEventListener('change', dlcProTimeUseMatchBookingDay)
+  const dlcProTime_config_check_useAutoSelectDay = document.getElementById('check_useAutoSelectDayProTime')
+  dlcProTime_config_check_useAutoSelectDay.addEventListener('change', dlcProTimeUseAutoSelectDay)
   let bookingScore = 0
   let configOpen = false
   try{
@@ -391,21 +393,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   }
 
-  function dlcProTimeForceLatencyMode(){
-    if(dlcProTime_config_check_forceLatencyMode.checked){
-      localStorage.setItem('tc_c_dlc_protimeforcelatencymode', true)
-    }else {
-      localStorage.setItem('tc_c_dlc_protimeforcelatencymode', false)
-    }
+  function dlcProTimeForceLatencyMode(e){
+    localStorage.setItem('tc_c_dlc_protimeforcelatencymode', e.target.checked)
     window.configUserChanges = true
   }
 
-  function dlcProTimeUseLatencyMode(){
-    if(dlcProTime_config_check_useLatencyMode.checked){
-      localStorage.setItem('tc_c_dlc_protimeuselatencymode', true)
-    }else {
-      localStorage.setItem('tc_c_dlc_protimeuselatencymode', false)
-    }
+  function dlcProTimeUseLatencyMode(e){
+    localStorage.setItem('tc_c_dlc_protimeuselatencymode', e.target.checked)
     window.configUserChanges = true
   }
 
@@ -415,22 +409,18 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.configUserChanges = true
   }
 
-  function dlcProTimeUseTicketNomberInText(){
-    if(dlcProTime_config_check_useTicketnomberInText.checked) {
-      localStorage.setItem('tc_c_dlc_protimeticketnomberintext', true)
-    }else {
-      localStorage.setItem('tc_c_dlc_protimeticketnomberintext', false)
-    }
+  function dlcProTimeUseTicketNomberInText(e){
+    localStorage.setItem('tc_c_dlc_protimeticketnomberintext', e.target.checked)
     window.configUserChanges = true
   }
 
-  function dlcProTimeUseMatchBookingDay() {
-    if(dlcProTime_config_check_useMatchBookingDay.checked) {
-      localStorage.setItem('tc_c_protimematchbookingday', true)
-    } else {
-      localStorage.setItem('tc_c_protimematchbookingday', false)
-    }
+  function dlcProTimeUseMatchBookingDay(e) {
+    localStorage.setItem('tc_c_protimematchbookingday', e.target.checked)
     window.configUserChanges = true
+  }
+
+  function dlcProTimeUseAutoSelectDay(e) {
+    localStorage.setItem('tc_c_protimeautoselectday', e.target.checked)
   }
 
   function clearAllMessages() {
@@ -460,7 +450,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }]
     window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
       dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText,
-      dlcProTime_config_check_useMatchBookingDay: dlcProTime_config_check_useMatchBookingDay
+      dlcProTime_config_check_useMatchBookingDay: dlcProTime_config_check_useMatchBookingDay,dlcProTime_config_check_useAutoSelectDay:dlcProTime_config_check_useAutoSelectDay
     }]
     // return message if offline
     if (!navigator.onLine) {

@@ -3,6 +3,7 @@ import { notification } from "../components/ui/notification/notification.js";
 import { lstorage_cBookingPlatform,lstorage_cFilter,lstorage_cShowAllMessages,
     lstorage_cDetectionItems,lstorage_cLanguage,lstorage_cThemes,lstorage_cProfilePicture,lstorage_cBookingScore } from "./appStorage.js";
 import { defaultTheme,defaultLanguage,defaultShowAllMessages,defaultProfileAuthor } from "./defaults/defaultVariables.js";
+import { dlcProfileExport,dlcProfileImport } from "./dlcProfileManagerUtil.js";
 
 export function profileManager(appGlobalArgs,appVersionData,dlcGlobalArgs) {
   let tcprofileVersion = appVersionData.profileVersion
@@ -67,8 +68,9 @@ export function profileManager(appGlobalArgs,appVersionData,dlcGlobalArgs) {
           localStorage.setItem('tc_c_filter', fileData.tcprofile.cfg.filter)
           localStorage.setItem('tc_c_projectDetection', JSON.stringify(fileData.tcprofile.cfg.detections))
           localStorage.setItem('tc_c_bookingPlatform', fileData.tcprofile.cfg.platform)
-          
+          // set app and dlc storage, make app ready for reload
           appStorage(appGlobalArgs,appVersionData,dlcGlobalArgs)
+          dlcProfileImport(fileData)
           sessionStorage.setItem('tc_c_messageImported', 'true')
           window.location.reload()    
           setTimeout(function () {}, 2000)
@@ -153,6 +155,7 @@ export function exportProfile(appVersionData, appGlobalArgs) {
   let profilePictureExport = lstorage_cProfilePicture ?? '';
   let bookingScoreExport = lstorage_cBookingScore ?? 0
 
+  let dclProfileObject = dlcProfileExport()
   let tcProfileObj = {
     "tcprofile": {
       "author": defaultProfileAuthor,
@@ -174,12 +177,7 @@ export function exportProfile(appVersionData, appGlobalArgs) {
       "detections": detectionItems
     },"profilePicture":profilePictureExport
   });
-  Object.assign(tcProfileObj.tcprofile, {
-    "dlccfg": {
-      "filters": {"FILTERNAME":{}},
-      "platforms": {"PLATFORMNAME":{}}
-    }
-  });
+  Object.assign(tcProfileObj.tcprofile, dclProfileObject);
 
   const jsonString = JSON.stringify(tcProfileObj);
   const base64Data = btoa((encodeURIComponent(jsonString)));

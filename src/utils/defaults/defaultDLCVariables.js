@@ -3,3 +3,4 @@ export const pAmagProTime_defaultHighLatencyMode = true
 export const pAmagProTime_defaultForceHighLatencyMode = false
 export const pAmagProTime_defaultUseProTimeTestMode = false
 export const pAmagProTime_defaultUseMatchBookingDay = true
+export const pAmagProTime_defaultUseAutoSelectDay = false

@@ -2,7 +2,7 @@
   /* ---- Exotic Theme ---- */
 
   /* vars */
-  --blur-default: blur(30px);
+  --blur-default: blur(60px);
   --transition-default: .3s;
   /* color palette */
   --color-none: transparent;
@@ -18,16 +18,16 @@
   --color-main: var(--white-fa);
   --color-second: var(--clear-gray);
   --color-third: var(--color-none);
-  --color-highlight: #9e8cff;
-  --color-active: #aa6dff;
+  --color-highlight: #c3d6ee;
+  --color-active: #9e9cec;
   --color-disabled: var(--dark-pink);
   --color-close: #d2428c;
   --color-warning: #d2b442;
   /* Font colors */
-  --color-font: var(--blue-gray);
+  --color-font: #a6a6c8;
   --color-font-navigation: var(--color-font-second);
   --color-font-headline: #a6a6c8;
-  --color-font-second: var(--blue-gray);
+  --color-font-second: #a6a6c8;
   --color-font-headlabel: var(--color-main);
   --color-font-subtext: var(--color-main);
   /* Icon colors */

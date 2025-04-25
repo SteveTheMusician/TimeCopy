@@ -47,6 +47,17 @@ export const customContent = `<div class="dlc-platform_custom-content">
     </div>
     <div class="dlc-platform_custom-content-row dFlex">
         <div class="row-cell-left">
+            <p class="subtext">Tag autoselect (Experimentell)</p>
+        </div>
+        <div class="row-cell-right">
+            <label class="switch">
+                <input type="checkbox" class="" id="check_useAutoSelectDayProTime"  />
+                <span class="switch_slider" title="Wählt automatisch den Tag zum Buchen in Protime aus, wenn das Datum mit-kopiert wurde. (Experiementelle Funktion)"></span>
+            </label>
+        </div>
+    </div>
+    <div class="dlc-platform_custom-content-row dFlex">
+        <div class="row-cell-left">
             <p class="subtext">Test-Modus</p>
         </div>
         <div class="row-cell-right">
