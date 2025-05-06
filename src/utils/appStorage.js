@@ -1,6 +1,6 @@
 
 import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../dlc/dlc.js"
-import { defaultProfileName, defaultTheme, defaultShowAllMessages,default_e } from "./defaults/defaultVariables.js"
+import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e } from "./defaults/defaultVariables.js"
 import { notification } from "../components/ui/notification/notification.js"
 import { message } from "../components/ui/message/message.js"
 import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
@@ -16,6 +16,8 @@ export let lstorage_cLanguage = localStorage.getItem('tc_c_language')
 export let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
 export let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessages')
 let lstorage_cShowAllMessagesParsed = ''
+export let lstorage_cShowStatusBar = localStorage.getItem('tc_c_showStatusBar')
+let lstorage_cShowStatusBarParsed = ''
 export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
 export let lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture')
@@ -24,6 +26,9 @@ let lstorage_cBookingScoreParsed = ''
 // catch parse problems with show all message value
 if(lstorage_cShowAllMessages !== null && lstorage_cShowAllMessages !== '' && lstorage_cShowAllMessages !== 'undefined'){
   lstorage_cShowAllMessagesParsed = JSON.parse(lstorage_cShowAllMessages)
+}
+if(lstorage_cShowStatusBar !== null && lstorage_cShowStatusBar !== '' && lstorage_cShowStatusBar !== 'undefined'){
+  lstorage_cShowStatusBarParsed = JSON.parse(lstorage_cShowStatusBar)
 }
 if(lstorage_cBookingScore !== null && lstorage_cBookingScore !== '' && lstorage_cBookingScore !== 'undefined'){
   lstorage_cBookingScoreParsed = JSON.parse(lstorage_cBookingScore)
@@ -83,6 +88,14 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       localStorage.setItem('tc_c_showAllMessages',defaultShowAllMessages)
       showHideAllMessages(defaultShowAllMessages)
     }
+    if(lstorage_cShowStatusBarParsed !== '' && lstorage_cShowStatusBarParsed !=='undefined') {
+      showHideStatusBar(lstorage_cShowStatusBarParsed)
+      appGlobalArgs.switch_showStatusBar.checked = lstorage_cShowStatusBarParsed
+    } else {
+      appGlobalArgs.switch_showStatusBar.checked = defaultShowStatusBar
+      localStorage.setItem('tc_c_showStatusBar',defaultShowStatusBar)
+      showHideStatusBar(defaultShowStatusBar)
+    }
     if(lstorage_cProfilePicture !== null) {
       setUnsetProfilePicture(true,lstorage_cProfilePicture,appGlobalArgs)
     }
@@ -138,28 +151,22 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       appGlobalArgs.messagesheadline.classList.add('dNone')
     }
   }
+  function showHideStatusBar(showHideState) {
+    if(showHideState) {
+      appGlobalArgs.elem_statusBar.classList.remove('statusBar--hidden')
+    }else {
+      appGlobalArgs.elem_statusBar.classList.add('statusBar--hidden')
+    }
+  }
 }
 // clear local storage
 export function clearLocalStorage() {
-  localStorage.removeItem('tc_c_theme')
-  localStorage.removeItem('tc_c_language')
-  localStorage.removeItem('tc_c_filter')
-  localStorage.removeItem('tc_c_projectDetection')
-  localStorage.removeItem('tc_c_profileName')
-  localStorage.removeItem('tc_c_bookingPlatform')
-  localStorage.removeItem('tc_appVersion')
-  localStorage.removeItem('tc_ee_exoticTheme')
-  localStorage.removeItem('tc_c_showAllMessages')
-  localStorage.removeItem('tc_c_profilePicture')
-  localStorage.removeItem('tc_c_bookingScore')
+  localStorage.clear()
   clearDlcLocalStorages()
 }
 
 export function clearSessionStorage() {
-  sessionStorage.removeItem('tc_c_messageImported')
-  sessionStorage.removeItem('tc_c_messageProfileRemoved')
-  sessionStorage.removeItem('tc_c_changeLanguage')
-  sessionStorage.removeItem('tc_c_messageDLCCacheReloaded')
+  sessionStorage.clear()
 }
 // delete configs
 export function removeProfile() {

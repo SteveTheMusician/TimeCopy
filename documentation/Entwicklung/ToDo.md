@@ -52,6 +52,8 @@ Yosha Update:
 - score in statusleiste ✅
 
 - dlc protime: auto select date sobald man auf einfügen klickt
+-  statusleiste ausblenden ✅
+- code clean app -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
 
 Rang Namen
 - Timecopyrier 0 - 8

@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_importProfilePicture = document.getElementById('button_importProfilePicture')
   const themeSelect = document.querySelector('select#select-themes')
   const switch_showAllMessages = document.getElementById('check_showAllNotifications')
+  const switch_showStatusBar = document.getElementById('check_showStatusBar')
   const radios_filter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
   const button_docuReadme = document.getElementById('button_openReadme')
@@ -356,6 +357,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.configUserChanges = true
   }
 
+  function showStatusBarChange() {
+    let showStatusBarSwitchCurrentStatus = switch_showStatusBar.checked
+    localStorage.setItem('tc_c_showStatusBar',showStatusBarSwitchCurrentStatus )
+    window.configUserChanges = true
+  }
+
   function switchFilter(e) {
     localStorage.setItem('tc_c_filter', e.target.value)
     window.configUserChanges = true
@@ -444,9 +451,9 @@ document.addEventListener('DOMContentLoaded', async function () {
       supportedProfileTypes: supportedProfileTypes,updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
     }]
     window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
-      elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton,elem_profilePictureUser: profilePictureUser, elem_profileSVG: profileSVG,
-      elem_profilePicture: profilePicture, elem_button_importProfilePicture: button_importProfilePicture, elem_configProfileScore_RangScore: configProfileScore_RangScore,
-      elem_configProfileScore_RangName: configProfileScore_RangName,elem_statusBarProfileScore_RangScore:statusBarProfileScore_RangScore,elem_statusBarProfileScore_RangName:statusBarProfileScore_RangName
+      switch_showStatusBar: switch_showStatusBar,elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton,elem_profilePictureUser: profilePictureUser, 
+      elem_profileSVG: profileSVG,elem_profilePicture: profilePicture, elem_button_importProfilePicture: button_importProfilePicture, elem_configProfileScore_RangScore: configProfileScore_RangScore,
+      elem_configProfileScore_RangName: configProfileScore_RangName,elem_statusBarProfileScore_RangScore:statusBarProfileScore_RangScore,elem_statusBarProfileScore_RangName:statusBarProfileScore_RangName,elem_statusBar: statusBar
     }]
     window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
       dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText,
@@ -478,6 +485,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     configProfileName.addEventListener('change', configSetProfileName)
     // configs listener
     switch_showAllMessages.addEventListener('click', showAllMessagesChange)
+    switch_showStatusBar.addEventListener('click', showStatusBarChange)
     // config help buttons
     button_docuHelp.addEventListener('click', () => window.open(dokuUrl))
     button_docuDatenschutz.addEventListener('click', () => window.open(privacyUrl))

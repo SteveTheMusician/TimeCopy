@@ -47,7 +47,7 @@ export const customContent = `<div class="dlc-platform_custom-content">
     </div>
     <div class="dlc-platform_custom-content-row dFlex">
         <div class="row-cell-left">
-            <p class="subtext">Tag autoselect (Experimentell)</p>
+            <p class="subtext">Tag autoselect (Exp.)</p>
         </div>
         <div class="row-cell-right">
             <label class="switch">
