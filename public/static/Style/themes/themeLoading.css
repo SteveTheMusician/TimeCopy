@@ -1,14 +1,67 @@
 body {
     background-color: #131c21;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    align-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    justify-items: stretch;
 }
 body:before {
     content: 'Loading';
     color: #38525f;
     font-size: 12px;
+    animation: showResetText 5s linear forwards;
+    transition: .3s;
 }
+
 main {
     display: none;
+}
+
+#resetTimeCopy {
+    margin-top: 20px;
+    border-radius: 6px;
+    border: 1px solid #38525f;
+    background-color: transparent;
+    font-size: 12px;
+    background-color: transparent;
+    color: #eee;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    animation: showResetButton .3s linear forwards;
+    animation-delay: 5s;
+    pointer-events: none;
+}
+
+#resetTimeCopy:hover {
+    background-color: #38525f;
+}
+
+@keyframes showResetText {
+    0% {
+        content: 'Loading';
+    }
+    100% {
+        content: 'If Time Copy is not loading, press reset.';
+    }
+}
+
+@keyframes showResetButton {
+    0% {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+    }
+    100% {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: all;
+    }
+    
 }

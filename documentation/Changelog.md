@@ -175,6 +175,7 @@ Time Copy was converted into a side-bar version from version 0.8.7.
 - feature: profile options as dropdown
 - feature: any-update -> every ticket can now applied to an platform via "*" in the ticketname
 - feature: booking counter
+- feature: reset app button (loading screen)
 - fix: small screen styles
 - fix: showAllMessages default value
 - fix: other import/export issues
