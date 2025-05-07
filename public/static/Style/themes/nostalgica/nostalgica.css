@@ -118,6 +118,7 @@ select {
   padding: 10px;
   border-radius: 100px;
   background-color: var(--color-third);
+  border-right: 10px solid transparent;
 }
 
 .input-size--small {

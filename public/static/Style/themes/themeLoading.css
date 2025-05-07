@@ -35,7 +35,7 @@ main {
     opacity: 0;
     visibility: hidden;
     animation: showResetButton .3s linear forwards;
-    animation-delay: 5s;
+    animation-delay: 3s;
     pointer-events: none;
 }
 

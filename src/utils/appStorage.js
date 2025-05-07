@@ -137,7 +137,6 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
   loadStorage()
   loadSessionStorages()
   function sessionReloadHandler(remItem){
-    console.log()
     let configButton = appGlobalArgs.elem_configButton
     sessionStorage.removeItem(remItem)
     configButton.click()

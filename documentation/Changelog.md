@@ -167,9 +167,10 @@ Time Copy was converted into a side-bar version from version 0.8.7.
 - fix: export configs directly after changes
 - other: mini service for session storage
 
-## V 1.0.22 - 1.1.40
+## V 1.0.22 - 1.1.80
 - feature: dlc amag protime - turn ticketnomber pasting into text on and off
 - feature: liquid silver theme
+- feature: oceansground technical theme
 - feature: profile picture
 - feature: profile file encoding
 - feature: profile options as dropdown
@@ -181,6 +182,7 @@ Time Copy was converted into a side-bar version from version 0.8.7.
 - fix: other import/export issues
 - fix: create lstorasge on startup
 - fix: dlc amag protime - catch error when overlay is not hiding
+- fix: themes select arrow position
 - other: restructure and clean up code
 - other: map theme select dynamicaly
 - other: profile cleanup (redesign and select options)

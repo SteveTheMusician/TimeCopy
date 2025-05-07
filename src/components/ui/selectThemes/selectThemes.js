@@ -8,6 +8,7 @@ export function generateThemes() {
         "midnightglow": "Midnight Glow",
         "nostalgica": "Nostalgica",
         "oceansground": "Oceans Ground",
+        "oceansgroundtechnical": "Oceans Ground Technical",
         "oceanswave": "Oceans Wave"
       },
       "Gefühle": {

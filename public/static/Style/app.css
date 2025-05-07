@@ -693,6 +693,7 @@ select {
     font-size: 12px;
     border: 0px solid;
     width: 100%;
+    border-right: 5px solid transparent;
 }
 
 .detectionItem-main {

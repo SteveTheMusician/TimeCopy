@@ -156,6 +156,7 @@ header {
 input[type=text], select {
   padding: 10px;
   border-radius: 100px;
+  border-right: 10px solid transparent;
 }
 
 .input-size--small {

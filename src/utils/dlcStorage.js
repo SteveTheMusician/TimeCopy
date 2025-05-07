@@ -1,7 +1,6 @@
 
 import { pAmagProTime_defaultUseTicketNomberInText, pAmagProTime_defaultHighLatencyMode, pAmagProTime_defaultForceHighLatencyMode, 
   pAmagProTime_defaultUseProTimeTestMode, pAmagProTime_defaultUseMatchBookingDay,pAmagProTime_defaultUseAutoSelectDay } from "./defaults/defaultDLCVariables"
-console.log(localStorage.getItem('tc_c_protimeautoselectday'))
 export let lstorage_c_dlcProTimeTest = JSON.parse(localStorage.getItem('tc_c_dlc_protimetest'))
 export let lstorage_c_dlcProTimeForceLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeforcelatencymode'))
 export let lstorage_c_dlcProTimeUseLatencyMode = JSON.parse(localStorage.getItem('tc_c_dlc_protimeuselatencymode'))

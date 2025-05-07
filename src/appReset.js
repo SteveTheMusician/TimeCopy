@@ -3,10 +3,12 @@ const tcResetButton = document.getElementById('resetTimeCopy')
 tcResetButton.addEventListener('click',appReset)
 
 document.addEventListener("DOMContentLoaded", function () {
-  const bodyBefore = getComputedStyle(document.body, '::before');
-  if (bodyBefore.content && before.content !== 'none' && bodyBefore.content !== '""') {
-    tcResetButton.removeAttribute('hidden')
-  }
+  setTimeout(function(){
+    const bodyBefore = getComputedStyle(document.body, '::before');
+    if (bodyBefore.content && bodyBefore.content !== 'none' && bodyBefore.content !== '""') {
+      tcResetButton.removeAttribute('hidden')
+    }
+  },2000)
 });
 
 function appReset(){
