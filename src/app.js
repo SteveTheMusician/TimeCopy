@@ -545,9 +545,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       developer()
       // reset restart count
       setTimeout(function(){
-        if(sessionStorage.getItem('tc_s_restartCount') === "1"){
-          let restartCountReset = 0
-          sessionStorage.setItem('tc_s_restartCount',restartCountReset)
+        if(sessionStorage.getItem('tc_s_restartCount') < "4"){
+          sessionStorage.removeItem('tc_s_restartCount')
         }
       },300)
       console.log('✅ [Time Copy] extension loaded')

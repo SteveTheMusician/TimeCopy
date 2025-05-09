@@ -49,7 +49,7 @@ export function loadDLCStorage(dlcGlobalArgs) {
   }
   // catch edge case, when the app should be updated at the same time, when the user do a change
   // reset version and reload app
-  if(localStorage.getItem('tc_s_dlcplatforminformations') === null) {
+  if(localStorage.getItem('tc_s_dlcplatforminformations') === null ) {
     localStorage.removeItem('tc_appVersion')
     window.location.reload()
   }

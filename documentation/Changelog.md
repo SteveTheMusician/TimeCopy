@@ -167,7 +167,7 @@ Time Copy was converted into a side-bar version from version 0.8.7.
 - fix: export configs directly after changes
 - other: mini service for session storage
 
-## V 1.0.22 - 1.1.80
+## V 1.1.81
 - feature: dlc amag protime - turn ticketnomber pasting into text on and off
 - feature: liquid silver theme
 - feature: oceansground technical theme
