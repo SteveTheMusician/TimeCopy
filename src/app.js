@@ -1,4 +1,5 @@
 
+
 import data_version from "../public/version.json" with { type: "json" };
 import { useLanguage } from "./utils/language.js";
 import { message } from "./components/ui/message/message.js";
@@ -13,6 +14,24 @@ import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 // remove developer on prod
 import { developer } from "./developer/developer.js";
+
+// catch reload loops
+window.onload = function () {
+  let restartCount = Number(sessionStorage.getItem('tc_s_restartCount')) || 0;
+  restartCount++;
+  sessionStorage.setItem('tc_s_restartCount', restartCount);
+  if (restartCount >= 4) {
+    // block ui
+    document.body.innerHTML = `<p class="bodyErrorText">App was started too many times.</p>`;
+    try {
+      throw new Error("App was started too many times. To block restart loops, the app hast stopped. | RestartCount: "+restartCount);
+    } catch (e) {
+      console.error(e);
+    }
+    return; // or optional: while(true) {}
+  }
+};
+
 
 document.addEventListener('DOMContentLoaded', async function () {
   // import platform and filter dlcs
@@ -36,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.log(dlc_filterContent)
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
     clearDlcLocalStorages()
     return
   }
@@ -428,6 +447,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function dlcProTimeUseAutoSelectDay(e) {
     localStorage.setItem('tc_c_protimeautoselectday', e.target.checked)
+    window.configUserChanges = true
   }
 
   function clearAllMessages() {
@@ -523,6 +543,13 @@ document.addEventListener('DOMContentLoaded', async function () {
       xmasDlc()
       // remove developer on prod
       developer()
+      // reset restart count
+      setTimeout(function(){
+        if(sessionStorage.getItem('tc_s_restartCount') === "1"){
+          let restartCountReset = 0
+          sessionStorage.setItem('tc_s_restartCount',restartCountReset)
+        }
+      },300)
       console.log('✅ [Time Copy] extension loaded')
     }catch(e){
       message(true, 'error',window.language.error_appError,e,true)

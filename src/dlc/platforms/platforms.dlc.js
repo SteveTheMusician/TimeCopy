@@ -127,7 +127,11 @@ export async function platforms(bookingPlatformSelectValue, bookingData, detecti
   let bookingFunctionName = bookingPlatformSelectValue
   // if "Automatic" then wait for new Value
   if (bookingFunctionName === platform_functionName_automatic) {
-    bookingFunctionName = await Automatic()
+    try {
+      bookingFunctionName = await Automatic()
+    } catch(error){
+      throw ({ errorstatus: 'error', errorheadline: 'Automatisch zuweisungsfehler', errortext: 'Automatisch hat keinen Wert zurückgegeben. Bitte Starten Sie das PlugIn erneut. | '+error })
+    }
     bookingPlatformSelectValue = bookingPlatformSelectValue.replace(platform_functionName_automatic, bookingFunctionName)
   }
   // filter detection items for booking platforms

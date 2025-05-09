@@ -192,3 +192,5 @@ Time Copy was converted into a side-bar version from version 0.8.7.
 - other: profile import type as dynamic attribute to html
 - other: disable highlatency-function on high ping
 - other: change high-ping notification to message
+- other: restart app if platform dlc informations are not there (edge case)
+- other: show error, if app was restarted too many times or too fast

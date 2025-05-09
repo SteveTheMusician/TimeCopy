@@ -14,6 +14,12 @@ body:before {
     transition: .3s;
 }
 
+.bodyErrorText {
+    color: #ad3156;
+    font-size: 10px;
+    text-align: center;
+}
+
 main {
     display: none;
 }

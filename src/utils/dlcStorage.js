@@ -47,6 +47,12 @@ export function loadDLCStorage(dlcGlobalArgs) {
     localStorage.setItem('tc_c_protimeautoselectday',pAmagProTime_defaultUseAutoSelectDay)
     dlcGlobalArgs.dlcProTime_config_check_useAutoSelectDay.checked = pAmagProTime_defaultUseAutoSelectDay
   }
+  // catch edge case, when the app should be updated at the same time, when the user do a change
+  // reset version and reload app
+  if(localStorage.getItem('tc_s_dlcplatforminformations') === null) {
+    localStorage.removeItem('tc_appVersion')
+    window.location.reload()
+  }
 }
 
 export function clearDlcLocalStorages(onlyImportantDLC) {
