@@ -203,7 +203,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       const timeoutId = setTimeout(() => {
         reject({
           text: 'ProTime Element Timeout',
-          textdetails: selector + " #" + boolean + ": Element wurde nicht gefunden oder hat nicht die gewünschten Änderungen übernehmen können. Grund dafür können Verbindungsprobleme sein."
+          textdetails: "Ein Element in ProTime wurde nicht gefunden oder hat nicht die gewünschten Änderungen übernommen. Lade die Webseite neu und versuche es noch einmal. | "+selector + " #" + boolean
         });
       }, timeout);
 

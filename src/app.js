@@ -12,9 +12,8 @@ import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden,defaul
 import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
-// remove developer on prod
+// ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
-
 // catch reload loops
 window.onload = function () {
   let restartCount = Number(sessionStorage.getItem('tc_s_restartCount')) || 0;
@@ -28,11 +27,10 @@ window.onload = function () {
     } catch (e) {
       console.error(e);
     }
-    return; // or optional: while(true) {}
+    return;
   }
 };
-
-
+// app main
 document.addEventListener('DOMContentLoaded', async function () {
   // import platform and filter dlcs
   try {
@@ -55,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.log(dlc_filterContent)
     }
   } catch (error) {
-    console.error(error)
+    console.error(error+ " | app")
     clearDlcLocalStorages()
     return
   }
@@ -130,7 +128,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   try{
     window.language = await useLanguage()
   }catch(error){
-    console.error(error + ' The problem occurs, when useLanguage gets an country-code, which does not exist as json file.')
+    console.error(error + ' The problem occurs, when useLanguage gets an country-code, which does not exist as json file.'+ " | app")
     message(true, 'error', 'APP LANGUAGE ERROR' , error, true)
     return
   }
@@ -221,7 +219,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       filterData = await filters(filter, clipboarsString)
       console.log("💽 Selected Filter-DLC: " + filter + " | Filtered data: ", filterData)
     } catch (error) {
-      console.error("❌ Unable to call bookingData: ", error);
+      console.error("❌ Unable to call bookingData: ", error + " | app");
       lockActionButtons('false',fillButton)
       if(switch_showAllMessages.checked) {
         message(true, 'error', window.language.error+': '+window.language.error_noBookingData, window.language.error_noBookingData_disc)
@@ -262,7 +260,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       } else {
         console.warn(consoleWarnMessage_showMessageTurnedOff)
       }
-      console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext)
+      console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext + " | app ")
       return
     }
   }
@@ -541,7 +539,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       profileManager(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       appStorage(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       xmasDlc()
-      // remove developer on prod
+      // ‼️ remove developer on prod
       developer()
       // reset restart count
       setTimeout(function(){
@@ -552,7 +550,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.log('✅ [Time Copy] extension loaded')
     }catch(e){
       message(true, 'error',window.language.error_appError,e,true)
-      console.error(e)
+      console.error(e+ " | app")
       return
     }
   },);

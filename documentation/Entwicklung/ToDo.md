@@ -51,14 +51,6 @@ Yosha Update:
 
 - score in statusleiste ✅
 
-- dlc protime: auto select date sobald man auf einfügen klickt
+- dlc protime: auto select date sobald man auf einfügen klickt ✅
 -  statusleiste ausblenden ✅
 - code clean app -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
-
-Rang Namen
-- Timecopyrier 0 - 8
-- Copycat 9 - 24
-- Copywarrior 25 - 100
-- Time Wizard 101 - 200
-- Copy Legend 201 - 1000
-- Time God 1000 - XXX

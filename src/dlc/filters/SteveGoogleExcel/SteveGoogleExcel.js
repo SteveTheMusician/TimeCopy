@@ -98,6 +98,10 @@ export function filter_SteveGoogleExcel(clipboarsString) {
     if(item_date){
       item_dateDay = item_date.match(regExp_ticketDateDay)[1]
     }
+    // remove first 0
+    if(item_dateDay.startsWith('0')){
+      item_dateDay = item_dateDay.replaceAll('0','')
+    }
     // define object
     let itemObject = {
       "item_bookingnumber": item_bookingNumber,

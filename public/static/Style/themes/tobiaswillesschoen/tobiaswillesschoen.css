@@ -156,6 +156,9 @@ header {
 input[type=text], select {
   padding: 10px;
   border-radius: 100px;
+}
+
+select {
   border-right: 10px solid transparent;
 }
 

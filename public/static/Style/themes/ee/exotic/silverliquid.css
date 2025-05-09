@@ -314,9 +314,21 @@ input:checked+.switch_slider {
 }
 
 #profile_picture {
+  width: 60px;
+  height: 60px;
+  padding: 0;
   background-color: var(--color-main);
 }
 
+#profile_picture_user {
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+}
+
+select {
+  border-right: 10px solid transparent;
+}
 
 @keyframes item--new-animation {
   0% {

@@ -52,7 +52,7 @@ export const customContent = `<div class="dlc-platform_custom-content">
         <div class="row-cell-right">
             <label class="switch">
                 <input type="checkbox" class="" id="check_useAutoSelectDayProTime"  />
-                <span class="switch_slider" title="Wählt automatisch den Tag zum Buchen in Protime aus, wenn das Datum mit-kopiert wurde. (Experiementelle Funktion)"></span>
+                <span class="switch_slider" title="Wählt automatisch den Tag innerhalb des aktuellen Monats zum Buchen in Protime aus, wenn das Datum mit kopiert wurde. (Experiementelle Funktion)"></span>
             </label>
         </div>
     </div>

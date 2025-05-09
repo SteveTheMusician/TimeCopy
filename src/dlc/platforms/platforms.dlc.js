@@ -129,8 +129,12 @@ export async function platforms(bookingPlatformSelectValue, bookingData, detecti
   if (bookingFunctionName === platform_functionName_automatic) {
     try {
       bookingFunctionName = await Automatic()
+      if(!bookingFunctionName) {
+        throw ({ errorstatus: 'error', errorheadline: 'Automatische Zuweisung fehlgeschlagen', errortext: 'Automatisch hat keinen Wert zurückgegeben. Bitte Starten Sie das PlugIn erneut.' })
+      }
     } catch(error){
-      throw ({ errorstatus: 'error', errorheadline: 'Automatisch zuweisungsfehler', errortext: 'Automatisch hat keinen Wert zurückgegeben. Bitte Starten Sie das PlugIn erneut. | '+error })
+      console.error(error.errortext+"| platforms .133")
+      throw error
     }
     bookingPlatformSelectValue = bookingPlatformSelectValue.replace(platform_functionName_automatic, bookingFunctionName)
   }
