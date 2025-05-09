@@ -4,6 +4,7 @@ export let highLatency = false
 export let forceHighLatency = true
 export let useHighLatency = true
 export let useTicketNomberInText = false
+export let useAutoSelectDay = false
 export const noTicketNomberFill = "NO NOMBER"
 export const noTicketDiscFill = "NO DISCRIPTION"
 export const detectionItemAddPrefixSplit = ";"

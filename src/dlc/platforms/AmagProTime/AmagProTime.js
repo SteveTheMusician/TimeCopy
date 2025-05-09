@@ -12,11 +12,12 @@ import {
   useHighLatency,
   forceHighLatency,
   useTicketNomberInText,
+  useAutoSelectDay,
   noTicketNomberFill,
   noTicketDiscFill
 } from "./variables/AmagProTime.variables.js";
 import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMode,
-  lstorage_c_dlcProtimeTicketNomberInText,lstorage_c_dlcProTimeTest, lstorage_c_dlcProtimeUseMatchBookingDay } from "../../../utils/dlcStorage.js";
+  lstorage_c_dlcProtimeTicketNomberInText,lstorage_c_dlcProTimeTest, lstorage_c_dlcProtimeUseMatchBookingDay, lstorage_c_dlcProtimeUseAutoSelectDay } from "../../../utils/dlcStorage.js";
 
 // 🍎 initial script to filter data and start the booking process
 export async function AmagProTime(bookingData, detectionItemsProTime) {
@@ -36,7 +37,8 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
     console.warn('DLC Amag ProTime: Test Mode activated')
   }
   // set use High Latency
-  useHighLatency = lstorage_c_dlcProTimeUseLatencyMode
+  useHighLatency = lstorage_c_dlcProTimeUseLatencyMode ?? useHighLatency
+  useAutoSelectDay = lstorage_c_dlcProtimeUseAutoSelectDay ?? useAutoSelectDay
   // check if to use ticketnomber in the discription
   useTicketNomberInText = lstorage_c_dlcProtimeTicketNomberInText
   if (useTicketNomberInText === false) {
@@ -103,7 +105,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
-      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay)
+      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay)
       bookingLoopCount++
       if (iChrTab.result !== null && iChrTab.result.success === false) {
         throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
@@ -120,7 +122,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
 }
 
 // 🍎 chrom tab scripts
-async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay) {
+async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay) {
   // check latency in current tab + only when use high latency is aktivated
   if (useHighLatency) {
     try {
@@ -146,7 +148,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
     let chromeExecScript = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: AmagProTimeBookTickets,
-      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay]
+      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay]
     });
 
     if (chromeExecScript[0].result && chromeExecScript[0].result.error) {
@@ -160,7 +162,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
   }
 }
 // 🍎 main booking logic
-async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay) {
+async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay) {
   let crossObserver_mutationObserver
   function crossObserver(elementSelector) {
     let appearanceCount = 0;
@@ -394,6 +396,18 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           const eventChange = new Event("change")
           const ticketObject = ticket[0]
           const detectionObject = ticket[1]
+          // Auto-Select Day
+          if(useAutoSelectDay === true && ticketObject.item_dateday) {
+            let allDays = document.querySelectorAll('.lsCalItemText')
+            allDays.forEach(async (day) => { 
+              if(day.innerHTML === ticketObject.item_dateday && day.parentNode.dataset.isclickable === 'true')
+                {
+                  day.parentNode.click()
+                }
+              }
+            )
+            await waitTimer(bookingWaitingTimer500)
+          }
 
           let protime_hours
           let protime_ticketNumber
