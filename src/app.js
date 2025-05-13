@@ -14,14 +14,29 @@ import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 // ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
+
+// savety function to prevent unwanted webpage content manipulation (triggered by window.onload)
+function isTimeCopy() {
+  try {
+    // only true if sidebar content is loaded
+    return location.href.startsWith(chrome.runtime.getURL(''));
+  } catch (e) {
+    return false;
+  }
+}
 // catch reload loops
 window.onload = function () {
+  // load savety function
+  if (!isTimeCopy()) {
+    // console.log("[Time Copy] Window.onload skipped");
+    return;
+  }
   let restartCount = Number(sessionStorage.getItem('tc_s_restartCount')) || 0;
   restartCount++;
   sessionStorage.setItem('tc_s_restartCount', restartCount);
   if (restartCount >= 4) {
     // block ui
-    document.body.innerHTML = `<p class="bodyErrorText">App was started too many times.</p>`;
+    document.body.innerHTML = `<p class="bodyErrorText">App was started too many times. (Time Copy)</p>`;
     try {
       throw new Error("App was started too many times. To block restart loops, the app hast stopped. | RestartCount: "+restartCount);
     } catch (e) {
@@ -390,6 +405,13 @@ document.addEventListener('DOMContentLoaded', async function () {
       configItem_content_row_build_version.classList.remove('dNone')
     }
   }
+
+  function setCreatorStorage(e){
+    if(e.shiftKey){
+      localStorage.setItem('tc_creator','')
+    }
+  }
+
   // dlc functions
   function dlcPlatformOpenDropdown(e) {
     let dlc_platformElement = e.target.closest(".dlcItem-platform")
@@ -513,6 +535,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     button_openLicense.addEventListener('click', () => window.open(licenseUrl))
     // other
     label_version_name.addEventListener('click', (e) => showBuildVersion(e))
+    label_extensionDevelop.addEventListener('click', (e) => setCreatorStorage(e))
     profileOptionsSelect.addEventListener('change', selectProfileOption)
     //theme select
     themeSelect.addEventListener('change', switchTheme)

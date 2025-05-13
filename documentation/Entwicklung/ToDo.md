@@ -27,30 +27,11 @@ Yosha Update:
 - import error show all messages anzeigen ✅
 
 
-## V 1.1.X
-- Profil import/export encryption ✅
-- dlc: amagProtime - wenn datum vom clipboard und platform nicht stimmen ✅
-- profil bild hochladen ✅
-- Themes dynamisch in html ausgeben ✅
-- profil: datei einstellungen als dropdown ✅
 - DLC configs in profil speichern
-
-- dlc info.json in public folder ✅
-- dlc public ordner struktur ✅
-
-- fix: showAllMessages und dlc Storages zu beginn auslösen und speichern wenn keine da sind ✅
+- tabs position (last clicked) speichern
 - liquid theme fertig machen
 - farb theme: kahlids coffe mug / redbull (türkis und pink)
-- dlc protime: ping modus verbessern ✅
-
-- * im Ticketname nimmt alle Tickets an ✅
 
 - booking counter mit verschiedenen rang namen (ab 100 buchungen so und so) -> nach max level gibt es einen neuen skin (gold flake) 
 
-- fix: error am ende der buchung durch counter ✅
-
-- score in statusleiste ✅
-
-- dlc protime: auto select date sobald man auf einfügen klickt ✅
--  statusleiste ausblenden ✅
 - code clean app -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
