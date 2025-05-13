@@ -17,21 +17,16 @@ Yosha Update:
 - score ein aus schalten
 - status bar ein aus blenden
 
-## V 1.0.21
-- Fix: erstellte detections, filter und theme sollen direkt gespeichert werden beim profil export ✅
 
 ## V 1.0.3 ??
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
-- proTimeDLC: checkswitch für TicketNummer in Beschreibung übernehmen (default an)✅
-- fix: defaultShowAllMessages Variable currently not takken ✅
-- import error show all messages anzeigen ✅
 
 
-- DLC configs in profil speichern
 - tabs position (last clicked) speichern
+- dlc: amagprotime - wenn nach klick aufs overlay das overlay verschwindet, aber keine elemente von protime erkannt werden soll ein fehler kommen.
+
 - liquid theme fertig machen
+- DLC configs in profil speichern
+
 - farb theme: kahlids coffe mug / redbull (türkis und pink)
-
-- booking counter mit verschiedenen rang namen (ab 100 buchungen so und so) -> nach max level gibt es einen neuen skin (gold flake) 
-
 - code clean app -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
