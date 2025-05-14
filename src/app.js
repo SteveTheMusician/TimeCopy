@@ -302,33 +302,19 @@ document.addEventListener('DOMContentLoaded', async function () {
       configWindow_getAll.classList.add('dNone');
     });
   }
-  function configTabOpenGeneral() {
-    removeTabActiveClass()
-    buttonTab_General.classList.add('button-tab--active')
-    configWindow_General.classList.remove('dNone')
-    configurationsContainer.classList.add('configuration-container-first-tab-selected')
-  }
 
-  function configTabOpenProjects() {
+  function switchConfigTab(elemId,elem) {
     removeTabActiveClass()
-    buttonTab_Projects.classList.add('button-tab--active')
-    configWindow_Projects.classList.remove('dNone')
-    configurationsContainer.classList.remove('configuration-container-first-tab-selected')
-    window.configUserChanges = true
-  }
-
-  function configTabOpenTimesheets() {
-    removeTabActiveClass()
-    buttonTab_Timesheets.classList.add('button-tab--active')
-    configWindow_Timesheets.classList.remove('dNone')
-    configurationsContainer.classList.remove('configuration-container-first-tab-selected')
-  }
-
-  function configTabOpenBookingsheets() {
-    removeTabActiveClass()
-    buttonTab_Bookingsheets.classList.add('button-tab--active')
-    configWindow_Bookingsheets.classList.remove('dNone')
-    configurationsContainer.classList.remove('configuration-container-first-tab-selected')
+    elem.classList.add('button-tab--active')
+    let idName = elemId.split('-')[2]
+    let configWindowToShow = document.getElementById('config-win-'+idName)
+    configWindowToShow.classList.remove('dNone')
+    if(idName === "general") {
+      configurationsContainer.classList.add('configuration-container-first-tab-selected')
+    } else {
+       configurationsContainer.classList.remove('configuration-container-first-tab-selected')
+    }
+    localStorage.setItem('tc_c_lastConfigTab',idName)
   }
 
   // configuration functions
@@ -518,10 +504,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     button_clearAllMessages.addEventListener('click', clearAllMessages)
     buttonBackToMain.addEventListener('click', openConfigs)
     // configuration tabs listener
-    buttonTab_General.addEventListener('click', configTabOpenGeneral)
-    buttonTab_Projects.addEventListener('click', configTabOpenProjects)
-    buttonTab_Timesheets.addEventListener('click', configTabOpenTimesheets)
-    buttonTab_Bookingsheets.addEventListener('click', configTabOpenBookingsheets)
+    buttonTab_General.addEventListener('click', () => switchConfigTab(buttonTab_General.id,buttonTab_General))
+    buttonTab_Projects.addEventListener('click', () => switchConfigTab(buttonTab_Projects.id,buttonTab_Projects))
+    buttonTab_Timesheets.addEventListener('click', () => switchConfigTab(buttonTab_Timesheets.id,buttonTab_Timesheets))
+    buttonTab_Bookingsheets.addEventListener('click', () => switchConfigTab(buttonTab_Bookingsheets.id,buttonTab_Bookingsheets))
     configProfileName.addEventListener('change', configSetProfileName)
     // configs listener
     switch_showAllMessages.addEventListener('click', showAllMessagesChange)

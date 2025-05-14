@@ -20,8 +20,9 @@ Yosha Update:
 
 ## V 1.0.3 ??
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
-
-
+- font offline reinladen oder schnelles fallback bei schlechtem netz
+- localStorage namings gleich
+- tab funktionen komprimieren und detectioons nur on change mit reload true versehen
 - tabs position (last clicked) speichern
 - dlc: amagprotime - wenn nach klick aufs overlay das overlay verschwindet, aber keine elemente von protime erkannt werden soll ein fehler kommen.
 
