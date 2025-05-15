@@ -8,18 +8,10 @@ h2 {
     font-family: Roboto, sans-serif;
 }
 
-p {
+p,a {
     font-family: Roboto, sans-serif;
 }
 
-button {
-    font-family: Roboto, sans-serif;
-}
-
-input {
-    font-family: Roboto, sans-serif;
-}
-
-select {
+button, input, select {
     font-family: Roboto, sans-serif;
 }

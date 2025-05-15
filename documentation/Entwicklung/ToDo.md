@@ -14,13 +14,12 @@
 Yosha Update:
 - - im Ticketname akzeptiert Leere Ticketnummer bzw Tickets ohne Nummer / Tobias Excel FIlter anpassen 
 (GGF eigenes DLC Nötig)
-- score ein aus schalten
-- status bar ein aus blenden
+- score ein aus schalten ✅
 
 
 ## V 1.0.3 ??
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
-- font offline reinladen oder schnelles fallback bei schlechtem netz
+- font offline reinladen oder schnelles fallback bei schlechtem netz ✅
 - localStorage namings gleich
 - tab funktionen komprimieren und detectioons nur on change mit reload true versehen
 - tabs position (last clicked) speichern

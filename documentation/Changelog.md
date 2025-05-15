@@ -7,7 +7,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ---
 
-## V 1.1.91
+## V 1.1.93
 
 * **Features:**
 
@@ -44,6 +44,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Changed high ping alert to message
   * Restart app if platform DLC data is missing (edge case)
   * Display error if app is restarted too frequently
+  * Load fonts offline to prevent long loading time on bad internet connection
 
 ---
 
