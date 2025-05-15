@@ -169,6 +169,11 @@ document.addEventListener('DOMContentLoaded', async function () {
   const updateTextOverview = data_version.extension_update_text_overview
   const updateTextDetails = data_version.extension_update_text_details
 
+  function reloadChangeHandler(){
+    if (window.configUserChanges === true) {
+        window.location.reload()
+    }
+  }
   // main action buttons functions
   function openConfigs() {
     if (configOpen) {
@@ -179,9 +184,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       header.classList.add('dNone')
       statusBar.classList.remove('dNone')
       configOpen = false
-      if (window.configUserChanges === true) {
-        window.location.reload()
-      }
+      reloadChangeHandler()
     } else {
       configButton.classList.add('button--active')
       fillButton.classList.add('object--hidden')
@@ -190,6 +193,10 @@ document.addEventListener('DOMContentLoaded', async function () {
       header.classList.remove('dNone')
       statusBar.classList.add('dNone')
       configOpen = true
+      let lstorage_cLastConfigTab = localStorage.getItem('tc_c_lastConfigTab')
+      if(lstorage_cLastConfigTab !== '' && lstorage_cLastConfigTab !== null) {
+        document.getElementById('button-tab-'+lstorage_cLastConfigTab).click()
+      }
     }
   }
   // cancel

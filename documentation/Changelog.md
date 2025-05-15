@@ -7,7 +7,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ---
 
-## V 1.1.81
+## V 1.1.91
 
 * **Features:**
 
@@ -21,6 +21,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Booking counter
   * App reset button (with loading screen)
   * Auto-select day from clipboard
+  * Save last clicked configuration tab
 
 * **Fixes:**
 
