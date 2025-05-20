@@ -18,6 +18,7 @@ import {
 } from "./variables/AmagProTime.variables.js";
 import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMode,
   lstorage_c_dlcProtimeTicketNomberInText,lstorage_c_dlcProTimeTest, lstorage_c_dlcProtimeUseMatchBookingDay, lstorage_c_dlcProtimeUseAutoSelectDay } from "../../../utils/dlcStorage.js";
+import { debugStick } from "../../../utils/appDebugStick.js";
 
 // 🍎 initial script to filter data and start the booking process
 export async function AmagProTime(bookingData, detectionItemsProTime) {
@@ -52,7 +53,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
       let ticketAddPrefixMatches = filterAddPrefix(ticket, ticketPrefixMatches);
       let ticketRefinePrefixesMatches = filterAllPrefixes(ticket, ticketAddPrefixMatches);
       let ticketRefineBookingNomber = filterBookingNomber(ticket, ticketRefinePrefixesMatches);
-
+      debugStick({ticketPrefixMatches,ticketAddPrefixMatches,ticketRefinePrefixesMatches,ticketRefineBookingNomber},'AmagProTime Services')
       if (ticket.item_ticketdisc.length < 2) {
         throw ({ errorstatus: 'error', errorheadline: "Ticket hat keine Beschreibung", errortext: ticket.item_ticketnumber + ' ' + ticket.item_bookingnumber })
       }
@@ -69,7 +70,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
       }
       if (ticket.item_bookingnumber.length < 1 && ticketRefineBookingNomber.length > 0) {
         if (ticketRefineBookingNomber[0].projectnomber.length < 1) {
-          errorDetailMessage = '[' + ticket.item_ticketnumber + ticket.item_ticketdisc + ' -> Die Buchungsnummer fehlt entweder im Ticket oder den Erkennsungs-Filter.'
+          errorDetailMessage = '[' + ticket.item_ticketnumber + '] ' + ticket.item_ticketdisc + ' : Die Buchungsnummer fehlt entweder im Ticket oder den Erkennsungs-Filter.'
           throw ({ errorstatus: 'error', errorheadline: "Buchungsnummer fehlt", errortext: errorDetailMessage })
         }
       }

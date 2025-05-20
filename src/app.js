@@ -12,6 +12,7 @@ import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden,defaul
 import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
+import { debugStick } from "./utils/appDebugStick.js";
 // ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
 
@@ -402,6 +403,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   function setCreatorStorage(e){
     if(e.shiftKey){
       localStorage.setItem('tc_creator','')
+      localStorage.setItem('tc_debugStick','')
     }
   }
 
@@ -492,6 +494,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText,
       dlcProTime_config_check_useMatchBookingDay: dlcProTime_config_check_useMatchBookingDay,dlcProTime_config_check_useAutoSelectDay:dlcProTime_config_check_useAutoSelectDay
     }]
+    debugStick([...window.appVersionData,...window.appGlobalArgs,...window.dlcGlobalArgs],'App Global Args')
     // return message if offline
     if (!navigator.onLine) {
       message(true, 'error', window.language.message_offline, window.language.message_offline_disc)

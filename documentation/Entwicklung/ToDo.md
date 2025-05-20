@@ -16,6 +16,10 @@ Yosha Update:
 (GGF eigenes DLC Nötig)
 - score ein aus schalten ✅
 
+- ‼️ Team C Sync Error: Wenn die als Ersts ein "SCRUM" Filter ohne projektnummer steht und danach eins mit parameter funktioniert alles.
+Ist die Reihenfolge anderes rum, dann wird der Filter mit den Parameter (Letzter filter - optisch als erster dargestellt) nicht mehr gematched
+
+- DebugStick funktion ✅
 
 ## V 1.0.3 ??
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
