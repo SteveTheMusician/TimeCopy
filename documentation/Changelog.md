@@ -7,7 +7,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ---
 
-## V 1.1.93
+## V 1.1.94
 
 * **Features:**
 
@@ -31,6 +31,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Ensure localStorage is created on startup
   * DLC Amag ProTime: Error handling when overlay fails to hide
   * Theme select arrow positioning
+  * DLC AmagProTime - Team C Sync Error Fix: Match detection-items, no metter what order they have 
 
 * **Other Changes:**
 

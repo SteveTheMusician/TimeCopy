@@ -22,16 +22,24 @@ export function filterPrefix(ticket, detectionItemsProTime) {
 
 export function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
     let filterAddPrefix_addPrefixMatches = []
+    let tempArray = []
+    let prefixMatched = false
     detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixItem) => {
         let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
+        item_ticketdiscWithHiddenTag = item_ticketdiscWithHiddenTag.trim()
         let detectionItemAddPrefixArray = []
-        if(detectionItemPrefixItem.addprefix.includes(detectionItemAddPrefixSplit)){
-            detectionItemAddPrefixArray = detectionItemPrefixItem.addprefix.split(detectionItemAddPrefixSplit)
+        let detectionItemPrefixItemAddPrefix = detectionItemPrefixItem.addprefix
+        detectionItemPrefixItemAddPrefix.trim()
+        if(detectionItemPrefixItemAddPrefix.includes(detectionItemAddPrefixSplit)){
+            detectionItemAddPrefixArray = detectionItemPrefixItemAddPrefix.split(detectionItemAddPrefixSplit).map(item => item.trim())
         }else {
-            detectionItemAddPrefixArray.push(detectionItemPrefixItem.addprefix)
+            detectionItemAddPrefixArray.push(detectionItemPrefixItemAddPrefix)
         }
         detectionItemAddPrefixArray.forEach((addPrefixArrayItem) => {
-            if (addPrefixArrayItem.length > 0 && item_ticketdiscWithHiddenTag.includes(addPrefixArrayItem) || addPrefixArrayItem.length === 0) {
+            // push only if prefix is included in detection or prefix is 0 but has booking nomber / project nomber in detection
+            if (addPrefixArrayItem.length > 0 && item_ticketdiscWithHiddenTag.includes(addPrefixArrayItem) 
+                || addPrefixArrayItem.length === 0 && ticket.item_bookingnumber 
+                || addPrefixArrayItem.length === 0 && detectionItemPrefixItem.projectnomber ) {
                 if(!filterAddPrefix_addPrefixMatches.length){
                     filterAddPrefix_addPrefixMatches.push(detectionItemPrefixItem)
                 }
