@@ -21,13 +21,15 @@ Ist die Reihenfolge anderes rum, dann wird der Filter mit den Parameter (Letzter
 
 - DebugStick funktion ✅
 
-## V 1.0.3 ??
+- langages in den übrigen fehlermeldungen reinbringen
+- texte überarbeiten
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
 - font offline reinladen oder schnelles fallback bei schlechtem netz ✅
 - localStorage namings gleich
-- tab funktionen komprimieren und detectioons nur on change mit reload true versehen
+- tab funktionen komprimieren ✅
 - tabs position (last clicked) speichern
 - dlc: amagprotime - wenn nach klick aufs overlay das overlay verschwindet, aber keine elemente von protime erkannt werden soll ein fehler kommen.
+- "Inventierte" Farbthemen (Strawberry Icecream ect)
 
 - liquid theme fertig machen
 - DLC configs in profil speichern

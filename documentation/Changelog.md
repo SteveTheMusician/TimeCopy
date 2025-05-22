@@ -32,6 +32,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * DLC Amag ProTime: Error handling when overlay fails to hide
   * Theme select arrow positioning
   * DLC AmagProTime - Team C Sync Error Fix: Match detection-items by additional prefix, no metter what order they have 
+  * DLC Amag ProTime: - Throw Error, if Observer didn't get ProTime Element and break up booking
 
 * **Other Changes:**
 

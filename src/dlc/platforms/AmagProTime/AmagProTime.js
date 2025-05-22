@@ -81,7 +81,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
   // put all missmatch tickets in to an array 
   if (failedTickets.length) {
     let notificationTimeOut = 0
-    console.warn("⛔️ [DLC Platforms: AmagProTime] failed tickets: ", failedTickets);
+    console.warn("✂︎ [DLC Platforms: AmagProTime] removed tickets: ", failedTickets);
     failedTickets.forEach((failedTicketItem) => {
       let ticketnumber;
       let ticketdisc;
@@ -131,8 +131,8 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
       proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
       // use high latency only when page ping is low
       if (proTimeJSPageTime > 150) {
-        console.warn("[Time Copy][DLC Platforms: AmagProTime] ⚠️ Warning: ProTime Page has low ping (" + proTimeJSPageTime + " ms )")
-        message(true, 'warning', 'ProTime hat hohen Ping', 'ProTime wurde mit einem Ping von '+ proTimeJSPageTime +'ms gemessen. Ein hoher Ping kann unter umständen zu Buchungsfehler führen. Bei Problemen wird TimeCopy automatisch den High-Latency-Mode aktivieren.')
+        console.warn("[Time Copy][DLC Platforms: AmagProTime] ⚠️ Warning: Page has low ping (" + proTimeJSPageTime + " ms )")
+        message(true, 'warning', 'Webseite hat hohen Ping', 'Webseite wurde mit einem Ping von '+ proTimeJSPageTime +'ms gemessen. Ein hoher Ping kann unter umständen zu Buchungsfehler führen. Bei Problemen wird TimeCopy automatisch den High-Latency-Mode aktivieren.')
         // highLatency = true
       }
       chrome.windows.getCurrent(function (window) {
@@ -383,9 +383,18 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             console.error("[Time Copy] Error in checkFirstBookingLoop: ", error);
             return result = { success: false, message: error };
           }
-          console.log('---->')
-          // start observing loading dots for the whole process
-          crossObserver(proTimeElem_loadingBox);
+          // check if observer element exists
+          try {
+            if(document.querySelector(proTimeElem_loadingBox)) {
+              // start observing loading dots for the whole process
+              crossObserver(proTimeElem_loadingBox);
+            } else {
+              return result = { success: false, message: { text: "ProTime Element Fehlt", 
+                textdetails :"TimeCopy konnte ein wichtiges Element von der ProTime Platform nicht finden und hat darum den prozess beendet. Stelle sicher, dass du dich auf der Seite befindest oder Kontaktiere den Entwickler."} }
+            }
+          } catch (error) {
+            return result =  {success: false, message: error}
+          }
           // wait for empty textarea (true only when page is reloaded or ticket was booked)
           try {
             await observeElement('textarea', false, '0');
@@ -409,7 +418,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             )
             await waitTimer(bookingWaitingTimer500)
           }
-
+          
           let protime_hours
           let protime_ticketNumber
           let protime_activityDropdown
@@ -428,10 +437,10 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
               protime_Innenauftrag.childNodes[0].value = proTime_projectNomber
               protime_Innenauftrag.childNodes[0].dispatchEvent(keyEventEnter)
             } else {
-              return
+              return result = { success: false, message: 'Protime Projectnomber fehlerhaft' };
             }
           } else {
-            return
+            return result = { success: false, message: 'Protime Innenauftrag fehlerhaft' };
           }
           await waitTimer(bookingWaitingTimer500)
           // checkpoint loading dots (loaw-latency)
