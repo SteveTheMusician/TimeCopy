@@ -51,11 +51,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   // import platform and filter dlcs
   try {
     let dlc_platformContent = await platformsContent()
-    if (!dlc_platformContent) {
+    if (!dlc_platformContent.success) {
       throw new Error('❌ DLC Platform contents not loaded')
-    }else {
-      console.log(dlc_platformContent)
     }
+    debugStick(dlc_platformContent,dlc_platformContent.feedback)
   } catch (error) {
     console.log(error)
     clearDlcLocalStorages()
@@ -63,11 +62,10 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
   try {
     let dlc_filterContent = await filtersContent()
-    if (!dlc_filterContent) {
+    if (!dlc_filterContent.success) {
       throw new Error('❌ DLC Filter contents not loaded')
-    }else {
-      console.log(dlc_filterContent)
     }
+    debugStick(dlc_filterContent,dlc_filterContent.feedback)
   } catch (error) {
     console.error(error+ " | app")
     clearDlcLocalStorages()
@@ -82,10 +80,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const elem_messageSection = document.getElementById('messages-section')
   const configurationsContainer = document.getElementById('config-container')
   const configWindow_getAll = document.getElementsByClassName('configuration-window')
-  const configWindow_General = document.getElementById('config-win-general')
-  const configWindow_Timesheets = document.getElementById('config-win-timesheets')
-  const configWindow_Bookingsheets = document.getElementById('config-win-bookingsheet')
-  const configWindow_Projects = document.getElementById('config-win-projects')
   const configProfileName = document.getElementById('configProfileName')
   const profilePictureUser = document.getElementById('profile_picture_user')
   const profileSVG = document.getElementById('Profile')
@@ -240,7 +234,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // get all boocking relevant data as array
     try {
       filterData = await filters(filter, clipboarsString)
-      console.log("💽 Selected Filter-DLC: " + filter + " | Filtered data: ", filterData)
+      debugStick(filterData,"💽 Selected Filter-DLC: " + filter)
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error + " | app");
       lockActionButtons('false',fillButton)
@@ -252,10 +246,10 @@ document.addEventListener('DOMContentLoaded', async function () {
       return
     }
     try {
-      console.log("🔘 Selected Platform-DLC: " + bookingPlatform)
+      debugStick(bookingPlatform,"🔘 Selected Platform-DLC: ")
       let bookEntries = await platforms(bookingPlatform, filterData, lstorage_cDetectionItems)
       if (bookEntries) {
-        console.log("✅ Booking process return okey | ", bookEntries)
+        debugStick(bookEntries,"✅ Booking process finished | ")
         lockActionButtons('false',fillButton)
         if(switch_showAllMessages.checked) {
           message(true, 'information', window.language.message_bookingProcessEnded, bookingPlatform)
@@ -435,33 +429,33 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function dlcProTimeForceLatencyMode(e){
-    localStorage.setItem('tc_c_dlc_protimeforcelatencymode', e.target.checked)
+    localStorage.setItem('tc_c_dlc_proTimeForceLatencyMode', e.target.checked)
     window.configUserChanges = true
   }
 
   function dlcProTimeUseLatencyMode(e){
-    localStorage.setItem('tc_c_dlc_protimeuselatencymode', e.target.checked)
+    localStorage.setItem('tc_c_dlc_proTimeUseLatencyMode', e.target.checked)
     window.configUserChanges = true
   }
 
   function dlcProTimeCheckUsePTTest(){
-    localStorage.setItem('tc_c_dlc_protimetest', dlcProTime_config_check_usePTTest.checked)
+    localStorage.setItem('tc_c_dlc_proTimeTest', dlcProTime_config_check_usePTTest.checked)
     setDLCAmagProTimeTestStyle(dlcProTime_config_check_usePTTest.checked,...window.dlcGlobalArgs )
     window.configUserChanges = true
   }
 
   function dlcProTimeUseTicketNomberInText(e){
-    localStorage.setItem('tc_c_dlc_protimeticketnomberintext', e.target.checked)
+    localStorage.setItem('tc_c_dlc_proTimeTicketNomberInText', e.target.checked)
     window.configUserChanges = true
   }
 
   function dlcProTimeUseMatchBookingDay(e) {
-    localStorage.setItem('tc_c_protimematchbookingday', e.target.checked)
+    localStorage.setItem('tc_c_proTimeMatchBookingDay', e.target.checked)
     window.configUserChanges = true
   }
 
   function dlcProTimeUseAutoSelectDay(e) {
-    localStorage.setItem('tc_c_protimeautoselectday', e.target.checked)
+    localStorage.setItem('tc_c_proTimeAutoSelectDay', e.target.checked)
     window.configUserChanges = true
   }
 

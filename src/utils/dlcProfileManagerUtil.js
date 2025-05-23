@@ -38,10 +38,10 @@ export function dlcProfileExport() {
 }
 
 export function dlcProfileImport(fileData) {
-  localStorage.setItem('tc_c_dlc_protimeforcelatencymode', fileData.tcprofile.dlccfg.platforms.AmagProTime.useForceLatencyMode)
-  localStorage.setItem('tc_c_dlc_protimeuselatencymode', fileData.tcprofile.dlccfg.platforms.AmagProTime.useLatencyMode)
-  localStorage.setItem('tc_c_dlc_protimeticketnomberintext', fileData.tcprofile.dlccfg.platforms.AmagProTime.useTicketNomberInText)
-  localStorage.setItem('tc_c_protimematchbookingday', fileData.tcprofile.dlccfg.platforms.AmagProTime.useMatchDays)
-  localStorage.setItem('tc_c_protimeautoselectday', fileData.tcprofile.dlccfg.platforms.AmagProTime.useAutoSelectDay)
-  localStorage.setItem('tc_c_dlc_protimetest', fileData.tcprofile.dlccfg.platforms.AmagProTime.useTestMode)
+  localStorage.setItem('tc_c_dlc_proTimeForceLatencyMode', fileData.tcprofile.dlccfg.platforms.AmagProTime.useForceLatencyMode)
+  localStorage.setItem('tc_c_dlc_proTimeUseLatencyMode', fileData.tcprofile.dlccfg.platforms.AmagProTime.useLatencyMode)
+  localStorage.setItem('tc_c_dlc_proTimeTicketNomberInText', fileData.tcprofile.dlccfg.platforms.AmagProTime.useTicketNomberInText)
+  localStorage.setItem('tc_c_proTimeMatchBookingDay', fileData.tcprofile.dlccfg.platforms.AmagProTime.useMatchDays)
+  localStorage.setItem('tc_c_proTimeAutoSelectDay', fileData.tcprofile.dlccfg.platforms.AmagProTime.useAutoSelectDay)
+  localStorage.setItem('tc_c_dlc_proTimeTest', fileData.tcprofile.dlccfg.platforms.AmagProTime.useTestMode)
 }

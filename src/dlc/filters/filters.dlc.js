@@ -18,7 +18,7 @@ export async function filters(filter,clipboarsString) {
 export async function filtersContent() {
   let loadedFiltersFeedbackArray = []
    return new Promise(async (resolve) => { 
-   let filterInfoData = localStorage.getItem('tc_s_dlcfilterinformations')
+   let filterInfoData = localStorage.getItem('tc_s_dlcFilterInformations')
    if (!filterInfoData) {
      let importNewFilterData = await importFiltersData()
      try {
@@ -87,6 +87,6 @@ export async function filtersContent() {
      document.getElementById('window_timesheetfilters').innerHTML += filterChild
      loadedFiltersFeedbackArray.push(plDataObject.filter_id)
    }
-    resolve("🟢 [DLC: Filters] Content for "+loadedFiltersFeedbackArray+" loaded.")
+    resolve({success:true,feedback:"🧩 [DLC: Filters] Content for "+loadedFiltersFeedbackArray+" loaded.",ids:loadedFiltersFeedbackArray})
    })
  }

@@ -29,7 +29,7 @@ async function importNewPlatformData(){
 export async function platformsContent() {
   let loadedPlatformsFeedbackArray = []
   return new Promise(async (resolve) => { 
-    let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
+    let platformInfoData = localStorage.getItem('tc_s_dlcPlatformInformations')
     if (!platformInfoData) {
       await importNewPlatformData()
     } else {
@@ -48,7 +48,7 @@ export async function platformsContent() {
       }catch(error){
         console.log(error)
         console.log('Restart Time Copy Extension.')
-        localStorage.removeItem('tc_s_dlcplatforminformations')
+        localStorage.removeItem('tc_s_dlcPlatformInformations')
         importNewPlatformData()
         return
       }
@@ -119,7 +119,7 @@ export async function platformsContent() {
       loadedPlatformsFeedbackArray.push(plDataObject.platform_id)
       platformCustomAppFunctions
     }
-    resolve("🟢 [DLC: Platforms] Content for "+loadedPlatformsFeedbackArray+" loaded.")
+    resolve({success:true,feedback:"🧩 [DLC: Pltforms] Content for "+loadedPlatformsFeedbackArray+" loaded.",ids:loadedPlatformsFeedbackArray})
   })
 }
 
