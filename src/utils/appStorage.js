@@ -77,10 +77,9 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     }
     if (localStorage.getItem('tc_c_bookingPlatform')) {
       // alert(lstorage_cBookingPlatform)
-      let storageVar = localStorage.getItem('tc_c_bookingPlatform')
-      document.querySelector('input[value="' + platform_bookingPlatformPreValue + storageVar + '"]').checked = true
+      let lStorageBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
+      document.querySelector('input[value="' + platform_bookingPlatformPreValue + lStorageBookingPlatform + '"]').checked = true
     } else {
-      alert('reset')
       document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').click()
     }
     if(lstorage_cShowAllMessagesParsed !== '' && lstorage_cShowAllMessagesParsed !=='undefined') {
