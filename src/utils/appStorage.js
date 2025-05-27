@@ -35,6 +35,7 @@ if(lstorage_cBookingScore !== null && lstorage_cBookingScore !== '' && lstorage_
 }
 
 export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
+  
   // load localstorage
   function loadStorage() {
     if (lstorage_appVersion) {
@@ -74,11 +75,13 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     } else {
       appGlobalArgs.configprofilename.value = defaultProfileName
     }
-    if (lstorage_cBookingPlatform) {
-      document.querySelector('input[value="' + platform_bookingPlatformPreValue + lstorage_cBookingPlatform + '"]').checked = true
+    if (localStorage.getItem('tc_c_bookingPlatform')) {
+      // alert(lstorage_cBookingPlatform)
+      let storageVar = localStorage.getItem('tc_c_bookingPlatform')
+      document.querySelector('input[value="' + platform_bookingPlatformPreValue + storageVar + '"]').checked = true
     } else {
-      document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
-      localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
+      alert('reset')
+      document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').click()
     }
     if(lstorage_cShowAllMessagesParsed !== '' && lstorage_cShowAllMessagesParsed !=='undefined') {
       showHideAllMessages(lstorage_cShowAllMessagesParsed)

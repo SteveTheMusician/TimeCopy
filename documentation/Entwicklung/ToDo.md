@@ -21,6 +21,9 @@ Ist die Reihenfolge anderes rum, dann wird der Filter mit den Parameter (Letzter
 
 - DebugStick funktion ✅
 
+- alle exort localstorages in eine extra function oder in die main app tun, damit diese bei profile imports geladen werden, ohne sie erneut  definieren zu müssen 
+    appstorages als variabeln können dann über ein window opject von der appStorage js verarbeitet werden‼️ 
+
 - languages in den übrigen fehlermeldungen reinbringen
 - texte überarbeiten
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓

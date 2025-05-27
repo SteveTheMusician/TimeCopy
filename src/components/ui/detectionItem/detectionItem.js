@@ -2,7 +2,7 @@ import { importPlatforms } from "../../../dlc/platforms/platforms.import.js"
 
 export function detectionItem(detectionItems) {
   let platformSelectItems = []
-  let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
+  let platformInfoData = localStorage.getItem('tc_s_dlcPlatformInformations')
   platformInfoData = JSON.parse(platformInfoData)
   let plDataObject = ''
   for (let plKey of importPlatforms){
