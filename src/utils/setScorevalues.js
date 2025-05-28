@@ -6,20 +6,20 @@ export function setScoreValues(bookingScore,appGlobalArgs) {
     let bookingScoreAsText = ''
     bookingScoreAsText = bookingScore
     // validate titles
-    if(bookingScore > "8") {
+    if(bookingScore > "24") {
         bookingScoreTitle = scoreTitles[1]
     }
-    if(bookingScore > "24") {
+    if(bookingScore > "120") {
       bookingScoreTitle = scoreTitles[2]
     }
-    if(bookingScore > "100") {
+    if(bookingScore > "300") {
       bookingScoreTitle = scoreTitles[3]
       appGlobalArgs.elem_configProfileScore_RangScore.classList.add('scoreTextSpecial-wizard')
       appGlobalArgs.elem_configProfileScore_RangName.classList.add('scoreTextSpecial-wizard')
       appGlobalArgs.elem_statusBarProfileScore_RangScore.classList.add('scoreTextSpecial-wizard')
       appGlobalArgs.elem_statusBarProfileScore_RangName.classList.add('scoreTextSpecial-wizard')
     }
-    if(bookingScore > "200") {
+    if(bookingScore > "600") {
       bookingScoreTitle = scoreTitles[4]
       appGlobalArgs.elem_configProfileScore_RangScore.classList.add('scoreTextSpecial-legend')
       appGlobalArgs.elem_configProfileScore_RangName.classList.add('scoreTextSpecial-legend')
