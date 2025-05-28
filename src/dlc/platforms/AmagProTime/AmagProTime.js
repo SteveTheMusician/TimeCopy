@@ -18,15 +18,16 @@ import {
 } from "./variables/AmagProTime.variables.js";
 import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMode,
   lstorage_c_dlcProtimeTicketNomberInText,lstorage_c_dlcProTimeTest, lstorage_c_dlcProtimeUseMatchBookingDay, lstorage_c_dlcProtimeUseAutoSelectDay } from "../../../utils/dlcStorage.js";
-import { debugStick } from "../../../utils/appDebugStick.js";
-
-// 🍎 initial script to filter data and start the booking process
-export async function AmagProTime(bookingData, detectionItemsProTime) {
-  let valideTickets = [];
-  let failedTickets = [];
-  let errorDetailMessage = ''
-  let dev_pttest = lstorage_c_dlcProTimeTest
-  let matchDateDay = lstorage_c_dlcProtimeUseMatchBookingDay
+  import { debugStick } from "../../../utils/appDebugStick.js";
+  
+  // 🍎 initial script to filter data and start the booking process
+  export async function AmagProTime(bookingData, detectionItemsProTime) {
+    let valideTickets = [];
+    let failedTickets = [];
+    let errorDetailMessage = ''
+    let dev_pttest = lstorage_c_dlcProTimeTest
+    let matchDateDay = lstorage_c_dlcProtimeUseMatchBookingDay
+    let bookedTicketCount = '-'
   // use force latency mode
   if (lstorage_c_dlcProTimeForceLatencyMode === true) {
     highLatency = true
@@ -111,6 +112,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
       if (iChrTab.result !== null && iChrTab.result.success === false) {
         throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
       }
+      bookedTicketCount = iChrTab.result.totalBookedTickets
     } else {
       throw ({ errorstatus: 'error', errorheadline: 'Keine Validen Daten', errortext: 'Die kopierten Informationen konnten nicht validiert bzw. keinen Filter zugeordnet werden. Bitte Prüfe ob: - die richtigen Informationen kopiert wurden  - der richtige Filter ausgewählt wurde  - die Erkennungs-Items stimmen' })
     }
@@ -119,7 +121,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime) {
     throw error
   }
   bookingLoopCount = 0
-  return "ProTime Buchung beendet";
+  return {success: true, successMessage:bookedTicketCount+" Ticket(s) erfolgreich gebucht"}
 }
 
 // 🍎 chrom tab scripts
@@ -372,6 +374,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
   }
   let retryTicketList = []
   async function ticketBookingLoop(valideTickets) {
+    let totalBookedTickets = 0
     try {
       // all functions executed for each valide ticket
       for (const ticket of valideTickets) {
@@ -566,6 +569,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             protime_ticketText.value = ''
             protime_ticketText.dispatchEvent(eventChange)
           } else {
+            totalBookedTickets ++
             // press on book only when test-mode is unused and all fields are filled correctly
             if (!dev_pttest) {
               let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
@@ -597,21 +601,22 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       }
       // end of bookingloop
       if (retryTicketList.length) {
-        return result = { success: true, retryBooking: true };
+        return result = { success: true, retryBooking: true, totalBookedTickets: totalBookedTickets };
       }else {
-        return result = { success: true, retryBooking: false };
+        return result = { success: true, retryBooking: false, totalBookedTickets: totalBookedTickets };
       }
     } catch (error) {
       throw error
     }
   }
   // 🟦 run main booking proccess
+  let bookingLoopResult
   try {
-    let ticketBookingLoopResult = await ticketBookingLoop(valideTickets)
-    if(!ticketBookingLoopResult.success){
-      return ticketBookingLoopResult
+    bookingLoopResult = await ticketBookingLoop(valideTickets)
+    if(!bookingLoopResult.success){
+      return bookingLoopResult
     }
-    if(ticketBookingLoopResult.retryBooking){
+    if(bookingLoopResult.retryBooking){
       console.log('[Time Copy] 🕤 🟡 Retry process started')
       for ( let i = 0; i < 4 ; i++ ) {
         try {
@@ -629,16 +634,16 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           try {
             let newTicketList = retryTicketList
             retryTicketList = []
-            ticketBookingLoopResult = await ticketBookingLoop(newTicketList)
-            if(!ticketBookingLoopResult.success){
+            bookingLoopResult = await ticketBookingLoop(newTicketList)
+            if(!bookingLoopResult.success){
               highLatency = false
-              return ticketBookingLoopResult
+              return bookingLoopResult
             }
             // succsess
-            if(ticketBookingLoopResult.success && !ticketBookingLoopResult.retryBooking) {
+            if(bookingLoopResult.success && !bookingLoopResult.retryBooking) {
               highLatency = false
               console.log('[Time Copy] 🕤 🟢 Retry process finished')
-              return { success: true }
+              return { success: true,bookingLoopResult }
             }
           }catch (error) {
             throw error
@@ -651,6 +656,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
   } catch (error) {
     throw error
   }
-  return bookingLoopCount
+  return bookingLoopResult
 }
 

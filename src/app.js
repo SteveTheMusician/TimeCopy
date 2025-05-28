@@ -248,11 +248,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     try {
       debugStick(bookingPlatform,"🔘 Selected Platform-DLC: ")
       let bookEntries = await platforms(bookingPlatform, filterData, lstorage_cDetectionItems)
-      if (bookEntries) {
+      let detailMessage = ''
+      if (bookEntries.success) {
         debugStick(bookEntries,"✅ Booking process finished | ")
         lockActionButtons('false',fillButton)
         if(switch_showAllMessages.checked) {
-          message(true, 'information', window.language.message_bookingProcessEnded, bookingPlatform)
+          detailMessage = bookEntries.successMessage+' - '
+          message(true, 'information', window.language.message_bookingProcessEnded,detailMessage+bookingPlatform)
           // score counter
           if(lstorage_cBookingScore > "0") {
             bookingScore = lstorage_cBookingScore
@@ -271,6 +273,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.log("❌ Problem with booking entries: ", bookEntries)
       }
     } catch (error) {
+      debugStick(error,"Booking Error-Feedback: ")
       lockActionButtons('false',fillButton)
       if(switch_showAllMessages.checked) {
         message(true, error.errorstatus, window.language.error + ': ' + error.errorheadline, error.errortext || bookingPlatform)

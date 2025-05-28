@@ -7,11 +7,10 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ---
 
-## V 1.1.94
+## V 1.1.96
 
 * **Features:**
 
-  * DLC Amag ProTime: Toggle ticket number pasting as text
   * New theme: Liquid Silver
   * New technical theme: Oceans Ground
   * Profile pictures
@@ -22,6 +21,8 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * App reset button (with loading screen)
   * Auto-select day from clipboard
   * Save last clicked configuration tab
+  * DLC Amag ProTime: Toggle ticket number pasting as text
+  * DLC Amag ProTime: Show how many Tickets are booked successfully
 
 * **Fixes:**
 
@@ -47,6 +48,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Restart app if platform DLC data is missing (edge case)
   * Display error if app is restarted too frequently
   * Load fonts offline to prevent long loading time on bad internet connection
+  * Automatic-DLC: Give error feedback when storage is not available
 
 ---
 
