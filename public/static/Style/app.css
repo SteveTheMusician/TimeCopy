@@ -45,6 +45,10 @@ p {
     font-weight: 400;
 }
 
+a {
+    color: var(--color-icon-default);
+}
+
 img {
     user-select: none;
 }

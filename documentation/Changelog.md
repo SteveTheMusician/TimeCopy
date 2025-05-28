@@ -7,7 +7,18 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ---
 
-## V 1.1.96
+## Last important changes summary
+
+* New themes
+* New Profile-Version (TCP1) with possebility to save profile-picture
+* **DLC Amag ProTime functions:**
+  * You can now use "*" in the ticketname property in detections to match all tickets to platform
+  * many new functions like "auto select days" or "match booking days" - see discription (on hover) for more informations
+  * Matter of detections order is fixed. Now every filter is matched, no matter which position it has
+  * Break up booking process, if the working time is 0h
+
+
+## V 1.2.01
 
 * **Features:**
 
@@ -50,6 +61,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Display error if app is restarted too frequently
   * Load fonts offline to prevent long loading time on bad internet connection
   * Automatic-DLC: Give error feedback when storage is not available
+  * Show changelog url in update message
 
 ---
 

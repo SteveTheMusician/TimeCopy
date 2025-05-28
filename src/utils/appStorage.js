@@ -38,18 +38,20 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
   
   // load localstorage
   function loadStorage() {
+    let newUpdatetextVersion = appVersionData.updateTextDetails
+    newUpdatetextVersion = newUpdatetextVersion.replace('${changeloglink}',`<a href="`+appVersionData.changelogUrl+`" target="_blank">Changelog</a>`)
     if (lstorage_appVersion) {
       if (lstorage_appVersion !== appVersionData.version) {
         localStorage.setItem('tc_appVersion', appVersionData.version)
         // reset dlc information cache
         clearDlcLocalStorages(true)
         // show update message
-        message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, appVersionData.updateTextDetails)
+        message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
       }
     } else {
       // "First" app start
       localStorage.setItem('tc_appVersion', appVersionData.version)
-      message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, appVersionData.updateTextDetails)
+      message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
     }
     
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
