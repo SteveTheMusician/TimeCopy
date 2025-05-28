@@ -65,6 +65,9 @@ import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMo
       } else if (ticketRefineBookingNomber.length === 0) {
         failedTickets.push(ticket);
       }
+      if(ticket.item_tickettime === '' || ticket.item_tickettime === '0' ){
+        throw ({ errorstatus: 'error', errorheadline: "Arbeitszeit ist 0", errortext: ticket.item_ticketnumber+' hat eine eingetragene Arbeitszeit von 0h und kann nicht gebucht werden. Prozess wurde abgebrochen.' })
+      }
       if (/\p{L}/u.test(ticket.item_tickettime)) {
         errorDetailMessage = 'Fehler im folgendem Ticket: ' + ticket.item_ticketnumber + ', ' + ticket.item_ticketdisc
         throw ({ errorstatus: 'error', errorheadline: "Ticket hat ungewöhnliche Zeitangabe", errortext: errorDetailMessage })

@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           message(true, 'information', window.language.message_bookingProcessEnded,detailMessage+bookingPlatform)
           // score counter
           if(lstorage_cBookingScore > "0") {
-            bookingScore = lstorage_cBookingScore
+            bookingScore = localStorage.getItem('tc_c_bookingScore')
           } 
           bookingScore ++
           localStorage.setItem('tc_c_bookingScore', bookingScore)

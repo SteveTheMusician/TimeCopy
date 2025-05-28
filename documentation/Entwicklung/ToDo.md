@@ -22,10 +22,13 @@ Ist die Reihenfolge anderes rum, dann wird der Filter mit den Parameter (Letzter
 - DebugStick funktion ✅
 
 - alle exort localstorages in eine extra function oder in die main app tun, damit diese bei profile imports geladen werden, ohne sie erneut  definieren zu müssen 
-    appstorages als variabeln können dann über ein window opject von der appStorage js verarbeitet werden‼️ 
+    appstorages als variabeln können dann über ein window opject von der appStorage js verarbeitet werden,
+    Auch auf Score counter achten in der app js‼️ 
+
+
 - feedback von dlc amagprotime, wie viele tickets übertragen wurden  ✅
-- 0h abfagen und als warnung ausgeben
-- booking score fixen (geht nach mehrfachen buchungen oder nach einem fehler nicht weiter nach oben)
+- 0h abfagen und als warnung ausgeben ✅
+- booking score fixen (geht nach mehrfachen buchungen oder nach einem fehler nicht weiter nach oben) ✅
 - languages in den übrigen fehlermeldungen reinbringen
 - texte überarbeiten
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
