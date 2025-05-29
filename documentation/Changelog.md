@@ -62,6 +62,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Load fonts offline to prevent long loading time on bad internet connection
   * Automatic-DLC: Give error feedback when storage is not available
   * Show changelog url in update message
+  * Npm update
 
 ---
 

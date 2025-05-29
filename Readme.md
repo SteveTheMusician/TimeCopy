@@ -111,7 +111,7 @@ Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende Adressen wend
 - *.tcprofile V 1.9 / 2.0
 
 ### Node Version
-Empfohlen: V 20.11.0
+Empfohlen: V 22.16.0
 
 ### Packages Installieren
 npm i
