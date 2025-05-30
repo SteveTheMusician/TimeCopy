@@ -6,6 +6,7 @@ import { message } from "../components/ui/message/message.js"
 import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
 import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
 import { setScoreValues } from "./setScorevalues.js"
+import { firstStartDisplay } from "../components/content/firstStartDisplay/firstStartDisplay.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -23,6 +24,7 @@ export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatfor
 export let lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture')
 export let lstorage_cBookingScore = localStorage.getItem('tc_c_bookingScore')
 let lstorage_cBookingScoreParsed = ''
+let lstorage_tcFirstStart = localStorage.getItem('tc_firstStart')
 // catch parse problems with show all message value
 if(lstorage_cShowAllMessages !== null && lstorage_cShowAllMessages !== '' && lstorage_cShowAllMessages !== 'undefined'){
   lstorage_cShowAllMessagesParsed = JSON.parse(lstorage_cShowAllMessages)
@@ -108,6 +110,9 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     } else {
       setScoreValues('0',appGlobalArgs)
       localStorage.setItem('tc_c_bookingScore','0')
+    }
+    if(lstorage_tcFirstStart !== 'done' || lstorage_tcFirstStart === null) {
+      firstStartDisplay()
     }
     loadDLCStorage(dlcGlobalArgs)
   }

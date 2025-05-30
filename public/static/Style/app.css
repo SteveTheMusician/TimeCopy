@@ -40,7 +40,7 @@ h2 {
     font-weight: 700;
 }
 
-p {
+p, pre {
     user-select: none;
     font-weight: 400;
 }
@@ -229,6 +229,20 @@ main {
     overflow: hidden;
 }
 
+.main--fadeIn {
+    opacity: 0;
+     animation: mainFadeIn 1s linear forwards;
+}
+
+@keyframes mainFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .main-window {
     padding: 20px 30px;
     padding-bottom: 0px;
@@ -306,6 +320,16 @@ label:has(#button_importConfigs) {
     color: #89b4c1;
     cursor: pointer;
     transition: 0.3s;
+}
+
+.button-normal {
+    background-color: var(--color-third);
+    color: var(--color-icon-default);
+    border-radius: var(--border-radius-default);
+}
+
+.button-normal:hover {
+    background-color: var(--color-icon-default);
 }
 
 .button-secondary:hover {
@@ -963,6 +987,55 @@ input:checked+.switch_slider:before {
         color: #354ac2;
     }
 }
+
+#firstStartScreen {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-main);
+    display: grid;
+    align-content: center;
+    padding: 0 20px;
+    transition: var(--transition-default);
+    z-index: 1000;
+}
+
+.StartScreen-container {
+    width: calc(100% - 60px);
+    padding: 10px;
+}
+
+.firstStartScreen-discriptionBlock {
+    color: var(--color-font);
+    padding: 0 20px;
+    margin-bottom: 40px;
+}
+
+.firstStartScreen-stepContainer {
+    width: calc(100% - 40px);
+    padding: 20px 0px;
+    gap: 20px;
+}
+
+.firstStartScreen--remove {
+ animation: firstStartScreenFade 1s linear forwards;
+}
+
+@keyframes firstStartScreenFade {
+    0% {
+        opacity: 1;
+        filter: blur(0px);
+    }
+    50% {
+        filter: blur(20px);
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        filter: blur(0px);
+    }
+}
+
 
 @keyframes scoreTextSpecial-legend {
     0% {

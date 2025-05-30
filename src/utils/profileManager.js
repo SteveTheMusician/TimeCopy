@@ -204,7 +204,7 @@ function importProfilePicture(appGlobalArgs) {
     const img = new Image();
 
     img.onload = function () {
-      if (img.width > 1200 || img.height > 1200) {
+      if (img.width > 1500 || img.height > 1500) {
         notification(true, false, "Das Bild darf maximal 1200x1200 Pixel groß sein.");
         return;
       }

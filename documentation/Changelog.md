@@ -32,6 +32,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * App reset button (with loading screen)
   * Auto-select day from clipboard
   * Save last clicked configuration tab
+  * Introduction-Screen added for new users
   * DLC Amag ProTime: Toggle ticket number pasting as text
   * DLC Amag ProTime: Show how many Tickets are booked successfully
 
