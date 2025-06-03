@@ -124,7 +124,7 @@ import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMo
     throw error
   }
   bookingLoopCount = 0
-  return {success: true, successMessage:bookedTicketCount+" Ticket(s) erfolgreich gebucht"}
+  return {success: true, testMode: dev_pttest, successMessage:bookedTicketCount+" Ticket(s) erfolgreich gebucht"}
 }
 
 // 🍎 chrom tab scripts

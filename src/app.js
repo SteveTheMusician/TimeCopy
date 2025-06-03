@@ -255,19 +255,22 @@ document.addEventListener('DOMContentLoaded', async function () {
         if(switch_showAllMessages.checked) {
           detailMessage = bookEntries.successMessage+' - '
           message(true, 'information', window.language.message_bookingProcessEnded,detailMessage+bookingPlatform)
-          // score counter
+        } else {
+          console.warn(consoleWarnMessage_showMessageTurnedOff)
+        }
+        console.log('--->',bookEntries)
+        // score counter
+        if(!bookEntries.testMode) {
           if(lstorage_cBookingScore > "0") {
-            bookingScore = localStorage.getItem('tc_c_bookingScore')
+          bookingScore = localStorage.getItem('tc_c_bookingScore')
           } 
           bookingScore ++
           localStorage.setItem('tc_c_bookingScore', bookingScore)
           try {
             setScoreValues(bookingScore,...window.appGlobalArgs)
           } catch (error) {
-            message(true, 'error', window.language.error + ': Score Function', error)
+            console.error('Set Score Error: ',error)
           }
-        } else {
-          console.warn(consoleWarnMessage_showMessageTurnedOff)
         }
       } else {
         console.log("❌ Problem with booking entries: ", bookEntries)

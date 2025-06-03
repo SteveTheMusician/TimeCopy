@@ -25,3 +25,4 @@
 - code clean up -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
 - app storages zu einem profile-object zusammenfassen, dass gleichzeitig 1zu1 exportiert werden kann
 - changelog link in update info ✅
+- dlc amagprotime: fix - in seltenen fellen (Ticket-Ticket) kommt es zu input im textfeld, befor die Zeit eingetragen wurde -> wenn textfeld belegt bevor stunde enter, dann lösche erst textfeld, stunde,enter dann textfeld
