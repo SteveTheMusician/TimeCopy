@@ -27,4 +27,4 @@
 - changelog link in update info ✅
 - dlc amagprotime: Capslog fix ‼️ -> Wenn ticketnummern klein geschrieben sind, wird das textfeld in protime nicht richtig ausgefüllt (auf grund der correktur)
     fix: ticket nummer to uppercase
-- dlc amag protime: ticket ohne bindestrich gültig machen? ✅
+- dlc amag protime: ticket ohne bindestrich gültig machen? -> fixen: hiddenTag match

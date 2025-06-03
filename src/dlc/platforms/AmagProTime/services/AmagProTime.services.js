@@ -12,9 +12,10 @@ export async function TestPageLoadPerformance() {
 export function filterPrefix(ticket, detectionItemsProTime) {
     let filterPrefix_prefixMatches = [];
     detectionItemsProTime.forEach((detectionItemProTime) => {
-        if (detectionItemProTime.ticketprefix.length > 0 && ticket.item_ticketnumber.includes(detectionItemProTime.ticketprefix) ||
-            detectionItemProTime.ticketprefix.length === 0 && ticket.item_ticketnumber.length === 0 || detectionItemProTime.ticketprefix === anyProjectNomber ||
-            detectionItemProTime.ticketprefix.length > 0 && ticket.item_hiddentag.length > 0) {
+        if (detectionItemProTime.ticketprefix.length > 0 && ticket.item_ticketnumber.includes(detectionItemProTime.ticketprefix)
+            || detectionItemProTime.ticketprefix.length === 0 && ticket.item_ticketnumber.length === 0 
+            || detectionItemProTime.ticketprefix === anyProjectNomber
+            ) {
             filterPrefix_prefixMatches.push(detectionItemProTime)
         }
     })
@@ -23,8 +24,6 @@ export function filterPrefix(ticket, detectionItemsProTime) {
 
 export function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
     let filterAddPrefix_addPrefixMatches = []
-    let tempArray = []
-    let prefixMatched = false
     detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixItem) => {
         let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
         item_ticketdiscWithHiddenTag = item_ticketdiscWithHiddenTag.trim()
@@ -69,7 +68,8 @@ export function filterBookingNomber(ticket, ticketRefinePrefixesMatches) {
     let refineBookingNomber_Matches = []
     if (ticketRefinePrefixesMatches.length > 1) {
         ticketRefinePrefixesMatches.forEach((detectionItemRefineBookingNomber) => {
-            if (ticket.item_bookingnumber.length && detectionItemRefineBookingNomber.projectnomber === ticket.item_bookingnumber || ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber === anyProjectNomber) {
+            if (ticket.item_bookingnumber.length && detectionItemRefineBookingNomber.projectnomber === ticket.item_bookingnumber 
+                || ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber === anyProjectNomber) {
                 refineBookingNomber_Matches.push(detectionItemRefineBookingNomber)
             } else if (!ticket.item_bookingnumber && detectionItemRefineBookingNomber.projectnomber.length && detectionItemRefineBookingNomber.projectnomber !== anyProjectNomber) {
                 refineBookingNomber_Matches.push(detectionItemRefineBookingNomber)
