@@ -524,6 +524,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
           // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
           let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
+          bookingItem_TicketNumber = bookingItem_TicketNumber.toUpperCase()
           protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
           protime_ticketNumber.focus()
           protime_ticketNumber.click()

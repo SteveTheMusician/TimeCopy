@@ -26,5 +26,5 @@
 - app storages zu einem profile-object zusammenfassen, dass gleichzeitig 1zu1 exportiert werden kann
 - changelog link in update info ✅
 - dlc amagprotime: Capslog fix ‼️ -> Wenn ticketnummern klein geschrieben sind, wird das textfeld in protime nicht richtig ausgefüllt (auf grund der correktur)
-    fix: ticket nummer to uppercase
+    fix: ticket nummer to uppercase✅
 - dlc amag protime: ticket ohne bindestrich gültig machen? -> fixen: hiddenTag match
