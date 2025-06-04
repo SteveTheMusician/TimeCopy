@@ -1021,6 +1021,13 @@ input:checked+.switch_slider:before {
  animation: firstStartScreenFade 1s linear forwards;
 }
 
+#startScreenContent {
+    display: grid;
+    align-content: space-between;
+    align-items: center;
+    justify-items: center;
+}
+
 @keyframes firstStartScreenFade {
     0% {
         opacity: 1;

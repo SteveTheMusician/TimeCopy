@@ -18,7 +18,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Break up booking process, if the working time is 0h
 
 
-## V 1.2.01
+## V 1.2.11
 
 * **Features:**
 
