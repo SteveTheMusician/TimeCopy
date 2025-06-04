@@ -170,6 +170,7 @@ function closeStartScreen(){
     setTimeout(function(){
         document.getElementById('firstStartScreen').remove()
         document.getElementsByTagName('main')[0].classList.remove('main--fadeIn')
+        localStorage.removeItem('tc_appVersion')
         window.location.reload()
     },1020)
     document.getElementsByTagName('main')[0].style.opacity = ""
