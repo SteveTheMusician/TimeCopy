@@ -27,4 +27,6 @@
 - code clean up -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
 - app storages zu einem profile-object zusammenfassen, dass gleichzeitig 1zu1 exportiert werden kann
 -  Start Screen fertig ✅
+-  fix: errorfeedback im startscreen ween profilbild zu groß
+- dlc amagProTime: ProTime services updaten (aktuell gibt es nur 3) - ggf standard variabeln dafür machen und dynamishc rendern
 
