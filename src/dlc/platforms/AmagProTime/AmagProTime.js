@@ -458,8 +458,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             let protime_leistungenOption;
             const protime_leistungenArray = [{
               "select_proTime_service_CSITEST": "[data-itemkey='ZCHN0730070']",
-              "select_proTime_service_CSITENT": "[data-itemkey='ZCHN0730080']",
-              "select_proTime_service_ITDNT": "[data-itemkey='ZCHN0730005']",
+              "select_proTime_service_ITDPC": "[data-itemkey='ZCHN0730009']",
               "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
             }]
             protime_leistung.click()

@@ -65,6 +65,9 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Automatic-DLC: Give error feedback when storage is not available
   * Show changelog url in update message
   * Npm update
+  * Improve Tab-Focus style and detection on elements
+  * Get detection items on change and update app
+  * Change service option for proTime dlc & detections
 
 ---
 

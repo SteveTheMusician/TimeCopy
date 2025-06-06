@@ -71,7 +71,7 @@ export async function filtersContent() {
                     </button>
                   </div>
                 </div>
-                <div class="dlcItem-details-container dlc-details--hidden">
+                <div class="dlcItem-details-container dlc-details--hidden" tabindex="-1">
                   <div class="dlcItem-details_information-container">
                     <p class="text-label">Infos</p>
                     <p class="subtext">`+ (plDataObject.filter_description) +`</p>

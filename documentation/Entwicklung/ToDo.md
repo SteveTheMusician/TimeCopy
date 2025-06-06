@@ -12,11 +12,13 @@
 - Yosha Update: im Ticketname akzeptiert Leere Ticketnummer bzw Tickets ohne Nummer / Tobias Excel FIlter anpassen 
 (GGF eigenes DLC Nötig)
 
-- fix: wenn alle detections gelöscht sind kommt keine meldung mehr mit "bitte füge mindestens eine erkennung hinzu"
-
+- fix: wenn alle detections gelöscht sind kommt keine meldung mehr mit "bitte füge mindestens eine erkennung hinzu" (Detections lösen kein change mehr aus) ✅
+- feature: wenn z.b. detections erstellt werden müssen, werden die buttons/der weg zu den einstellungen rot umrandet
+- fix: focus visible für alle elemente ✅
 - alle exort localstorages in eine extra function oder in die main app tun, damit diese bei profile imports geladen werden, ohne sie erneut  definieren zu müssen 
     appstorages als variabeln können dann über ein window opject von der appStorage js verarbeitet werden,
     Auch auf Score counter achten in der app js‼️ 
+- feature: amag protime dlc: warnung bei doubled tickets
 
 - languages in den übrigen fehlermeldungen reinbringen
 - texte überarbeiten

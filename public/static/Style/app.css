@@ -80,16 +80,24 @@ button svg {
     height: 20px;
 }
 
-button:focus-visible {
-    outline: 1px dashed var(--color-active);
+button:focus-visible,.button-primary:focus-visible, div:focus-visible,
+#profile_picture:has(#button_importProfilePicture:focus-visible),.switch:has(input:focus-visible),
+.radio-custom-container:has(input:focus-visible) {
+    outline: 0px solid;
+    filter: invert(1);
+}
+
+#button_add_projectDetection:focus-visible {
+    filter: invert(1);
+    outline: 1px solid;
+}
+
+select:focus-visible {
+    outline: 1px solid var(--color-icon-default);
 }
 
 input {
     font-weight: 400;
-}
-
-input:focus-visible {
-    outline: 1px dashed var(--color-active);
 }
 
 select {

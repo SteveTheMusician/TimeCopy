@@ -213,7 +213,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       if (bookingPlatform === '' || bookingPlatform === null) {
         throw new Error(window.language.error_selectPlatform)
       }
-      if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null) {
+      // (i) Length 2 is equal to an empty array []
+      if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null || lstorage_cDetectionItems.length === 2) {
         throw new Error(window.language.error_addDetection)
       }
       pasteProcessData(clipboarsString,filter,bookingPlatform)

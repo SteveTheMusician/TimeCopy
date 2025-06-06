@@ -17,6 +17,7 @@ export function projectDetection() {
 
 function updateDetectionItems(detectionItems) {
   localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
+  window.configUserChanges = true
 }
 
 function addNewProjectDetection(e) {
