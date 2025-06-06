@@ -1006,7 +1006,7 @@ input:checked+.switch_slider:before {
     align-content: center;
     padding: 0 20px;
     transition: var(--transition-default);
-    z-index: 1000;
+    z-index: 99;
 }
 
 .StartScreen-container {
