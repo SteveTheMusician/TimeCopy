@@ -48,6 +48,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * DLC Amag ProTime: Throw error if Observer didn't get ProTime Element and break up booking
   * DLC Amag ProTime: Catch zero hour working time and throw error to prevent BookingLoop-Error
   * DLC Amag proTime: Fix ticketnumber with lower case booking error
+  * Show warning, if no detection items are avaible after deleting all
 
 * **Other Changes:**
 

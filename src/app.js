@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         throw new Error(window.language.error_selectPlatform)
       }
       // (i) Length 2 is equal to an empty array []
-      if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null || lstorage_cDetectionItems.length === 2) {
+      if (lstorage_cDetectionItems === '' || lstorage_cDetectionItems === null) {
         throw new Error(window.language.error_addDetection)
       }
       pasteProcessData(clipboarsString,filter,bookingPlatform)
