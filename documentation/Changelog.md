@@ -49,6 +49,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * DLC Amag ProTime: Catch zero hour working time and throw error to prevent BookingLoop-Error
   * DLC Amag proTime: Fix ticketnumber with lower case booking error
   * Show warning, if no detection items are avaible after deleting all
+  * Notification doubles removed
 
 * **Other Changes:**
 

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Time Copy",
   "description": "Kopiere deine Zeitinformationen aus deiner Excel in eine Webaplikation / Buchungsplatform.",
-  "version": "1.2.13",
+  "version": "1.2.14",
   "permissions": [
     "clipboardRead",
     "activeTab",
