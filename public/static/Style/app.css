@@ -337,7 +337,8 @@ label:has(#button_importConfigs) {
 }
 
 .button-normal:hover {
-    background-color: var(--color-icon-default);
+    background-color: var(--color-highlight);
+    color: var(--color-active);
 }
 
 .button-secondary:hover {
