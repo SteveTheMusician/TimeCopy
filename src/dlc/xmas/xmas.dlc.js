@@ -1,7 +1,7 @@
 export function xmas() {
   // dlc is controled by app js date
-  let lstorage_c_dlcSnowflakes = localStorage.getItem('tc_c_dlc_xmassnowflakes')
-  let lstorage_c_dlcXmastree = localStorage.getItem('tc_c_dlc_xmastree')
+  let lstorage_c_dlcSnowflakes = localStorage.getItem('tc_c_dlc_xMasSnowFlakes')
+  let lstorage_c_dlcXmastree = localStorage.getItem('tc_c_dlc_xMasTree')
   const mainHtml = document.getElementsByTagName('main')[0]
   const configItemDesign = document.getElementById('configItem-design-themes')
   const xmastreeHtml = `<div class="dlc-xmastree" id="xmastree">
@@ -439,20 +439,20 @@ export function xmas() {
       if (!document.getElementById('initial-snow')) {
         mainHtml.insertAdjacentHTML('beforeend', xmassnowflakesHtml);
       }
-      localStorage.setItem('tc_c_dlc_xmassnowflakes', 'true')
+      localStorage.setItem('tc_c_dlc_xMasSnowFlakes', 'true')
     } else {
       document.getElementById('initial-snow').remove()
-      localStorage.setItem('tc_c_dlc_xmassnowflakes', 'false')
+      localStorage.setItem('tc_c_dlc_xMasSnowFlakes', 'false')
     }
   }
 
   function xmastreeDLCOnOff(checkDLCTreeEvent) {
     if (checkDLCTreeEvent.target.checked === true) {
       document.getElementById('xmastree').classList.remove('dNone')
-      localStorage.setItem('tc_c_dlc_xmastree', 'true')
+      localStorage.setItem('tc_c_dlc_xMasTree', 'true')
     } else {
       document.getElementById('xmastree').classList.add('dNone')
-      localStorage.setItem('tc_c_dlc_xmastree', 'false')
+      localStorage.setItem('tc_c_dlc_xMasTree', 'false')
     }
   }
 }

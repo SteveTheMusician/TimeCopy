@@ -29,7 +29,7 @@ async function importNewPlatformData(){
 export async function platformsContent() {
   let loadedPlatformsFeedbackArray = []
   return new Promise(async (resolve) => { 
-    let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
+    let platformInfoData = localStorage.getItem('tc_s_dlcPlatformInformations')
     if (!platformInfoData) {
       await importNewPlatformData()
     } else {
@@ -48,7 +48,7 @@ export async function platformsContent() {
       }catch(error){
         console.log(error)
         console.log('Restart Time Copy Extension.')
-        localStorage.removeItem('tc_s_dlcplatforminformations')
+        localStorage.removeItem('tc_s_dlcPlatformInformations')
         importNewPlatformData()
         return
       }
@@ -77,7 +77,7 @@ export async function platformsContent() {
                         </label>
                       </div>
                       <div class="configItem-logo-container flex configItem-logo-container--`+ (plDataObject.platform_id) + `">
-                        <img src="static/DLC/Platforms/logos/`+ (plKey + platformImageFormat) + `" class="icon-bookingItem" />
+                        <img src="static/DLC/Platforms/`+ (plKey) + '/logo/' + (plKey + platformImageFormat) + `" class="icon-bookingItem" />
                       </div>
                       <div class="dlcItem-headline-container flex">
                         <p class="text-label">`+ (plDataObject.platform_name) + `</p>
@@ -96,7 +96,7 @@ export async function platformsContent() {
                       </button>
                     </div>
                   </div>
-                  <div class="dlcItem-details-container dlc-details--hidden">
+                  <div class="dlcItem-details-container dlc-details--hidden" tabindex="-1">
                     <div class="dlcItem-details_information-container">
                       <p class="text-label">Infos</p>
                       <p class="subtext">`+ (plDataObject.platform_description) +`</p>
@@ -119,7 +119,7 @@ export async function platformsContent() {
       loadedPlatformsFeedbackArray.push(plDataObject.platform_id)
       platformCustomAppFunctions
     }
-    resolve("🟢 [DLC: Platforms] Content for "+loadedPlatformsFeedbackArray+" loaded.")
+    resolve({success:true,feedback:"🧩 [DLC: Pltforms] Content for "+loadedPlatformsFeedbackArray+" loaded.",ids:loadedPlatformsFeedbackArray})
   })
 }
 
@@ -127,7 +127,15 @@ export async function platforms(bookingPlatformSelectValue, bookingData, detecti
   let bookingFunctionName = bookingPlatformSelectValue
   // if "Automatic" then wait for new Value
   if (bookingFunctionName === platform_functionName_automatic) {
-    bookingFunctionName = await Automatic()
+    try {
+      bookingFunctionName = await Automatic()
+      if(!bookingFunctionName) {
+        throw ({ errorstatus: 'error', errorheadline: 'Automatische Zuweisung fehlgeschlagen', errortext: 'Automatisch hat keinen Wert zurückgegeben. Bitte Starten Sie das PlugIn erneut.' })
+      }
+    } catch(error){
+      console.error(error.errortext+"| platforms .133")
+      throw error
+    }
     bookingPlatformSelectValue = bookingPlatformSelectValue.replace(platform_functionName_automatic, bookingFunctionName)
   }
   // filter detection items for booking platforms

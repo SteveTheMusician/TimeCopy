@@ -17,6 +17,7 @@ export function filter_TobiasExcel(clipboarsString) {
   const regExp_ticketNumber = /^[^\s#°]+/
   const regExp_ticketMasterNumber = /(?<=°)[^\s#°]+/
   const regExp_ticketCutomBookingNumber = /(?<=#)[^\s#°]+/
+  const regExp_ticketDateDay = /([\d]{1,2})\./
   let matches = []
   let match
   let bookingData = []
@@ -41,6 +42,14 @@ export function filter_TobiasExcel(clipboarsString) {
     let item_ticketTime = ticket.match(regExp_ticketTime)[1].trim();
     item_ticketTime = item_ticketTime.replaceAll(",",".")
     let item_date = fullDateString.trim()
+    let item_dateDay = ''
+    if(item_date){
+      item_dateDay = item_date.match(regExp_ticketDateDay)[1]
+    }
+    // remove first 0
+    if(item_dateDay.startsWith('0')){
+      item_dateDay = item_dateDay.replaceAll('0','')
+    }
    
     if(item_ticketCustomBookingNumber) {
       item_bookingNumber = item_ticketCustomBookingNumber;
@@ -52,7 +61,8 @@ export function filter_TobiasExcel(clipboarsString) {
       "item_ticketdisc":item_ticketDisc,
       "item_hiddentag": item_additionalTag,
       "item_tickettime":item_ticketTime,
-      "item_date":item_date
+      "item_date":item_date,
+      "item_dateday": item_dateDay
     }
     bookingData.push(itemObject)
   })

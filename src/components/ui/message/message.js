@@ -6,6 +6,10 @@ export function message(messageShow,messageType,messageTextOverview,messageTextD
         messageTextDetails = window.language.message_noDetailsAvailable
     }
 
+    if(!messageType || messageType === '') {
+        messageType = 'information'
+    }
+
     let currentMessageID = generateDateId()
     let messageSection = document.getElementById('messages-section')
     const messageInformationIconHtml = `<?xml version="1.0" encoding="utf-8"?>

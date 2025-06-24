@@ -4,14 +4,11 @@
     <title>Time Copy</title>
     <meta charset="UTF-8">
     <link href="./static/Style/app.css" rel="stylesheet">
-    <link href="./static/Style/themes/oceanswave/oceanswave.css" rel="stylesheet" id="link-theme">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet">
+    <link href="./static/Style/themes/themeLoading.css" rel="stylesheet" id="link-theme">
   </head>
   <body>
+    <script src='appReset.bundle.js' type="module"></script>
+    <div class="specialbackground"></div>
     <header class="header dFlex dNone">
       <button class="button-primary" id="buttonBackToMain" title="Zurück zur Übersicht">
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -237,62 +234,55 @@
               </section>
               <div class="configuration-window-content" id="config-win-general--content">
                 <div class="configItem">
-                  <div class="configItem-title-row flex" title="Steuerung deines Profils">
-                    <div class="configItem-icon-container flex">
-                      <?xml version="1.0" encoding="utf-8"?>
-                      <svg version="1.1" id="Profile" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
-                        style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
-                        <path d="M600,678.8L600,678.8c-154.3,0-279.4-125.1-279.4-279.4v0C320.6,245.1,445.7,120,600,120h0c154.3,0,279.4,125.1,279.4,279.4
-                            v0C879.4,553.7,754.3,678.8,600,678.8z" />
-                        <path d="M920,1198.8H280c-154.6,0-280-125.4-280-280v0c0-66.3,53.7-120,120-120h960c66.3,0,120,53.7,120,120v0
-                            C1200,1073.4,1074.6,1198.8,920,1198.8z" />
-                      </svg>
-                    </div>
-                    <div class="configItem-headline-container">
-                      <p class="text-label">Profil</p>
+                  <div class="configItem-title-row--center flex" title="Wähle ein Profilbild">
+                    <div class="configItem-icon-container profileFrame flex" id="profile_picture">
+                        <img src="" id="profile_picture_user" class="dNone"/>
+                        <?xml version="1.0" encoding="utf-8"?>
+                        <svg version="1.1" id="Profile" xmlns="http://www.w3.org/2000/svg"
+                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
+                          style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
+                          <path d="M600,678.8L600,678.8c-154.3,0-279.4-125.1-279.4-279.4v0C320.6,245.1,445.7,120,600,120h0c154.3,0,279.4,125.1,279.4,279.4
+                              v0C879.4,553.7,754.3,678.8,600,678.8z" />
+                          <path d="M920,1198.8H280c-154.6,0-280-125.4-280-280v0c0-66.3,53.7-120,120-120h960c66.3,0,120,53.7,120,120v0
+                              C1200,1073.4,1074.6,1198.8,920,1198.8z" />
+                        </svg>
+                        <input type="file" class="object--hidden" id="button_importProfilePicture" accept="image/*" />
                     </div>
                   </div>
                   <div class="configItem-content">
-                    <div class="configItem-content-row dFlex">
-                      <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Name:</p>
-                      </div>
-                      <div class="configItem-content-right">
-                        <input type="text" class="input-size--medium" id="configProfileName" value="none" title="Name des aktuellen Profils. (Wird auch zum Export verwendet)"/>
-                      </div>
+                    <div class="configItem-content-row flex">
+                      <input type="text" class="input-size--medium input-profile" id="configProfileName" value="none" title="Name des aktuellen Profils. (Wird auch zum Export verwendet)"/>
                     </div>
-                    <div class="configItem-content-section">
-                      <div class="configItem-content-row dFlex">
+                    <div class="configItem-content-section profile-section">
+                      <div class="configItem-content-row dFlex" id="configProfileScore">
                         <div class="configItem-content-left">
-                          <p class="text-label text-margin--small">Datei:</p>
+                          <div class="configItem-content-left">
+                            <p class="text-label" id="configProfileScore_RangScore"></p>
+                          </div>
                         </div>
                         <div class="configItem-content-right">
-                          <label class="button-primary button-padding--small" title="Profil importieren.">Import
-                            <input type="file" class="object--hidden" id="button_importConfigs" accept=".tcprofile" />
-                          </label>
+                          <p class="text-label" id="configProfileScore_RangName"></p>
                         </div>
                       </div>
                       <div class="configItem-content-row dFlex">
                         <div class="configItem-content-left">
+                          <div class="configItem-content-left">
+                            <p class="text-label">Daten</p>
+                          </div>
                         </div>
                         <div class="configItem-content-right">
-                          <button class="button-primary button-padding--small" id="button_exportConfigs" title="Aktuelles Profil als Datei exportieren.">Export</button>
-                        </div>
-                      </div>
-                      <div class="configItem-content-row dFlex">
-                        <div class="configItem-content-left">
-                        </div>
-                        <div class="configItem-content-right">
-                          <button class="button-primary button-padding--small" id="button_clearConfigs" title="Aktuelles Profil zurücksetzen. (DLC-Cache wird auch gelöscht)">Löschen</button>
-                        </div>
-                      </div>
-                      <div class="configItem-content-row dFlex">
-                        <div class="configItem-content-left">
-                          <p class="text-label">DLC-Cache</p>
-                        </div>
-                        <div class="configItem-content-right">
-                          <button class="button-primary button-padding--small" id="button_reloadDLCCache" title="Bei Problemen mit den DLC's, dessen Informationen oder Einstellungen (z.B. Buchungsplatformen), kannst du diesen Knopf hier verwenden.">Löschen</button>
+                          <select id="selectProfileOptions" title="Optionen zu deinen Profil- oder App-Daten" >
+                            <option value="selectProfileOptions_none" disabled selected>Optionen</option>
+                            <optgroup label="Profil"/>
+                              <option value="selectProfile_import">Importieren</option>
+                              <option value="selectProfile_export">Exportieren</option>
+                            <optgroup label="Zurücksetzen"/>
+                              <option value="selectAppData_delete">App Daten löschen</option>
+                              <option value="selectAppData_deleteDLCCache">DLC-Cache löschen</option>
+                          </select>
+                            <input type="file" class="object--hidden" id="button_importConfigs" tabindex="-1"/>
+                            <button class="object--hidden" id="button_exportConfigs" tabindex="-1" title="Aktuelles Profil als Datei exportieren.">Export</button>
+                            <button class="object--hidden" id="button_reloadDLCCache" tabindex="-1" title="Bei Problemen mit den DLC's, dessen Informationen oder Einstellungen (z.B. Buchungsplatformen), kannst du diesen Knopf hier verwenden.">Löschen</button>
                         </div>
                       </div>
                     </div>
@@ -324,33 +314,19 @@
                       </div>
                       <div class="configItem-content-right">
                         <select name="select_themes" id="select-themes">
-                          <option disabled id="select-theme-exotic-categ" class="dNone">Exotisch</option>
-                          <option value="exotic" id="select-theme-exotic" class="dNone">Exotic Gold</option>
-                          <option disabled>Original</option>
-                          <option value="midnightglow">Midnight Glow</option>
-                          <option value="nostalgica">Nostalgica</option>
-                          <option value="oceansground" selected>Oceans Ground</option>
-                          <option value="oceanswave" selected>Oceans Weave</option>
-                          <option disabled>Gefühle</option>
-                          <option value="battlefield">Battlefield</option>
-                          <option value="blueflame">Blue Flame</option>
-                          <option value="mint">Mint</option>
-                          <option value="mrwhite">Mr. White</option>
-                          <option value="neonretrored">Neon Retro Red</option>
-                          <option value="japansflare">Japan's Flare</option>
-                          <option disabled>Charaktäre</option>
-                          <option value="danielsnfsoutfit">Daniel's NFS Outfit</option>
-                          <option value="darkterrorbyseb">Dark Terror By Seb</option>
-                          <option value="jaimesrot">Jaime's Rot</option>
-                          <option value="johannesallespink">Johannes alles Pink</option>
-                          <option value="stevesblack">Steve's Black</option>
-                          <option value="tobiaswillesschoen">Tobias will es schön</option>
-                          <option value="yoshascoffeemug">Yosha's Coffee Mug</option>
-                          <option disabled>Firmen</option>
-                          <option value="chromeblack">Chrome Black</option>
-                          <option value="chromewhite">Chrome White</option>
-                          <option value="trueinnovation">Trueinnovation</option>
+                          <!-- theme options rendered here-->     
                         </select>
+                      </div>
+                    </div>
+                    <div class="configItem-content-row dFlex padding-top-bottom-10">
+                      <div class="configItem-content-left">
+                        <p class="text-label text-margin--small">Statusleiste:</p>
+                      </div>
+                      <div class="configItem-content-right">
+                        <label class="switch">
+                          <input type="checkbox" class="" id="check_showStatusBar" />
+                          <span class="switch_slider" title="Blendet Statusleiste mit Score unten im Hauptbildschirm ein oder aus."></span>
+                        </label>
                       </div>
                     </div>
                     <!-- snowflake on/off here -->
@@ -415,28 +391,28 @@
                   <div class="configItem-content">
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
-                        <button class="button-primary button-padding--small" id="button_openReadme">Readme</button>
+                        <button class="button-primary button-padding--small button-helplink" id="button_openReadme">Readme</button>
                       </div>
                       <div class="configItem-content-right">
-                        <button class="button-primary button-padding--small" id="button_openHelp">Dokumentation</button>
+                        <button class="button-primary button-padding--small button-helplink" id="button_openHelp">Dokumentation</button>
                       </div>
                     </div>
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
-                        <button class="button-primary button-padding--small" id="button_openStore">Store</button>
+                        <button class="button-primary button-padding--small button-helplink" id="button_openStore">Store</button>
                       </div>
                       <div class="configItem-content-right">
-                        <button class="button-primary button-padding--small"
+                        <button class="button-primary button-padding--small button-helplink"
                           id="button_openChangelog">Changelog</button>
                       </div>
                     </div>
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
-                        <button class="button-primary button-padding--small"
+                        <button class="button-primary button-padding--small button-helplink"
                           id="button_openLicense">Lizens</button>
                       </div>
                       <div class="configItem-content-right">
-                        <button class="button-primary button-padding--small"
+                        <button class="button-primary button-padding--small button-helplink"
                           id="button_openDatenschutz">Datenschutz</button>
                       </div>
                     </div>
@@ -533,7 +509,7 @@
                 </div>
               </div>
             </div>
-            <div class="configuration-window dNone" id="config-win-bookingsheet">
+            <div class="configuration-window dNone" id="config-win-bookingsheets">
               <section class="configuration-window-headline-container">
                 <h2>Platformen</h2>
                 <div class="subtext-container">
@@ -551,6 +527,10 @@
           </div>
         </div>
       </div>
+    <div class="statusBar dFlex" id="statusBar">
+      <p class="text-label" id="statusBarProfileScore_RangScore">10</p>
+      <p class="text-label" id="statusBarProfileScore_RangName">Rank</p>
+    </div>
     </main>
     <script src='app.bundle.js' type="module"></script>
   </body>
