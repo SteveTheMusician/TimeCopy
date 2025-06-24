@@ -2,167 +2,374 @@
 
 ## General Information
 
-Some versions in the changelog were skipped because they were released or pushed 
-as part of a later version.
-Time Copy was only converted into a side-bar version from version 0.8.7.
+Some versions were omitted from this changelog as they were released or merged into later updates.
+As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
-## V 0.8.80
-- fix: text-label styling on small resolution
-- feature: get new "Master-Booking-Number" marked with "°" as Ticketnumber, when exists.
-- other: code and logic clean-up for bookingplatform ProTime
+---
 
-## V 0.8.92
-- feature: reload plugin instantly on config-changes and show notification
-- feature: reload plugin before exporting file
-- feature: timesheet-filter icons
-- feature: notification timeout
-- fix: catch error, wehen booking number is missing in ticket and project-detection
-- fix: booking-platform automatic as default on "empty" profile in localStorage
-- fix: proTime double click overlay
-- fix: Filter-Icon and Text style on small screen
-- other: rewrite ifs to try and catch
-- other: timesheet-tobias - regExep varables optimization
-- other: demp profiles (downloads tcprofile)
+## Last important changes summary
 
-## V 0.9.00
-- feature: new theme "chrome black"
-- feature: dlc - steve google excel filter
-- feature: add hidden tag
-- (feature: language - taken out)
-- feature: theme dropdown groups
-- fix: error catch, when ticket has no discription
-- fix: better icons for configurations
-- other: timesheet filter code refactor
-- other: components restructure
-- other: theme renaming
+* New themes
+* New Profile-Version (TCP1) with possebility to save profile-picture
+* **DLC Amag ProTime functions:**
+  * You can now use "*" in the ticketname property in detections to match all tickets to platform
+  * many new functions like "auto select days" or "match booking days" - see discription (on hover) for more informations
+  * Matter of detections order is fixed. Now every filter is matched, no matter which position it has
+  * Break up booking process, if the working time is 0h
 
-## V 0.9.10
-- fix: error: import statement outside module
-- other: webpack integration
-- other: load functions on dom 
-- other: component restructure
-- other: add more delay between h and ticket number (proTime dlc)
 
-## V 0.9.20
-- feature: new configuratin ui design
-- feature: dlc information dropdown 
-- feature: new themes and theme redesign
-- feature: protime test function in protime dlc
-- fix: hidden tag detection (detection-filtering)
-- fix: if theme is null, set default
-- fix: dlc informations and theme headlines in german 
-- other: dlc dynamic import
-- other: changes on different elements and storages naming
-- other: new Profile-Version
+## V 1.2.24
 
-## V 0.9.21
-- fix: DLC-Automatic detection
-- fix: Project-Detection error
-- fix: DLC-ProTime Ticket validating
-- fix: styles
-- other: HTML refactor
-- other: logs added
+* **Features:**
 
-## V 0.9.50
-- feature: message feedback
-- other: code refactor
-- other: wordings in messages
+  * New theme: Liquid Silver
+  * New technical theme: Oceans Ground
+  * Profile pictures
+  * Profile file encoding
+  * Dropdown-based profile options
+  * `*` in ticket names now allows assignment to any platform ("any-update")
+  * Booking counter
+  * App reset button (with loading screen)
+  * Auto-select day from clipboard
+  * Save last clicked configuration tab
+  * Introduction-Screen added for new users
+  * DLC Amag ProTime: Toggle ticket number pasting as text
+  * DLC Amag ProTime: Show how many Tickets are booked successfully
 
-## V 0.9.60
-- fix: DLC SteveGoogleExcel data filter
-- other: DLC ProTime - Timer
-- other: better tobias theme
+* **Fixes:**
 
-## V 0.9.62
-- feature: new theme
-- feature: clear all message animation
-- fix: DLC SteveGoogleExcel V 1.2
-- fix: styles
-- other: documentation init
-- other: code cleanup
-- other: cleanup data
-- other: DLC wordings
-- other: clean console.logs
+  * Styling issues on small screens
+  * Default value for `showAllMessages`
+  * Import/export bugs
+  * Ensure localStorage is created on startup
+  * DLC Amag ProTime: Error handling when overlay fails to hide
+  * Theme select arrow positioning
+  * DLC AmagProTime - Team C Sync Error Fix: Match detection-items by additional prefix, no metter what order they have 
+  * DLC Amag ProTime: Throw error if Observer didn't get ProTime Element and break up booking
+  * DLC Amag ProTime: Catch zero hour working time and throw error to prevent BookingLoop-Error
+  * DLC Amag proTime: Fix ticketnumber with lower case booking error
+  * Show warning, if no detection items are avaible after deleting all
+  * Notification doubles removed
 
-## V 0.9.63 (Release)
-- other: detection activity filter added
+* **Other Changes:**
 
-## V 0.9.70
-- feature: responsive style for large width
-- feature: button to clear DLC-Cache
-- fix: detection item style
-- other: placeholder text for empty message details
-- other: better error handling and response
-- feature: show loading spinner on pasting and lock action buttons
-- fix: catch chrome tab exec-error
-- fix: DLC AmagProTime - Renew page click overlay when reopen TimeCopy / paste again
-- fix: DLC AmagProTime - Show page click overlay after error 
-- other: Dynamic DLC-Import in Project-Detection select
-- other: XMas Update
-- other: DLC ProTime - get page js speed for better booking performance
+  * Code cleanup and restructuring
+  * Dynamic mapping of theme options
+  * Profile redesign and cleanup
+  * New profile file version (TCP1)
+  * Dynamic rendering of themes and profile options
+  * Profile import type added as HTML attribute
+  * Disable high-latency mode on high ping
+  * Changed high ping alert to message
+  * Restart app if platform DLC data is missing (edge case)
+  * Display error if app is restarted too frequently
+  * Load fonts offline to prevent long loading time on bad internet connection
+  * Automatic-DLC: Give error feedback when storage is not available
+  * Show changelog url in update message
+  * Npm update
+  * Improve Tab-Focus style and detection on elements
+  * Get detection items on change and update app
+  * Change service option for proTime dlc & detections
 
-## V 0.9.71
-- feature: responsive style for detection Items
-
-## V 0.9.72
-- feature: cancel button
-- fix: error log on empty chrome window for Automatic and ProTime DLC
-- other: Theme changes - Mr.White & Midnight GLow
-
-## V 0.9.80 
-- feature: DLC Amag ProTime - recode, latency-mode and retry function on booking error
-- feature: Input- and Text-Titles on hover (DE)
-- feature: new theme nostalgica
-- other: cursor pointer for select
-- other: Theme adjustments and fixes
-- other: better html
-
-## V 0.9.81 (Release)
-- fix: nostalgica theme
-- fix: notification style in front of xmas dlc
-- other: remove storage and declarative Content premission
-
-## V 0.9.82 (Release)
-- fix: invisible texts in themes
-- other: code clean up
-- other: renaming low latency to high latency
-- other: new public file structure
-- other: readme, license, documentation
-
-### March Update
-
-## V 1.0.0 (Release)
-- feature: configuration to show / hide messages
-- feature: amagprotime dlc - multiple string matches in detection item
-- feature: compatibility with older profile versions / supported profile version list
-- feature: return message, if browser is offline
-- fix: show error notification when trying to import currupt profile
-- fix: show error notification after reimport same profile
-- fix: remove automatic error json feedback
-- fix: write default values into exported file on fresh profile
-- fix: font fallback
-- fix: style fixes
-- other: new profile version
-- other: new Theme "Japan's White" & "Oceans ground"
-- other: documentation
-- other: restructure dlc cache
-- other: block app on critical errors
-- other: amagprotime dlc - remove test-button (use regular paste-button in test-mode)
-- other: js messages are now stored in a language json (other languages can be added in feature)
-
-## V 1.0.01 (Release / V 1.0.011 cuz chromestore upload issue)
-- fix: messages not showing after reset cache
-- other: showing message, when ProTime test-Mode is activated
-
-## V 1.0.20
-- feature: maximal 20 message items
-- fix: style on small screen
-- other: placeholder opacity
-- other: new profile version & compatibility to older versions
-- other: code cleanup
-- other: de html texts
-- other: app version name
+---
 
 ## V 1.0.21
-- fix: export configs directly after changes
-- other: mini service for session storage
+
+* **Fixes:**
+
+  * Export settings immediately after change
+
+* **Other:**
+
+  * Added mini session storage service
+
+## V 1.0.20
+
+* **Features:**
+
+  * Limit messages to 20 items
+
+* **Fixes:**
+
+  * Styles for small screens
+
+* **Other:**
+
+  * Placeholder opacity adjustment
+  * New profile version (backwards-compatible)
+  * Code cleanup
+  * Improved German translations
+  * App version label
+
+## V 1.0.01 (Release / v1.0.011 due to Chrome Store issue)
+
+* **Fixes:**
+
+  * Messages not displaying after cache reset
+
+* **Other:**
+
+  * Notification when ProTime test mode is active
+
+## V 1.0.0 (Release) — *March Update*
+
+* **Features:**
+
+  * Toggle visibility of messages via settings
+  * DLC AmagProTime: Multi-string match in detection items
+  * Compatibility with older profile versions
+  * Return a message when offline
+
+* **Fixes:**
+
+  * Show error on corrupt profile import
+  * Error alert when reimporting the same profile
+  * Remove automatic error JSON feedback
+  * Write default values when exporting from a new profile
+  * Font fallbacks
+  * General styling improvements
+
+* **Other:**
+
+  * New profile version
+  * New themes: Japan’s White & Oceans Ground
+  * Improved documentation
+  * DLC cache restructuring
+  * App blocks on critical errors
+  * Removed test button from AmagProTime DLC (use normal paste in test mode)
+  * All JS messages now stored in language JSON (for future multilingual support)
+
+---
+
+## V 0.9.82 (Release)
+
+* **Fixes:**
+
+  * Invisible text in some themes
+
+* **Other:**
+
+  * Code cleanup
+  * Renamed latency setting
+  * Public folder restructured
+  * Updated README, license, and documentation
+
+## V 0.9.81 (Release)
+
+* **Fixes:**
+
+  * Nostalgica theme styling
+  * Notification overlapping Christmas DLC
+
+* **Other:**
+
+  * Removed unused permissions and storage keys
+
+## V 0.9.80
+
+* **Features:**
+
+  * DLC Amag ProTime: Refactored, with latency mode and retry on errors
+  * Input and text titles shown on hover (German)
+  * New theme: Nostalgica
+
+* **Other:**
+
+  * Pointer cursor for select fields
+  * Theme refinements
+  * Improved HTML structure
+
+## V 0.9.72
+
+* **Features:**
+
+  * Cancel button
+
+* **Fixes:**
+
+  * Error logging when Chrome window is empty (Automatic & ProTime DLCs)
+
+* **Other:**
+
+  * New theme tweaks: Mr. White & Midnight Glow
+
+## V 0.9.71
+
+* **Features:**
+
+  * Responsive layout for detection items
+
+## V 0.9.70
+
+* **Features:**
+
+  * Responsive design for wide screens
+  * Clear DLC cache button
+  * Loading spinner during paste
+  * Lock action buttons while pasting
+
+* **Fixes:**
+
+  * Detection item styling
+  * Chrome tab execution error handling
+  * DLC AmagProTime: Reopen page/paste overlays
+  * DLC AmagProTime: Post-error overlay handling
+
+* **Other:**
+
+  * Placeholder for empty message descriptions
+  * Improved error handling
+  * Dynamic DLC import in project selector
+  * Christmas update
+  * Performance improvements in DLC ProTime booking
+
+## V 0.9.63 (Release)
+
+* **Other:**
+
+  * Added detection activity filter
+
+## V 0.9.62
+
+* **Features:**
+
+  * New theme
+  * "Clear all" message animation
+
+* **Fixes:**
+
+  * DLC SteveGoogleExcel (v1.2) bugs
+  * Styling tweaks
+
+* **Other:**
+
+  * Initial documentation
+  * Code and data cleanup
+  * Improved wording in DLC
+  * Removed unnecessary `console.log` entries
+
+## V 0.9.60
+
+* **Fixes:**
+
+  * DLC SteveGoogleExcel data filter
+
+* **Other:**
+
+  * DLC ProTime: Timer improvements
+  * Better Tobias theme
+
+## V 0.9.50
+
+* **Features:**
+
+  * Feedback messages
+
+* **Other:**
+
+  * Refactored code
+  * Improved message wording
+
+## V 0.9.21
+
+* **Fixes:**
+
+  * Automatic DLC detection
+  * Project detection errors
+  * DLC ProTime ticket validation
+  * General styling
+
+* **Other:**
+
+  * HTML structure refactored
+  * Added logging
+
+## V 0.9.20
+
+* **Features:**
+
+  * Redesigned configuration UI
+  * DLC information dropdown
+  * New and redesigned themes
+  * ProTime test function in DLC
+
+* **Fixes:**
+
+  * Hidden tag detection
+  * Fallback when theme is null
+  * German labels for DLC and themes
+
+* **Other:**
+
+  * Dynamic DLC imports
+  * Renamed elements and storage keys
+  * New profile version
+
+## V 0.9.10
+
+* **Fixes:**
+
+  * Fixed ES module import error
+
+* **Other:**
+
+  * Webpack integration
+  * Functions now load on DOM ready
+  * Component restructuring
+  * Additional delay added between H and ticket number (DLC)
+
+## V 0.9.00
+
+* **Features:**
+
+  * New theme: Chrome Black
+  * DLC SteveGoogleExcel filter
+  * Hidden tag support
+  * Theme dropdown grouping
+
+* **Fixes:**
+
+  * Error catching for empty ticket descriptions
+  * Improved icons in settings
+
+* **Other:**
+
+  * Timesheet filter refactored
+  * Component reorganization
+  * Theme renaming
+
+## V 0.8.92
+
+* **Features:**
+
+  * Instant plugin reload on config changes + notifications
+  * Plugin reload before export
+  * Timesheet filter icons
+  * Notification timeout
+
+* **Fixes:**
+
+  * Error catching: missing booking number
+  * Default booking platform for empty profiles
+  * ProTime overlay on double-click
+  * Filter icon + text styling for small screens
+
+* **Other:**
+
+  * Replaced `if` logic with `try/catch`
+  * Optimized RegEx variables for timesheet
+  * Added demo profiles for downloads
+
+## V 0.8.80
+
+* **Fixes:**
+
+  * Text label styling on small resolutions
+
+* **Features:**
+
+  * Detect and label new "Master Booking Number" as ticket number (marked with "°")
+
+* **Other:**
+
+  * Cleaned up booking platform ProTime code and logic

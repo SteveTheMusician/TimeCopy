@@ -16,7 +16,13 @@ export function projectDetection() {
 }
 
 function updateDetectionItems(detectionItems) {
-  localStorage.setItem('tc_c_projectDetection', JSON.stringify(detectionItems))
+  let detectionItemsString = JSON.stringify(detectionItems)
+  if(detectionItemsString === '[]') {
+    localStorage.removeItem('tc_c_projectDetection')
+  } else {
+    localStorage.setItem('tc_c_projectDetection', detectionItemsString)
+  }
+  window.configUserChanges = true
 }
 
 function addNewProjectDetection(e) {
@@ -26,7 +32,7 @@ function addNewProjectDetection(e) {
   let currentDate = generateDateId()
   let newDetectionItemId = detectionItemID_Prefix + currentDate
   let detectionItemMainObject = { "id": newDetectionItemId, "bookingsheet": "" }
-  if (detectionItems === null) {
+  if (detectionItems === null || detectionItems === '') {
     detectionItems = []
   }
   detectionItems.push(detectionItemMainObject)

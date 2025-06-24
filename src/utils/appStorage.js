@@ -1,50 +1,67 @@
 
 import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../dlc/dlc.js"
-import { defaultProfileName, defaultTheme } from "./defaults/defaultVariables.js"
+import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e } from "./defaults/defaultVariables.js"
 import { notification } from "../components/ui/notification/notification.js"
 import { message } from "../components/ui/message/message.js"
 import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
-import { exportProfile } from "./profileManager.js"
+import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
+import { setScoreValues } from "./setScorevalues.js"
+import { firstStartDisplay } from "../components/content/firstStartDisplay/firstStartDisplay.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
 let lstorage_appVersion = localStorage.getItem('tc_appVersion')
-let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
+export let lstorage_eeTheme = localStorage.getItem('tc_ee_exoticTheme')
 export let lstorage_cThemes = localStorage.getItem('tc_c_theme')
 export let lstorage_cLanguage = localStorage.getItem('tc_c_language')
 export let lstorage_cDetectionItems = localStorage.getItem('tc_c_projectDetection')
 export let lstorage_cShowAllMessages = localStorage.getItem('tc_c_showAllMessages')
+let lstorage_cShowAllMessagesParsed = ''
+export let lstorage_cShowStatusBar = localStorage.getItem('tc_c_showStatusBar')
+let lstorage_cShowStatusBarParsed = ''
 export let lstorage_cFilter = localStorage.getItem('tc_c_filter')
 export let lstorage_cBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
+export let lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture')
+export let lstorage_cBookingScore = localStorage.getItem('tc_c_bookingScore')
+let lstorage_cBookingScoreParsed = ''
+let lstorage_tcFirstStart = localStorage.getItem('tc_firstStart')
+// catch parse problems with show all message value
+if(lstorage_cShowAllMessages !== null && lstorage_cShowAllMessages !== '' && lstorage_cShowAllMessages !== 'undefined'){
+  lstorage_cShowAllMessagesParsed = JSON.parse(lstorage_cShowAllMessages)
+}
+if(lstorage_cShowStatusBar !== null && lstorage_cShowStatusBar !== '' && lstorage_cShowStatusBar !== 'undefined'){
+  lstorage_cShowStatusBarParsed = JSON.parse(lstorage_cShowStatusBar)
+}
+if(lstorage_cBookingScore !== null && lstorage_cBookingScore !== '' && lstorage_cBookingScore !== 'undefined'){
+  lstorage_cBookingScoreParsed = JSON.parse(lstorage_cBookingScore)
+}
 
 export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
+  
   // load localstorage
   function loadStorage() {
-    
+    let newUpdatetextVersion = appVersionData.updateTextDetails
+    newUpdatetextVersion = newUpdatetextVersion.replace('${changeloglink}',`<a href="`+appVersionData.changelogUrl+`" target="_blank">Changelog</a>`)
     if (lstorage_appVersion) {
       if (lstorage_appVersion !== appVersionData.version) {
         localStorage.setItem('tc_appVersion', appVersionData.version)
         // reset dlc information cache
         clearDlcLocalStorages(true)
         // show update message
-        message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, appVersionData.updateTextDetails)
+        message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
       }
     } else {
       // "First" app start
       localStorage.setItem('tc_appVersion', appVersionData.version)
-      message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, appVersionData.updateTextDetails)
-    }
-    
-    if (lstorage_eeTheme === 'true') {
-      document.getElementById('select-theme-exotic-categ').classList.remove('dNone');
-      document.getElementById('select-theme-exotic').classList.remove('dNone');
+      message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
     }
     
     if (lstorage_cThemes && lstorage_cThemes !== 'null' && lstorage_cThemes !== ' ') {
       appGlobalArgs.elem_themeselect.value = lstorage_cThemes
-      if (lstorage_cThemes === 'exotic' && lstorage_eeTheme === 'true') {
-        appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/ee/exotisch/' + lstorage_cThemes + '.css')
-      } else if (lstorage_cThemes === 'exotic' && lstorage_eeTheme !== 'true') {
+      if (lstorage_cThemes.includes(default_e) && lstorage_eeTheme === 'true') {
+        let newThemeValue = lstorage_cThemes.replace(default_e,'')
+        appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/ee/exotic/' + newThemeValue + '.css')
+      } else if (lstorage_cThemes.includes(default_e) && lstorage_eeTheme !== 'true') {
         appGlobalArgs.elem_themeselect.value = defaultTheme
         lstorage_cThemes = defaultTheme
       } else {
@@ -62,24 +79,40 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     } else {
       appGlobalArgs.configprofilename.value = defaultProfileName
     }
-    if (lstorage_cBookingPlatform) {
-      document.querySelector('input[value="' + platform_bookingPlatformPreValue + lstorage_cBookingPlatform + '"]').checked = true
+    if (localStorage.getItem('tc_c_bookingPlatform')) {
+      // alert(lstorage_cBookingPlatform)
+      let lStorageBookingPlatform = localStorage.getItem('tc_c_bookingPlatform')
+      document.querySelector('input[value="' + platform_bookingPlatformPreValue + lStorageBookingPlatform + '"]').checked = true
     } else {
-      document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').checked = true
-      localStorage.setItem('tc_c_bookingPlatform', defaultBookingPlatform)
+      document.querySelector('input[value="' + platform_bookingPlatformPreValue + defaultBookingPlatform + '"]').click()
     }
-    if(lstorage_cShowAllMessages === 'true') {
-      appGlobalArgs.switch_showallmessages.checked = true
-      appGlobalArgs.elem_messagesection.classList.remove('dNone')
-      appGlobalArgs.messagesheadline.classList.remove('dNone')
-    } else if (lstorage_cShowAllMessages === 'false') {
-      appGlobalArgs.switch_showallmessages.checked = false
-      appGlobalArgs.elem_messagesection.classList.add('dNone')
-      appGlobalArgs.messagesheadline.classList.add('dNone')
-    }else {
-      appGlobalArgs.switch_showallmessages.checked = true
-      appGlobalArgs.elem_messagesection.classList.remove('dNone')
-      appGlobalArgs.messagesheadline.classList.remove('dNone')
+    if(lstorage_cShowAllMessagesParsed !== '' && lstorage_cShowAllMessagesParsed !=='undefined') {
+      showHideAllMessages(lstorage_cShowAllMessagesParsed)
+      appGlobalArgs.switch_showallmessages.checked = lstorage_cShowAllMessagesParsed
+    } else {
+      appGlobalArgs.switch_showallmessages.checked = defaultShowAllMessages
+      localStorage.setItem('tc_c_showAllMessages',defaultShowAllMessages)
+      showHideAllMessages(defaultShowAllMessages)
+    }
+    if(lstorage_cShowStatusBarParsed !== '' && lstorage_cShowStatusBarParsed !=='undefined') {
+      showHideStatusBar(lstorage_cShowStatusBarParsed)
+      appGlobalArgs.switch_showStatusBar.checked = lstorage_cShowStatusBarParsed
+    } else {
+      appGlobalArgs.switch_showStatusBar.checked = defaultShowStatusBar
+      localStorage.setItem('tc_c_showStatusBar',defaultShowStatusBar)
+      showHideStatusBar(defaultShowStatusBar)
+    }
+    if(lstorage_cProfilePicture !== null) {
+      setUnsetProfilePicture(true,lstorage_cProfilePicture,appGlobalArgs)
+    }
+    if(lstorage_cBookingScoreParsed !== '') {
+      setScoreValues(lstorage_cBookingScoreParsed,appGlobalArgs)
+    } else {
+      setScoreValues('0',appGlobalArgs)
+      localStorage.setItem('tc_c_bookingScore','0')
+    }
+    if(lstorage_tcFirstStart !== 'done' || lstorage_tcFirstStart === null) {
+      firstStartDisplay()
     }
     loadDLCStorage(dlcGlobalArgs)
   }
@@ -113,31 +146,35 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
   loadStorage()
   loadSessionStorages()
   function sessionReloadHandler(remItem){
-    console.log()
     let configButton = appGlobalArgs.elem_configButton
     sessionStorage.removeItem(remItem)
     configButton.click()
   }
+  function showHideAllMessages(showHideState){
+    if(showHideState) {
+      appGlobalArgs.elem_messagesection.classList.remove('dNone')
+      appGlobalArgs.messagesheadline.classList.remove('dNone')
+    } else {
+      appGlobalArgs.elem_messagesection.classList.add('dNone')
+      appGlobalArgs.messagesheadline.classList.add('dNone')
+    }
+  }
+  function showHideStatusBar(showHideState) {
+    if(showHideState) {
+      appGlobalArgs.elem_statusBar.classList.remove('statusBar--hidden')
+    }else {
+      appGlobalArgs.elem_statusBar.classList.add('statusBar--hidden')
+    }
+  }
 }
 // clear local storage
 export function clearLocalStorage() {
-  localStorage.removeItem('tc_c_theme')
-  localStorage.removeItem('tc_c_language')
-  localStorage.removeItem('tc_c_filter')
-  localStorage.removeItem('tc_c_projectDetection')
-  localStorage.removeItem('tc_c_profileName')
-  localStorage.removeItem('tc_c_bookingPlatform')
-  localStorage.removeItem('tc_appVersion')
-  localStorage.removeItem('tc_ee_exoticTheme')
-  localStorage.removeItem('tc_c_showAllMessages')
+  localStorage.clear()
   clearDlcLocalStorages()
 }
 
 export function clearSessionStorage() {
-  sessionStorage.removeItem('tc_c_messageImported')
-  sessionStorage.removeItem('tc_c_messageProfileRemoved')
-  sessionStorage.removeItem('tc_c_changeLanguage')
-  sessionStorage.removeItem('tc_c_messageDLCCacheReloaded')
+  sessionStorage.clear()
 }
 // delete configs
 export function removeProfile() {

@@ -1,5 +1,4 @@
-@import url('../../DLC/Filters/filters.css');
-@import url('../../DLC/Platforms/platforms.css');
+@import url('./platforms.css');
 
 :root {
     --color-dlc-snowflake: #fefefe;
@@ -35,6 +34,11 @@
 
 .dlcItem-headline-container {
     padding-left: 20px;
+}
+
+.dlcItem-headline-container .text-label {
+	margin-right: 0;
+	max-height: 14px;
 }
 
 .dlcItem-versionText-left {
@@ -87,14 +91,6 @@ input:checked~.dlcItem-clickable:hover{
 .dlcItem .configItem-icon-container {
     margin-left: 10px;
     margin-right: 0;
-}
-
-.row-cell-left {
-    width: 50%;
-}
-
-.row-cell-right {
-    width: 50%;
 }
 
 .dlc-platform_custom-content {

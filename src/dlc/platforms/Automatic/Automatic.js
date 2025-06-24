@@ -8,7 +8,10 @@ export async function Automatic() {
             throw ({ errorstatus: 'error', errorheadline: 'Chrome Window URL', errortext: '"Automatisch" konnte nicht auf die Chrome-Tab API zugreifen. Vermutlich ist ein leeres Fenster geöffnet oder es gibt andere Probleme mit der URL.' })
         }
         currentURL = tab.url
-        let tc_s_dlcplatforminformations = localStorage.getItem('tc_s_dlcplatforminformations')
+        let tc_s_dlcplatforminformations = localStorage.getItem('tc_s_dlcPlatformInformations')
+        if(tc_s_dlcplatforminformations === null || tc_s_dlcplatforminformations === '') {
+            throw ({ errorstatus: 'error', errorheadline: 'Automatisch konnte Storage nicht finden', errortext: 'Platforminformations Storage konnte nicht gelesen werden oder ist leer. (Bitte Entwickler kontaktieren)' })
+        }
         tc_s_dlcplatforminformations = JSON.parse(tc_s_dlcplatforminformations)
         let foundPlatformInformationObject = tc_s_dlcplatforminformations.find(platformObj => {
             let key = Object.keys(platformObj)[0];

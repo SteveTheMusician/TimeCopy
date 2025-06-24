@@ -12,7 +12,9 @@ export function notification(notificationShow, notificationStatus, notificationT
                                     </svg>
                                 </button>
                             </div>`
-    main.insertAdjacentHTML('beforeend', notificationHTML);
+    if(!document.getElementById('notification')) {
+        main.insertAdjacentHTML('beforeend', notificationHTML);
+    }                        
     let notification = document.getElementById('notification')
     let text_notification = document.getElementById('notification-text')
     if (notificationShow === true) {
