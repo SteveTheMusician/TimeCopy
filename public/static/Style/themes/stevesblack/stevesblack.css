@@ -30,3 +30,13 @@
   --color-icon-default: var(--silver-gray);
   --color-icon-light: var(--white);
 }
+
+button:focus-visible,.button-primary:focus-visible, div:focus-visible,
+#profile_picture:has(#button_importProfilePicture:focus-visible),.switch:has(input:focus-visible),
+.radio-custom-container:has(input:focus-visible) {
+    filter: invert(1) brightness(4);
+}
+
+#button_add_projectDetection:focus-visible {
+    filter: invert(1) brightness(4);
+}

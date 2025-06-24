@@ -2,6 +2,7 @@
   /* ---- Tobias will alles schön Theme ---- */
   /* vars */
   --blur-default: blur(20px);
+  --border-radius-second: 20px;
   /* color palette */
   --color-none: transparent;
   --white: #fefefe;
@@ -48,6 +49,15 @@ body:before {
 
 header {
   background-color: var(--color-none);
+  height: 80px;
+}
+
+.main-window {
+  padding-top: 80px;
+}
+
+.overview {
+  padding: 20px 20px;
 }
 
 .button-mainAction, #buttonBackToMain {
@@ -82,7 +92,24 @@ header {
   padding: 10px;
   margin-block-start: 0;
   margin-block-end: 0;
-  border-radius: 20px;
+  border-radius: var(--border-radius-second);
+}
+
+.configItem-icon-container img {
+  width: 50px;
+  height: 50px;
+}
+
+#profile_picture {
+  width: 60px;
+  height: 60px;
+  padding: 0;
+}
+
+#profile_picture_user {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--border-radius-second);
 }
 
 .dlcItem-main .configItem-icon-container {
@@ -110,6 +137,10 @@ header {
   background-color: var(--color-second);
 }
 
+.statusBar {
+  backdrop-filter: var(--blur-default) brightness(1.05);
+}
+
 .button-config-tab {
   border-radius: var(--border-radius-default);
 }
@@ -125,6 +156,10 @@ header {
 input[type=text], select {
   padding: 10px;
   border-radius: 100px;
+}
+
+select {
+  border-right: 10px solid transparent;
 }
 
 .input-size--small {

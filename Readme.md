@@ -1,8 +1,8 @@
 # Time Copy
-#### V 1.0.2* (Sidebar Version)
+#### V 1.2.XX (Sidebar Version)
 By Steve Pietrowski / EmptySoul
 </br>
-04.07.2023 - 03.2025
+04.07.2023 - 06.2025
 
 ## Benutzerinformationen
 
@@ -24,9 +24,6 @@ https://chromewebstore.google.com/detail/time-copy/gdjoddopmbcdgginieddfecabkhfi
 Diese dienen dazu, deine Daten vom Clipboard richtig zu zu ordnen bzw. zu filtern.
 - **_Buchungsplatform_** : Sagt dem PlugIn, auf welche Seite / Programm diene Daten eingefügt / verarbeitet werden.
 (Automatisch wählt Buchungsplatformen nach der Web-Url aus)
-
-> [!TIP] 
-> Um Änderungen zu übernehmen, klicke nach einem Change einfach auf den Zurück-Button oben Links oder öffne das PlugIn erneut
 
 ### Shortcuts
 - Time Copy öffnen / schließen (Windows): Strg+b
@@ -111,9 +108,10 @@ Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende Adressen wend
 - *.tcprofile V 1.6
 - *.tcprofile V 1.7
 - *.tcprofile V 1.8
+- *.tcprofile V 1.9 / 2.0
 
 ### Node Version
-Empfohlen: V 20.11.0
+Empfohlen: V 22.16.0
 
 ### Packages Installieren
 npm i

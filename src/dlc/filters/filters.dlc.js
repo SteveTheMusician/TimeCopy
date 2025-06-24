@@ -18,7 +18,7 @@ export async function filters(filter,clipboarsString) {
 export async function filtersContent() {
   let loadedFiltersFeedbackArray = []
    return new Promise(async (resolve) => { 
-   let filterInfoData = localStorage.getItem('tc_s_dlcfilterinformations')
+   let filterInfoData = localStorage.getItem('tc_s_dlcFilterInformations')
    if (!filterInfoData) {
      let importNewFilterData = await importFiltersData()
      try {
@@ -52,7 +52,7 @@ export async function filtersContent() {
                         </label>
                     </div>
                     <div class="configItem-icon-container flex configItem-icon-container--`+ (plDataObject.filter_id) + `">
-                     <img src="static/DLC/Filters/icons/`+ (plKey + filterImageFormat) + `" class="icon-filterItem" />
+                     <img src="static/DLC/Filters/`+ (plKey) + "/icon/" + (plKey + filterImageFormat) + `" class="icon-filterItem" />
                     </div>
                     <div class="dlcItem-headline-container flex">
                       <p class="text-label">`+ (plDataObject.filter_name) + `</p>
@@ -71,7 +71,7 @@ export async function filtersContent() {
                     </button>
                   </div>
                 </div>
-                <div class="dlcItem-details-container dlc-details--hidden">
+                <div class="dlcItem-details-container dlc-details--hidden" tabindex="-1">
                   <div class="dlcItem-details_information-container">
                     <p class="text-label">Infos</p>
                     <p class="subtext">`+ (plDataObject.filter_description) +`</p>
@@ -87,6 +87,6 @@ export async function filtersContent() {
      document.getElementById('window_timesheetfilters').innerHTML += filterChild
      loadedFiltersFeedbackArray.push(plDataObject.filter_id)
    }
-    resolve("🟢 [DLC: Filters] Content for "+loadedFiltersFeedbackArray+" loaded.")
+    resolve({success:true,feedback:"🧩 [DLC: Filters] Content for "+loadedFiltersFeedbackArray+" loaded.",ids:loadedFiltersFeedbackArray})
    })
  }

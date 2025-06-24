@@ -40,9 +40,13 @@ h2 {
     font-weight: 700;
 }
 
-p {
+p, pre {
     user-select: none;
     font-weight: 400;
+}
+
+a {
+    color: var(--color-icon-default);
 }
 
 img {
@@ -76,16 +80,24 @@ button svg {
     height: 20px;
 }
 
-button:focus-visible {
-    outline: 1px dashed var(--color-active);
+button:focus-visible,.button-primary:focus-visible, div:focus-visible,
+#profile_picture:has(#button_importProfilePicture:focus-visible),.switch:has(input:focus-visible),
+.radio-custom-container:has(input:focus-visible) {
+    outline: 0px solid;
+    filter: invert(1);
+}
+
+#button_add_projectDetection:focus-visible {
+    filter: invert(1);
+    outline: 1px solid;
+}
+
+select:focus-visible {
+    outline: 1px solid var(--color-icon-default);
 }
 
 input {
     font-weight: 400;
-}
-
-input:focus-visible {
-    outline: 1px dashed var(--color-active);
 }
 
 select {
@@ -96,6 +108,11 @@ select {
 input::placeholder {
     color: var(--color-font-subtext);
     opacity: 0.6;
+}
+
+.specialbackground {
+    display: none;
+    user-select: none;
 }
 
 .flex {
@@ -220,6 +237,20 @@ main {
     overflow: hidden;
 }
 
+.main--fadeIn {
+    opacity: 0;
+     animation: mainFadeIn 1s linear forwards;
+}
+
+@keyframes mainFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .main-window {
     padding: 20px 30px;
     padding-bottom: 0px;
@@ -297,6 +328,17 @@ label:has(#button_importConfigs) {
     color: #89b4c1;
     cursor: pointer;
     transition: 0.3s;
+}
+
+.button-normal {
+    background-color: var(--color-third);
+    color: var(--color-icon-default);
+    border-radius: var(--border-radius-default);
+}
+
+.button-normal:hover {
+    background-color: var(--color-highlight);
+    color: var(--color-active);
 }
 
 .button-secondary:hover {
@@ -377,6 +419,10 @@ label:has(#button_importConfigs) {
     position: absolute;
     opacity: 0;
     transition: var(--transition-default);
+}
+
+.button-helplink {
+    text-decoration: underline;
 }
 
 .button-config-tab {
@@ -494,6 +540,10 @@ label:has(#button_importConfigs) {
     border-top: 2px solid var(--color-font-second);
 }
 
+.profile-section {
+    margin-top: 22px;
+}
+
 .configItem-content-fullWidth {
     width: 100%;
     margin: 5px;
@@ -563,6 +613,11 @@ label.configItem:hover {
     justify-content: flex-start;
 }
 
+.configItem-title-row--center {
+    width: 100%;
+    justify-content: center;
+}
+
 input[type=text] {
     background-color: var(--color-second);
     color: var(--color-font);
@@ -595,6 +650,11 @@ input[type=text]:focus {
 
 .input-padding--medium {
     margin: 5px;
+}
+
+.input-profile {
+    max-width: 50%;
+    text-align: center;
 }
 
 .text-projectNomber {
@@ -631,6 +691,30 @@ input[type=text]:focus {
     overflow: hidden;
 }
 
+.configItem-icon-container label {
+    cursor: pointer;
+}
+
+.profileFrame {
+    border-radius: 100%;
+    background-color: var(--color-main);
+    justify-content: center;
+    margin: 10px;
+    cursor: pointer;
+    outline: 1px solid var(--color-none);
+    transition: var(--transition-default);
+    width: 50px;
+    height: 50px;
+}
+
+.profileFrame:hover {
+    outline: 1px solid var(--color-highlight);
+}
+
+.profileFrame--full {
+    padding: 0;
+}
+
 .configItem--remove {
     transform: translateX(100%);
     opacity: 0;
@@ -646,6 +730,7 @@ select {
     font-size: 12px;
     border: 0px solid;
     width: 100%;
+    border-right: 5px solid transparent;
 }
 
 .detectionItem-main {
@@ -857,6 +942,144 @@ input:checked+.switch_slider:before {
     transform: translateX(200px);
 }
 
+.row-cell-left {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.row-cell-right {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.statusBar {
+    position: absolute;
+    background-color: var(--color-second);
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0;
+}
+
+.statusBar--hidden {
+    visibility: hidden;
+    user-select: none;
+    pointer-events: none;
+}
+
+.scoreTextSpecial-wizard {
+    animation: scoreTextSpecial-wizard 10s linear infinite;
+}
+
+.scoreTextSpecial-legend {
+    animation: scoreTextSpecial-legend 10s linear infinite;
+}
+
+.scoreTextSpecial-god {
+    animation: scoreTextSpecial-god 10s linear infinite;
+}
+
+.textAnimation-creator {
+    animation: textAnimation-creator 6s linear infinite;
+}
+
+@keyframes scoreTextSpecial-wizard {
+    0% {
+        color: #354ac2;
+    }
+    50% {
+        color: #1eddff;
+    }
+    100% {
+        color: #354ac2;
+    }
+}
+
+#firstStartScreen {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-main);
+    display: grid;
+    align-content: center;
+    padding: 0 20px;
+    transition: var(--transition-default);
+    z-index: 99;
+}
+
+.StartScreen-container {
+    width: calc(100% - 60px);
+    padding: 10px;
+}
+
+.firstStartScreen-discriptionBlock {
+    color: var(--color-font);
+    padding: 0 20px;
+    margin-bottom: 40px;
+}
+
+.firstStartScreen-stepContainer {
+    width: calc(100% - 40px);
+    padding: 20px 0px;
+    gap: 20px;
+}
+
+.firstStartScreen--remove {
+ animation: firstStartScreenFade 1s linear forwards;
+}
+
+#startScreenContent {
+    display: grid;
+    align-content: space-between;
+    align-items: center;
+    justify-items: center;
+}
+
+@keyframes firstStartScreenFade {
+    0% {
+        opacity: 1;
+        filter: blur(0px);
+    }
+    50% {
+        filter: blur(20px);
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        filter: blur(0px);
+    }
+}
+
+
+@keyframes scoreTextSpecial-legend {
+    0% {
+        color: #7c35c2;
+    }
+    50% {
+        color: #b97adb;
+    }
+    100% {
+        color: #7c35c2;
+    }
+}
+
+@keyframes scoreTextSpecial-god {
+    0% {
+        color: #927950;
+    }
+    30% {
+        color: #f3d991; 
+    }
+    60% {
+        color: #91f3d1;
+    }
+    100% {
+        color: #927950;
+    }
+}
+
 @keyframes message-new-information {
     0% {
         outline-color: var(--color-highlight);
@@ -899,6 +1122,48 @@ input:checked+.switch_slider:before {
     }
 }
 
+@keyframes textAnimation-creator {
+    0% {
+        color: #15a27c;
+    }
+    20% {
+        color: #15a27c; 
+    }
+    30% {
+        color: #d547e7;
+    }
+    40% {
+        color: #15a27c; ;
+    }
+    60% {
+        color: #38d4aa; ;
+    }
+    65% {
+        color: #d547e7;
+    }
+    67% {
+        color: #37ed58;
+    }
+    69% {
+        color: #3a37ed;
+    }
+    70% {
+        color: #38d4aa; ;
+    }
+    80% {
+        color: #2ee6b5; ;
+    }
+    85% {
+        color: #e31ac8;
+    }
+    90% {
+        color: #37ed58;
+    }
+    100% {
+        color: #15a27c;
+    }
+}
+
 /* responsive */
 @media only screen and (max-width: 400px) {
 
@@ -915,11 +1180,6 @@ input:checked+.switch_slider:before {
         overflow: hidden;
         word-break: normal;
         margin-right: 5px;
-    }
-
-    .dlcItem-headline-container .text-label {
-        margin-right: 0;
-        max-height: 14px;
     }
 
     .configItem-main {
@@ -943,18 +1203,6 @@ input:checked+.switch_slider:before {
     .button-add {
         max-width: 100%;
     }
-
-    .row-cell-left {
-        width: 50%;
-        display: flex;
-        align-items: center;
-    }
-
-    .row-cell-right {
-        width: 50%;
-        display: flex;
-        align-items: center;
-    }
 }
 
 @media only screen and (min-width: 706px) {
@@ -967,7 +1215,6 @@ input:checked+.switch_slider:before {
     #config-win-projects .configuration-window-content {
         display: flex;
     }
-
 }
 
 @media only screen and (min-width: 960px) {

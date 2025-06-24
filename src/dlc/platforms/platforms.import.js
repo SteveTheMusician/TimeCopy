@@ -8,7 +8,7 @@ async function generatePlatformData() {
     return new Promise(async (resolve) => { 
         let dlcPlatformsData = []
         for (let importedPlatform of importPlatforms) {
-            let infoData = Promise.resolve(import(`./${importedPlatform}/info.json`))
+            let infoData = Promise.resolve(import(`../../../public/static/DLC/Platforms/${importedPlatform}/info.json`))
             await infoData.then(plInfo => {
                 let platformStorageObject = { [importedPlatform]: { ...plInfo } }
                 // let lstorage_sDLCPlatformInformations = 
@@ -21,21 +21,22 @@ async function generatePlatformData() {
 
 export async function importPlatformsData() {
     return new Promise(async (resolve) => { 
-        let tc_s_dlcplatforminformations = localStorage.getItem('tc_s_dlcplatforminformations')
-        if (!tc_s_dlcplatforminformations) {
+        let tc_s_dlcPlatformInformations = localStorage.getItem('tc_s_dlcPlatformInformations')
+        if (!tc_s_dlcPlatformInformations) {
             let dlcPlatformsData = await generatePlatformData()
             try {
                 if (dlcPlatformsData) {
                     // push all informations about the platform dlcs into ls
-                    tc_s_dlcplatforminformations = localStorage.setItem('tc_s_dlcplatforminformations', JSON.stringify(dlcPlatformsData))
-                    resolve(tc_s_dlcplatforminformations)
+                    tc_s_dlcPlatformInformations = localStorage.setItem('tc_s_dlcPlatformInformations', JSON.stringify(dlcPlatformsData))
+                    resolve(tc_s_dlcPlatformInformations)
                 } else {
                     throw new Error('unable to create dlc (platforms) import data')
                 }
             } catch (error) {
+                console.error(error)
             }
         }else {
-            resolve(tc_s_dlcplatforminformations)
+            resolve(tc_s_dlcPlatformInformations)
         }
     })
 }

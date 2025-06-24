@@ -2,7 +2,7 @@ import { importPlatforms } from "../../../dlc/platforms/platforms.import.js"
 
 export function detectionItem(detectionItems) {
   let platformSelectItems = []
-  let platformInfoData = localStorage.getItem('tc_s_dlcplatforminformations')
+  let platformInfoData = localStorage.getItem('tc_s_dlcPlatformInformations')
   platformInfoData = JSON.parse(platformInfoData)
   let plDataObject = ''
   for (let plKey of importPlatforms){
@@ -42,9 +42,8 @@ export function detectionItem(detectionItems) {
               <div class="detectionItem-content-larger">
                 <select name="select_proTimeService" id="select_proTimeService_`+ detectionItem.id + `" title="Wähle den Service aus, unter welchen du buchen willst.">
                   <option value="select_proTime_service_ITD" `+ ("select_proTime_service_ITD" === detectionItem.protimeservice ? "selected" : "") + `>IT Dienstleistungen</option>
-                  <option value="select_proTime_service_ITDST" `+ ("select_proTime_service_ITDST" === detectionItem.protimeservice ? "selected" : "") + `>IT Dienstleistungen ST</option>
+                  <option value="select_proTime_service_ITDPC" `+ ("select_proTime_service_ITDPC" === detectionItem.protimeservice ? "selected" : "") + `>IT Dienstleistungen Projekte & Change</option>
                   <option value="select_proTime_service_CSITEST" `+ ("select_proTime_service_CSITEST" === detectionItem.protimeservice ? "selected" : "") + `>Corporate Service IT Ext ST</option>
-                  <option value="select_proTime_service_CSITENT" `+ ("select_proTime_service_CSITENT" === detectionItem.protimeservice ? "selected" : "") + `>Corporate Service IT Ext NT</option>
                 </select>
               </div>
               <div class="detectionItem-content-smaller">
