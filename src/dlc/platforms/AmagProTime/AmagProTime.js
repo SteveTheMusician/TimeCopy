@@ -32,10 +32,10 @@ import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMo
   if (lstorage_c_dlcProTimeForceLatencyMode === true) {
     highLatency = true
     forceHighLatency = true
-    message(true, 'warning', 'High Latency Modus', '"Erzwinge High Latency-Modus" ist in den ProTime DLC-Funktionen aktiviert. Time Copy wird die Daten langsamer, dafür sicherer übertragen.')
+    message(true, 'warning', window.language.message_dlcProTime_highLatencyMode, window.language.message_dlcProTime_highLatencyMode_disc)
   }
   if(lstorage_c_dlcProTimeTest === true){
-    message(true, 'warning', 'Test Modus', 'Das Amag ProTime DLC befindet sich im Testmodus. Daten werden übertragen aber nicht gebucht.')
+    message(true, 'warning', window.language.message_dlcProTime_testMode, window.language.message_dlcProTime_testMode_disc)
     console.warn('DLC Amag ProTime: Test Mode activated')
   }
   // set use High Latency
@@ -102,7 +102,7 @@ import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMo
       // message feedback
       notificationTimeOut += 150
       setTimeout(function () {
-        message(true, 'warning', 'Ticket nicht übernommen', ticketnumber + ': ' + ticketdisc)
+        message(true, 'warning', window.language.message_dlcAmagProTime_ticketNotAdopted, ticketnumber + ': ' + ticketdisc)
       }, notificationTimeOut)
     });
     notificationTimeOut = 0
@@ -137,7 +137,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
       // use high latency only when page ping is low
       if (proTimeJSPageTime > 150) {
         console.warn("[Time Copy][DLC Platforms: AmagProTime] ⚠️ Warning: Page has low ping (" + proTimeJSPageTime + " ms )")
-        message(true, 'warning', 'Webseite hat hohen Ping', 'Webseite wurde mit einem Ping von '+ proTimeJSPageTime +'ms gemessen. Ein hoher Ping kann unter umständen zu Buchungsfehler führen. Bei Problemen wird TimeCopy automatisch den High-Latency-Mode aktivieren.')
+        message(true, 'warning', window.language.message_dlcAmagproTime_webHighPing, window.language.message_dlcAmagproTime_webHighPing_disc )
         // highLatency = true
       }
       chrome.windows.getCurrent(function (window) {

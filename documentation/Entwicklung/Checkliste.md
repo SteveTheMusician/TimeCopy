@@ -4,6 +4,7 @@
 - mainfest.json -> Version
 - version.json -> Version, Build-version, Overview- & Details-Text 
 - package.json -> Version
+- package.lock.json -> version
 
 ## Documentation
 - documentation -> version, updates
