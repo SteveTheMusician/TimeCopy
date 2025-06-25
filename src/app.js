@@ -231,6 +231,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
   // process clipboard string through filter and start booking process
   async function pasteProcessData(clipboarsString,filter,bookingPlatform) {
+    debugStick(clipboarsString,'Clipboard String - APP')
     let filterData = []
     // get all boocking relevant data as array
     try {
