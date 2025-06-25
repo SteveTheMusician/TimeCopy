@@ -55,7 +55,7 @@ export function detectionItem(detectionItems) {
                 <input type="text" class="input-size--large" name="input_activity" id="input_activity`+ detectionItem.id + `" list="datalist_activity` + detectionItem.id + `" placeholder="Aktivität (Wenn vorhanden)" title="Bei zusätzlichen Aktivitäts-Felder, kannst du hier eine Auswahl oder Eingabe treffen."/>
                 <datalist id="datalist_activity`+ detectionItem.id + `">
                   <option>- WP2 - AEM Dashboard</option>
-                  <option>AP01 - Front-end</option>
+                  <option>Projekte & Change</option>
                   <option>Customer Success Management</option>
                 </datalist>
               </div>

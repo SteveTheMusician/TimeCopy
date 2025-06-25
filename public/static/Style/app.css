@@ -1021,7 +1021,7 @@ input:checked+.switch_slider:before {
 }
 
 .firstStartScreen-stepContainer {
-    width: calc(100% - 40px);
+    width: 100%;
     padding: 20px 0px;
     gap: 20px;
 }

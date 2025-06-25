@@ -22,7 +22,10 @@
 - app storages zu einem profile-object zusammenfassen, dass gleichzeitig 1zu1 exportiert werden kann
 - dlc amagProTime: ProTime services updaten (aktuell gibt es nur 3) - ggf standard variabeln dafür machen und dynamishc rendern
 
+-dlc amag protime: wenn inputs on first start noch values haben lösche alle und dann starten
+
 ## Maintance updates
+- ee themes: notifications anpassen (style)
 - Node version checken ggf updaten
 - Code clean up:
     - Local Storages vereinheitlichen

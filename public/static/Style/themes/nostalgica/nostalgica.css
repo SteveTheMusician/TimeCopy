@@ -250,3 +250,7 @@ input:checked+.switch_slider:before {
       filter: drop-shadow( 0px 0px 12px var(--color-highlight))
   }
 }
+
+#startScreenContent {
+  gap: 10px;
+}

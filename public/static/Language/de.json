@@ -24,5 +24,6 @@
     "notification_fileVersionNotMatch": "Version stimmt nicht überein.",
     "notification_profileImported": "Profil wurde erfolgreich importiert!",
     "notification_profileReset": "Profil wurde zurückgesetzt.",
-    "notification_dlcCacheReset": "DLC-Cache wurde zurückgesetzt."
+    "notification_dlcCacheReset": "DLC-Cache wurde zurückgesetzt.",
+    "notification_profileNotFullyImported": "Profil konnte nicht vollständig übernommen werden."
 }

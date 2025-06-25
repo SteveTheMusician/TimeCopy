@@ -61,9 +61,12 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       if (lstorage_cThemes.includes(default_e) && lstorage_eeTheme === 'true') {
         let newThemeValue = lstorage_cThemes.replace(default_e,'')
         appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/ee/exotic/' + newThemeValue + '.css')
-      } else if (lstorage_cThemes.includes(default_e) && lstorage_eeTheme !== 'true') {
+      } else if (lstorage_cThemes.includes(default_e) && lstorage_eeTheme !== 'true' || lstorage_cThemes.includes(default_e) && lstorage_eeTheme !=='undefined') {
         appGlobalArgs.elem_themeselect.value = defaultTheme
-        lstorage_cThemes = defaultTheme
+        localStorage.setItem('tc_c_theme',defaultTheme)
+        sessionStorage.setItem('tc_c_messageImported','false')
+        window.location.reload()
+        // MESSAGE TRIGGERN : Fehler mit theme
       } else {
         appGlobalArgs.link_csstheme.setAttribute('href', './static/Style/themes/' + lstorage_cThemes + '/' + lstorage_cThemes + '.css')
       }
@@ -126,6 +129,9 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     if (sMessageImported === 'true') {
       notification(true, true, window.language.notification_profileImported)
       sessionReloadHandler('tc_c_messageImported')
+    }
+    if (sMessageImported === 'false') {
+      notification(true, false, window.language.notification_profileNotFullyImported)
     }
     if (sMessageProfileRemoved === 'true') {
       notification(true, true, window.language.notification_profileReset)

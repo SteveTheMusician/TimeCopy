@@ -342,3 +342,7 @@ input:checked+.switch_slider {
     outline-color: var(--blue-gray-dark);
   }
 }
+
+#startScreenContent {
+  gap: 10px;
+}
