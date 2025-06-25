@@ -1,7 +1,7 @@
 {
-    "extension_version": "1.2.24",
+    "extension_version": "1.2.25",
     "extension_version_name": "Silver Liquid",
-    "extension_build": "S25.06241522",
+    "extension_build": "S25.06251256",
     "profile_version": "2.0",
     "profile_type": ".TCP1",
     "supported_profile_versions": ["1.6","1.7","1.8","1.9"],

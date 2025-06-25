@@ -336,6 +336,10 @@ select {
   border-right: 10px solid transparent;
 }
 
+.notification--ok {
+  background-color: var(--color-second);
+}
+
 @keyframes item--new-animation {
   0% {
     outline: 1px solid var(--color-main);
@@ -390,4 +394,8 @@ select {
   100% {
     outline-color: var(--color-main);
   }
+}
+
+#startScreenContent {
+  gap: 10px;
 }

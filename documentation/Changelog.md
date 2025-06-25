@@ -17,6 +17,15 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Matter of detections order is fixed. Now every filter is matched, no matter which position it has
   * Break up booking process, if the working time is 0h
 
+## V 1.2.25
+
+* **Maintance Update:**
+
+  * Styling fixes
+  * Fix theme import
+  * **DLC Amag ProTime:**
+    * Activity "AP01..." replaced with "Projekte & Change"
+
 
 ## V 1.2.24 (Release)
 
