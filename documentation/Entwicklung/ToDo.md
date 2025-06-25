@@ -25,6 +25,7 @@
 -dlc amag protime: wenn inputs on first start noch values haben lösche alle und dann starten
 
 ## Maintance updates
+- ee themes: notifications anpassen (style)
 - Node version checken ggf updaten
 - Code clean up:
     - Local Storages vereinheitlichen
