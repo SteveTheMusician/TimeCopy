@@ -11,9 +11,9 @@
   --clear-gray: #bfdbde36;
 
   /* Message hover background colors */
-  --red-mud: #373033;
-  --yellow-mud: #373630;
-  --gold-mud: #373630;
+  --red-transparent: #d2428c33;
+  --yellow-transparent: #d2c64233;
+  --purple-transparent: #8873c533;
   /* theme colors */
   --color-main: var(--white-fa);
   --color-second: var(--clear-gray);
@@ -137,6 +137,9 @@ header {
   animation-name: backgroundAnimationIdle;
   transform: unset;
   box-shadow: unset;
+  backdrop-filter: var(--blur-default);
+  background-color: var(--color-second);
+  opacity: 0.5;
 }
 
 @keyframes backgroundAnimationIdle {
@@ -304,15 +307,15 @@ input:checked+.switch_slider:before {
 }
 
 .message-error:hover {
-  background-color: var(--red-mud);
+  background-color: var(--red-transparent);
 }
 
 .message-warning:hover {
-  background-color: var(--yellow-mud);
+  background-color: var(--yellow-transparent);
 }
 
 .message-information:hover {
-  background-color: var(--gold-mud);
+  background-color: var(--purple-transparent);
 }
 
 .button-mainAction--waiting:after {
