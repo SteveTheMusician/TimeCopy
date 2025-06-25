@@ -7,7 +7,8 @@ import {
   lstorage_cLanguage,
   lstorage_cThemes,
   lstorage_cProfilePicture,
-  lstorage_cBookingScore
+  lstorage_cBookingScore,
+  lstorage_eeTheme
 } from "./appStorage.js";
 import { notification } from "../components/ui/notification/notification.js";
 import {
@@ -68,12 +69,18 @@ export function profileManager(appGlobalArgs, appVersionData, dlcGlobalArgs) {
       const cfg = fileData.tcprofile.cfg;
       const profileNameKey = versionInfo.version < '1.8' ? 'profile_name' : 'profileName';
       const showMessagesKey = versionInfo.version < '1.8' ? 'show_all_messages' : 'showAllMessages';
-      const theme = cfg.theme === 'exotic' ? defaultTheme : cfg.theme;
+      let theme = cfg.theme === 'exotic' ? defaultTheme : cfg.theme;
+      let eeTheme = cfg.eeTheme
+
+      if(eeTheme !== 'true' || eeTheme === 'undefinden') {
+        eeTheme === 'false'
+      }
 
       localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg[showMessagesKey]);
       localStorage.setItem('tc_c_profileName', fileData.tcprofile[profileNameKey]);
       localStorage.setItem('tc_c_bookingScore', cfg.bookingScore);
       localStorage.setItem('tc_c_theme', theme);
+      localStorage.setItem('tc_ee_exoticTheme', eeTheme)
       localStorage.setItem('tc_c_language', cfg.language);
       localStorage.setItem('tc_c_filter', cfg.filter);
       localStorage.setItem('tc_c_projectDetection', JSON.stringify(cfg.detections));
@@ -123,6 +130,7 @@ export function exportProfile(appVersionData, appGlobalArgs) {
   const detectionItems = JSON.parse(lstorage_cDetectionItems) || [];
   const fileName = `${appGlobalArgs.configprofilename.value}-TimeCopy${appVersionData.profileType}`;
   const theme = lstorage_cThemes ?? defaultTheme;
+  const eeTheme = lstorage_eeTheme ?? 'false'
   const language = lstorage_cLanguage ?? defaultLanguage;
   const showAllMessages = lstorage_cShowAllMessages ?? defaultShowAllMessages;
   const filter = lstorage_cFilter ?? '';
@@ -142,6 +150,7 @@ export function exportProfile(appVersionData, appGlobalArgs) {
       cfg: {
         bookingScore,
         theme,
+        eeTheme,
         language,
         showAllMessages,
         filter,
