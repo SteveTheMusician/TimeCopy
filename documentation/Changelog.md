@@ -22,6 +22,8 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 * **Features:**
   * DLC Tobias Excel: (cryptpad fix) Ability to filter informations from cryptpad
 
+## V 1.2.25
+
 * **Fixes:**
   * Styling fixes
   * Fix theme import
