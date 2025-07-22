@@ -97,6 +97,7 @@ Einstellungen.
 - [Time Copy V 0.9.80 - Not Released (Chrome)](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Builds/Chrome/TimeCopy_V0.9.80_NotReleased.zip)
 - [Time Copy V 0.9.81 (Chrome)](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Builds/Chrome/TimeCopy_V0.9.81.zip)
 - [Time Copy V 1.0.00 (Chrome)](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Builds/Chrome/TimeCopy_V1.0.00.zip)
+- [Time Copy V 1.0.21 (Chrome - Old but most stable)](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Builds/Chrome/TimeCopy_V1.0.21.zip)
 
 ### Reporting
 Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende Adressen wenden
