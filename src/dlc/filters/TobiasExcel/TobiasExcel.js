@@ -15,7 +15,7 @@ export function filter_TobiasExcel(clipboardString) {
   if(Array.isArray(allTickets)) {
     // cuz the special excel is generating an arry with ",,," at the end, we check if it happens
     // if we have a date copied, the second object in the array has our main data aka a length -> we can extract the date from the first one
-    if(allTickets[1].length > 1) {
+    if(allTickets.length > 1 && allTickets[1].length > 1) {
       fullDateString = allTickets[0]
       allTickets = allTickets[1]
     }
