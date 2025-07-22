@@ -25,8 +25,12 @@
 -dlc amag protime: wenn inputs on first start noch values haben lösche alle und dann starten
 
 ## Maintance updates
+- security: 
+    - Pattern für Eingabe Felder (Sonderzeichen nicht erlauben ausser z.B. * in Filter)
 - ee themes: notifications anpassen (style)
 - Node version checken ggf updaten
 - Code clean up:
     - Local Storages vereinheitlichen
     - Funktionen / Listener zusammen fassen
+- startScreen show hide statusbar
+- Status bar erweitern: rechts alle infos in klein (benutzte filter ect) und links dann score
