@@ -32,4 +32,5 @@
 - Code clean up:
     - Local Storages vereinheitlichen
     - Funktionen / Listener zusammen fassen
-- Status bar timing verbessern
+- Status bar timing verbessern,
+Statusbar texte in language
