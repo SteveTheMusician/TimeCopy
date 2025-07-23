@@ -7,6 +7,7 @@ import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
 import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
 import { setScoreValues } from "./setScorevalues.js"
 import { firstStartDisplay } from "../components/content/firstStartDisplay/firstStartDisplay.js"
+import { showHideStatusBar } from "./switchFunctionHandlers.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -98,12 +99,12 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
       showHideAllMessages(defaultShowAllMessages)
     }
     if(lstorage_cShowStatusBarParsed !== '' && lstorage_cShowStatusBarParsed !=='undefined') {
-      showHideStatusBar(lstorage_cShowStatusBarParsed)
+      showHideStatusBar(lstorage_cShowStatusBarParsed,appGlobalArgs)
       appGlobalArgs.switch_showStatusBar.checked = lstorage_cShowStatusBarParsed
     } else {
       appGlobalArgs.switch_showStatusBar.checked = defaultShowStatusBar
       localStorage.setItem('tc_c_showStatusBar',defaultShowStatusBar)
-      showHideStatusBar(defaultShowStatusBar)
+      showHideStatusBar(defaultShowStatusBar,appGlobalArgs)
     }
     if(lstorage_cProfilePicture !== null) {
       setUnsetProfilePicture(true,lstorage_cProfilePicture,appGlobalArgs)
@@ -163,13 +164,6 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     } else {
       appGlobalArgs.elem_messagesection.classList.add('dNone')
       appGlobalArgs.messagesheadline.classList.add('dNone')
-    }
-  }
-  function showHideStatusBar(showHideState) {
-    if(showHideState) {
-      appGlobalArgs.elem_statusBar.classList.remove('statusBar--hidden')
-    }else {
-      appGlobalArgs.elem_statusBar.classList.add('statusBar--hidden')
     }
   }
 }

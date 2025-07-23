@@ -33,6 +33,7 @@
     - Local Storages vereinheitlichen
     - Funktionen / Listener zusammen fassen
 <<<<<<< HEAD
+<<<<<<< HEAD
 - Dokumentation
     - Alle Details Pflegen
     - Technische Details
@@ -40,4 +41,8 @@
 =======
 - startScreen show hide statusbar
 - Status bar erweitern: rechts alle infos in klein (benutzte filter ect) und links dann score
+>>>>>>> Release-1.2.XX
+=======
+- Status bar timing verbessern,
+Statusbar texte in language
 >>>>>>> Release-1.2.XX

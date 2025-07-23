@@ -13,6 +13,8 @@ import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
+import { showHideStatusBar } from "./utils/switchFunctionHandlers.js";
+import { setStatusBarText } from "./utils/setStatusBarText.js";
 
 // savety function to prevent unwanted webpage content manipulation (triggered by window.onload)
 function isTimeCopy() {
@@ -233,6 +235,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     let filterData = []
     // get all boocking relevant data as array
     try {
+      setStatusBarText('Filtere Daten...')
       filterData = await filters(filter, clipboarsString)
       debugStick(filterData,"💽 Selected Filter-DLC: " + filter)
     } catch (error) {
@@ -247,6 +250,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     try {
       debugStick(bookingPlatform,"🔘 Selected Platform-DLC: ")
+      setStatusBarText('Übertrage Daten an Platform...')
       let bookEntries = await platforms(bookingPlatform, filterData, lstorage_cDetectionItems)
       let detailMessage = ''
       if (bookEntries.success) {
@@ -258,7 +262,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         } else {
           console.warn(consoleWarnMessage_showMessageTurnedOff)
         }
-        console.log('--->',bookEntries)
         // score counter
         if(!bookEntries.testMode) {
           if(lstorage_cBookingScore > "0") {
@@ -386,6 +389,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   function showStatusBarChange() {
     let showStatusBarSwitchCurrentStatus = switch_showStatusBar.checked
     localStorage.setItem('tc_c_showStatusBar',showStatusBarSwitchCurrentStatus )
+    showHideStatusBar(showStatusBarSwitchCurrentStatus,...window.appGlobalArgs)
     window.configUserChanges = true
   }
 
@@ -565,6 +569,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
       },300)
       console.log('✅ [Time Copy] extension loaded')
+      setStatusBarText('Extension loaded','timeout')
     }catch(e){
       message(true, 'error',window.language.error_appError,e,true)
       console.error(e+ " | app")

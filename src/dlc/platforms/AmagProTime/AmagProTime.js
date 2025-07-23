@@ -18,7 +18,8 @@ import {
 } from "./variables/AmagProTime.variables.js";
 import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMode,
   lstorage_c_dlcProtimeTicketNomberInText,lstorage_c_dlcProTimeTest, lstorage_c_dlcProtimeUseMatchBookingDay, lstorage_c_dlcProtimeUseAutoSelectDay } from "../../../utils/dlcStorage.js";
-  import { debugStick } from "../../../utils/appDebugStick.js";
+import { setStatusBarText } from "../../../utils/setStatusBarText.js";
+import { debugStick } from "../../../utils/appDebugStick.js";
   
   // 🍎 initial script to filter data and start the booking process
   export async function AmagProTime(bookingData, detectionItemsProTime) {
@@ -110,6 +111,7 @@ import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMo
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
+      setStatusBarText('Übertrage '+valideTickets.length + ' Ticket(s)...')
       const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay)
       bookingLoopCount++
       if (iChrTab.result !== null && iChrTab.result.success === false) {
@@ -124,6 +126,7 @@ import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMo
     throw error
   }
   bookingLoopCount = 0
+  setStatusBarText('Protime Buchung abgeschlossen!','timeout')
   return {success: true, testMode: dev_pttest, successMessage:bookedTicketCount+" Ticket(s) erfolgreich gebucht"}
 }
 
@@ -646,7 +649,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             if(bookingLoopResult.success && !bookingLoopResult.retryBooking) {
               highLatency = false
               console.log('[Time Copy] 🕤 🟢 Retry process finished')
-              return { success: true,bookingLoopResult }
+              return bookingLoopResult 
             }
           }catch (error) {
             throw error

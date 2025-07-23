@@ -9,13 +9,21 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## Last important changes summary
 
-* New themes
-* New Profile-Version (TCP1) with possebility to save profile-picture
-* **DLC Amag ProTime functions:**
-  * You can now use "*" in the ticketname property in detections to match all tickets to platform
-  * many new functions like "auto select days" or "match booking days" - see discription (on hover) for more informations
-  * Matter of detections order is fixed. Now every filter is matched, no matter which position it has
-  * Break up booking process, if the working time is 0h
+* **Filter-DLSs:**
+  * "IAPP-FIX": Fix matching error with single string in Tobias Excel DLC
+  * Add Scrollbar for Platform-DLCs with function-content
+
+## V 1.2.31
+
+* **Features** *
+  * Add status bar feedback text and change styling
+  * Add Scrollbar for Platform-DLCs with function-content
+
+* **Fixes:**
+  * Show/Hide statusbar in startscreen
+
+* **Other Changes:**
+  * Change Filter-DLCs descriptions and add supported sources
 
 ## V 1.2.27 (Release)
 
