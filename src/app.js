@@ -13,13 +13,8 @@ import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
-<<<<<<< HEAD
-=======
 import { showHideStatusBar } from "./utils/switchFunctionHandlers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
-// ‼️ remove developer on prod
-import { developer } from "./developer/developer.js";
->>>>>>> develop
 
 // savety function to prevent unwanted webpage content manipulation (triggered by window.onload)
 function isTimeCopy() {
