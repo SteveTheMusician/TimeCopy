@@ -77,6 +77,9 @@ export async function filtersContent() {
                     <p class="subtext">`+ (plDataObject.filter_description) +`</p>
                     <div class="dlcItem-details_information_version-container">
                       <p class="text-label">Version</p>
+                      <div class="dlcItem-details_information_supportedsources-row dFlex">
+                        <p class="subtext dlcItem-versionText-left">Unterstützte Formate</p><p class="subtext dlcItem-versionText-right">`+ (plDataObject.filter_supportedsources) +`</p>
+                      </div>
                       <div class="dlcItem-details_information_version-row dFlex">
                         <p class="subtext dlcItem-versionText-left">DLC-Version</p><p class="subtext dlcItem-versionText-right">`+ (plDataObject.filter_version) +`</p>
                       </div>
