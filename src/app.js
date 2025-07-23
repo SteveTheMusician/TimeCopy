@@ -264,7 +264,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         } else {
           console.warn(consoleWarnMessage_showMessageTurnedOff)
         }
-        // setStatusBarText('','reset')
         // score counter
         if(!bookEntries.testMode) {
           if(lstorage_cBookingScore > "0") {
