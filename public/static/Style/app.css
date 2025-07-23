@@ -969,6 +969,13 @@ input:checked+.switch_slider:before {
     user-select: none;
     pointer-events: none;
 }
+.statusBar-Container--left {
+    width: 50%;
+}
+.statusBar-Container--right {
+    width: 50%;
+    gap: 20px;
+}
 
 .scoreTextSpecial-wizard {
     animation: scoreTextSpecial-wizard 10s linear infinite;

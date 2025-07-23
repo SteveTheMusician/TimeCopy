@@ -32,5 +32,4 @@
 - Code clean up:
     - Local Storages vereinheitlichen
     - Funktionen / Listener zusammen fassen
-- startScreen show hide statusbar
-- Status bar erweitern: rechts alle infos in klein (benutzte filter ect) und links dann score
+- Status bar timing verbessern
