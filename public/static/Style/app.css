@@ -961,6 +961,7 @@ input:checked+.switch_slider:before {
     justify-content: space-around;
     align-items: center;
     bottom: 0;
+    z-index: 100;
 }
 
 .statusBar--hidden {

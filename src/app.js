@@ -13,6 +13,7 @@ import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
+import { showHideStatusBar } from "./utils/switchFunctionHandlers.js";
 // ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
 
@@ -388,6 +389,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   function showStatusBarChange() {
     let showStatusBarSwitchCurrentStatus = switch_showStatusBar.checked
     localStorage.setItem('tc_c_showStatusBar',showStatusBarSwitchCurrentStatus )
+    showHideStatusBar(showStatusBarSwitchCurrentStatus,...window.appGlobalArgs)
     window.configUserChanges = true
   }
 
