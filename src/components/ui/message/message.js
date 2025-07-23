@@ -1,4 +1,5 @@
 import { generateDateId } from "../../../utils/generateDateId"
+import { setStatusBarText } from "../../../utils/setStatusBarText"
 
 export function message(messageShow,messageType,messageTextOverview,messageTextDetails,blockApp){
 
@@ -8,6 +9,10 @@ export function message(messageShow,messageType,messageTextOverview,messageTextD
 
     if(!messageType || messageType === '') {
         messageType = 'information'
+    }
+
+    if(messageType === 'error') {
+        setStatusBarText('Fehler','timeout')
     }
 
     let currentMessageID = generateDateId()

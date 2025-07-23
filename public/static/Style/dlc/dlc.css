@@ -24,6 +24,32 @@
     overflow-y: scroll;
 }
 
+.scrollableVisible::-webkit-scrollbar {
+	display: block;
+	width: 6px;
+	height: 90%;
+}
+
+.scrollableVisible::-webkit-scrollbar-track {
+  background: var(--color-second);
+  border: thin solid var(--color-second);
+  box-shadow: 0px 0px 3px var(--color-second) inset;
+  border-radius: 100px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.scrollableVisible::-webkit-scrollbar-thumb {
+  background: var(--color-icon-default);
+  border: thin solid var(--color-icon-default);
+  border-radius:10px;
+  height: 8px;
+}
+
+.scrollableVisible::-webkit-scrollbar-thumb:hover {
+  background: var(--color-highlight);
+}
+
+
 .dlc-details--hidden {
     height: 0;
     opacity: 0;

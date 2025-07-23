@@ -961,12 +961,20 @@ input:checked+.switch_slider:before {
     justify-content: space-around;
     align-items: center;
     bottom: 0;
+    z-index: 100;
 }
 
 .statusBar--hidden {
     visibility: hidden;
     user-select: none;
     pointer-events: none;
+}
+.statusBar-Container--left {
+    width: 50%;
+}
+.statusBar-Container--right {
+    width: 50%;
+    gap: 20px;
 }
 
 .scoreTextSpecial-wizard {
