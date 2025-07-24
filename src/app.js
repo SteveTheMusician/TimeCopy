@@ -15,8 +15,6 @@ import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
 import { showHideStatusBar } from "./utils/switchFunctionHandlers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
-// ‼️ remove developer on prod
-import { developer } from "./developer/developer.js";
 
 // savety function to prevent unwanted webpage content manipulation (triggered by window.onload)
 function isTimeCopy() {
@@ -573,8 +571,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       profileManager(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       appStorage(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
       xmasDlc()
-      // ‼️ remove developer on prod
-      developer()
       // reset restart count
       setTimeout(function(){
         if(sessionStorage.getItem('tc_s_restartCount') < "4"){
