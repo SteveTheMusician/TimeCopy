@@ -1,7 +1,7 @@
 import { setStatusBarText } from "../../../utils/setStatusBarText";
 export async function Automatic() {
     try {
-        setStatusBarText('Automatisch wählt Funktion aus...')
+        setStatusBarText(window.language.statusbartext_dlcAutomatic_isSelectingPlatform)
         let currentURL
         let automaticValue
         let queryOptions = { active: true, lastFocusedWindow: true };
