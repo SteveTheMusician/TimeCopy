@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     let filterData = []
     // get all boocking relevant data as array
     try {
-      setStatusBarText('Filtere Daten...')
+      setStatusBarText(window.language.statusbartext_filterData)
       filterData = await filters(filter, clipboarsString)
       debugStick(filterData,"💽 Selected Filter-DLC: " + filter)
     } catch (error) {
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     try {
       debugStick(bookingPlatform,"🔘 Selected Platform-DLC: ")
-      setStatusBarText('Übertrage Daten an Platform...')
+      setStatusBarText(window.language.statusbartext_passDataToPlatform)
       let bookEntries = await platforms(bookingPlatform, filterData, lstorage_cDetectionItems)
       let detailMessage = ''
       if (bookEntries.success) {
@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
       },300)
       console.log('✅ [Time Copy] extension loaded')
-      setStatusBarText('Extension loaded','timeout')
+      setStatusBarText(window.language.statusbartext_extensionLoaded,'timeout')
     }catch(e){
       message(true, 'error',window.language.error_appError,e,true)
       console.error(e+ " | app")

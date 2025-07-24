@@ -111,7 +111,7 @@ import { debugStick } from "../../../utils/appDebugStick.js";
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
-      setStatusBarText('Übertrage '+valideTickets.length + ' Ticket(s)...')
+      setStatusBarText(window.language.statusbartext_dlcAmagProTime_sendTickets_partOne+valideTickets.length + window.language.statusbartext_dlcAmagProTime_sendTickets_partTwo)
       const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay)
       bookingLoopCount++
       if (iChrTab.result !== null && iChrTab.result.success === false) {
@@ -126,7 +126,7 @@ import { debugStick } from "../../../utils/appDebugStick.js";
     throw error
   }
   bookingLoopCount = 0
-  setStatusBarText('Protime Buchung abgeschlossen!','timeout')
+  setStatusBarText(window.language.statusbartext_dlcAmagProTime_bookingSuccess,'timeout')
   return {success: true, testMode: dev_pttest, successMessage:bookedTicketCount+" Ticket(s) erfolgreich gebucht"}
 }
 
