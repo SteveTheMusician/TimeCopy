@@ -38,5 +38,3 @@
     - Beispiel Profil
 
 - Status bar timing verbessern,
-Statusbar texte in language
-

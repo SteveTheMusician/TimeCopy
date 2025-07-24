@@ -25,5 +25,12 @@
     "notification_profileImported": "Profil wurde erfolgreich importiert!",
     "notification_profileReset": "Profil wurde zurückgesetzt.",
     "notification_dlcCacheReset": "DLC-Cache wurde zurückgesetzt.",
-    "notification_profileNotFullyImported": "Profil konnte nicht vollständig übernommen werden."
+    "notification_profileNotFullyImported": "Profil konnte nicht vollständig übernommen werden.",
+    "statusbartext_filterData": "Filtere Daten...",
+    "statusbartext_passDataToPlatform": "Sende Daten an Platform...",
+    "statusbartext_extensionLoaded": "Extension geladen",
+    "statusbartext_dlcAutomatic_isSelectingPlatform": "Automatisch wählt Platform aus...",
+    "statusbartext_dlcAmagProTime_bookingSuccess": "ProTime-Buchung abgeschlossen",
+    "statusbartext_dlcAmagProTime_sendTickets_partOne": "Übertrage ",
+    "statusbartext_dlcAmagProTime_sendTickets_partTwo": " Ticket(s)..."
 }
