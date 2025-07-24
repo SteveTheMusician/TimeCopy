@@ -262,6 +262,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         } else {
           console.warn(consoleWarnMessage_showMessageTurnedOff)
         }
+        // setStatusBarText('','reset')
         // score counter
         if(!bookEntries.testMode) {
           if(lstorage_cBookingScore > "0") {
@@ -406,8 +407,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function setCreatorStorage(e){
     if(e.shiftKey){
-      localStorage.setItem('tc_creator','')
-      localStorage.setItem('tc_debugStick','')
+      if(localStorage.getItem('tc_creator')) {
+          localStorage.removeItem('tc_creator')
+          localStorage.removeItem('tc_debugStick')
+          localStorage.removeItem('tc_exportProfileDecoded')
+      } else 
+        {
+          localStorage.setItem('tc_creator','')
+          localStorage.setItem('tc_debugStick','')
+          localStorage.setItem('tc_exportProfileDecoded','')
+      }
     }
   }
 
