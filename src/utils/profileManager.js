@@ -121,6 +121,7 @@ export function profileManager(appGlobalArgs, appVersionData, dlcGlobalArgs) {
 }
 
 export function exportProfile(appVersionData, appGlobalArgs) {
+
   if (window.configUserChanges) {
     sessionStorage.setItem('tc_c_exportProfile_afterChange', 'true');
     window.location.reload();
@@ -163,8 +164,13 @@ export function exportProfile(appVersionData, appGlobalArgs) {
 
   Object.assign(profileData.tcprofile, dlcData);
 
-  const base64Data = btoa(encodeURIComponent(JSON.stringify(profileData)));
-  const blob = new Blob([base64Data], { type: "text/plain" });
+  let data
+  if(localStorage.getItem('tc_exportProfileDecoded') === 'true') {
+    data = JSON.stringify(profileData)
+  } else {
+    data = btoa(encodeURIComponent(JSON.stringify(profileData)))
+  }
+  const blob = new Blob([data], { type: "text/plain" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = fileName;
@@ -209,6 +215,7 @@ function importProfilePicture(appGlobalArgs) {
 
   const reader = new FileReader();
   reader.onload = function (e) {
+
     const base64 = e.target.result;
     const img = new Image();
 
