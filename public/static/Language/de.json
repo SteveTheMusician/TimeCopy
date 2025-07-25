@@ -29,6 +29,8 @@
     "statusbartext_filterData": "Filtere Daten...",
     "statusbartext_passDataToPlatform": "Sende Daten an Platform...",
     "statusbartext_extensionLoaded": "Extension geladen",
+    "statusbartext_error": "FEHLER",
+    "statusbartext_stby": "Bereit",
     "statusbartext_dlcAutomatic_isSelectingPlatform": "Automatisch wählt Platform aus...",
     "statusbartext_dlcAmagProTime_bookingSuccess": "ProTime-Buchung abgeschlossen",
     "statusbartext_dlcAmagProTime_sendTickets_partOne": "Übertrage ",
