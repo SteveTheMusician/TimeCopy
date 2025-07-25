@@ -4,5 +4,5 @@
     "filter_id": "tobiasexcel",
     "filter_shortname": "TobiasExcel",
     "filter_supportedsources": "Google Sheets, Microsoft Excel, Cryptpad",
-    "filter_description": "Unterstützt maximal ein Tag bestehend aus zwei Spalten (Datum | Ticketinformationen) oder einzelne Strings. ([TICKET] Beschreibung : 1Std)"
+    "filter_description": "Unterstützt maximal ein Tag bestehend aus zwei Spalten (Datum | Ticketinformationen) oder einzelne Strings. ([TICKET] Beschreibung : h)"
 }

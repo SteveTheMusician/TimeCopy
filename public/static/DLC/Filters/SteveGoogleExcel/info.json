@@ -4,5 +4,5 @@
     "filter_id": "stevegoogleexcel",
     "filter_shortname": "SteveExcel",
     "filter_supportedsources": "Google Sheets",
-    "filter_description": "Filtert bis zu maximal einer Zeile bestehend bis zu maixmal 10 Spalten (incl aller Flags und Datum) oder einzelnen Strings (Datum | Flags | Ticket |/Ticket | Text | Tags | 0,5)."
+    "filter_description": "Filtert bis zu maximal eine Zeile bestehend aus bis zu 10 Spalten (Datum | Flags | Ticket |/Ticket | Text | Tags | h ) oder einzelnen Strings ( Ticket |/Ticket | Text | Tags | h )."
 }
