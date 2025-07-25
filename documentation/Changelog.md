@@ -13,6 +13,15 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel DLC
   * Add Scrollbar for Platform-DLCs with function-content
 
+## V 1.2.34 (Release)
+
+* **Fixes:**
+  * Show right messages on app crash in Statusbar
+  * Move all statusbartexts to languaguage.json (For different languages in future)
+
+* **Other Changes:**
+  * Better description in Filter-DLCs
+
 ## V 1.2.33 (Release)
 
 * **Features** *

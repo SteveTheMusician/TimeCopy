@@ -37,7 +37,7 @@ window.onload = function () {
   sessionStorage.setItem('tc_s_restartCount', restartCount);
   if (restartCount >= 4) {
     // block ui
-    document.body.innerHTML = `<p class="bodyErrorText">App was started too many times. (Time Copy)</p>`;
+    document.body.innerHTML = `<p class="bodyErrorText">Time Copy started too many times.</p>`;
     try {
       throw new Error("App was started too many times. To block restart loops, the app hast stopped. | RestartCount: "+restartCount);
     } catch (e) {
