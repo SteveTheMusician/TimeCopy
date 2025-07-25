@@ -56,7 +56,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 
 
-## V 1.2.24 (Release)
+## V 1.2.24 (Release) - Liquid Silver Update
 
 * **Features:**
 
