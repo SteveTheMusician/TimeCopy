@@ -11,8 +11,8 @@ export function message(messageShow,messageType,messageTextOverview,messageTextD
         messageType = 'information'
     }
 
-    if(messageType === 'error') {
-        setStatusBarText('Fehler','timeout')
+    if(messageType === 'error' && !blockApp) {
+        setStatusBarText(window.language.statusbartext_stby,'timeout')
     }
 
     let currentMessageID = generateDateId()
@@ -68,6 +68,7 @@ export function message(messageShow,messageType,messageTextOverview,messageTextD
 
     if(blockApp){
         document.body.style.pointerEvents = 'none'
+        setStatusBarText(window.language.statusbartext_stby)
     }
 }
 
