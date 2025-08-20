@@ -13,7 +13,7 @@ import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
-import { showHideStatusBar } from "./utils/switchFunctionHandlers.js";
+import { showHideStatusBar,changeAppFontSize } from "./utils/switchFunctionHandlers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
 // ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const themeSelect = document.querySelector('select#select-themes')
   const switch_showAllMessages = document.getElementById('check_showAllNotifications')
   const switch_showStatusBar = document.getElementById('check_showStatusBar')
+  const range_chageFontSize = document.querySelector('input#range_changeFontSize')
   const radios_filter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
   const button_docuReadme = document.getElementById('button_openReadme')
@@ -117,6 +118,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_openStore = document.getElementById('button_openStore')
   const button_openLicense = document.getElementById('button_openLicense')
   const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
+  // get all text elements
+  const h1Element = document.getElementsByTagName('h1')[0]
+  const h2Elements = document.getElementsByTagName('h2')
 
   // dlc-platform element listeners
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
@@ -396,6 +400,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.configUserChanges = true
   }
 
+  function appFontSizeChange() {
+    let appFontSizeChangeRangeCurrentStatus = range_chageFontSize.value
+    localStorage.setItem('tc_c_fontSize', appFontSizeChangeRangeCurrentStatus)
+    changeAppFontSize(appFontSizeChangeRangeCurrentStatus,...window.appGlobalArgs)
+  }
+
   function switchFilter(e) {
     localStorage.setItem('tc_c_filter', e.target.value)
     window.configUserChanges = true
@@ -503,7 +513,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
       switch_showStatusBar: switch_showStatusBar,elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton,elem_profilePictureUser: profilePictureUser, 
       elem_profileSVG: profileSVG,elem_profilePicture: profilePicture, elem_button_importProfilePicture: button_importProfilePicture, elem_configProfileScore_RangScore: configProfileScore_RangScore,
-      elem_configProfileScore_RangName: configProfileScore_RangName,elem_statusBarProfileScore_RangScore:statusBarProfileScore_RangScore,elem_statusBarProfileScore_RangName:statusBarProfileScore_RangName,elem_statusBar: statusBar
+      elem_configProfileScore_RangName: configProfileScore_RangName,elem_statusBarProfileScore_RangScore:statusBarProfileScore_RangScore,elem_statusBarProfileScore_RangName:statusBarProfileScore_RangName,elem_statusBar: statusBar,
+      elem_h1: h1Element, elems_h2: h2Elements
     }]
     window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
       dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText,
@@ -537,6 +548,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // configs listener
     switch_showAllMessages.addEventListener('click', showAllMessagesChange)
     switch_showStatusBar.addEventListener('click', showStatusBarChange)
+    range_chageFontSize.addEventListener('change', appFontSizeChange)
     // config help buttons
     button_docuHelp.addEventListener('click', () => window.open(dokuUrl))
     button_docuDatenschutz.addEventListener('click', () => window.open(privacyUrl))

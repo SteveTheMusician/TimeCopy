@@ -26,13 +26,13 @@ h1 {
     color: var(--color-font-headline);
     margin-block-start: 0;
     margin-block-end: 0;
-    font-size: 20px;
+    font-size: var(--font-size-headline);
     user-select: none;
 }
 
 h2 {
     color: var(--color-font-headlabel);
-    font-size: 16px;
+    font-size: var(--font-size-headline2);
     margin-block-start: 0;
     margin-block-end: 0;
     margin: 10px;
@@ -161,7 +161,7 @@ input::placeholder {
 }
 
 .subtext {
-    font-size: 10px;
+    font-size: var(--font-size-small);
     line-height: 1.4;
     color: var(--color-font-subtext);
 }
@@ -177,7 +177,7 @@ input::placeholder {
 
 .text-label {
     color: var(--color-font-second);
-    font-size: 12px;
+    font-size: var(--font-size-regular);
 }
 
 .label-row-messageHeadline {
@@ -287,7 +287,7 @@ label:has(#button_importConfigs) {
     border-radius: var(--border-radius-default);
     border: 0px solid;
     background-color: transparent;
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     color: var(--color-icon-default);
     cursor: pointer;
     transition: 0.3s;
@@ -324,7 +324,7 @@ label:has(#button_importConfigs) {
     border-radius: var(--border-radius-default);
     border: 1px solid transparent;
     background-color: transparent;
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     color: #89b4c1;
     cursor: pointer;
     transition: 0.3s;
@@ -382,7 +382,7 @@ label:has(#button_importConfigs) {
     margin: 10px;
     border-radius: var(--border-radius-default);
     background-color: var(--color-second);
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     color: var(--color-icon-default);
     cursor: pointer;
     transition: 0.3s;
@@ -460,7 +460,7 @@ label:has(#button_importConfigs) {
 }
 
 .label-version {
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     color: var(--color-font-subtext);
 }
 
@@ -470,7 +470,6 @@ label:has(#button_importConfigs) {
 }
 
 #label_build_version {
-    /* font-size: 10px; */
     user-select: text;
 }
 
@@ -727,7 +726,7 @@ select {
     color: var(--color-font);
     outline: none;
     padding: 5px;
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     border: 0px solid;
     width: 100%;
     border-right: 5px solid transparent;

@@ -114,8 +114,10 @@ import { debugStick } from "../../../utils/appDebugStick.js";
       setStatusBarText(window.language.statusbartext_dlcAmagProTime_sendTickets_partOne+valideTickets.length + window.language.statusbartext_dlcAmagProTime_sendTickets_partTwo)
       const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay)
       bookingLoopCount++
-      if (iChrTab.result !== null && iChrTab.result.success === false) {
+      if (iChrTab.result !== null && iChrTab.result.success === false ) {
         throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
+      }else if (iChrTab.result === null) {
+        throw ({errorstatus: 'error', errorheadline: 'Prozess abgebrochen', errortext:'Die Verbindung zur Seite wurde unterbrochen. Grund dafür kann eine Änderung der Seite im offenen Tab sein.'})
       }
       bookedTicketCount = iChrTab.result.totalBookedTickets
     } else {
@@ -210,13 +212,15 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
     const timeout = 8000;
     return new Promise((resolve, reject) => {
       const timeoutId = setTimeout(() => {
+        clearInterval(existenceCheck);
         reject({
-          text: 'ProTime Element Timeout',
-          textdetails: "Ein Element in ProTime wurde nicht gefunden oder hat nicht die gewünschten Änderungen übernommen. Lade die Webseite neu und versuche es noch einmal. | "+selector + " #" + boolean
+          text: 'ProTime-Element timeout',
+          textdetails: "Ein Element in ProTime wurde nicht gefunden oder hat nicht die gewünschten Änderungen übernommen. Lade die Webseite neu und versuche es noch einmal. | @"+selector + " :" + boolean
         });
       }, timeout);
 
       const checkAndObserve = () => {
+        console.log('----> Check and Observe')
         const element = document.querySelectorAll(selector)[selectorNumber];
         if (element) {
           if ((boolean && element.value) || (!boolean && !element.value) || (boolean && element) || (!boolean && !element)) {
@@ -225,6 +229,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             return;
           }
           const observer = new MutationObserver(() => {
+            console.log('----> OBSERVE')
             if (boolean) {
               if (element.value) {
                 clearTimeout(timeoutId);
@@ -245,12 +250,18 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             attributes: true,
             attributesList: ["style"],
           });
+        } else {
+          reject({
+            text: 'ProTime-Element nicht gefunden',
+            textdetails: 'Das zu prüfende Element existiert nicht in ProTime. Grund dafür kann ein Umbau/Renaming der Elemente in Protime sein. Das Problem bitte an den TimeCopy-Entwickler melden. | @'+selector + ' :'
+          })
         }
       };
       checkAndObserve();
       const existenceCheck = setInterval(() => {
         const element = document.querySelectorAll(selector)[selectorNumber];
         if (element) {
+          console.log('-- IF ELEM EXISTS INTERVAL')
           clearInterval(existenceCheck);
           checkAndObserve();
         }
@@ -269,7 +280,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         });
       }, timeout);
 
-      const checkAndObserve = () => {
+      const checkAndObserveVisibility = () => {
         const element = document.querySelector(selector);
         const isVisible = element && element.style.display !== 'none' && element.style.visibility !== 'hidden';
         if (shouldBeVisible && isVisible) {
@@ -282,7 +293,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           resolve(`Element "${selector}" ist unsichtbar oder wurde entfernt.`);
         }
       };
-      const intervalId = setInterval(checkAndObserve, checkInterval);
+      const intervalId = setInterval(checkAndObserveVisibility, checkInterval);
     });
   }
   // variables 
@@ -340,6 +351,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
   }
   // 🟩 check booking loop and place overlay functions
   function checkFirstBookingLoop(bookingLoopCount) {
+
     if(dev_pttest){
       console.warn('[Time Copy] ## ProTime Test-Mode ##')
     }

@@ -13,6 +13,15 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel DLC
   * Add Scrollbar for Platform-DLCs with function-content
 
+## V 1.2.45
+
+* **Fixes:**
+  * DLC Amag ProTime: Return error message on reloading / changing website while inject-script is running
+  * Stylings
+
+* **Features** *
+  * Change Text-Size
+
 ## V 1.2.34 (Release)
 
 * **Fixes:**

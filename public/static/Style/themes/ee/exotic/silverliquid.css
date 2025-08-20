@@ -173,6 +173,22 @@ header {
   margin-right: 10px;
 }
 
+.button-mainAction svg{
+  animation: color-hue-rotate-animation 30s linear infinite;
+}
+
+.switch_slider {
+  animation: color-hue-rotate-animation 30s linear infinite;
+}
+
+.radio-custom-container .checkmark {
+  animation: color-hue-rotate-animation 30s linear infinite;
+}
+
+.button-config-tab svg {
+  animation: color-hue-rotate-animation 30s linear infinite;
+}
+
 .button-mainAction:hover {
   transform: scale(1.02);
   background-color: var(--color-second);
@@ -401,4 +417,18 @@ select {
 
 #startScreenContent {
   gap: 10px;
+}
+
+@keyframes color-hue-rotate-animation {
+  0% {
+    filter: hue-rotate(0deg) grayscale(0)
+  }
+
+  50% {
+    filter: hue-rotate(-180deg) grayscale(0.8)
+  }
+
+  100% {
+    filter: hue-rotate(-360deg) grayscale(0)
+  }
 }

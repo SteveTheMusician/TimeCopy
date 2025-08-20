@@ -52,3 +52,7 @@
 .configItem-logo-container,.configItem-icon-container img {
   border-radius: var(--border-radius-default);
 }
+
+.profileFrame {
+  border-radius: var(--border-radius-default);
+}
