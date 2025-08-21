@@ -1,3 +1,5 @@
+import { createFilterObject } from "../filters.dlc"
+
 export function filter_SteveGoogleExcel(clipboarsString) {
 
   let allTickets
@@ -102,17 +104,11 @@ export function filter_SteveGoogleExcel(clipboarsString) {
     if(item_dateDay.startsWith('0')){
       item_dateDay = item_dateDay.replaceAll('0','')
     }
-    // define object
-    let itemObject = {
-      "item_bookingnumber": item_bookingNumber,
-      "item_ticketmasternumber": item_ticketMasterNomber,
-      "item_ticketnumber": item_ticketNumber,
-      "item_ticketdisc": item_ticketDisc,
-      "item_hiddentag": item_hiddenTag,
-      "item_tickettime": item_ticketTime,
-      "item_date": item_date,
-      "item_dateday": item_dateDay
-    }
+    // create object
+    let itemObject = createFilterObject(item_bookingNumber,
+      item_ticketMasterNomber,item_ticketNumber,item_ticketDisc,
+      item_hiddenTag,item_ticketTime,item_date,item_dateDay
+    )
     bookingData.push(itemObject)
   })
   return bookingData

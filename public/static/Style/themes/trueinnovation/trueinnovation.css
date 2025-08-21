@@ -1,7 +1,6 @@
 :root {
   /* ---- Trueinnovation Theme ---- */
-
-  /* color palette */
+  /* Color palette */
   --blue-pale: #5d7b83;
   --white_e: #EEEEEE;
   --color-none: transparent;
@@ -14,9 +13,7 @@
   --blue-dark-ti: #039;
   --blue-light-ti: #09c;
   --color-warning: #7c7b14;
-
-
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--white);
   --color-second: var(--lightgray-f8);
   --color-third: var(--lightgray-c);
@@ -26,7 +23,6 @@
   --color-close: #7d4f94;
   --color-edit: var(--lightyellow);
   --color-disabled: var(--color-third);
-
   /* Font colors */
   --color-font: var(--gray-6);
   --color-font-navigation: var(--color-font-second);
@@ -37,7 +33,7 @@
   /* Icon colors */
   --color-icon-default: var(--blue-pale);
   --color-icon-light: var(--blue-pale);
-    /* dlc snowflake color */
+  /* DLC snowflake color */
   --color-dlc-snowflake: var(--blue-dark-ti);
 }
 

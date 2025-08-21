@@ -1,13 +1,10 @@
 :root {
   /* ---- Japan's Flare Theme ---- */
-
   /* vars */
   --border-radius-default: 12px;
-
-  /* color-palette */
+  /* Color-palette */
   --imperial-blue: #354565;
-
-  /* theme colors */
+  /* Theme colors */
   --color-main: #dde3eb;
   --color-second: #ecf3ff;
   --color-third: #d8dee5;
@@ -16,7 +13,6 @@
   --color-disabled: #909090;
   --color-close: #d10000;
   --color-warning: #e18507;
-
   /* Font colors */
   --color-font: #;
   --color-font-navigation: #323232;
@@ -24,12 +20,10 @@
   --color-font-second: var(--imperial-blue);
   --color-font-headlabel: var(--imperial-blue);
   --color-font-subtext: #69737f;
-
   /* Icon colors */
   --color-icon-default: var(--imperial-blue);
   --color-icon-light: var(--imperial-blue);
-
-  /* dlc snowflake color */
+  /* DLC snowflake color */
   --color-dlc-snowflake: var(--imperial-blue);
 }
 

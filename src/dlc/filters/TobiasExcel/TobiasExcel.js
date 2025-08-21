@@ -1,4 +1,6 @@
 import { debugStick } from "../../../utils/appDebugStick";
+import { createFilterObject } from "../filters.dlc";
+
 export function filter_TobiasExcel(clipboardString) {
 
   let fullDateString = ''
@@ -69,16 +71,11 @@ export function filter_TobiasExcel(clipboardString) {
     if(item_ticketCustomBookingNumber) {
       item_bookingNumber = item_ticketCustomBookingNumber;
     }
-    let itemObject = {
-      "item_bookingnumber":item_bookingNumber,
-      "item_ticketmasternumber": item_ticketMasterNomber,
-      "item_ticketnumber":item_ticketNumber, 
-      "item_ticketdisc":item_ticketDisc,
-      "item_hiddentag": item_additionalTag,
-      "item_tickettime":item_ticketTime,
-      "item_date":item_date,
-      "item_dateday": item_dateDay
-    }
+
+    let itemObject = createFilterObject(item_bookingNumber,
+      item_ticketMasterNomber,item_ticketNumber,item_ticketDisc,
+      item_additionalTag,item_ticketTime,item_date,item_dateDay
+    )
     bookingData.push(itemObject)
   })
   return bookingData

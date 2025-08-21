@@ -12,6 +12,7 @@ export function detectionItem(detectionItems) {
       platformSelectItems.push(platformSelectOption)
     }
   }
+  // ---------------- ITEMS MODULAR BAUEN! so existiert auch nur das element, welches für die erkennung notwenig ist
   if (detectionItems) {
     document.getElementById('window_detection').innerHTML = detectionItems.map(detectionItem =>
       `<div class="configItem detectionItem flex" name="item_detection" id="` + detectionItem.id + `">

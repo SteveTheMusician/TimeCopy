@@ -1,9 +1,9 @@
 :root {
   /* ---- Tobias will alles schön Theme ---- */
-  /* vars */
+  /* Vars */
   --blur-default: blur(20px);
   --border-radius-second: 20px;
-  /* color palette */
+  /* Color palette */
   --color-none: transparent;
   --white: #fefefe;
   --white-df: #dfdfdf;
@@ -12,7 +12,7 @@
   --black: #121212;
   --light-gray: #5f6568;
   --dark-gray-3: #343434;
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--white-transparent);
   --color-second: var(--white-transparent);
   --color-third: var(--white-transparent-d);
@@ -36,7 +36,6 @@
 body {
   background: url(wallpaper.jpg) no-repeat center center fixed;
   background-size: cover;
-  /* backdrop-filter: blur(10px); */
 }
 
 body:before {

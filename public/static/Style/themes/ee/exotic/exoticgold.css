@@ -1,12 +1,9 @@
 :root {
   /* ---- Exotic Theme ---- */
-
-  /* vars */
+  /* Vars */
   --blur-default: blur(20px);
   --transition-default: .5s;
-
-  /* color palette */
-  --color-none: transparent;
+  /* Color palette */
   --white: #fefefe;
   --dark-gray-30: #303637;
   --gray-gold: #2a2f2f;
@@ -21,8 +18,7 @@
   --red-mud: #373033;
   --yellow-mud: #373630;
   --gold-mud: #373630;
-
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--gray-gold);
   --color-second: var(--dark-gray-30);
   --color-third: var(--dark-gray-30);
@@ -31,7 +27,6 @@
   --color-disabled: var(--dark-pink);
   --color-close: #d2428c;
   --color-warning: #d2b442;
-
   /* Font colors */
   --color-font: var(--blue-gray);
   --color-font-navigation: var(--color-font-second);
@@ -39,12 +34,10 @@
   --color-font-second: var(--blue-gray);
   --color-font-headlabel: var(--blue-gray-dark);
   --color-font-subtext: var(--blue-gray-dark);
-
   /* Icon colors */
   --color-icon-default: var(--gold-dark-94);
   --color-icon-light: var(--white);
-
-  /* dlc snowflake color */
+  /* DLC snowflake color */
   --color-dlc-snowflake: var(--color-font-second);
 }
 

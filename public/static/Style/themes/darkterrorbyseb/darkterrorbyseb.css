@@ -1,7 +1,6 @@
 :root {
   /* ---- Dark Terror By Seb Theme ---- */
-
-  /* color palette */
+  /* Color palette */
   --black-22: #303841;
   --gray-43: #3A4750;
   --gray-4c: #4c5b65;
@@ -12,8 +11,7 @@
   --gray-db: #dbe4e9;
   --red-ea: #ea73a5;
   --red-65: #654c57;
-
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--black-22);
   --color-second: var(--gray-43);
   --color-third: var(--gray-4c);
@@ -22,7 +20,6 @@
   --color-disabled: var(--red-65);
   --color-close: var(--red-ea);
   --color-warning: #aac851;
-
   /* Font colors */
   --color-font: var(--gray-db);
   --color-font-navigation: var(--color-font-second);
@@ -30,7 +27,6 @@
   --color-font-second: var(--gray-db);
   --color-font-headlabel: var(--sand);
   --color-font-subtext: var(--gray-ab);
-  
   /* Icon colors */
   --color-icon-default: var(--sand);
   --color-icon-light: var(--sand);

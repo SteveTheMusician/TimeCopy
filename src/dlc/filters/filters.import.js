@@ -1,5 +1,5 @@
 // enter the folder/file-names of the dlcs here
-export const importFilters = ["TobiasExcel", "SteveGoogleExcel"]
+export const importFilters = ["TobiasExcel", "SteveGoogleExcel","None"]
 export const filter_timesheetFilterPreValue = 'timesheetfilter_'
 
 async function generateFilterData() {

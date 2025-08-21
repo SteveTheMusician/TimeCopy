@@ -38,3 +38,5 @@
     - Beispiel Profil
 
 - Status bar timing verbessern,
+- Notification timing verbessern (manchmal bleiben errors mit hidden hängen wenn 3 oder mehr nachrichten gleichzeitig erscheinen)
+- detection items modular machen (acuh für any notwändig)

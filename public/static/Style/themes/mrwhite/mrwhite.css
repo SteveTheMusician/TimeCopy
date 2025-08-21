@@ -1,9 +1,8 @@
 :root {
   /* ---- Mr. White Theme ---- */
-
   --border-radius-default: 2px;
-
-  /* theme colors */
+  --color-boxshadow: #00000033;
+  /* Theme colors */
   --color-main: #eee;
   --color-second: #fff;
   --color-third: #e3e3e3;
@@ -12,7 +11,6 @@
   --color-disabled: #909090;
   --color-close: #d10000;
   --color-warning: #bb8900;
-
   /* Font colors */
   --color-font: #111;
   --color-font-navigation: #323232;
@@ -23,18 +21,18 @@
   /* Icon colors */
   --color-icon-default: #111;
   --color-icon-light: #111;
-  /* dlc snowflake color */
+  /* DLC snowflake color */
   --color-dlc-snowflake: #090a13;
 }
 
 .button-mainAction:hover{
   transform:translateY(-10px);
-  box-shadow: 0px 17px 12px #00000033;
+  box-shadow: 0px 17px 12px var(--color-boxshadow);
   background: var(--color-second);
 }
 .button-mainAction:hover:disabled{
   transform:translateY(0px);
-  box-shadow: inset 0px 4px 10px #00000033;
+  box-shadow: inset 0px 4px 10px var(--color-boxshadow);
 }
 
 .switch_slider {

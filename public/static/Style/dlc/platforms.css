@@ -9,3 +9,7 @@
 .configItem-logo-container--automatic {
     background-color: #ececec;
 }
+
+.configItem-logo-container--any {
+    background-color: #8b9fbb;
+}

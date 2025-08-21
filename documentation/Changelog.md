@@ -18,6 +18,11 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 * **Fixes:**
   * DLC Amag ProTime: Return error message on reloading / changing website while inject-script is running
   * Stylings
+  * Fix app crash when creating a new filter dlc on update
+
+* **Other Changes:**
+  * Code cleanup
+  * Default "DLCs" filter none and platform any added
 
 ## V 1.2.34 (Release)
 

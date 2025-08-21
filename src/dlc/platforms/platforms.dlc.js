@@ -4,34 +4,21 @@ import { importPlatforms } from "./platforms.import.js";
 import { importPlatformCustomContent } from "./platforms.import.js";
 import { importPlatformsData } from "./platforms.import.js";
 import { platform_functionName_automatic } from "./platforms.import.js";
+import { reimportDLCStorageData } from "../../utils/dlcGlobaUtils.js";
 
+const selfId = 'platforms'
 // dlc function import / static map cuz eval is unsave
 const platformFunctionsMap = {
   "AmagProTime": AmagProTime,
   "Automatic": Automatic,
 };
 
-async function importNewPlatformData(){
-  let importNewPlatformData = await importPlatformsData()
-  try {
-    if (importNewPlatformData) {
-      console.log('DLC Platform data created. Restart Time Copy.')
-      window.location.reload()
-    } else {
-      throw new Error('Unable to import DLC Platform data')
-    }
-  } catch (error) {
-    console.log(error)
-    window.location.reload()
-  }
-}
-
 export async function platformsContent() {
   let loadedPlatformsFeedbackArray = []
   return new Promise(async (resolve) => { 
     let platformInfoData = localStorage.getItem('tc_s_dlcPlatformInformations')
     if (!platformInfoData) {
-      await importNewPlatformData()
+      await importPlatformsData()
     } else {
       platformInfoData = JSON.parse(platformInfoData)
     }
@@ -47,9 +34,8 @@ export async function platformsContent() {
         }
       }catch(error){
         console.log(error)
-        console.log('Restart Time Copy Extension.')
         localStorage.removeItem('tc_s_dlcPlatformInformations')
-        importNewPlatformData()
+        await reimportDLCStorageData(selfId)
         return
       }
       let platformCustomContent = ''

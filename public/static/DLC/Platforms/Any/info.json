@@ -1,0 +1,9 @@
+{
+    "platform_version": "1.0",
+    "platform_name": "Beliebig",
+    "platform_id": "any",
+    "platform_shortname": "Any",
+    "platform_description": "Überträgt Wärte in der aktuell offenen Webseite.",
+    "platform_url":"*",
+    "platform_content": "false"
+}

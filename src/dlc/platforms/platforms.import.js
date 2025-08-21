@@ -1,6 +1,6 @@
 // enter the folder/file Name of the dlcs in the following array
 // import the dlc also as function in the platform.dlc
-export const importPlatforms = ["Automatic", "AmagProTime"]
+export const importPlatforms = ["Automatic", "AmagProTime", "Any"]
 export const platform_functionName_automatic = 'Automatic'
 export const platform_bookingPlatformPreValue = 'bookingPlatform_'
 

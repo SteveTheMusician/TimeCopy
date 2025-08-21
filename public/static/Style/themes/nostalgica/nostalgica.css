@@ -1,6 +1,5 @@
 :root {
   /* ---- Nostalgica Theme ---- */
-
   --white_e: #EEEEEE;
   --lightyellow: #e6d1ab;
   --color-main: #131634;
@@ -21,7 +20,6 @@
   --color-font-subtext: #777c97;
   --color-icon-default: var(--color-font-headlabel);
   --color-icon-light: #5d7b83;
-
   --border-radius-second: 20px;
 }
 
