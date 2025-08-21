@@ -19,9 +19,6 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * DLC Amag ProTime: Return error message on reloading / changing website while inject-script is running
   * Stylings
 
-* **Features** *
-  * Change Text-Size
-
 ## V 1.2.34 (Release)
 
 * **Fixes:**
