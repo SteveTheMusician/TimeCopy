@@ -13,3 +13,7 @@
 .configItem-logo-container--any {
     background-color: #8b9fbb;
 }
+
+#dlcItemPlatform_amagprotime .dlc-details--visible {
+    height: 320px;
+}

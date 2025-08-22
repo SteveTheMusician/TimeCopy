@@ -22,6 +22,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 * **Other Changes:**
   * Code cleanup
+  * DLC-Items functionality & styling refactoring
   * Default "DLCs" filter none and platform any added
 
 ## V 1.2.34 (Release)

@@ -371,11 +371,6 @@ label:has(#button_importConfigs) {
     pointer-events: none;
 }
 
-.button-dropdown--active svg {
-    transform: scaleY(-1);
-    fill: var(--color-active);
-}
-
 .button-mainAction {
     width: 100px;
     height: 100px;

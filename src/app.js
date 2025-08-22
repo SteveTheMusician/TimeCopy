@@ -8,7 +8,7 @@ import {xmasDlc,
           platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./dlc/dlc.js";
 import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform, lstorage_cBookingScore} from "./utils/appStorage.js";
 import { clearDlcLocalStorages, reloadDLCCache,setDLCAmagProTimeTestStyle } from "./utils/dlcStorage.js";
-import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden,default_e} from "./utils/defaults/defaultVariables.js";
+import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classVisible,default_e} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
@@ -421,31 +421,17 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
     }
   }
-
   // dlc functions
-  function dlcPlatformOpenDropdown(e) {
-    let dlc_platformElement = e.target.closest(".dlcItem-platform")
-    let dlc_platformDropDownButton = e.target.closest("button")
-    let dlc_platformInformationContainer = dlc_platformElement.getElementsByClassName('dlcItem-details-container')[0]
-    if (dlc_platformInformationContainer.classList.contains(dlc_details_classHidden)) {
-      dlc_platformInformationContainer.classList.remove(dlc_details_classHidden)
-      dlc_platformDropDownButton.classList.add('button-dropdown--active')
+  function dlcItemDropDownHandler(e) {
+    let dlc_ItemElement = e.target.closest(".dlcItem-clickable")
+    let dlc_ItemDropDownButton = e.target.closest("button")
+    let dlc_ItemInformationContainer = dlc_ItemElement.getElementsByClassName('dlcItem-details-container')[0]
+    if (!dlc_ItemInformationContainer.classList.contains(dlc_details_classVisible)) {
+      dlc_ItemInformationContainer.classList.add(dlc_details_classVisible)
+      dlc_ItemDropDownButton.classList.add('button-dropdown--active')
     } else {
-      dlc_platformInformationContainer.classList.add(dlc_details_classHidden)
-      dlc_platformDropDownButton.classList.remove('button-dropdown--active')
-    }
-  }
-
-  function dlcFilterOpenDropdown(e) {
-    let dlc_filterElement = e.target.closest(".dlcItem-filter")
-    let dlc_filterDropDownButton = e.target.closest("button")
-    let dlc_filterInformationContainer = dlc_filterElement.getElementsByClassName('dlcItem-details-container')[0]
-    if (dlc_filterInformationContainer.classList.contains(dlc_details_classHidden)) {
-      dlc_filterInformationContainer.classList.remove(dlc_details_classHidden)
-      dlc_filterDropDownButton.classList.add('button-dropdown--active')
-    } else {
-      dlc_filterInformationContainer.classList.add(dlc_details_classHidden)
-      dlc_filterDropDownButton.classList.remove('button-dropdown--active')
+      dlc_ItemInformationContainer.classList.remove(dlc_details_classVisible)
+      dlc_ItemDropDownButton.classList.remove('button-dropdown--active')
     }
   }
 
@@ -562,11 +548,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     for (var index = 0, indexLen = dlc_platform_element.length; index < indexLen; index++) {
       let dropdownButton = dlc_platform_element[index].getElementsByClassName('button-dropdown')[0]
-      dropdownButton.addEventListener('click', dlcPlatformOpenDropdown);
+      dropdownButton.addEventListener('click', dlcItemDropDownHandler);
     }
     for (var index = 0, indexLen = dlc_filter_element.length; index < indexLen; index++) {
       let dropdownButton = dlc_filter_element[index].getElementsByClassName('button-dropdown')[0]
-      dropdownButton.addEventListener('click', dlcFilterOpenDropdown);
+      dropdownButton.addEventListener('click', dlcItemDropDownHandler);
     }
     try{
       // load needed app functions

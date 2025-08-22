@@ -82,7 +82,7 @@ export async function platformsContent() {
                       </button>
                     </div>
                   </div>
-                  <div class="dlcItem-details-container dlc-details--hidden `+(platformCustomContent ? 'scrollableVisible' : '')+`" tabindex="-1">
+                  <div class="dlcItem-details-container `+(platformCustomContent ? 'scrollableVisible' : '')+`" tabindex="-1">
                     <div class="dlcItem-details_information-container">
                       <p class="text-label">Infos</p>
                       <p class="subtext">`+ (plDataObject.platform_description) +`</p>
