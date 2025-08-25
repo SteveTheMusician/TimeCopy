@@ -207,65 +207,60 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
     }
   }
   // element change observer
-  async function observeElement(selector, boolean, selectorNumber) {
-    const checkInterval = 500;
+  async function observeElement(selector, shouldHaveValue, selectorNumber) {
+    const checkInterval = 200;
     const timeout = 8000;
-    return new Promise((resolve, reject) => {
-      const timeoutId = setTimeout(() => {
-        clearInterval(existenceCheck);
-        reject({
-          text: 'ProTime-Element timeout',
-          textdetails: "Ein Element in ProTime wurde nicht gefunden oder hat nicht die gewünschten Änderungen übernommen. Lade die Webseite neu und versuche es noch einmal. | @"+selector + " :" + boolean
-        });
-      }, timeout);
+    const getElement = () => document.querySelectorAll(selector)[selectorNumber];
 
-      const checkAndObserve = () => {
-        console.log('----> Check and Observe')
-        const element = document.querySelectorAll(selector)[selectorNumber];
-        if (element) {
-          if ((boolean && element.value) || (!boolean && !element.value) || (boolean && element) || (!boolean && !element)) {
-            clearTimeout(timeoutId);
-            resolve('[Time Copy] 👀 🟢 [Element Observer] Element found immediately');
-            return;
-          }
-          const observer = new MutationObserver(() => {
-            console.log('----> OBSERVE')
-            if (boolean) {
-              if (element.value) {
-                clearTimeout(timeoutId);
-                observer.disconnect();
-                resolve('[Time Copy] 👀 🟢 [Time Copy] [Element Observer] Element found after waiting for mutation');
-              }
-            } else {
-              if (!element.value) {
-                clearTimeout(timeoutId);
-                observer.disconnect();
-                resolve('[Time Copy] 👀 🟢 [Element Observer] Element gone after waiting for mutation');
-              }
-            }
-          });
-          observer.observe(element, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributesList: ["style"],
-          });
-        } else {
-          reject({
-            text: 'ProTime-Element nicht gefunden',
-            textdetails: 'Das zu prüfende Element existiert nicht in ProTime. Grund dafür kann ein Umbau/Renaming der Elemente in Protime sein. Das Problem bitte an den TimeCopy-Entwickler melden. | @'+selector + ' :'
-          })
+    return new Promise((resolve, reject) => {
+      let intervalId, timeoutId, observer;
+      const cleanup = () => {
+        clearInterval(intervalId);
+        clearTimeout(timeoutId);
+        if (observer) observer.disconnect();
+      };
+
+      const finish = (msg) => {
+        cleanup();
+        resolve(msg);
+      };
+
+      const fail = () => {
+        cleanup();
+        reject({
+          text: "ProTime-Element timeout",
+          textdetails: `Timeout: ${selector} (${shouldHaveValue ? "sollte Inhalt haben" : "sollte leer sein"})`,
+        });
+      };
+
+      const checkCondition = () => {
+        const element = getElement();
+        if (!element) return;
+        let hasContent = false;
+
+        if ("value" in element) {
+          hasContent = !!element.value;
+        } else if (element.children && element.children.length > 0) {
+          hasContent = true;
+        }
+
+        if ((shouldHaveValue && hasContent) || (!shouldHaveValue && !hasContent)) {
+          finish(`[Time Copy] 👀 🟢 Element "${selector}" erfüllt Bedingung`);
         }
       };
-      checkAndObserve();
-      const existenceCheck = setInterval(() => {
-        const element = document.querySelectorAll(selector)[selectorNumber];
-        if (element) {
-          console.log('-- IF ELEM EXISTS INTERVAL')
-          clearInterval(existenceCheck);
-          checkAndObserve();
-        }
-      }, checkInterval);
+      // Start Interval-Polling
+      intervalId = setInterval(checkCondition, checkInterval);
+      // Timeout als Abbruch
+      timeoutId = setTimeout(fail, timeout);
+      // MutationObserver nur für Strukturänderungen (Bonus)
+      const element = getElement();
+      if (element) {
+        observer = new MutationObserver(() => {
+          console.log("----> Mutation erkannt");
+          checkCondition();
+        });
+        observer.observe(element, { attributes: true, childList: true, subtree: true });
+      }
     });
   }
   // element visibility observer (more for the loading dots on pt)
@@ -510,7 +505,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           } catch (error) {
             return result = { success: false, message: error };
           }
-
+          
           await waitTimer(bookingWaitingTimer500)
 
           // 1s break on high latency mode
@@ -605,7 +600,10 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           await checkpointLoadingDots(true)
 
           try {
-            await observeElement('textarea', false, '0');
+            // Test entfernen
+            console.log('xxxx before Observer')
+            let test = await observeElement('textarea', false, '0');
+            console.log('observerFeetback: ',test)
           } catch (error) {
             return result = { success: false, message: error };
           }
