@@ -64,20 +64,21 @@ function loadDetectionItems() {
       select_bookingPlatform.value = loaded_select_bookingPlatform
     }
     select_bookingPlatform.addEventListener('change', () => { setDetectionBookingPlatform(detectionItemsHtml[i].id, select_bookingPlatform.value) });
-    let input_ticketPrefix = document.getElementById("input_ticketPrefix" + detectionItemsHtml[i].id)
-    input_ticketPrefix.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "ticketprefix", input_ticketPrefix.value) });
-    let input_additionalPrefix = document.getElementById("input_additionalPrefix" + detectionItemsHtml[i].id)
-    input_additionalPrefix.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "addprefix", input_additionalPrefix.value) });
-    let select_proTimeService = document.getElementById("select_proTimeService_" + detectionItemsHtml[i].id)
-    let loaded_select_proTimeService = detectionItems.find(x => x.id === detectionItemsHtml[i].id).protimeservice
-    select_proTimeService.value = loaded_select_proTimeService
-    select_proTimeService.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "protimeservice", select_proTimeService.value) });
-    let input_projectNomber = document.getElementById("input_projectNomber" + detectionItemsHtml[i].id)
-    input_projectNomber.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "projectnomber", input_projectNomber.value) });
-    let input_activity = document.getElementById("input_activity" + detectionItemsHtml[i].id)
-    let loaded_input_activity = detectionItems.find(x => x.id === detectionItemsHtml[i].id).protimeactivity
-    input_activity.value = loaded_input_activity
-    input_activity.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "protimeactivity", input_activity.value) });
+    // inividual detection content
+    // let input_ticketPrefix = document.getElementById("input_ticketPrefix" + detectionItemsHtml[i].id)
+    // input_ticketPrefix.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "ticketprefix", input_ticketPrefix.value) });
+    // let input_additionalPrefix = document.getElementById("input_additionalPrefix" + detectionItemsHtml[i].id)
+    // input_additionalPrefix.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "addprefix", input_additionalPrefix.value) });
+    // let select_proTimeService = document.getElementById("select_proTimeService_" + detectionItemsHtml[i].id)
+    // let loaded_select_proTimeService = detectionItems.find(x => x.id === detectionItemsHtml[i].id).protimeservice
+    // select_proTimeService.value = loaded_select_proTimeService
+    // select_proTimeService.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "protimeservice", select_proTimeService.value) });
+    // let input_projectNomber = document.getElementById("input_projectNomber" + detectionItemsHtml[i].id)
+    // input_projectNomber.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "projectnomber", input_projectNomber.value) });
+    // let input_activity = document.getElementById("input_activity" + detectionItemsHtml[i].id)
+    // let loaded_input_activity = detectionItems.find(x => x.id === detectionItemsHtml[i].id).protimeactivity
+    // input_activity.value = loaded_input_activity
+    // input_activity.addEventListener('change', () => { changeDetectionItemData(detectionItemsHtml[i].id, "protimeactivity", input_activity.value) });
   }
 }
 // get items current object to change

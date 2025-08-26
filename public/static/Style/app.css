@@ -30,7 +30,7 @@ h1 {
     user-select: none;
 }
 
-h2 {
+h2,h3 {
     color: var(--color-font-headlabel);
     font-size: var(--font-size-headline2);
     margin-block-start: 0;
@@ -727,7 +727,36 @@ select {
     border-right: 5px solid transparent;
 }
 
+.detectionItem-body {
+    width: 100%;
+}
+
 .detectionItem-main {
+    width: -webkit-fill-available;
+}
+
+.title-detectionItem {
+    min-width: 50px;
+    min-height: 24px;
+    width: calc(100% - 20px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    word-break: break-all;
+    white-space: break-spaces;
+    max-height: 50px;
+    border-radius: var(--border-radius-default)
+
+}
+
+.title-detectionItem:hover {
+    outline: 1px dashed var(--color-highlight);
+}
+
+.title-detectionItem:focus {
+    outline: 1px dashed var(--color-active);
+}
+
+.detectionItem-title-container {
     width: 100%;
 }
 
@@ -739,6 +768,26 @@ select {
 .detectionItem-content-larger {
     width: 70%;
     padding: 5px;
+}
+
+.detectionItem-dlc-content {
+    margin-top: 10px;
+    border-top: 1px dashed var(--color-font-subtext);
+    padding-top: 10px;
+    width: -webkit-fill-available;
+}
+
+.detection-actions-container {
+    flex-flow: column;
+    height: 100%;
+}
+
+.action-container-cell--top {
+    height: 40%;
+}
+
+.action-container-cell--bottom {
+    height: 60%;
 }
 
 .checkmark {

@@ -256,7 +256,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       const element = getElement();
       if (element) {
         observer = new MutationObserver(() => {
-          console.log("----> Mutation erkannt");
           checkCondition();
         });
         observer.observe(element, { attributes: true, childList: true, subtree: true });
@@ -543,7 +542,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           }
 
           await waitTimer(bookingWaitingTimerDefault)
-
           await checkpointLoadingDots(false)
           await checkpointLoadingDots(true)
 
@@ -590,7 +588,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
               bookingButton.click()
             } else {
               // clear elements when test is on (Values will be visibile on next ticket)
-              // protime_ticketNumber.value = ''
               protime_ticketText.value = ''
             }
           }
@@ -600,10 +597,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           await checkpointLoadingDots(true)
 
           try {
-            // Test entfernen
-            console.log('xxxx before Observer')
-            let test = await observeElement('textarea', false, '0');
-            console.log('observerFeetback: ',test)
+            await observeElement('textarea', false, '0');
           } catch (error) {
             return result = { success: false, message: error };
           }

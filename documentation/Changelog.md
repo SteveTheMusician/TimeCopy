@@ -15,8 +15,15 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 1.2.45
 
+* **Features** *
+  * Detection-Items: 
+    - can now be minimized
+    - editable title for better orientation
+    - dynamic content
+
 * **Fixes:**
   * DLC Amag ProTime: Return error message on reloading / changing website while inject-script is running
+  * DLC Amag ProTime: Fix observer polling (better observing of elements and values in ProTime)
   * Stylings
   * Fix app crash when creating a new filter dlc on update
 
