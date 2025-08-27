@@ -50,3 +50,14 @@ export async function importPlatformCustomContent(contentName) {
         throw error;
     }
 }
+
+
+export async function importPlatformDetectionContent(platformName) {
+    try {
+        const importDetectionHTML = await import(`./${platformName}/detection/${platformName}.detection.js`)
+        return importDetectionHTML
+    } catch (error) {
+        console.error(`Failed to load detection content from module: ${platformName}`, error);
+        throw error;
+    }
+}

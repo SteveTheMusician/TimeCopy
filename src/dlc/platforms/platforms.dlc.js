@@ -1,5 +1,6 @@
 import { Automatic } from "./Automatic/Automatic.js";
 import { AmagProTime } from "./AmagProTime/AmagProTime.js";
+import { Any } from "./Any/Any.js";
 import { importPlatforms } from "./platforms.import.js";
 import { importPlatformCustomContent } from "./platforms.import.js";
 import { importPlatformsData } from "./platforms.import.js";
@@ -11,6 +12,7 @@ const selfId = 'platforms'
 const platformFunctionsMap = {
   "AmagProTime": AmagProTime,
   "Automatic": Automatic,
+  "Any": Any
 };
 
 export async function platformsContent() {
