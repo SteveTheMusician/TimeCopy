@@ -13,7 +13,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel DLC
   * Add Scrollbar for Platform-DLCs with function-content
 
-## V 1.2.45
+## V 1.2.47
 
 * **Features** *
   * Detection-Items: 
@@ -26,6 +26,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * DLC Amag ProTime: Fix observer polling (better observing of elements and values in ProTime)
   * Stylings
   * Fix app crash when creating a new filter dlc on update
+  * Change the profile picture from the imported file if an image is already set.
 
 * **Other Changes:**
   * Code cleanup

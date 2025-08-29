@@ -229,7 +229,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         cleanup();
         reject({
           text: "ProTime-Element timeout",
-          textdetails: `Timeout: ${selector} (${shouldHaveValue ? "sollte Inhalt haben" : "sollte leer sein"})`,
+          textdetails: `Timeout: ${selector} @${shouldHaveValue ? "true" : "false"})`,
         });
       };
 

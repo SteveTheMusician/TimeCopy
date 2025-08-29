@@ -32,7 +32,7 @@ async function addNewProjectDetection(e) {
   }
   let currentDate = generateDateId()
   let newDetectionItemId = detectionItemID_Prefix + currentDate
-  let detectionItemMainObject = { "id": newDetectionItemId, "bookingsheet": "" }
+  let detectionItemMainObject = { "id": newDetectionItemId, "title":"", "bookingsheet": "", "viewall":"" }
   if (detectionItems === null || detectionItems === '') {
     detectionItems = []
   }

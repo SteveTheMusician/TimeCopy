@@ -88,8 +88,8 @@ export function profileManager(appGlobalArgs, appVersionData, dlcGlobalArgs) {
 
       if (fileData.tcprofile.profilePicture) {
         localStorage.setItem('tc_c_profilePicture', fileData.tcprofile.profilePicture);
+        lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture');
       }
-
       appStorage(appGlobalArgs, appVersionData, dlcGlobalArgs);
 
       if (versionInfo.version >= '1.9') {
@@ -186,6 +186,7 @@ export function setUnsetProfilePicture(show, base64src, appGlobalArgs) {
     appGlobalArgs.elem_profilePictureUser.src = base64src;
     appGlobalArgs.elem_profileSVG.classList.add('dNone');
     appGlobalArgs.elem_profilePicture.classList.add('profileFrame--full');
+    appGlobalArgs.elem_button_importProfilePicture.value = '';
   } else {
     localStorage.removeItem('tc_c_profilePicture');
     appGlobalArgs.elem_profilePictureUser.classList.add('dNone');
