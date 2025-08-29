@@ -777,6 +777,18 @@ select {
     width: -webkit-fill-available;
 }
 
+.detectionItem-module {
+    transition: var(--transition-default);
+    height: 204px;
+    overflow-y: scroll;
+}
+
+.detectionItem-module--hidden {
+    height: 0px;
+    overflow: hidden;
+    opacity: 0;
+}
+
 .detection-actions-container {
     flex-flow: column;
     height: 100%;

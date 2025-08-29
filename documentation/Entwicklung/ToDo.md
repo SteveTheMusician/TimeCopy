@@ -47,6 +47,8 @@
     !! Achtung Profile Import und export muss dann auch angepasst werden
     - ggf deci id prefix ändern und beim generieren checken ob neu oder alt. wenn alt dann importiere die objecte und convertiere sie
 
+- alte profil imports comaptibility aufbauen (namings der variabeln sind noch auf dlc) oder funktion skippen (cuz dl wurde glaube nicht verwendet oder einfach compatibiliyt nur auf v3 lassen)
+
 - Oktober Module (Kürbis und blätter)
 
     update mit eigenem profil nach beendigung testen

@@ -44,16 +44,23 @@ async function addNewProjectDetection(e) {
   window_detection.parentElement.scroll({ top: 0, behavior: 'smooth' })
 }
 
-function loadDetectionItems() {
-  let buttons_removeDetection = document.getElementsByClassName('button_deleteDetection')
+function initDetectionItemsEventListener(elem,func) {
   // remove deletion listeners fist
-  for (let i = 0, iLen = buttons_removeDetection.length; i < iLen; i++) {
-    buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem)
+  for (let i = 0, iLen = elem.length; i < iLen; i++) {
+    elem[i].removeEventListener('click',func)
   }
   // add new deletion listener
-  for (let i = 0, iLen = buttons_removeDetection.length; i < iLen; i++) {
-    buttons_removeDetection[i].addEventListener('click', removeProjectDetectionItem)
+  for (let i = 0, iLen = elem.length; i < iLen; i++) {
+    elem[i].addEventListener('click', func)
   }
+}
+
+function loadDetectionItems() {
+  let buttons_removeDetection = document.getElementsByClassName('button_deleteDetection')
+  let buttons_minimizeDetection = document.getElementsByClassName('button_minimizeDetection')
+  // init listeners for elems
+  initDetectionItemsEventListener(buttons_removeDetection,removeProjectDetectionItem)
+  initDetectionItemsEventListener(buttons_minimizeDetection,minimizeProjectDetectionItem)
   // add item change-listeners
   let detectionItemsHtml = document.getElementsByName('item_detection')
   for (let i = 0, iLength = detectionItemsHtml.length; i < iLength; i++) {
@@ -135,4 +142,26 @@ function removeProjectDetectionItem(i) {
   i.target.closest("button").removeEventListener('click', removeProjectDetectionItem);
   detectionItems = detectionItems.filter(detectionItems => detectionItems.id !== currentItemID);
   updateDetectionItems(detectionItems)
+}
+
+function minimizeProjectDetectionItem (i) {
+  let buttonDropdownActiveClass = 'button-dropdown--active'
+  let thisButtonDropdown = i.target.closest('button')
+  let currentItemID = i.target.closest("div").parentNode.parentNode.id
+  let currentItem = document.getElementById(currentItemID)
+
+  if(thisButtonDropdown.classList.contains(buttonDropdownActiveClass)) {
+    thisButtonDropdown.classList.remove(buttonDropdownActiveClass)
+    currentItem.getElementsByClassName('detectionItem-module')[0].classList.add('detectionItem-module--hidden')
+    setTimeout(function(){
+      currentItem.getElementsByClassName('detectionItem-module')[0].classList.add('dNone')
+    },350)
+  } else {
+    thisButtonDropdown.classList.add(buttonDropdownActiveClass)
+    currentItem.getElementsByClassName('detectionItem-module')[0].classList.remove('dNone')
+    setTimeout(function(){
+      currentItem.getElementsByClassName('detectionItem-module')[0].classList.remove('detectionItem-module--hidden')
+    },10)
+  }
+  
 }

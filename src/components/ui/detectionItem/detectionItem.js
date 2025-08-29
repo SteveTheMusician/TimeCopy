@@ -3,7 +3,7 @@ import { importPlatformDetectionContent } from "../../../module/platforms/platfo
 
 export async function generateDetectionItemSelectOptions() {
   let platformSelectItems = []
-  let platformInfoData = localStorage.getItem('tc_s_dlcPlatformInformations')
+  let platformInfoData = localStorage.getItem('tc_s_modulePlatformInformations')
   platformInfoData = JSON.parse(platformInfoData)
   let plDataObject = ''
   for (let plKey of importPlatforms){
@@ -60,7 +60,7 @@ export async function detectionItem(detectionItems) {
                   </div>
                 </div>
                 <div class="detectionItem-action-container flex `+(detectionItem.bookingsheet? '': 'dNone')+`">
-                  <button class="button-primary button-dropdown">
+                  <button class="button-primary button-dropdown button-dropdown--active button_minimizeDetection">
                     <?xml version="1.0" encoding="utf-8"?>
                     <svg version="1.1" xmlns:serif="http://www.serif.com/"
                     	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
@@ -72,9 +72,9 @@ export async function detectionItem(detectionItems) {
                   </button>
                 </div>
               </div>
-              <div class="detectionItem-dlc dFlex">
+              <div class="detectionItem-module dFlex">
                 <!-- inividual content -->
-                <div class="detectionItem-dlc-content `+(detectionItem.bookingsheet? '': 'dNone')+`">
+                <div class="detectionItem-module-content `+(detectionItem.bookingsheet? '': 'dNone')+`">
                   `+(detectionItem.bookingsheet? await generateDetectionPlatformContent(detectionItem):'')+`
                 </div>
                 <div class="detectionItem-action-container flex">
