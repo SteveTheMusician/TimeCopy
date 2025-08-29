@@ -1,10 +1,10 @@
 export function xmas() {
-  // dlc is controled by app js date
-  let lstorage_c_dlcSnowflakes = localStorage.getItem('tc_c_dlc_xMasSnowFlakes')
-  let lstorage_c_dlcXmastree = localStorage.getItem('tc_c_dlc_xMasTree')
+  // module is controled by app js date
+  let lstorage_c_moduleSnowflakes = localStorage.getItem('tc_c_module_xMasSnowFlakes')
+  let lstorage_c_moduleXmastree = localStorage.getItem('tc_c_module_xMasTree')
   const mainHtml = document.getElementsByTagName('main')[0]
   const configItemDesign = document.getElementById('configItem-design-themes')
-  const xmastreeHtml = `<div class="dlc-xmastree" id="xmastree">
+  const xmastreeHtml = `<div class="module-xmastree" id="xmastree">
     <?xml version="1.0" encoding="UTF-8"?>
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1200 1200">
       <g>
@@ -390,7 +390,7 @@ export function xmas() {
         </div>
         <div class="configItem-content-right">
           <label class="switch">
-            <input type="checkbox" class="" id="check_showDLCSnow" checked/>
+            <input type="checkbox" class="" id="check_showModuleSnow" checked/>
             <span class="switch_slider"></span>
         </label>
         </div>
@@ -401,7 +401,7 @@ export function xmas() {
         </div>
         <div class="configItem-content-right">
           <label class="switch">
-            <input type="checkbox" class="" id="check_showDLCXmastree" checked/>
+            <input type="checkbox" class="" id="check_showModuleXmastree" checked/>
             <span class="switch_slider"></span>
         </label>
         </div>
@@ -409,50 +409,50 @@ export function xmas() {
   mainHtml.insertAdjacentHTML('beforeend', xmastreeHtml);
   mainHtml.insertAdjacentHTML('beforeend', xmassnowflakesHtml);
   configItemDesign.insertAdjacentHTML('beforeend', configSnowFlakeOnOffHtml);
-  const checkDLCSnow = document.getElementById('check_showDLCSnow')
-  checkDLCSnow.addEventListener('change', (e) => snowflakeDLCOnOff(e))
-  const checkDLCXmastree = document.getElementById('check_showDLCXmastree')
-  checkDLCXmastree.addEventListener('change', (e) => xmastreeDLCOnOff(e))
+  const checkModuleSnow = document.getElementById('check_showModuleSnow')
+  checkModuleSnow.addEventListener('change', (e) => snowflakeModuleOnOff(e))
+  const checkModuleXmastree = document.getElementById('check_showModuleXmastree')
+  checkModuleXmastree.addEventListener('change', (e) => xmastreeModuleOnOff(e))
 
-  if (lstorage_c_dlcSnowflakes === 'true') {
+  if (lstorage_c_moduleSnowflakes === 'true') {
     if (!document.getElementById('initial-snow')) {
       mainHtml.insertAdjacentHTML('beforeend', xmassnowflakesHtml);
     }
-    checkDLCSnow.checked = true
-  } else if (lstorage_c_dlcSnowflakes === 'false') {
+    checkModuleSnow.checked = true
+  } else if (lstorage_c_moduleSnowflakes === 'false') {
     document.getElementById('initial-snow').remove();
-    checkDLCSnow.checked = false
+    checkModuleSnow.checked = false
   }
 
-  if (lstorage_c_dlcXmastree === 'true') {
+  if (lstorage_c_moduleXmastree === 'true') {
     if (document.getElementById('xmastree').classList.contains('dNone')) {
       document.getElementById('xmastree').classList.remove('dNone')
     }
-    checkDLCXmastree.checked = true
-  } else if (lstorage_c_dlcXmastree === 'false') {
+    checkModuleXmastree.checked = true
+  } else if (lstorage_c_moduleXmastree === 'false') {
     document.getElementById('xmastree').classList.add('dNone')
-    checkDLCXmastree.checked = false
+    checkModuleXmastree.checked = false
   }
 
-  function snowflakeDLCOnOff(checkDLCSnowEvent) {
-    if (checkDLCSnowEvent.target.checked === true) {
+  function snowflakeModuleOnOff(checkModuleSnowEvent) {
+    if (checkModuleSnowEvent.target.checked === true) {
       if (!document.getElementById('initial-snow')) {
         mainHtml.insertAdjacentHTML('beforeend', xmassnowflakesHtml);
       }
-      localStorage.setItem('tc_c_dlc_xMasSnowFlakes', 'true')
+      localStorage.setItem('tc_c_module_xMasSnowFlakes', 'true')
     } else {
       document.getElementById('initial-snow').remove()
-      localStorage.setItem('tc_c_dlc_xMasSnowFlakes', 'false')
+      localStorage.setItem('tc_c_module_xMasSnowFlakes', 'false')
     }
   }
 
-  function xmastreeDLCOnOff(checkDLCTreeEvent) {
-    if (checkDLCTreeEvent.target.checked === true) {
+  function xmastreeModuleOnOff(checkModuleTreeEvent) {
+    if (checkModuleTreeEvent.target.checked === true) {
       document.getElementById('xmastree').classList.remove('dNone')
-      localStorage.setItem('tc_c_dlc_xMasTree', 'true')
+      localStorage.setItem('tc_c_module_xMasTree', 'true')
     } else {
       document.getElementById('xmastree').classList.add('dNone')
-      localStorage.setItem('tc_c_dlc_xMasTree', 'false')
+      localStorage.setItem('tc_c_module_xMasTree', 'false')
     }
   }
 }

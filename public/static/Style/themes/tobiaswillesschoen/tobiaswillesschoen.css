@@ -111,7 +111,7 @@ header {
   border-radius: var(--border-radius-second);
 }
 
-.dlcItem-main .configItem-icon-container {
+.moduleItem-main .configItem-icon-container {
   backdrop-filter: unset;
   background-color: unset;
   padding: 0;

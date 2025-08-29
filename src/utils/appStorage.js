@@ -1,9 +1,9 @@
 
-import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../dlc/dlc.js"
+import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../module/module.js"
 import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e } from "./defaults/defaultVariables.js"
 import { notification } from "../components/ui/notification/notification.js"
 import { message } from "../components/ui/message/message.js"
-import { loadDLCStorage, clearDlcLocalStorages } from "./dlcStorage.js"
+import { loadModuleStorage, clearmoduleLocalStorages } from "./moduleStorage.js"
 import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
 import { setScoreValues } from "./setScorevalues.js"
 import { firstStartDisplay } from "../components/content/firstStartDisplay/firstStartDisplay.js"
@@ -37,7 +37,7 @@ if(lstorage_cBookingScore !== null && lstorage_cBookingScore !== '' && lstorage_
   lstorage_cBookingScoreParsed = JSON.parse(lstorage_cBookingScore)
 }
 
-export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
+export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
   
   // load localstorage
   function loadStorage() {
@@ -46,8 +46,8 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     if (lstorage_appVersion) {
       if (lstorage_appVersion !== appVersionData.version) {
         localStorage.setItem('tc_appVersion', appVersionData.version)
-        // reset dlc information cache
-        clearDlcLocalStorages(true)
+        // reset module information cache
+        clearmoduleLocalStorages(true)
         // show update message
         message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
       }
@@ -118,14 +118,14 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     if(lstorage_tcFirstStart !== 'done' || lstorage_tcFirstStart === null) {
       firstStartDisplay()
     }
-    loadDLCStorage(dlcGlobalArgs)
+    loadModuleStorage(moduleGlobalArgs)
   }
   // sessionstorages for temp-messages and data
   function loadSessionStorages() {
     let sMessageImported = sessionStorage.getItem('tc_c_messageImported')
     let sMessageProfileRemoved = sessionStorage.getItem('tc_c_messageProfileRemoved')
     let sExportProfile_afterChange = sessionStorage.getItem('tc_c_exportProfile_afterChange')
-    let sDLCCacheReloaded = sessionStorage.getItem('tc_c_messageDLCCacheReloaded')
+    let sModuleCacheReloaded = sessionStorage.getItem('tc_c_messageModuleCacheReloaded')
     let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
     if (sMessageImported === 'true') {
       notification(true, true, window.language.notification_profileImported)
@@ -145,9 +145,9 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
     if (sChangeLanguage === 'true') {
       sessionReloadHandler('tc_c_changeLanguage')
     }
-    if (sDLCCacheReloaded === 'true') {
-      notification(true, true, window.language.notification_dlcCacheReset)
-      sessionReloadHandler('tc_c_messageDLCCacheReloaded')
+    if (sModuleCacheReloaded === 'true') {
+      notification(true, true, window.language.notification_moduleCacheReset)
+      sessionReloadHandler('tc_c_messageModuleCacheReloaded')
     }
   }
   loadStorage()
@@ -170,7 +170,7 @@ export function appStorage(appGlobalArgs, appVersionData,dlcGlobalArgs) {
 // clear local storage
 export function clearLocalStorage() {
   localStorage.clear()
-  clearDlcLocalStorages()
+  clearmoduleLocalStorages()
 }
 
 export function clearSessionStorage() {

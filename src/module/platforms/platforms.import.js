@@ -1,42 +1,42 @@
-// enter the folder/file Name of the dlcs in the following array
-// import the dlc also as function in the platform.dlc
+// enter the folder/file Name of the modules in the following array
+// import the module also as function in the platform.module
 export const importPlatforms = ["Automatic", "AmagProTime", "Any"]
 export const platform_functionName_automatic = 'Automatic'
 export const platform_bookingPlatformPreValue = 'bookingPlatform_'
 
 async function generatePlatformData() {
     return new Promise(async (resolve) => { 
-        let dlcPlatformsData = []
+        let modulePlatformsData = []
         for (let importedPlatform of importPlatforms) {
-            let infoData = Promise.resolve(import(`../../../public/static/DLC/Platforms/${importedPlatform}/info.json`))
+            let infoData = Promise.resolve(import(`../../../public/static/Module/Platforms/${importedPlatform}/info.json`))
             await infoData.then(plInfo => {
                 let platformStorageObject = { [importedPlatform]: { ...plInfo } }
-                // let lstorage_sDLCPlatformInformations = 
-                dlcPlatformsData.push(platformStorageObject)
+                // let lstorage_sModulePlatformInformations = 
+                modulePlatformsData.push(platformStorageObject)
             })
         }
-        resolve(dlcPlatformsData)
+        resolve(modulePlatformsData)
     })
 }
 
 export async function importPlatformsData() {
     return new Promise(async (resolve) => { 
-        let tc_s_dlcPlatformInformations = localStorage.getItem('tc_s_dlcPlatformInformations')
-        if (!tc_s_dlcPlatformInformations) {
-            let dlcPlatformsData = await generatePlatformData()
+        let tc_s_modulePlatformInformations = localStorage.getItem('tc_s_modulePlatformInformations')
+        if (!tc_s_modulePlatformInformations) {
+            let modulePlatformsData = await generatePlatformData()
             try {
-                if (dlcPlatformsData) {
-                    // push all informations about the platform dlcs into ls
-                    tc_s_dlcPlatformInformations = localStorage.setItem('tc_s_dlcPlatformInformations', JSON.stringify(dlcPlatformsData))
-                    resolve(tc_s_dlcPlatformInformations)
+                if (modulePlatformsData) {
+                    // push all informations about the platform modules into ls
+                    tc_s_modulePlatformInformations = localStorage.setItem('tc_s_modulePlatformInformations', JSON.stringify(modulePlatformsData))
+                    resolve(tc_s_modulePlatformInformations)
                 } else {
-                    throw new Error('unable to create dlc (platforms) import data')
+                    throw new Error('unable to create module (platforms) import data')
                 }
             } catch (error) {
                 console.error(error)
             }
         }else {
-            resolve(tc_s_dlcPlatformInformations)
+            resolve(tc_s_modulePlatformInformations)
         }
     })
 }

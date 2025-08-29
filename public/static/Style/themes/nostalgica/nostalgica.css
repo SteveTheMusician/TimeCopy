@@ -48,7 +48,7 @@ header {
   border-radius: var(--border-radius-second);
 }
 
-.dlcItem-main .configItem-icon-container {
+.moduleItem-main .configItem-icon-container {
   background-color: unset;
   padding: 0;
   margin-block-start: 0;
@@ -220,7 +220,7 @@ input:checked+.switch_slider:before {
   }
 }
 
-/* xmas dlc style */
+/* xmas module style */
 
 @keyframes xmastreeanimation {
   0% {

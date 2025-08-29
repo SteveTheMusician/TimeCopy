@@ -23,8 +23,8 @@
   /* Icon colors */
   --color-icon-default: var(--imperial-blue);
   --color-icon-light: var(--imperial-blue);
-  /* DLC snowflake color */
-  --color-dlc-snowflake: var(--imperial-blue);
+  /* module snowflake color */
+  --color-module-snowflake: var(--imperial-blue);
 }
 
 .button-mainAction{

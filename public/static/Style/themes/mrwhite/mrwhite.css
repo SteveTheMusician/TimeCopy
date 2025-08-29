@@ -21,8 +21,8 @@
   /* Icon colors */
   --color-icon-default: #111;
   --color-icon-light: #111;
-  /* DLC snowflake color */
-  --color-dlc-snowflake: #090a13;
+  /* module snowflake color */
+  --color-module-snowflake: #090a13;
 }
 
 .button-mainAction:hover{

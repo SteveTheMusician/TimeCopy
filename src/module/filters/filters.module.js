@@ -3,7 +3,7 @@ import { filter_TobiasExcel } from "./TobiasExcel/TobiasExcel.js"
 import { filter_None } from "./None/None.js"
 import { importFilters } from "./filters.import.js"
 import { importFiltersData } from "./filters.import.js"
-import { reimportDLCStorageData } from "../../utils/dlcGlobaUtils.js"
+import { reimportModuleStorageData } from "../../utils/moduleGlobaUtils.js"
 
 const selfId = 'filters'
 // map filters
@@ -22,7 +22,7 @@ export async function filters(filter,clipboarsString) {
 export async function filtersContent() {
   let loadedFiltersFeedbackArray = []
   return new Promise(async (resolve, reject) => { 
-  let filterInfoData = localStorage.getItem('tc_s_dlcFilterInformations')
+  let filterInfoData = localStorage.getItem('tc_s_moduleFilterInformations')
   if (!filterInfoData) {
     importFiltersData()
   } else {
@@ -34,23 +34,23 @@ export async function filtersContent() {
     try {
       plDataObject = filterInfoData.find(item => item[plKey])[plKey] ?? ''
       if(!plDataObject){
-        throw new Error('[DLC: Filters] ERROR')
+        throw new Error('[Module: Filters] ERROR')
       }
     } catch (error) {
       console.log(error)
-      localStorage.removeItem('tc_s_dlcFilterInformations')
-      reimportDLCStorageData(selfId)
+      localStorage.removeItem('tc_s_moduleFilterInformations')
+      reimportModuleStorageData(selfId)
       return
     }
     if(plDataObject === '') {
       console.log('---ERROR')
     }
     let filterImageFormat = '.jpg'
-    // dlc array (Foldername aso used as id for saving)
-    // for new items, just make a new dlc, add it here to the array, make logo in static folder and add css in style/dlc folder
-    let filterChild = `<label class="configItem dlcItem dlcItem-filter dlcItem-clickable dFlex" title="Filter wählen" id="dlcItemFilter_`+ (plDataObject.filter_id) +`">
-               <div class="dlcItem-main-container dFlex">
-                 <div class="dlcItem-main dFlex">
+    // module array (Foldername aso used as id for saving)
+    // for new items, just make a new module, add it here to the array, make logo in static folder and add css in style/module folder
+    let filterChild = `<label class="configItem moduleItem moduleItem-filter moduleItem-clickable dFlex" title="Filter wählen" id="moduleItemFilter_`+ (plDataObject.filter_id) +`">
+               <div class="moduleItem-main-container dFlex">
+                 <div class="moduleItem-main dFlex">
                    <div class="configItem-radio-container dFlex">
                        <label class="radio-custom-container dFlex">
                          <input type="radio" class="radio-default" value="timesheetfilter_`+ (plKey) + `" name="timesheet-filter" />
@@ -58,9 +58,9 @@ export async function filtersContent() {
                        </label>
                    </div>
                    <div class="configItem-icon-container flex configItem-icon-container--`+ (plDataObject.filter_id) + `">
-                    <img src="static/DLC/Filters/`+ (plKey) + "/icon/" + (plKey + filterImageFormat) + `" class="icon-filterItem" />
+                    <img src="static/Module/Filters/`+ (plKey) + "/icon/" + (plKey + filterImageFormat) + `" class="icon-filterItem" />
                    </div>
-                   <div class="dlcItem-headline-container flex">
+                   <div class="moduleItem-headline-container flex">
                      <p class="text-label">`+ (plDataObject.filter_name) + `</p>
                    </div>
                  </div>
@@ -77,17 +77,17 @@ export async function filtersContent() {
                    </button>
                  </div>
                </div>
-               <div class="dlcItem-details-container" tabindex="-1">
-                 <div class="dlcItem-details_information-container">
+               <div class="moduleItem-details-container" tabindex="-1">
+                 <div class="moduleItem-details_information-container">
                    <p class="text-label">Infos</p>
                    <p class="subtext">`+ (plDataObject.filter_description) +`</p>
-                   <div class="dlcItem-details_information_version-container">
+                   <div class="moduleItem-details_information_version-container">
                      <p class="text-label">Version</p>
-                     <div class="dlcItem-details_information_supportedsources-row dFlex">
-                       <p class="subtext dlcItem-versionText-left">Unterstützte Formate</p><p class="subtext dlcItem-versionText-right">`+ (plDataObject.filter_supportedsources) +`</p>
+                     <div class="moduleItem-details_information_supportedsources-row dFlex">
+                       <p class="subtext moduleItem-versionText-left">Unterstützte Formate</p><p class="subtext moduleItem-versionText-right">`+ (plDataObject.filter_supportedsources) +`</p>
                      </div>
-                     <div class="dlcItem-details_information_version-row dFlex">
-                       <p class="subtext dlcItem-versionText-left">DLC-Version</p><p class="subtext dlcItem-versionText-right">`+ (plDataObject.filter_version) +`</p>
+                     <div class="moduleItem-details_information_version-row dFlex">
+                       <p class="subtext moduleItem-versionText-left">Module-Version</p><p class="subtext moduleItem-versionText-right">`+ (plDataObject.filter_version) +`</p>
                      </div>
                    </div>
                  </div>
@@ -96,7 +96,7 @@ export async function filtersContent() {
     document.getElementById('window_timesheetfilters').innerHTML += filterChild
     loadedFiltersFeedbackArray.push(plDataObject.filter_id)
   }
-  resolve({success:true,feedback:"🧩 [DLC: Filters] Content for "+loadedFiltersFeedbackArray+" loaded.",ids:loadedFiltersFeedbackArray})
+  resolve({success:true,feedback:"🧩 [Module: Filters] Content for "+loadedFiltersFeedbackArray+" loaded.",ids:loadedFiltersFeedbackArray})
  })
 }
 

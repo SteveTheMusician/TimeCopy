@@ -1,7 +1,7 @@
-// customContent is automatically generated / imported in to the dlc-item by platform.dlc
-export const customContent = `<div class="dlc-platform_custom-content">
+// customContent is automatically generated / imported in to the module-item by platform.module
+export const customContent = `<div class="module-platform_custom-content">
     <p class="text-label">Funktionen</p>
-    <div class="dlc-platform_custom-content-row dFlex">
+    <div class="module-platform_custom-content-row dFlex">
         <div class="row-cell-left">
             <p class="subtext">Latenz-Modus erzwingen</p>
         </div>
@@ -12,7 +12,7 @@ export const customContent = `<div class="dlc-platform_custom-content">
             </label>
         </div>
     </div>
-    <div class="dlc-platform_custom-content-row dFlex">
+    <div class="module-platform_custom-content-row dFlex">
         <div class="row-cell-left">
             <p class="subtext">Latenz erkennen</p>
         </div>
@@ -23,7 +23,7 @@ export const customContent = `<div class="dlc-platform_custom-content">
             </label>
         </div>
     </div>
-    <div class="dlc-platform_custom-content-row dFlex">
+    <div class="module-platform_custom-content-row dFlex">
         <div class="row-cell-left">
             <p class="subtext">Ticketnummer ins Textfeld</p>
         </div>
@@ -34,7 +34,7 @@ export const customContent = `<div class="dlc-platform_custom-content">
             </label>
         </div>
     </div>
-    <div class="dlc-platform_custom-content-row dFlex">
+    <div class="module-platform_custom-content-row dFlex">
         <div class="row-cell-left">
             <p class="subtext">Tage übereinstimmen</p>
         </div>
@@ -45,7 +45,7 @@ export const customContent = `<div class="dlc-platform_custom-content">
             </label>
         </div>
     </div>
-    <div class="dlc-platform_custom-content-row dFlex">
+    <div class="module-platform_custom-content-row dFlex">
         <div class="row-cell-left">
             <p class="subtext">Tag autoselect (Exp.)</p>
         </div>
@@ -56,7 +56,7 @@ export const customContent = `<div class="dlc-platform_custom-content">
             </label>
         </div>
     </div>
-    <div class="dlc-platform_custom-content-row dFlex">
+    <div class="module-platform_custom-content-row dFlex">
         <div class="row-cell-left">
             <p class="subtext">Test-Modus</p>
         </div>

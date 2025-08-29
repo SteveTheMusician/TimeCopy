@@ -1,7 +1,7 @@
 import { setStatusBarText } from "../../../utils/setStatusBarText";
 export async function Automatic() {
     try {
-        setStatusBarText(window.language.statusbartext_dlcAutomatic_isSelectingPlatform)
+        setStatusBarText(window.language.statusbartext_moduleAutomatic_isSelectingPlatform)
         let currentURL
         let automaticValue
         let queryOptions = { active: true, lastFocusedWindow: true };
@@ -10,12 +10,12 @@ export async function Automatic() {
             throw ({ errorstatus: 'error', errorheadline: 'Chrome Window URL', errortext: '"Automatisch" konnte nicht auf die Chrome-Tab API zugreifen. Vermutlich ist ein leeres Fenster geöffnet oder es gibt andere Probleme mit der URL.' })
         }
         currentURL = tab.url
-        let tc_s_dlcplatforminformations = localStorage.getItem('tc_s_dlcPlatformInformations')
-        if(tc_s_dlcplatforminformations === null || tc_s_dlcplatforminformations === '') {
+        let tc_s_moduleplatforminformations = localStorage.getItem('tc_s_modulePlatformInformations')
+        if(tc_s_moduleplatforminformations === null || tc_s_moduleplatforminformations === '') {
             throw ({ errorstatus: 'error', errorheadline: 'Automatisch konnte Storage nicht finden', errortext: 'Platforminformations Storage konnte nicht gelesen werden oder ist leer. (Bitte Entwickler kontaktieren)' })
         }
-        tc_s_dlcplatforminformations = JSON.parse(tc_s_dlcplatforminformations)
-        let foundPlatformInformationObject = tc_s_dlcplatforminformations.find(platformObj => {
+        tc_s_moduleplatforminformations = JSON.parse(tc_s_moduleplatforminformations)
+        let foundPlatformInformationObject = tc_s_moduleplatforminformations.find(platformObj => {
             let key = Object.keys(platformObj)[0];
             if (currentURL.includes(platformObj[key].platform_url)) {
                 return platformObj[key].platform_url
@@ -25,7 +25,7 @@ export async function Automatic() {
             if (foundPlatformInformationObject) {
                 automaticValue = Object.keys(foundPlatformInformationObject)[0]
             } else {
-                throw ({ errorstatus: 'error', errorheadline: '"Automatisch" konnte die URL nicht zuweisen.', errortext: '"Es gibt keine übereinstimmung zwischen deiner aktuellen Web-URL und einer der Buchungsplattformen. Das DLC "Automatisch" kann so keine Zuweisung treffen.' })
+                throw ({ errorstatus: 'error', errorheadline: '"Automatisch" konnte die URL nicht zuweisen.', errortext: '"Es gibt keine übereinstimmung zwischen deiner aktuellen Web-URL und einer der Buchungsplattformen. Das Module "Automatisch" kann so keine Zuweisung treffen.' })
             }
         } catch (error) {
             throw error

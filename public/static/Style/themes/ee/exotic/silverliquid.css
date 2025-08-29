@@ -30,8 +30,8 @@
   /* Icon colors */
   --color-icon-default: #76768b;
   --color-icon-light: var(--white);
-  /* DLC snowflake color */
-  --color-dlc-snowflake: var(--color-font-second);
+  /* module snowflake color */
+  --color-module-snowflake: var(--color-font-second);
   /* Specials */
   --rainbow: repeating-linear-gradient(
     100deg,
@@ -225,7 +225,7 @@ header {
   border-radius: 20px;
 }
 
-.dlcItem-main .configItem-icon-container {
+.moduleItem-main .configItem-icon-container {
   background-color: unset;
   padding: 0;
   margin-block-start: 0;

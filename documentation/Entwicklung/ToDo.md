@@ -10,14 +10,14 @@
 - Generell mehr dynamisches html
 - dlc: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon
 - Yosha Update: im Ticketname akzeptiert Leere Ticketnummer bzw Tickets ohne Nummer / Tobias Excel FIlter anpassen 
-(GGF eigenes DLC Nötig)
+(GGF eigenes Module Nötig)
 
 - feature: wenn z.b. detections erstellt werden müssen, werden die buttons/der weg zu den einstellungen rot umrandet
 - feature: amag protime dlc: warnung bei doubled tickets
 - texte überarbeiten
 - dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
 - "Inventierte" Farbthemen (Strawberry Icecream ect)
-- DLC configs in profil speichern
+- Module configs in profil speichern
 - code clean up -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
 - app storages zu einem profile-object zusammenfassen, dass gleichzeitig 1zu1 exportiert werden kann
 - dlc amagProTime: ProTime services updaten (aktuell gibt es nur 3) - ggf standard variabeln dafür machen und dynamishc rendern
@@ -47,6 +47,6 @@
     !! Achtung Profile Import und export muss dann auch angepasst werden
     - ggf deci id prefix ändern und beim generieren checken ob neu oder alt. wenn alt dann importiere die objecte und convertiere sie
 
-- Oktober DLC (Kürbis und blätter)
+- Oktober Module (Kürbis und blätter)
 
     update mit eigenem profil nach beendigung testen

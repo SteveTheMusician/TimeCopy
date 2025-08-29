@@ -1,4 +1,4 @@
-import { createFilterObject } from "../filters.dlc"
+import { createFilterObject } from "../filters.module"
 
 export function filter_SteveGoogleExcel(clipboarsString) {
 

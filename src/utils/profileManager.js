@@ -17,9 +17,9 @@ import {
   defaultShowAllMessages,
   defaultProfileAuthor
 } from "./defaults/defaultVariables.js";
-import { dlcProfileExport, dlcProfileImport } from "./dlcProfileManagerUtil.js";
+import { moduleProfileExport, moduleProfileImport } from "./moduleProfileManagerUtil.js";
 
-export function profileManager(appGlobalArgs, appVersionData, dlcGlobalArgs) {
+export function profileManager(appGlobalArgs, appVersionData, moduleGlobalArgs) {
   const tcprofileVersion = appVersionData.profileVersion;
   const supportedVersions = appVersionData.supportedProfileVersions;
 
@@ -90,10 +90,10 @@ export function profileManager(appGlobalArgs, appVersionData, dlcGlobalArgs) {
         localStorage.setItem('tc_c_profilePicture', fileData.tcprofile.profilePicture);
         lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture');
       }
-      appStorage(appGlobalArgs, appVersionData, dlcGlobalArgs);
+      appStorage(appGlobalArgs, appVersionData, moduleGlobalArgs);
 
       if (versionInfo.version >= '1.9') {
-        dlcProfileImport(fileData);
+        moduleProfileImport(fileData);
       }
 
       sessionStorage.setItem('tc_c_messageImported', 'true');
@@ -138,7 +138,7 @@ export function exportProfile(appVersionData, appGlobalArgs) {
   const platform = lstorage_cBookingPlatform ?? '';
   const profilePicture = lstorage_cProfilePicture ?? '';
   const bookingScore = lstorage_cBookingScore ?? 0;
-  const dlcData = dlcProfileExport();
+  const moduleData = moduleProfileExport();
 
   const profileData = {
     tcprofile: {
@@ -162,7 +162,7 @@ export function exportProfile(appVersionData, appGlobalArgs) {
     }
   };
 
-  Object.assign(profileData.tcprofile, dlcData);
+  Object.assign(profileData.tcprofile, moduleData);
 
   let data
   if(localStorage.getItem('tc_exportProfileDecoded') === 'true') {

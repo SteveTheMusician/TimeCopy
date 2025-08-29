@@ -1,21 +1,21 @@
 @import url('./platforms.css');
 
 :root {
-    --color-dlc-snowflake: #fefefe;
-	--color-dlc-testmode: #a39d364a;
-	--color-dlc-testmode-highlight: #ffff00;
+    --color-module-snowflake: #fefefe;
+	--color-module-testmode: #a39d364a;
+	--color-module-testmode-highlight: #ffff00;
 }
 
-.dlcItem {
+.moduleItem {
     flex-flow: column;
     height: fit-content;
 }
 
-.dlcItem-main {
+.moduleItem-main {
     width: calc(100% - 40px);
 }
 
-.dlcItem-details-container {
+.moduleItem-details-container {
 	height: 0;
     opacity: 0;
     margin-top: 0;
@@ -24,7 +24,7 @@
     transition: var(--transition-default);
 }
 
-.dlcItem-details-container * {
+.moduleItem-details-container * {
 	display: none;
 }
 
@@ -54,7 +54,7 @@
   background: var(--color-highlight);
 }
 
-.dlc-details--visible {
+.module-details--visible {
     height: 200px;
     margin-top: 10px;
     border-top: 2px solid var(--color-second);
@@ -63,36 +63,36 @@
 	pointer-events: all;
 }
 
-.dlc-details--visible * {
+.module-details--visible * {
 	display: block;
 }
 
-.dlcItem-headline-container {
+.moduleItem-headline-container {
     padding-left: 20px;
 }
 
-.dlcItem-headline-container .text-label {
+.moduleItem-headline-container .text-label {
 	margin-right: 0;
 	max-height: 14px;
 }
 
-.dlcItem-versionText-left {
+.moduleItem-versionText-left {
     width: 50%;
 }
 
-.dlcItem-versionText-right {
+.moduleItem-versionText-right {
     width: 50%;
 }
 
-.dlcItem-details_information_version-container {
+.moduleItem-details_information_version-container {
     padding-top: 10px;
 }
 
-.dlcItem-details_information_version-row {
+.moduleItem-details_information_version-row {
     height: 20px;
 }
 
-.dlcItem-details_information_version-row .subtext{
+.moduleItem-details_information_version-row .subtext{
     margin-block-start: 4px;
     margin-block-end: 4px;
 }
@@ -106,52 +106,52 @@
     box-shadow: 0 0 6px 2px var(--color-active);
 }
 
-.dlcItem-clickable:hover input~.checkmark {
+.moduleItem-clickable:hover input~.checkmark {
     background-color: var(--color-highlight);
 }
 
-.dlcItem-clickable:hover input:checked~.checkmark {
+.moduleItem-clickable:hover input:checked~.checkmark {
     background-color: var(--color-active);
 }
 
-input:checked~.dlcItem-clickable:hover{
+input:checked~.moduleItem-clickable:hover{
     transform: unset;
     box-shadow: unset;
 }
 
-.dlcItem-clickable input:checked{
+.moduleItem-clickable input:checked{
 	box-shadow: inset 1px 1px 5px #00000099;
 }
 
-.dlcItem .configItem-icon-container {
+.moduleItem .configItem-icon-container {
     margin-left: 10px;
     margin-right: 0;
 }
 
-.dlc-platform_custom-content {
+.module-platform_custom-content {
     padding-top: 10px;
 }
 
-.dlcItem-amagProTime-TestMode {
-	background-color: var(--color-dlc-testmode) !important;
-    outline: 1px var(--color-dlc-testmode-highlight) dashed !important;
+.moduleItem-amagProTime-TestMode {
+	background-color: var(--color-module-testmode) !important;
+    outline: 1px var(--color-module-testmode-highlight) dashed !important;
 }
 
-.dlcItem-amagProTime-TestMode .radio-custom-container input:checked~.checkmark {
-    background-color: var(--color-dlc-testmode-highlight);
-    box-shadow: 0 0 6px 2px var(--color-dlc-testmode-highlight);
+.moduleItem-amagProTime-TestMode .radio-custom-container input:checked~.checkmark {
+    background-color: var(--color-module-testmode-highlight);
+    box-shadow: 0 0 6px 2px var(--color-module-testmode-highlight);
 }
 
 .configItem-action-container .button-dropdown {
 	cursor: context-menu;
 }
 
-.dlcItem-amagProTime-TestMode .button-dropdown--active svg {
-    fill: var(--color-dlc-testmode-highlight);
+.moduleItem-amagProTime-TestMode .button-dropdown--active svg {
+    fill: var(--color-module-testmode-highlight);
 }
 
-.dlcItem-amagProTime-TestMode .button-dropdown:hover svg {
-    fill: var(--color-dlc-testmode-highlight);
+.moduleItem-amagProTime-TestMode .button-dropdown:hover svg {
+    fill: var(--color-module-testmode-highlight);
 }
 
 .button-dropdown--active svg {
@@ -159,7 +159,7 @@ input:checked~.dlcItem-clickable:hover{
     fill: var(--color-active);
 }
 
-.dlc-xmastree {
+.module-xmastree {
     width: 100px;
     height: 100px;
     position: fixed;
@@ -173,7 +173,7 @@ input:checked~.dlcItem-clickable:hover{
 	z-index: 99;
 }
 
-.dlc-xmastree:hover {
+.module-xmastree:hover {
     animation-name: xmastreeanimation;
     animation-duration: 6s;
     animation-iteration-count: infinite;
@@ -201,7 +201,7 @@ input:checked~.dlcItem-clickable:hover{
     }
 }
 
-/* --------------------- Snowflake dlc style --------------------- */
+/* --------------------- Snowflake module style --------------------- */
 /* https://codepen.io/siddharth-nalwaya/pen/wvXZqbq */
 
 .initial-snow {
@@ -218,7 +218,7 @@ input:checked~.dlcItem-clickable:hover{
 
 .initial-snow > * {
 	font-size: 50px;
-	color: var(--color-dlc-snowflake);
+	color: var(--color-module-snowflake);
 	position: absolute;
 	top: -5vh;
 }

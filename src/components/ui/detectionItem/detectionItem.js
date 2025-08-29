@@ -1,5 +1,5 @@
-import { importPlatforms } from "../../../dlc/platforms/platforms.import.js"
-import { importPlatformDetectionContent } from "../../../dlc/platforms/platforms.import.js"
+import { importPlatforms } from "../../../module/platforms/platforms.import.js"
+import { importPlatformDetectionContent } from "../../../module/platforms/platforms.import.js"
 
 export async function generateDetectionItemSelectOptions() {
   let platformSelectItems = []

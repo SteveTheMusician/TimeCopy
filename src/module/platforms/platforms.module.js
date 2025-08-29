@@ -5,10 +5,10 @@ import { importPlatforms } from "./platforms.import.js";
 import { importPlatformCustomContent } from "./platforms.import.js";
 import { importPlatformsData } from "./platforms.import.js";
 import { platform_functionName_automatic } from "./platforms.import.js";
-import { reimportDLCStorageData } from "../../utils/dlcGlobaUtils.js";
+import { reimportModuleStorageData } from "../../utils/moduleGlobaUtils.js";
 
 const selfId = 'platforms'
-// dlc function import / static map cuz eval is unsave
+// module function import / static map cuz eval is unsave
 const platformFunctionsMap = {
   "AmagProTime": AmagProTime,
   "Automatic": Automatic,
@@ -18,26 +18,26 @@ const platformFunctionsMap = {
 export async function platformsContent() {
   let loadedPlatformsFeedbackArray = []
   return new Promise(async (resolve) => { 
-    let platformInfoData = localStorage.getItem('tc_s_dlcPlatformInformations')
+    let platformInfoData = localStorage.getItem('tc_s_modulePlatformInformations')
     if (!platformInfoData) {
       await importPlatformsData()
     } else {
       platformInfoData = JSON.parse(platformInfoData)
     }
     for (let plKey of importPlatforms) {
-      // generate dlc items for each platform
-      // if a new dlc is imported, it would crash, cuz there is no cached data for it.
-      // to slove this: if error -> throw it and try to restart plugin (with cleaned dlc cache and new data)
+      // generate module items for each platform
+      // if a new module is imported, it would crash, cuz there is no cached data for it.
+      // to slove this: if error -> throw it and try to restart plugin (with cleaned module cache and new data)
       let plDataObject = ''
       try{
         plDataObject = platformInfoData.find(item => item[plKey])[plKey]
         if(!plDataObject){
-          throw new Error('[DLC: Platforms] ERROR')
+          throw new Error('[Module: Platforms] ERROR')
         }
       }catch(error){
         console.log(error)
-        localStorage.removeItem('tc_s_dlcPlatformInformations')
-        await reimportDLCStorageData(selfId)
+        localStorage.removeItem('tc_s_modulePlatformInformations')
+        await reimportModuleStorageData(selfId)
         return
       }
       let platformCustomContent = ''
@@ -47,16 +47,16 @@ export async function platformsContent() {
       if (plKey === platform_functionName_automatic) {
         platformImageFormat = '.gif'
       }
-      // if dlc has custom function true import html and function
+      // if module has custom function true import html and function
       if (plDataObject.platform_content === 'true') {
         platformCustomImports = await importPlatformCustomContent(plKey)
         platformCustomContent = platformCustomImports.customContent
         platformCustomImports.customAppFunctions ? platformCustomAppFunctions = platformCustomImports.customAppFunctions: ''
       }
-      // dlc item
-      let platformChild = `<label class="configItem dlcItem dlcItem-platform dlcItem-clickable dFlex" title="Platform wählen" id="dlcItemPlatform_`+ (plDataObject.platform_id) +`">
-                  <div class="dlcItem-main-container dFlex">
-                    <div class="dlcItem-main dFlex">
+      // module item
+      let platformChild = `<label class="configItem moduleItem moduleItem-platform moduleItem-clickable dFlex" title="Platform wählen" id="moduleItemPlatform_`+ (plDataObject.platform_id) +`">
+                  <div class="moduleItem-main-container dFlex">
+                    <div class="moduleItem-main dFlex">
                       <div class="configItem-radio-container dFlex">
                         <label class="radio-custom-container dFlex">
                           <input type="radio" class="radio-default" name="booking-platform"
@@ -65,9 +65,9 @@ export async function platformsContent() {
                         </label>
                       </div>
                       <div class="configItem-logo-container flex configItem-logo-container--`+ (plDataObject.platform_id) + `">
-                        <img src="static/DLC/Platforms/`+ (plKey) + '/logo/' + (plKey + platformImageFormat) + `" class="icon-bookingItem" />
+                        <img src="static/Module/Platforms/`+ (plKey) + '/logo/' + (plKey + platformImageFormat) + `" class="icon-bookingItem" />
                       </div>
-                      <div class="dlcItem-headline-container flex">
+                      <div class="moduleItem-headline-container flex">
                         <p class="text-label">`+ (plDataObject.platform_name) + `</p>
                       </div>
                     </div>
@@ -84,21 +84,21 @@ export async function platformsContent() {
                       </button>
                     </div>
                   </div>
-                  <div class="dlcItem-details-container `+(platformCustomContent ? 'scrollableVisible' : '')+`" tabindex="-1">
-                    <div class="dlcItem-details_information-container">
+                  <div class="moduleItem-details-container `+(platformCustomContent ? 'scrollableVisible' : '')+`" tabindex="-1">
+                    <div class="moduleItem-details_information-container">
                       <p class="text-label">Infos</p>
                       <p class="subtext">`+ (plDataObject.platform_description) +`</p>
-                      <div class="dlcItem-details_information_version-container">
+                      <div class="moduleItem-details_information_version-container">
                         <p class="text-label">Version</p>
-                        <div class="dlcItem-details_information_version-row dFlex">
-                          <p class="subtext dlcItem-versionText-left">DLC-Version</p><p class="subtext dlcItem-versionText-right">`+ (plDataObject.platform_version) +`</p>
+                        <div class="moduleItem-details_information_version-row dFlex">
+                          <p class="subtext moduleItem-versionText-left">Module-Version</p><p class="subtext moduleItem-versionText-right">`+ (plDataObject.platform_version) +`</p>
                         </div>
-                        <div class="dlcItem-details_information_version-row dFlex">
-                          <p class="subtext dlcItem-versionText-left">Erkennungs URL</p><p class="subtext dlcItem-versionText-right">`+ (plDataObject.platform_url) +`</p>
+                        <div class="moduleItem-details_information_version-row dFlex">
+                          <p class="subtext moduleItem-versionText-left">Erkennungs URL</p><p class="subtext moduleItem-versionText-right">`+ (plDataObject.platform_url) +`</p>
                         </div>
                       </div>
                     </div>
-                    <div class="dlcItem-actions-container">
+                    <div class="moduleItem-actions-container">
                     `+ (platformCustomContent) +`
                     </div>
                   </div>
@@ -107,7 +107,7 @@ export async function platformsContent() {
       loadedPlatformsFeedbackArray.push(plDataObject.platform_id)
       platformCustomAppFunctions
     }
-    resolve({success:true,feedback:"🧩 [DLC: Pltforms] Content for "+loadedPlatformsFeedbackArray+" loaded.",ids:loadedPlatformsFeedbackArray})
+    resolve({success:true,feedback:"🧩 [Module: Pltforms] Content for "+loadedPlatformsFeedbackArray+" loaded.",ids:loadedPlatformsFeedbackArray})
   })
 }
 

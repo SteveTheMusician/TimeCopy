@@ -16,8 +16,8 @@ import {
   noTicketNomberFill,
   noTicketDiscFill
 } from "./variables/AmagProTime.variables.js";
-import { lstorage_c_dlcProTimeUseLatencyMode,lstorage_c_dlcProTimeForceLatencyMode,
-  lstorage_c_dlcProtimeTicketNomberInText,lstorage_c_dlcProTimeTest, lstorage_c_dlcProtimeUseMatchBookingDay, lstorage_c_dlcProtimeUseAutoSelectDay } from "../../../utils/dlcStorage.js";
+import { lstorage_c_moduleProTimeUseLatencyMode,lstorage_c_moduleProTimeForceLatencyMode,
+  lstorage_c_moduleProtimeTicketNomberInText,lstorage_c_moduleProTimeTest, lstorage_c_moduleProtimeUseMatchBookingDay, lstorage_c_moduleProtimeUseAutoSelectDay } from "../../../utils/moduleStorage.js";
 import { setStatusBarText } from "../../../utils/setStatusBarText.js";
 import { debugStick } from "../../../utils/appDebugStick.js";
   
@@ -26,26 +26,26 @@ import { debugStick } from "../../../utils/appDebugStick.js";
     let valideTickets = [];
     let failedTickets = [];
     let errorDetailMessage = ''
-    let dev_pttest = lstorage_c_dlcProTimeTest
-    let matchDateDay = lstorage_c_dlcProtimeUseMatchBookingDay
+    let dev_pttest = lstorage_c_moduleProTimeTest
+    let matchDateDay = lstorage_c_moduleProtimeUseMatchBookingDay
     let bookedTicketCount = '-'
   // use force latency mode
-  if (lstorage_c_dlcProTimeForceLatencyMode === true) {
+  if (lstorage_c_moduleProTimeForceLatencyMode === true) {
     highLatency = true
     forceHighLatency = true
-    message(true, 'warning', window.language.message_dlcProTime_highLatencyMode, window.language.message_dlcProTime_highLatencyMode_disc)
+    message(true, 'warning', window.language.message_moduleProTime_highLatencyMode, window.language.message_moduleProTime_highLatencyMode_disc)
   }
-  if(lstorage_c_dlcProTimeTest === true){
-    message(true, 'warning', window.language.message_dlcProTime_testMode, window.language.message_dlcProTime_testMode_disc)
-    console.warn('DLC Amag ProTime: Test Mode activated')
+  if(lstorage_c_moduleProTimeTest === true){
+    message(true, 'warning', window.language.message_moduleProTime_testMode, window.language.message_moduleProTime_testMode_disc)
+    console.warn('Module Amag ProTime: Test Mode activated')
   }
   // set use High Latency
-  useHighLatency = lstorage_c_dlcProTimeUseLatencyMode ?? useHighLatency
-  useAutoSelectDay = lstorage_c_dlcProtimeUseAutoSelectDay ?? useAutoSelectDay
+  useHighLatency = lstorage_c_moduleProTimeUseLatencyMode ?? useHighLatency
+  useAutoSelectDay = lstorage_c_moduleProtimeUseAutoSelectDay ?? useAutoSelectDay
   // check if to use ticketnomber in the discription
-  useTicketNomberInText = lstorage_c_dlcProtimeTicketNomberInText
+  useTicketNomberInText = lstorage_c_moduleProtimeTicketNomberInText
   if (useTicketNomberInText === false) {
-    console.warn('DLC Amag ProTime: Use Ticketnomber in description is deaktivated')
+    console.warn('Module Amag ProTime: Use Ticketnomber in description is deaktivated')
     useTicketNomberInText = false
   }
   // match tickets to the given filters (functions in service.js)
@@ -86,7 +86,7 @@ import { debugStick } from "../../../utils/appDebugStick.js";
   // put all missmatch tickets in to an array 
   if (failedTickets.length) {
     let notificationTimeOut = 0
-    console.warn("✂︎ [DLC Platforms: AmagProTime] removed tickets: ", failedTickets);
+    console.warn("✂︎ [Module Platforms: AmagProTime] removed tickets: ", failedTickets);
     failedTickets.forEach((failedTicketItem) => {
       let ticketnumber;
       let ticketdisc;
@@ -103,7 +103,7 @@ import { debugStick } from "../../../utils/appDebugStick.js";
       // message feedback
       notificationTimeOut += 150
       setTimeout(function () {
-        message(true, 'warning', window.language.message_dlcAmagProTime_ticketNotAdopted, ticketnumber + ': ' + ticketdisc)
+        message(true, 'warning', window.language.message_moduleAmagProTime_ticketNotAdopted, ticketnumber + ': ' + ticketdisc)
       }, notificationTimeOut)
     });
     notificationTimeOut = 0
@@ -111,7 +111,7 @@ import { debugStick } from "../../../utils/appDebugStick.js";
   // pass valide tickets to chrome-tab script and give feedback
   try {
     if (valideTickets.length) {
-      setStatusBarText(window.language.statusbartext_dlcAmagProTime_sendTickets_partOne+valideTickets.length + window.language.statusbartext_dlcAmagProTime_sendTickets_partTwo)
+      setStatusBarText(window.language.statusbartext_moduleAmagProTime_sendTickets_partOne+valideTickets.length + window.language.statusbartext_moduleAmagProTime_sendTickets_partTwo)
       const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay)
       bookingLoopCount++
       if (iChrTab.result !== null && iChrTab.result.success === false ) {
@@ -128,7 +128,7 @@ import { debugStick } from "../../../utils/appDebugStick.js";
     throw error
   }
   bookingLoopCount = 0
-  setStatusBarText(window.language.statusbartext_dlcAmagProTime_bookingSuccess,'timeout')
+  setStatusBarText(window.language.statusbartext_moduleAmagProTime_bookingSuccess,'timeout')
   return {success: true, testMode: dev_pttest, successMessage:bookedTicketCount+" Ticket(s) erfolgreich gebucht"}
 }
 
@@ -141,15 +141,15 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
       proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
       // use high latency only when page ping is low
       if (proTimeJSPageTime > 150) {
-        console.warn("[Time Copy][DLC Platforms: AmagProTime] ⚠️ Warning: Page has low ping (" + proTimeJSPageTime + " ms )")
-        message(true, 'warning', window.language.message_dlcAmagproTime_webHighPing, window.language.message_dlcAmagproTime_webHighPing_disc )
+        console.warn("[Time Copy][Module Platforms: AmagProTime] ⚠️ Warning: Page has low ping (" + proTimeJSPageTime + " ms )")
+        message(true, 'warning', window.language.message_moduleAmagproTime_webHighPing, window.language.message_moduleAmagproTime_webHighPing_disc )
         // highLatency = true
       }
       chrome.windows.getCurrent(function (window) {
         chrome.windows.update(window.id, { focused: true });
       });
     } catch (error) {
-      console.log('❌ [DLC Platforms: AmagProTime] TestPageLoadPerformance Error:', error)
+      console.log('❌ [Module Platforms: AmagProTime] TestPageLoadPerformance Error:', error)
       throw ({ errorstatus: 'error', errorheadline: 'Chrome Performance Test', errortext: '"Amag ProTime" hat Probleme, einen Performance-Test im aktuellem Tab durchzuführen.' })
     }
   }

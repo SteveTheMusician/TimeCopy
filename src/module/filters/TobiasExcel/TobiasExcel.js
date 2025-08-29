@@ -1,5 +1,5 @@
 import { debugStick } from "../../../utils/appDebugStick";
-import { createFilterObject } from "../filters.dlc";
+import { createFilterObject } from "../filters.module";
 
 export function filter_TobiasExcel(clipboardString) {
 

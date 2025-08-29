@@ -3,7 +3,7 @@
 @import url('var/font.css');
 @import url('var/var.css');
 @import url('var/colors-default.css');
-@import url('dlc/dlc.css');
+@import url('module/module.css');
 
 ::-webkit-scrollbar {
     display: none;
@@ -770,7 +770,7 @@ select {
     padding: 5px;
 }
 
-.detectionItem-dlc-content {
+.detectionItem-module-content {
     margin-top: 10px;
     border-top: 1px dashed var(--color-font-subtext);
     padding-top: 10px;

@@ -34,7 +34,7 @@
   --color-icon-default: var(--blue-pale);
   --color-icon-light: var(--blue-pale);
   /* DLC snowflake color */
-  --color-dlc-snowflake: var(--blue-dark-ti);
+  --color-module-snowflake: var(--blue-dark-ti);
 }
 
 .notification--ok .text-notification, 

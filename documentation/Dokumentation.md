@@ -9,7 +9,7 @@ Sie ist also als eine art "Copy-Paste" Erweiterung, nur dass sie die Daten intel
 eintragen und zuordnen kann.
 Die Extension wurde auf Wunsch kleiner Personen-Gruppen speziell zum Buchen bzw. übertragen von Tabelleninformationen in bestimmten Portalen entwickelt.
 
-Jedoch kann diese durch DLCs erweitert / so modifiziert werden, dass sie "universeller"
+Jedoch kann diese durch Modules erweitert / so modifiziert werden, dass sie "universeller"
 einsetzbar ist.
 Dennoch ist Time Copy nicht für die Veröffentlichung an die breite Masse gedacht.
 
@@ -146,7 +146,7 @@ Du kannst allerdings diese dir immer relativ schnell ziehen, in dem per Terminal
 - Wenn alles Fertig ist, wird dich Time Copy benachrichtigen
 
 >[!IMPORTANT]
->Die aktuellen DLCs unterstützen keine CSV Formate.
+>Die aktuellen Modules unterstützen keine CSV Formate.
 >Buchungs-Daten kännen nur von einem einzelnen Ticket bis zu maximal einen Tag kopiert werden.
 >(Stand 19.02.2025)
 
@@ -158,8 +158,8 @@ Damit Time Copy so funktioniert, wie du es möchtest, musst du zu erst Einstellu
 Alle Einstellungen findest du unter dem Zahnrad-Icon.
 
 1) Filter einstellen:
-Filter werden als DLCs (kleine Erweiterungen) mitgeliefert.
-Sie erkennen und verarbeiten die Daten, die du in dein Clipboard kopierst und geben sie an das Platform DLC weiter.
+Filter werden als Modules (kleine Erweiterungen) mitgeliefert.
+Sie erkennen und verarbeiten die Daten, die du in dein Clipboard kopierst und geben sie an das Platform Module weiter.
 Du findest sie unter dem Filter-Icon (zweiter Tab von oben).
 
 Wähle aus, welches Format du zum kopieren deiner Daten verwendest.
@@ -188,13 +188,13 @@ Du kanst entweder eine Auswählen, die dann immer benutzt wird, oder du wählst 
 nach Webseite die entsprächende Platform nutzt.
 
 
-#### Filter DLCs
+#### Filter Modules
 
 ##### Tobias Excel
 
 ![alt text](Images/image.png)
 
-#### Platform DLCs
+#### Platform Modules
 
 
 ## Entwickler

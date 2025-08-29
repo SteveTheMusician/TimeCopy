@@ -1,4 +1,3 @@
-import { clearDlcLocalStorages } from "./utils/dlcStorage";
 // const tcResetButton = document.getElementById('resetTimeCopy')
 // tcResetButton.addEventListener('click',appReset)
 // <button hidden id="resetTimeCopy">Reset</button>
