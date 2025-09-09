@@ -21,7 +21,6 @@ export function generateThemes() {
       },
       "Charactäre": {
         "danielsnfsoutfit": "Daniels NFS Outfit",
-        "darkterrorbyseb": "Sebastians Dark",
         "jaimesrot": "jaimes Rot",
         "johannesallespink": "Johannes alles Pink",
         "stevesblack": "Steves Black",

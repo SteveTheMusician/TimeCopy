@@ -71,13 +71,20 @@ export function profileManager(appGlobalArgs, appVersionData, moduleGlobalArgs) 
       const showMessagesKey = versionInfo.version < '1.8' ? 'show_all_messages' : 'showAllMessages';
       let theme = cfg.theme === 'exotic' ? defaultTheme : cfg.theme;
       let eeTheme = cfg.eeTheme
-
+      let profileName = versionInfo.version < '2.1' ? fileData.tcprofile[profileNameKey] : fileData.tcprofile.cfg[profileNameKey];
+      let profilePicture = ''
+      if(versionInfo.version === '2.0') {
+        profilePicture = fileData.tcprofile.profilePicture
+      } else if (versionInfo.version === '2.1') {
+        profilePicture = fileData.tcprofile.cfg.profilePicture
+      }
+      
       if(eeTheme !== 'true' || eeTheme === 'undefinden') {
         eeTheme === 'false'
       }
-
+      
       localStorage.setItem('tc_c_showAllMessages', fileData.tcprofile.cfg[showMessagesKey]);
-      localStorage.setItem('tc_c_profileName', fileData.tcprofile[profileNameKey]);
+      localStorage.setItem('tc_c_profileName', profileName);
       localStorage.setItem('tc_c_bookingScore', cfg.bookingScore);
       localStorage.setItem('tc_c_theme', theme);
       localStorage.setItem('tc_ee_exoticTheme', eeTheme)
@@ -85,15 +92,13 @@ export function profileManager(appGlobalArgs, appVersionData, moduleGlobalArgs) 
       localStorage.setItem('tc_c_filter', cfg.filter);
       localStorage.setItem('tc_c_projectDetection', JSON.stringify(cfg.detections));
       localStorage.setItem('tc_c_bookingPlatform', cfg.platform);
-
-      if (fileData.tcprofile.profilePicture) {
-        localStorage.setItem('tc_c_profilePicture', fileData.tcprofile.profilePicture);
-        lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture');
-      }
+      localStorage.setItem('tc_c_profilePicture', profilePicture);
+      lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture');
+      
       appStorage(appGlobalArgs, appVersionData, moduleGlobalArgs);
 
       if (versionInfo.version >= '1.9') {
-        moduleProfileImport(fileData);
+        moduleProfileImport(fileData,versionInfo.version);
       }
 
       sessionStorage.setItem('tc_c_messageImported', 'true');
@@ -147,8 +152,8 @@ export function exportProfile(appVersionData, appGlobalArgs) {
       appVersion: appVersionData.version,
       appVersionName: appVersionData.versionName,
       appBuild: appVersionData.buildVersion,
-      profileName: appGlobalArgs.configprofilename.value,
       cfg: {
+        profileName: appGlobalArgs.configprofilename.value,
         bookingScore,
         theme,
         eeTheme,
@@ -156,9 +161,9 @@ export function exportProfile(appVersionData, appGlobalArgs) {
         showAllMessages,
         filter,
         platform,
-        detections: detectionItems
+        detections: detectionItems,
+        profilePicture
       },
-      profilePicture
     }
   };
 
@@ -180,7 +185,7 @@ export function exportProfile(appVersionData, appGlobalArgs) {
 }
 
 export function setUnsetProfilePicture(show, base64src, appGlobalArgs) {
-  if (show) {
+  if (show && base64src !== '') {
     localStorage.setItem('tc_c_profilePicture', base64src);
     appGlobalArgs.elem_profilePictureUser.classList.remove('dNone');
     appGlobalArgs.elem_profilePictureUser.src = base64src;
@@ -231,6 +236,5 @@ function importProfilePicture(appGlobalArgs) {
 
     img.src = base64;
   };
-
   reader.readAsDataURL(imageFile);
 }

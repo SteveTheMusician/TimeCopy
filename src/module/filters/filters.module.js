@@ -3,7 +3,7 @@ import { filter_TobiasExcel } from "./TobiasExcel/TobiasExcel.js"
 import { filter_None } from "./None/None.js"
 import { importFilters } from "./filters.import.js"
 import { importFiltersData } from "./filters.import.js"
-import { reimportModuleStorageData } from "../../utils/moduleGlobaUtils.js"
+import { reimportModuleStorageData } from "../../utils/moduleGlobalUtils.js"
 
 const selfId = 'filters'
 // map filters

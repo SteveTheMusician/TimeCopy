@@ -5,7 +5,7 @@ import { importPlatforms } from "./platforms.import.js";
 import { importPlatformCustomContent } from "./platforms.import.js";
 import { importPlatformsData } from "./platforms.import.js";
 import { platform_functionName_automatic } from "./platforms.import.js";
-import { reimportModuleStorageData } from "../../utils/moduleGlobaUtils.js";
+import { reimportModuleStorageData } from "../../utils/moduleGlobalUtils.js";
 
 const selfId = 'platforms'
 // module function import / static map cuz eval is unsave

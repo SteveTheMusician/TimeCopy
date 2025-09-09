@@ -33,6 +33,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Module-Items functionality & styling refactoring
   * Default "Modules" filter none and platform any added
   * Change dlc-namings to "modules"
+  * Remove old theme
 
 ## V 1.2.34 (Release)
 
