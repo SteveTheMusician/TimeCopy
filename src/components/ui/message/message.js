@@ -45,8 +45,8 @@ export function message(messageShow,messageType,messageTextOverview,messageTextD
                                 
                             </div>
                             <div class="message-text-container">
-                                <p class="text-label text-message text-message-overview">`+(messageTextOverview) +`</p>
-                                <p class="subtext text-message text-message-details">`+(messageTextDetails) +`</p>
+                                <p class="text-label text-message text-message-overview">${messageTextOverview}</p>
+                                <p class="subtext text-message text-message-details">${messageTextDetails}</p>
                             </div>  
                         </div>`
     

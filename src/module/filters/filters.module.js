@@ -48,24 +48,24 @@ export async function filtersContent() {
     let filterImageFormat = '.jpg'
     // module array (Foldername aso used as id for saving)
     // for new items, just make a new module, add it here to the array, make logo in static folder and add css in style/module folder
-    let filterChild = `<label class="configItem moduleItem moduleItem-filter moduleItem-clickable dFlex" title="Filter wählen" id="moduleItemFilter_`+ (plDataObject.filter_id) +`">
+    let filterChild = `<label class="configItem moduleItem moduleItem-filter moduleItem-clickable dFlex" title="Filter wählen" id="moduleItemFilter_${plDataObject.filter_id}">
                <div class="moduleItem-main-container dFlex">
                  <div class="moduleItem-main dFlex">
                    <div class="configItem-radio-container dFlex">
                        <label class="radio-custom-container dFlex">
-                         <input type="radio" class="radio-default" value="timesheetfilter_`+ (plKey) + `" name="timesheet-filter" />
+                         <input type="radio" class="radio-default" value="timesheetfilter_${plKey}" name="timesheet-filter" />
                          <span class="checkmark"></span>
                        </label>
                    </div>
-                   <div class="configItem-icon-container flex configItem-icon-container--`+ (plDataObject.filter_id) + `">
-                    <img src="static/Module/Filters/`+ (plKey) + "/icon/" + (plKey + filterImageFormat) + `" class="icon-filterItem" />
+                   <div class="configItem-icon-container flex configItem-icon-container--${plDataObject.filter_id}">
+                    <img src="static/Module/Filters/${plKey + "/icon/" + plKey + filterImageFormat}" class="icon-filterItem" />
                    </div>
                    <div class="moduleItem-headline-container flex">
-                     <p class="text-label">`+ (plDataObject.filter_name) + `</p>
+                     <p class="text-label">${plDataObject.filter_name}</p>
                    </div>
                  </div>
                  <div class="configItem-action-container flex">
-                   <button class="button-primary button-dropdown" id="filter_DropDown`+ (plKey) + `">
+                   <button class="button-primary button-dropdown" id="filter_DropDown${plKey}">
                      <?xml version="1.0" encoding="utf-8"?>
                      <svg version="1.1" xmlns:serif="http://www.serif.com/"
                      	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
@@ -80,14 +80,14 @@ export async function filtersContent() {
                <div class="moduleItem-details-container" tabindex="-1">
                  <div class="moduleItem-details_information-container">
                    <p class="text-label">Infos</p>
-                   <p class="subtext">`+ (plDataObject.filter_description) +`</p>
+                   <p class="subtext">${plDataObject.filter_description}</p>
                    <div class="moduleItem-details_information_version-container">
                      <p class="text-label">Version</p>
                      <div class="moduleItem-details_information_supportedsources-row dFlex">
-                       <p class="subtext moduleItem-versionText-left">Unterstützte Formate</p><p class="subtext moduleItem-versionText-right">`+ (plDataObject.filter_supportedsources) +`</p>
+                       <p class="subtext moduleItem-versionText-left">Unterstützte Formate</p><p class="subtext moduleItem-versionText-right">${plDataObject.filter_supportedsources}</p>
                      </div>
                      <div class="moduleItem-details_information_version-row dFlex">
-                       <p class="subtext moduleItem-versionText-left">Module-Version</p><p class="subtext moduleItem-versionText-right">`+ (plDataObject.filter_version) +`</p>
+                       <p class="subtext moduleItem-versionText-left">Module-Version</p><p class="subtext moduleItem-versionText-right">${plDataObject.filter_version}</p>
                      </div>
                    </div>
                  </div>

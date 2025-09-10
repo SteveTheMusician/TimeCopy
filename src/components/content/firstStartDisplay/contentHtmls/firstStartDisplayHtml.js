@@ -23,7 +23,7 @@
                     Klicke den Filter an, welcher zu den Daten, die du kopierst, passt.
                     </br>
                     </br>
-                    Time Copy muss zum Verarbeiten der daten, die aus der Zwischenablage kommen wissen,
+                    Time Copy muss zum Verarbeiten der Daten, die aus der Zwischenablage kommen wissen,
                     </br>
                     wie diese gefiltert werden müssen.
                     </br>
@@ -83,5 +83,4 @@
                 <button class="button-primary" id="button_skipStartScreen">Alles überspringen</button>
             </div>
         </div>
-        
     </div>`

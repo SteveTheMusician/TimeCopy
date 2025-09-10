@@ -233,6 +233,14 @@ header {
   border-radius: 0;
 }
 
+.detectionItem-module {
+    height: 240px;
+}
+
+.detectionItem-module--hidden {
+    height: 0px;
+}
+
 .configItem {
   outline: 1px solid var(--white);
 }

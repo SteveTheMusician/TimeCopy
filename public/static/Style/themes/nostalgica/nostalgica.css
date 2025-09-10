@@ -56,6 +56,14 @@ header {
   border-radius: 0;
 }
 
+.detectionItem-module {
+    height: 240px;
+}
+
+.detectionItem-module--hidden {
+    height: 0px;
+}
+
 .configItem {
   background-color: transparent;
   outline: 1px solid var(--color-active);

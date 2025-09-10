@@ -54,25 +54,25 @@ export async function platformsContent() {
         platformCustomImports.customAppFunctions ? platformCustomAppFunctions = platformCustomImports.customAppFunctions: ''
       }
       // module item
-      let platformChild = `<label class="configItem moduleItem moduleItem-platform moduleItem-clickable dFlex" title="Platform wählen" id="moduleItemPlatform_`+ (plDataObject.platform_id) +`">
+      let platformChild = `<label class="configItem moduleItem moduleItem-platform moduleItem-clickable dFlex" title="Platform wählen" id="moduleItemPlatform_${plDataObject.platform_id}">
                   <div class="moduleItem-main-container dFlex">
                     <div class="moduleItem-main dFlex">
                       <div class="configItem-radio-container dFlex">
                         <label class="radio-custom-container dFlex">
                           <input type="radio" class="radio-default" name="booking-platform"
-                            value="bookingPlatform_`+ (plKey) + `" />
+                            value="bookingPlatform_${plKey}" />
                           <span class="checkmark"></span>
                         </label>
                       </div>
-                      <div class="configItem-logo-container flex configItem-logo-container--`+ (plDataObject.platform_id) + `">
-                        <img src="static/Module/Platforms/`+ (plKey) + '/logo/' + (plKey + platformImageFormat) + `" class="icon-bookingItem" />
+                      <div class="configItem-logo-container flex configItem-logo-container--${plDataObject.platform_id}">
+                        <img src="static/Module/Platforms/${plKey + '/logo/' + plKey + platformImageFormat}" class="icon-bookingItem" />
                       </div>
                       <div class="moduleItem-headline-container flex">
-                        <p class="text-label">`+ (plDataObject.platform_name) + `</p>
+                        <p class="text-label">${plDataObject.platform_name}</p>
                       </div>
                     </div>
                     <div class="configItem-action-container flex">
-                      <button class="button-primary button-dropdown" id="bookingPlatform_DropDown`+ (plKey) + `">
+                      <button class="button-primary button-dropdown" id="bookingPlatform_DropDown${plKey}">
                         <?xml version="1.0" encoding="utf-8"?>
                         <svg version="1.1" xmlns:serif="http://www.serif.com/"
                         	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
@@ -84,22 +84,22 @@ export async function platformsContent() {
                       </button>
                     </div>
                   </div>
-                  <div class="moduleItem-details-container `+(platformCustomContent ? 'scrollableVisible' : '')+`" tabindex="-1">
+                  <div class="moduleItem-details-container ${platformCustomContent ? 'scrollableVisible' : ''}" tabindex="-1">
                     <div class="moduleItem-details_information-container">
                       <p class="text-label">Infos</p>
-                      <p class="subtext">`+ (plDataObject.platform_description) +`</p>
+                      <p class="subtext">${plDataObject.platform_description}</p>
                       <div class="moduleItem-details_information_version-container">
                         <p class="text-label">Version</p>
                         <div class="moduleItem-details_information_version-row dFlex">
-                          <p class="subtext moduleItem-versionText-left">Module-Version</p><p class="subtext moduleItem-versionText-right">`+ (plDataObject.platform_version) +`</p>
+                          <p class="subtext moduleItem-versionText-left">Module-Version</p><p class="subtext moduleItem-versionText-right">${plDataObject.platform_version}</p>
                         </div>
                         <div class="moduleItem-details_information_version-row dFlex">
-                          <p class="subtext moduleItem-versionText-left">Erkennungs URL</p><p class="subtext moduleItem-versionText-right">`+ (plDataObject.platform_url) +`</p>
+                          <p class="subtext moduleItem-versionText-left">Erkennungs URL</p><p class="subtext moduleItem-versionText-right">${plDataObject.platform_url}</p>
                         </div>
                       </div>
                     </div>
                     <div class="moduleItem-actions-container">
-                    `+ (platformCustomContent) +`
+                    ${platformCustomContent}
                     </div>
                   </div>
                 </label>`

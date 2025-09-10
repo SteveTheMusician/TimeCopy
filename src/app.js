@@ -8,12 +8,13 @@ import {xmasModule,
           platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./module/module.js";
 import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform, lstorage_cBookingScore} from "./utils/appStorage.js";
 import { clearmoduleLocalStorages, reloadModuleCache,setModuleAmagProTimeTestStyle } from "./utils/moduleStorage.js";
-import { consoleWarnMessage_showMessageTurnedOff, module_details_classVisible,default_e} from "./utils/defaults/defaultVariables.js";
+import { defaultProfileName,consoleWarnMessage_showMessageTurnedOff, module_details_classVisible,default_e} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
+import { eventListenerHandler } from "./utils/functionHandlers.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
-import { showHideStatusBar } from "./utils/switchFunctionHandlers.js";
+import { showHideStatusBar } from "./utils/elementChangers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
 // ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
@@ -109,14 +110,13 @@ document.addEventListener('DOMContentLoaded', async function () {
   const themeSelect = document.querySelector('select#select-themes')
   const switch_showAllMessages = document.getElementById('check_showAllNotifications')
   const switch_showStatusBar = document.getElementById('check_showStatusBar')
-  const radios_filter = document.getElementsByName('timesheet-filter')
+  const radios_timesheetFilter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
   const button_docuReadme = document.getElementById('button_openReadme')
   const button_docuChangelog = document.getElementById('button_openChangelog')
   const button_docuDatenschutz = document.getElementById('button_openDatenschutz')
   const button_openStore = document.getElementById('button_openStore')
   const button_openLicense = document.getElementById('button_openLicense')
-  const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
 
   // module-platform element listeners
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
@@ -345,11 +345,18 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function configSetProfileName() {
-    localStorage.setItem('tc_c_profileName', configProfileName.value)
-    window.configUserChanges = true
-    if (configProfileName.value === 'LOVE') {
+    let nameTrimmed = configProfileName.value.trim()
+    if (nameTrimmed === 'LOVE') {
       localStorage.setItem('tc_ee_exoticTheme', 'true')
     }
+    if(nameTrimmed === '') {
+      configProfileName.value = defaultProfileName
+      nameTrimmed = defaultProfileName
+    } else {
+      configProfileName.value = nameTrimmed
+    }
+    localStorage.setItem('tc_c_profileName',nameTrimmed )
+    window.configUserChanges = true
   }
 
   function selectProfileOption() {
@@ -396,10 +403,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.configUserChanges = true
   }
 
-  function switchFilter(e) {
-    localStorage.setItem('tc_c_filter', e.target.value)
-    window.configUserChanges = true
-  }
+  // function switchFilter(e) {
+    // localStorage.setItem('tc_c_filter', e.target.value)
+    // window.configUserChanges = true
+  // }
 
   function showBuildVersion(e){
     if(e.shiftKey){
@@ -537,15 +544,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     //theme select
     themeSelect.addEventListener('change', switchTheme)
     // filter radios listener
-    for (var i = 0, iLen = radios_filter.length; i < iLen; i++) {
-      radios_filter[i].addEventListener('click', switchFilter);
-    }
-    for (var index = 0, indexLen = radio_timesheetFilters.length; index < indexLen; index++) {
-      radio_timesheetFilters[index].addEventListener('click', timesheetFilterChange);
-    }
-    for (var index = 0, indexLen = radio_bookingPlatforms.length; index < indexLen; index++) {
-      radio_bookingPlatforms[index].addEventListener('click', bookingPlatformsChange);
-    }
+    eventListenerHandler(radios_timesheetFilter,'click',timesheetFilterChange)
+    eventListenerHandler(radio_bookingPlatforms,'click',bookingPlatformsChange)
+
     for (var index = 0, indexLen = module_platform_element.length; index < indexLen; index++) {
       let dropdownButton = module_platform_element[index].getElementsByClassName('button-dropdown')[0]
       dropdownButton.addEventListener('click', moduleItemDropDownHandler);

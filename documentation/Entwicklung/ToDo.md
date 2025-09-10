@@ -37,12 +37,13 @@
     - Technische Details
     - Beispiel Profil
 
+- profil bild wird nicht importiert/export -> checken ✅
+
 - Status bar timing verbessern,
 - Notification timing verbessern (manchmal bleiben errors mit hidden hängen wenn 3 oder mehr nachrichten gleichzeitig erscheinen)
 - detection items modular machen (acuh für any notwändig)
 
 - Wenn Ticket bereits gebucht soll dieser übersprungen werden
-- profil bild wird nicht importiert/export -> checken
 -detection items objects verschachteln (content wie amag protime wird zum extra object) und benennungen ggf verbessern
     !! Achtung Profile Import und export muss dann auch angepasst werden
     - ggf deci id prefix ändern und beim generieren checken ob neu oder alt. wenn alt dann importiere die objecte und convertiere sie

@@ -42,25 +42,25 @@ export async function detectionItem(detectionItems) {
         const platformOptions = await generateDetectionItemSelectOptions()
         const detectionItemHtml = detectionItems.map(async (detectionItem) => {
 
-          return `<div class="configItem detectionItem `+(detectionItem.bookingsheet? '': 'dFlex')+`" name="item_detection" id="` + detectionItem.id + `">
+          return `<div class="configItem detectionItem ${detectionItem.bookingsheet? '': 'dFlex'}" name="item_detection" id="` + detectionItem.id + `">
             <div class="detectionItem-body dFlex">
               <div class="detectionItem-main"
                 <div class="detectionItem-content-container">
                   <div class="configItem-content-row dFlex">
                     <div class="detectionItem-content detectionItem-title-container">
-                      <h3 class="title-detectionItem" contenteditable="true" >Erkennungsmerkmal</h3>
+                      <input class="title-detectionItem" placeholder="Erkennungsmerkmal" id="detectionName_${detectionItem.id}" value="${detectionItem.title ? detectionItem.title : ''}"/>
                     </div>
                   </div>
                   <div class="configItem-content-row dFlex">
                     <div class="detectionItem-content-larger">
-                      <select id="select_bookingPlatform_`+ detectionItem.id + `" title="Weise der Erkennung eine Buchungsplatform zu.">
-                        <option value="" selected disabled hidden>Zuordnung wählen</option>`+ (platformOptions) +`
+                      <select id="select_bookingPlatform_${detectionItem.id}" title="Weise der Erkennung eine Buchungsplatform zu.">
+                        <option value="" selected disabled hidden>Zuordnung wählen</option>${platformOptions}
                       </select>
                     </div>
                   </div>
                 </div>
-                <div class="detectionItem-action-container flex `+(detectionItem.bookingsheet? '': 'dNone')+`">
-                  <button class="button-primary button-dropdown button-dropdown--active button_minimizeDetection">
+                <div class="detectionItem-action-container flex">
+                  <button class="button-primary button-dropdown ${detectionItem.viewall === 'true' ? 'button-dropdown--active' : ''} button_minimizeDetection ${detectionItem.bookingsheet ? '' : 'dNone'}" id="minimizeDetection_${detectionItem.id}">
                     <?xml version="1.0" encoding="utf-8"?>
                     <svg version="1.1" xmlns:serif="http://www.serif.com/"
                     	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
@@ -70,15 +70,7 @@ export async function detectionItem(detectionItems) {
                     	C666.4,916.1,668.9,913.3,671.2,910.4z"/>
                     </svg>
                   </button>
-                </div>
-              </div>
-              <div class="detectionItem-module dFlex">
-                <!-- inividual content -->
-                <div class="detectionItem-module-content `+(detectionItem.bookingsheet? '': 'dNone')+`">
-                  `+(detectionItem.bookingsheet? await generateDetectionPlatformContent(detectionItem):'')+`
-                </div>
-                <div class="detectionItem-action-container flex">
-                  <button class="button-primary button-reset button_deleteDetection" title="Löschen">
+                  <button class="button-primary button-reset button_deleteDetection" title="Löschen" id="deleteDetection_${detectionItem.id}">
                     <?xml version="1.0" encoding="utf-8"?>
                     <!-- Designed by Empty Soul  -->
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -103,6 +95,12 @@ export async function detectionItem(detectionItems) {
                     </g>
                     </svg>                  
                   </button>
+                </div>
+              </div>
+              <div class="detectionItem-module dFlex detectionItem-module--${detectionItem.bookingsheet} ${detectionItem.viewall === 'true' ? '' : ' detectionItem-module--hidden'}">
+                <!-- inividual content -->
+                <div class="detectionItem-module-content ${detectionItem.bookingsheet? '': 'dNone'}">
+                  ${detectionItem.bookingsheet? await generateDetectionPlatformContent(detectionItem):''}
                 </div>
               </div>
           </div>

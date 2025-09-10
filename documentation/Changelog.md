@@ -13,7 +13,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel Module
   * Add Scrollbar for Platform-Modules with function-content
 
-## V 1.2.48
+## V 1.2.49
 
 * **Features** *
   * Detection-Items: 
@@ -27,6 +27,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Stylings
   * Fix app crash when creating a new filter module on update
   * Change the profile picture from the imported file if an image is already set.
+  * Set empty profile name to default
 
 * **Other Changes:**
   * Code cleanup

@@ -120,6 +120,14 @@ header {
   border-radius: 0;
 }
 
+.detectionItem-module {
+    height: 240px;
+}
+
+.detectionItem-module--hidden {
+    height: 0px;
+}
+
 .label-row {
   padding: 2px 5px;
 }
