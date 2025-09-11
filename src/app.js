@@ -4,16 +4,17 @@ import data_version from "../public/version.json" with { type: "json" };
 import { useLanguage } from "./utils/language.js";
 import { message } from "./components/ui/message/message.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
-import {xmasDlc, 
-          platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./dlc/dlc.js";
+import {xmasModule, 
+          platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./module/module.js";
 import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform, lstorage_cBookingScore} from "./utils/appStorage.js";
-import { clearDlcLocalStorages, reloadDLCCache,setDLCAmagProTimeTestStyle } from "./utils/dlcStorage.js";
-import { consoleWarnMessage_showMessageTurnedOff, dlc_details_classHidden,default_e} from "./utils/defaults/defaultVariables.js";
+import { clearmoduleLocalStorages, reloadModuleCache,setModuleAmagProTimeTestStyle } from "./utils/moduleStorage.js";
+import { defaultProfileName,consoleWarnMessage_showMessageTurnedOff, module_details_classVisible,default_e} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
+import { eventListenerHandler } from "./utils/functionHandlers.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
-import { showHideStatusBar } from "./utils/switchFunctionHandlers.js";
+import { showHideStatusBar } from "./utils/elementChangers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
 
 // savety function to prevent unwanted webpage content manipulation (triggered by window.onload)
@@ -48,27 +49,27 @@ window.onload = function () {
 };
 // app main
 document.addEventListener('DOMContentLoaded', async function () {
-  // import platform and filter dlcs
+  // import platform and filter modules
   try {
-    let dlc_platformContent = await platformsContent()
-    if (!dlc_platformContent.success) {
-      throw new Error('❌ DLC Platform contents not loaded')
+    let module_platformContent = await platformsContent()
+    if (!module_platformContent.success) {
+      throw new Error('❌ Module Platform contents not loaded')
     }
-    debugStick(dlc_platformContent,dlc_platformContent.feedback)
+    debugStick(module_platformContent,module_platformContent.feedback)
   } catch (error) {
     console.log(error)
-    clearDlcLocalStorages()
+    clearmoduleLocalStorages()
     return
   }
   try {
-    let dlc_filterContent = await filtersContent()
-    if (!dlc_filterContent.success) {
-      throw new Error('❌ DLC Filter contents not loaded')
+    let module_filterContent = await filtersContent()
+    if (!module_filterContent.success) {
+      throw new Error('❌ Module Filter contents not loaded')
     }
-    debugStick(dlc_filterContent,dlc_filterContent.feedback)
+    debugStick(module_filterContent,module_filterContent.feedback)
   } catch (error) {
     console.error(error+ " | app")
-    clearDlcLocalStorages()
+    clearmoduleLocalStorages()
     return
   }
   
@@ -107,32 +108,31 @@ document.addEventListener('DOMContentLoaded', async function () {
   const themeSelect = document.querySelector('select#select-themes')
   const switch_showAllMessages = document.getElementById('check_showAllNotifications')
   const switch_showStatusBar = document.getElementById('check_showStatusBar')
-  const radios_filter = document.getElementsByName('timesheet-filter')
+  const radios_timesheetFilter = document.getElementsByName('timesheet-filter')
   const button_docuHelp = document.getElementById('button_openHelp')
   const button_docuReadme = document.getElementById('button_openReadme')
   const button_docuChangelog = document.getElementById('button_openChangelog')
   const button_docuDatenschutz = document.getElementById('button_openDatenschutz')
   const button_openStore = document.getElementById('button_openStore')
   const button_openLicense = document.getElementById('button_openLicense')
-  const radio_timesheetFilters = document.getElementsByName('timesheet-filter')
 
-  // dlc-platform element listeners
+  // module-platform element listeners
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
-  const dlc_platform_element = document.getElementsByClassName('dlcItem-platform')
-  const dlc_filter_element = document.getElementsByClassName('dlcItem-filter')
-  const dlcProTime_config_check_forceLatencyMode = document.getElementById('check_forceLatencyModeProTime')
-  dlcProTime_config_check_forceLatencyMode.addEventListener('change', dlcProTimeForceLatencyMode)
-  const dlcProTime_config_check_useLatencyMode = document.getElementById('check_useLatencyModeProTime')
-  dlcProTime_config_check_useLatencyMode.addEventListener('change', dlcProTimeUseLatencyMode)
-  const dlcProTime_config_check_usePTTest = document.getElementById('check_useProTimeTestMode')
-  dlcProTime_config_check_usePTTest.addEventListener('change', dlcProTimeCheckUsePTTest)
-  const dlcProTime_config_check_useTicketnomberInText = document.getElementById('check_useTicketnomberInTextProTime')
-  dlcProTime_config_check_useTicketnomberInText.addEventListener('change', dlcProTimeUseTicketNomberInText)
-  const dlcItem_platform_amagProTime = document.getElementById('dlcItemPlatform_amagprotime')
-  const dlcProTime_config_check_useMatchBookingDay = document.getElementById('check_useMatchBookingDayProTime')
-  dlcProTime_config_check_useMatchBookingDay.addEventListener('change', dlcProTimeUseMatchBookingDay)
-  const dlcProTime_config_check_useAutoSelectDay = document.getElementById('check_useAutoSelectDayProTime')
-  dlcProTime_config_check_useAutoSelectDay.addEventListener('change', dlcProTimeUseAutoSelectDay)
+  const module_platform_element = document.getElementsByClassName('moduleItem-platform')
+  const module_filter_element = document.getElementsByClassName('moduleItem-filter')
+  const moduleProTime_config_check_forceLatencyMode = document.getElementById('check_forceLatencyModeProTime')
+  moduleProTime_config_check_forceLatencyMode.addEventListener('change', moduleProTimeForceLatencyMode)
+  const moduleProTime_config_check_useLatencyMode = document.getElementById('check_useLatencyModeProTime')
+  moduleProTime_config_check_useLatencyMode.addEventListener('change', moduleProTimeUseLatencyMode)
+  const moduleProTime_config_check_usePTTest = document.getElementById('check_useProTimeTestMode')
+  moduleProTime_config_check_usePTTest.addEventListener('change', moduleProTimeCheckUsePTTest)
+  const moduleProTime_config_check_useTicketnomberInText = document.getElementById('check_useTicketnomberInTextProTime')
+  moduleProTime_config_check_useTicketnomberInText.addEventListener('change', moduleProTimeUseTicketNomberInText)
+  const moduleItem_platform_amagProTime = document.getElementById('moduleItemPlatform_amagprotime')
+  const moduleProTime_config_check_useMatchBookingDay = document.getElementById('check_useMatchBookingDayProTime')
+  moduleProTime_config_check_useMatchBookingDay.addEventListener('change', moduleProTimeUseMatchBookingDay)
+  const moduleProTime_config_check_useAutoSelectDay = document.getElementById('check_useAutoSelectDayProTime')
+  moduleProTime_config_check_useAutoSelectDay.addEventListener('change', moduleProTimeUseAutoSelectDay)
   let bookingScore = 0
   let configOpen = false
   try{
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     try {
       setStatusBarText(window.language.statusbartext_filterData)
       filterData = await filters(filter, clipboarsString)
-      debugStick(filterData,"💽 Selected Filter-DLC: " + filter)
+      debugStick(filterData,"💽 Selected Filter-Module: " + filter)
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error + " | app");
       lockActionButtons('false',fillButton)
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       return
     }
     try {
-      debugStick(bookingPlatform,"🔘 Selected Platform-DLC: ")
+      debugStick(bookingPlatform,"🔘 Selected Platform-Module: ")
       setStatusBarText(window.language.statusbartext_passDataToPlatform)
       let bookEntries = await platforms(bookingPlatform, filterData, lstorage_cDetectionItems)
       let detailMessage = ''
@@ -343,11 +343,18 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function configSetProfileName() {
-    localStorage.setItem('tc_c_profileName', configProfileName.value)
-    window.configUserChanges = true
-    if (configProfileName.value === 'LOVE') {
+    let nameTrimmed = configProfileName.value.trim()
+    if (nameTrimmed === 'LOVE') {
       localStorage.setItem('tc_ee_exoticTheme', 'true')
     }
+    if(nameTrimmed === '') {
+      configProfileName.value = defaultProfileName
+      nameTrimmed = defaultProfileName
+    } else {
+      configProfileName.value = nameTrimmed
+    }
+    localStorage.setItem('tc_c_profileName',nameTrimmed )
+    window.configUserChanges = true
   }
 
   function selectProfileOption() {
@@ -362,8 +369,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     if(currentProfileSelectValue === 'selectAppData_delete'){
       removeProfile()
     }
-    if(currentProfileSelectValue === 'selectAppData_deleteDLCCache'){
-      reloadDLCCache()
+    if(currentProfileSelectValue === 'selectAppData_deleteModuleCache'){
+      reloadModuleCache()
     }
     // reset select
     profileOptionsSelect.value = selectProfileOptionResetvalue
@@ -394,10 +401,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     window.configUserChanges = true
   }
 
-  function switchFilter(e) {
-    localStorage.setItem('tc_c_filter', e.target.value)
-    window.configUserChanges = true
-  }
+  // function switchFilter(e) {
+    // localStorage.setItem('tc_c_filter', e.target.value)
+    // window.configUserChanges = true
+  // }
 
   function showBuildVersion(e){
     if(e.shiftKey){
@@ -419,61 +426,47 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
     }
   }
-
-  // dlc functions
-  function dlcPlatformOpenDropdown(e) {
-    let dlc_platformElement = e.target.closest(".dlcItem-platform")
-    let dlc_platformDropDownButton = e.target.closest("button")
-    let dlc_platformInformationContainer = dlc_platformElement.getElementsByClassName('dlcItem-details-container')[0]
-    if (dlc_platformInformationContainer.classList.contains(dlc_details_classHidden)) {
-      dlc_platformInformationContainer.classList.remove(dlc_details_classHidden)
-      dlc_platformDropDownButton.classList.add('button-dropdown--active')
+  // module functions
+  function moduleItemDropDownHandler(e) {
+    let module_ItemElement = e.target.closest(".moduleItem-clickable")
+    let module_ItemDropDownButton = e.target.closest("button")
+    let module_ItemInformationContainer = module_ItemElement.getElementsByClassName('moduleItem-details-container')[0]
+    if (!module_ItemInformationContainer.classList.contains(module_details_classVisible)) {
+      module_ItemInformationContainer.classList.add(module_details_classVisible)
+      module_ItemDropDownButton.classList.add('button-dropdown--active')
     } else {
-      dlc_platformInformationContainer.classList.add(dlc_details_classHidden)
-      dlc_platformDropDownButton.classList.remove('button-dropdown--active')
+      module_ItemInformationContainer.classList.remove(module_details_classVisible)
+      module_ItemDropDownButton.classList.remove('button-dropdown--active')
     }
   }
 
-  function dlcFilterOpenDropdown(e) {
-    let dlc_filterElement = e.target.closest(".dlcItem-filter")
-    let dlc_filterDropDownButton = e.target.closest("button")
-    let dlc_filterInformationContainer = dlc_filterElement.getElementsByClassName('dlcItem-details-container')[0]
-    if (dlc_filterInformationContainer.classList.contains(dlc_details_classHidden)) {
-      dlc_filterInformationContainer.classList.remove(dlc_details_classHidden)
-      dlc_filterDropDownButton.classList.add('button-dropdown--active')
-    } else {
-      dlc_filterInformationContainer.classList.add(dlc_details_classHidden)
-      dlc_filterDropDownButton.classList.remove('button-dropdown--active')
-    }
-  }
-
-  function dlcProTimeForceLatencyMode(e){
-    localStorage.setItem('tc_c_dlc_proTimeForceLatencyMode', e.target.checked)
+  function moduleProTimeForceLatencyMode(e){
+    localStorage.setItem('tc_c_module_proTimeForceLatencyMode', e.target.checked)
     window.configUserChanges = true
   }
 
-  function dlcProTimeUseLatencyMode(e){
-    localStorage.setItem('tc_c_dlc_proTimeUseLatencyMode', e.target.checked)
+  function moduleProTimeUseLatencyMode(e){
+    localStorage.setItem('tc_c_module_proTimeUseLatencyMode', e.target.checked)
     window.configUserChanges = true
   }
 
-  function dlcProTimeCheckUsePTTest(){
-    localStorage.setItem('tc_c_dlc_proTimeTest', dlcProTime_config_check_usePTTest.checked)
-    setDLCAmagProTimeTestStyle(dlcProTime_config_check_usePTTest.checked,...window.dlcGlobalArgs )
+  function moduleProTimeCheckUsePTTest(){
+    localStorage.setItem('tc_c_module_proTimeTest', moduleProTime_config_check_usePTTest.checked)
+    setModuleAmagProTimeTestStyle(moduleProTime_config_check_usePTTest.checked,...window.moduleGlobalArgs )
     window.configUserChanges = true
   }
 
-  function dlcProTimeUseTicketNomberInText(e){
-    localStorage.setItem('tc_c_dlc_proTimeTicketNomberInText', e.target.checked)
+  function moduleProTimeUseTicketNomberInText(e){
+    localStorage.setItem('tc_c_module_proTimeTicketNomberInText', e.target.checked)
     window.configUserChanges = true
   }
 
-  function dlcProTimeUseMatchBookingDay(e) {
+  function moduleProTimeUseMatchBookingDay(e) {
     localStorage.setItem('tc_c_proTimeMatchBookingDay', e.target.checked)
     window.configUserChanges = true
   }
 
-  function dlcProTimeUseAutoSelectDay(e) {
+  function moduleProTimeUseAutoSelectDay(e) {
     localStorage.setItem('tc_c_proTimeAutoSelectDay', e.target.checked)
     window.configUserChanges = true
   }
@@ -503,11 +496,11 @@ document.addEventListener('DOMContentLoaded', async function () {
       elem_profileSVG: profileSVG,elem_profilePicture: profilePicture, elem_button_importProfilePicture: button_importProfilePicture, elem_configProfileScore_RangScore: configProfileScore_RangScore,
       elem_configProfileScore_RangName: configProfileScore_RangName,elem_statusBarProfileScore_RangScore:statusBarProfileScore_RangScore,elem_statusBarProfileScore_RangName:statusBarProfileScore_RangName,elem_statusBar: statusBar
     }]
-    window.dlcGlobalArgs = [{dlcProTime_config_check_useLatencyMode:dlcProTime_config_check_useLatencyMode,dlcProTime_config_check_forceLatencyMode:dlcProTime_config_check_forceLatencyMode,
-      dlcProTime_config_check_usePTTest:dlcProTime_config_check_usePTTest,dlcItem_platform_amagProTime:dlcItem_platform_amagProTime, dlcProTime_config_check_useTicketnomberInText: dlcProTime_config_check_useTicketnomberInText,
-      dlcProTime_config_check_useMatchBookingDay: dlcProTime_config_check_useMatchBookingDay,dlcProTime_config_check_useAutoSelectDay:dlcProTime_config_check_useAutoSelectDay
+    window.moduleGlobalArgs = [{moduleProTime_config_check_useLatencyMode:moduleProTime_config_check_useLatencyMode,moduleProTime_config_check_forceLatencyMode:moduleProTime_config_check_forceLatencyMode,
+      moduleProTime_config_check_usePTTest:moduleProTime_config_check_usePTTest,moduleItem_platform_amagProTime:moduleItem_platform_amagProTime, moduleProTime_config_check_useTicketnomberInText: moduleProTime_config_check_useTicketnomberInText,
+      moduleProTime_config_check_useMatchBookingDay: moduleProTime_config_check_useMatchBookingDay,moduleProTime_config_check_useAutoSelectDay:moduleProTime_config_check_useAutoSelectDay
     }]
-    debugStick([...window.appVersionData,...window.appGlobalArgs,...window.dlcGlobalArgs],'App Global Args')
+    debugStick([...window.appVersionData,...window.appGlobalArgs,...window.moduleGlobalArgs],'App Global Args')
     // return message if offline
     if (!navigator.onLine) {
       message(true, 'error', window.language.message_offline, window.language.message_offline_disc)
@@ -549,28 +542,22 @@ document.addEventListener('DOMContentLoaded', async function () {
     //theme select
     themeSelect.addEventListener('change', switchTheme)
     // filter radios listener
-    for (var i = 0, iLen = radios_filter.length; i < iLen; i++) {
-      radios_filter[i].addEventListener('click', switchFilter);
+    eventListenerHandler(radios_timesheetFilter,'click',timesheetFilterChange)
+    eventListenerHandler(radio_bookingPlatforms,'click',bookingPlatformsChange)
+
+    for (var index = 0, indexLen = module_platform_element.length; index < indexLen; index++) {
+      let dropdownButton = module_platform_element[index].getElementsByClassName('button-dropdown')[0]
+      dropdownButton.addEventListener('click', moduleItemDropDownHandler);
     }
-    for (var index = 0, indexLen = radio_timesheetFilters.length; index < indexLen; index++) {
-      radio_timesheetFilters[index].addEventListener('click', timesheetFilterChange);
-    }
-    for (var index = 0, indexLen = radio_bookingPlatforms.length; index < indexLen; index++) {
-      radio_bookingPlatforms[index].addEventListener('click', bookingPlatformsChange);
-    }
-    for (var index = 0, indexLen = dlc_platform_element.length; index < indexLen; index++) {
-      let dropdownButton = dlc_platform_element[index].getElementsByClassName('button-dropdown')[0]
-      dropdownButton.addEventListener('click', dlcPlatformOpenDropdown);
-    }
-    for (var index = 0, indexLen = dlc_filter_element.length; index < indexLen; index++) {
-      let dropdownButton = dlc_filter_element[index].getElementsByClassName('button-dropdown')[0]
-      dropdownButton.addEventListener('click', dlcFilterOpenDropdown);
+    for (var index = 0, indexLen = module_filter_element.length; index < indexLen; index++) {
+      let dropdownButton = module_filter_element[index].getElementsByClassName('button-dropdown')[0]
+      dropdownButton.addEventListener('click', moduleItemDropDownHandler);
     }
     try{
       // load needed app functions
-      profileManager(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
-      appStorage(...window.appGlobalArgs,...appVersionData,...window.dlcGlobalArgs)
-      xmasDlc()
+      profileManager(...window.appGlobalArgs,...appVersionData,...window.moduleGlobalArgs)
+      appStorage(...window.appGlobalArgs,...appVersionData,...window.moduleGlobalArgs)
+      xmasModule()
       // reset restart count
       setTimeout(function(){
         if(sessionStorage.getItem('tc_s_restartCount') < "4"){

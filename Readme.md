@@ -2,7 +2,7 @@
 #### V 1.2.XX (Sidebar Version)
 By Steve Pietrowski / EmptySoul
 </br>
-04.07.2023 - 07.2025
+04.07.2023 - 09.2025
 
 ## Benutzerinformationen
 
@@ -86,6 +86,8 @@ Einstellungen.
 - [Profile V1.7](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.7.tcprofile)
 - [Profile V1.8](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V1.8.tcprofile)
 - [Profile V2.0](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V2.0.TCP1)
+- [Profile V2.1](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V2.1.TCP1)
+- [Profile V2.1 (Encodced)](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Test-Profiles/timecopy-profile_V2.1(Encoded).TCP1)
 
 #### Time Copy Chrome Extension (als Datei)
 - [Time Copy V 0.9.63 (Chrome)](https://github.com/SteveTheMusician/TimeCopy/blob/main/downloads/Extensions/Chrome/Time-Copy-Chrome-V0.9.63.crx)

@@ -1,0 +1,8 @@
+{
+    "filter_version": "1.0",
+    "filter_name": "Ungefiltert",
+    "filter_id": "none",
+    "filter_shortname": "None",
+    "filter_supportedsources": "*",
+    "filter_description": "Lässt den kopierten String ungefiltert und gibt diesen direkt weiter."
+}

@@ -1,0 +1,9 @@
+{
+    "platform_version": "3.6",
+    "platform_name": "Amag ProTime",
+    "platform_id": "amagprotime",
+    "platform_shortname": "ProTime",
+    "platform_description": "Deine kopierte Daten werden in ProTime direkt in den entsprechenden Felder automatisch eingefügt und gebucht. Es ist jeweils nur ein Tag pro Buchung möglich.",
+    "platform_url":"s4.amag.ch/protime",
+    "platform_content": "true"
+}
