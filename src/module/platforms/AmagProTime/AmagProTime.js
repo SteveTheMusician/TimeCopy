@@ -385,8 +385,8 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
     })
   }
   let retryTicketList = []
+  let totalBookedTickets = 0
   async function ticketBookingLoop(valideTickets) {
-    let totalBookedTickets = 0
     try {
       // all functions executed for each valide ticket
       for (const ticket of valideTickets) {

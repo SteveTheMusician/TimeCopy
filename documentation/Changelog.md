@@ -9,11 +9,14 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## Last important changes summary
 
+* **Features:**
+  * New Detection-Items with labeling- and minimize-function
+
 * **Filter-Modules:**
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel Module
   * Add Scrollbar for Platform-Modules with function-content
 
-## V 1.2.49
+## V 1.2.51
 
 * **Features** *
   * Detection-Items: 
@@ -28,6 +31,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Fix app crash when creating a new filter module on update
   * Change the profile picture from the imported file if an image is already set.
   * Set empty profile name to default
+  * Module-AmagProTime: show correct nomber of booked tickets, when retry-list was triggered
 
 * **Other Changes:**
   * Code cleanup

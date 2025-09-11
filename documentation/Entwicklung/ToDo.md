@@ -29,6 +29,9 @@
     - Pattern für Eingabe Felder (Sonderzeichen nicht erlauben ausser z.B. * in Filter)
 - ee themes: notifications anpassen (style)
 - Node version checken ggf updaten
+
+- Wenn Ticket bereits gebucht soll dieser übersprungen werden (Kann schwer bzw unmöglich sein, da diese Infos in protime nicht genau bekommen werden können - ticketnummer nich da, beschreibung nur teilweise)
+
 - Code clean up:
     - Local Storages vereinheitlichen
     - Funktionen / Listener zusammen fassen
@@ -37,19 +40,22 @@
     - Technische Details
     - Beispiel Profil
 
-- profil bild wird nicht importiert/export -> checken ✅
+- Oktober Module (Kürbis und blätter)
 
-- Status bar timing verbessern,
-- Notification timing verbessern (manchmal bleiben errors mit hidden hängen wenn 3 oder mehr nachrichten gleichzeitig erscheinen)
-- detection items modular machen (acuh für any notwändig)
+- ✅ profil bild wird nicht importiert/export -> checken 
 
-- Wenn Ticket bereits gebucht soll dieser übersprungen werden
--detection items objects verschachteln (content wie amag protime wird zum extra object) und benennungen ggf verbessern
+- ✅ Status bar timing verbessern,
+- ✅ Notification timing verbessern (manchmal bleiben errors mit hidden hängen wenn 3 oder mehr nachrichten gleichzeitig erscheinen)
+- ✅ detection items modular machen (acuh für any notwändig)
+
+
+- ✅detection items objects verschachteln (content wie amag protime wird zum extra object) und benennungen ggf verbessern
     !! Achtung Profile Import und export muss dann auch angepasst werden
     - ggf deci id prefix ändern und beim generieren checken ob neu oder alt. wenn alt dann importiere die objecte und convertiere sie
 
-- alte profil imports comaptibility aufbauen (namings der variabeln sind noch auf dlc) oder funktion skippen (cuz dl wurde glaube nicht verwendet oder einfach compatibiliyt nur auf v3 lassen)
+- ✅ alte profil imports comaptibility aufbauen (namings der variabeln sind noch auf dlc) oder funktion skippen (cuz dl wurde glaube nicht verwendet oder einfach compatibiliyt nur auf v3 lassen)
 
-- Oktober Module (Kürbis und blätter)
 
-    update mit eigenem profil nach beendigung testen
+update mit eigenem profil nach beendigung testen
+
+- ✅ 1-Ticket Meldung fixen, wenn z.B. 16 übertragen werden, einer aber ein retry war
