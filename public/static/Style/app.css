@@ -3,7 +3,7 @@
 @import url('var/font.css');
 @import url('var/var.css');
 @import url('var/colors-default.css');
-@import url('dlc/dlc.css');
+@import url('module/module.css');
 
 ::-webkit-scrollbar {
     display: none;
@@ -26,13 +26,13 @@ h1 {
     color: var(--color-font-headline);
     margin-block-start: 0;
     margin-block-end: 0;
-    font-size: 20px;
+    font-size: var(--font-size-headline);
     user-select: none;
 }
 
-h2 {
+h2,h3,.title-detectionItem {
     color: var(--color-font-headlabel);
-    font-size: 16px;
+    font-size: var(--font-size-headline2);
     margin-block-start: 0;
     margin-block-end: 0;
     margin: 10px;
@@ -161,7 +161,7 @@ input::placeholder {
 }
 
 .subtext {
-    font-size: 10px;
+    font-size: var(--font-size-small);
     line-height: 1.4;
     color: var(--color-font-subtext);
 }
@@ -177,7 +177,7 @@ input::placeholder {
 
 .text-label {
     color: var(--color-font-second);
-    font-size: 12px;
+    font-size: var(--font-size-regular);
 }
 
 .label-row-messageHeadline {
@@ -287,7 +287,7 @@ label:has(#button_importConfigs) {
     border-radius: var(--border-radius-default);
     border: 0px solid;
     background-color: transparent;
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     color: var(--color-icon-default);
     cursor: pointer;
     transition: 0.3s;
@@ -324,7 +324,7 @@ label:has(#button_importConfigs) {
     border-radius: var(--border-radius-default);
     border: 1px solid transparent;
     background-color: transparent;
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     color: #89b4c1;
     cursor: pointer;
     transition: 0.3s;
@@ -371,18 +371,13 @@ label:has(#button_importConfigs) {
     pointer-events: none;
 }
 
-.button-dropdown--active svg {
-    transform: scaleY(-1);
-    fill: var(--color-active);
-}
-
 .button-mainAction {
     width: 100px;
     height: 100px;
     margin: 10px;
     border-radius: var(--border-radius-default);
     background-color: var(--color-second);
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     color: var(--color-icon-default);
     cursor: pointer;
     transition: 0.3s;
@@ -460,7 +455,7 @@ label:has(#button_importConfigs) {
 }
 
 .label-version {
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     color: var(--color-font-subtext);
 }
 
@@ -470,7 +465,6 @@ label:has(#button_importConfigs) {
 }
 
 #label_build_version {
-    /* font-size: 10px; */
     user-select: text;
 }
 
@@ -727,13 +721,44 @@ select {
     color: var(--color-font);
     outline: none;
     padding: 5px;
-    font-size: 12px;
+    font-size: var(--font-size-regular);
     border: 0px solid;
     width: 100%;
     border-right: 5px solid transparent;
 }
 
+.detectionItem-body {
+    width: 100%;
+}
+
 .detectionItem-main {
+    width: -webkit-fill-available;
+}
+
+.title-detectionItem {
+    min-width: 50px;
+    min-height: 24px;
+    width: calc(100% - 20px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    word-break: break-all;
+    white-space: break-spaces;
+    max-height: 50px;
+    border-radius: var(--border-radius-default);
+    background-color: var(--transparent);
+    border: 0px solid;
+
+}
+
+.title-detectionItem:hover {
+    outline: 1px dashed var(--color-highlight);
+}
+
+.title-detectionItem:focus {
+    outline: 1px dashed var(--color-active);
+}
+
+.detectionItem-title-container {
     width: 100%;
 }
 
@@ -745,6 +770,43 @@ select {
 .detectionItem-content-larger {
     width: 70%;
     padding: 5px;
+}
+
+.detectionItem-module-content {
+    margin-top: 10px;
+    border-top: 1px dashed var(--color-font-subtext);
+    padding-top: 10px;
+    width: -webkit-fill-available;
+    height: fit-content;
+}
+
+.detectionItem-module {
+    transition: var(--transition-default);
+    height: 210px;
+    overflow-y: scroll;
+}
+
+.detectionItem-module--Any {
+    height: 172px;
+}
+
+.detectionItem-module--hidden {
+    height: 0px;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.detection-actions-container {
+    flex-flow: column;
+    height: 100%;
+}
+
+.action-container-cell--top {
+    height: 40%;
+}
+
+.action-container-cell--bottom {
+    height: 60%;
 }
 
 .checkmark {
@@ -1008,13 +1070,14 @@ input:checked+.switch_slider:before {
 #firstStartScreen {
     position:absolute;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 38px);
     background-color: var(--color-main);
     display: grid;
     align-content: center;
     padding: 0 20px;
     transition: var(--transition-default);
     z-index: 99;
+    overflow-y: scroll;
 }
 
 .StartScreen-container {

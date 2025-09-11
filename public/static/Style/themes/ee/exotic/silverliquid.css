@@ -1,20 +1,17 @@
 :root {
   /* ---- Exotic Theme ---- */
-
-  /* vars */
+  /* Vars */
   --blur-default: blur(60px);
   --transition-default: .3s;
-  /* color palette */
-  --color-none: transparent;
+  /* Color palette */
   --white: #fefefe;
   --white-fa: #fafafa;
   --clear-gray: #bfdbde36;
-
   /* Message hover background colors */
   --red-transparent: #d2428c33;
   --yellow-transparent: #d2c64233;
   --purple-transparent: #8873c533;
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--white-fa);
   --color-second: var(--clear-gray);
   --color-third: var(--color-none);
@@ -33,9 +30,9 @@
   /* Icon colors */
   --color-icon-default: #76768b;
   --color-icon-light: var(--white);
-  /* dlc snowflake color */
-  --color-dlc-snowflake: var(--color-font-second);
-  /* specials */
+  /* module snowflake color */
+  --color-module-snowflake: var(--color-font-second);
+  /* Specials */
   --rainbow: repeating-linear-gradient(
     100deg,
     #60a5fa 10%,
@@ -173,6 +170,22 @@ header {
   margin-right: 10px;
 }
 
+.button-mainAction svg{
+  animation: color-hue-rotate-animation 30s linear infinite;
+}
+
+.switch_slider {
+  animation: color-hue-rotate-animation 30s linear infinite;
+}
+
+.radio-custom-container .checkmark {
+  animation: color-hue-rotate-animation 30s linear infinite;
+}
+
+.button-config-tab svg {
+  animation: color-hue-rotate-animation 30s linear infinite;
+}
+
 .button-mainAction:hover {
   transform: scale(1.02);
   background-color: var(--color-second);
@@ -212,12 +225,20 @@ header {
   border-radius: 20px;
 }
 
-.dlcItem-main .configItem-icon-container {
+.moduleItem-main .configItem-icon-container {
   background-color: unset;
   padding: 0;
   margin-block-start: 0;
   margin-block-end: 0;
   border-radius: 0;
+}
+
+.detectionItem-module {
+    height: 240px;
+}
+
+.detectionItem-module--hidden {
+    height: 0px;
 }
 
 .configItem {
@@ -401,4 +422,18 @@ select {
 
 #startScreenContent {
   gap: 10px;
+}
+
+@keyframes color-hue-rotate-animation {
+  0% {
+    filter: hue-rotate(0deg) grayscale(0)
+  }
+
+  50% {
+    filter: hue-rotate(-180deg) grayscale(0.8)
+  }
+
+  100% {
+    filter: hue-rotate(-360deg) grayscale(0)
+  }
 }

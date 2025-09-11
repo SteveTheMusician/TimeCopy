@@ -1,31 +1,30 @@
 :root {
   /* ---- Oceans Ground technical Theme ---- */
-
-    /* color palette from var/colors-default.css  */
-    --gray-a: #aaaaaa;
-    --blue-gray: #8a99a2;
-    /* theme colors */
-    --color-main: #131c21;
-    --color-second: #2d3840;
-    --color-third: #1d2930;
-    --color-darker: #010e12;
-    --color-highlight: #28b28d;
-    --color-active: #00ffa7;
-    --color-edit: var(--lightyellow);
-    --color-disabled: var(--color-third);
-    --color-close: #ad3156;
-    --color-warning: #ada931;
-    /* Font colors */
-    --color-font: var(--white_e);
-    --color-font-navigation: var(--gray-a);
-    --color-font-headline: var(--blue-gray);
-    --color-font-second: var(--gray-a);
-    --color-font-headlabel: var(--blue-gray);
-    --color-font-subtext: var(--gray-a);
-    /* Icon colors */
-    --color-icon-default: var(--gray-a);
-    --color-icon-light: var(--white_e);
-    --border-radius-default: 20px;
+  /* Color palette from var/colors-default.css  */
+  --gray-a: #aaaaaa;
+  --blue-gray: #8a99a2;
+  /* theme colors */
+  --color-main: #131c21;
+  --color-second: #2d3840;
+  --color-third: #1d2930;
+  --color-darker: #010e12;
+  --color-highlight: #28b28d;
+  --color-active: #00ffa7;
+  --color-edit: var(--lightyellow);
+  --color-disabled: var(--color-third);
+  --color-close: #ad3156;
+  --color-warning: #ada931;
+  /* Font colors */
+  --color-font: var(--white_e);
+  --color-font-navigation: var(--gray-a);
+  --color-font-headline: var(--blue-gray);
+  --color-font-second: var(--gray-a);
+  --color-font-headlabel: var(--blue-gray);
+  --color-font-subtext: var(--gray-a);
+  /* Icon colors */
+  --color-icon-default: var(--gray-a);
+  --color-icon-light: var(--white_e);
+  --border-radius-default: 20px;
 }
 
 header {
@@ -81,12 +80,20 @@ header {
   border-radius: 20px;
 }
 
-.dlcItem-main .configItem-icon-container {
+.moduleItem-main .configItem-icon-container {
   background-color: unset;
   padding: 0;
   margin-block-start: 0;
   margin-block-end: 0;
   border-radius: 0;
+}
+
+.detectionItem-module {
+    height: 240px;
+}
+
+.detectionItem-module--hidden {
+    height: 0px;
 }
 
 .configItem {

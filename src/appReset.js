@@ -1,4 +1,3 @@
-
 // const tcResetButton = document.getElementById('resetTimeCopy')
 // tcResetButton.addEventListener('click',appReset)
 // <button hidden id="resetTimeCopy">Reset</button>
@@ -27,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function appReset(){
   console.log('🔄 RESET APP')
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location.reload();
-  }
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.reload();
+}
