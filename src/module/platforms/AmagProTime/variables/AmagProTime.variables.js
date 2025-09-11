@@ -1,4 +1,4 @@
-export let anyProjectNomber = "*"
+export const anyProjectNomber = "*"
 export let bookingLoopCount = 0
 export let highLatency = false
 export let forceHighLatency = true

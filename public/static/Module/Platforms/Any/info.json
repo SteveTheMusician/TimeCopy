@@ -3,7 +3,7 @@
     "platform_name": "Beliebig",
     "platform_id": "any",
     "platform_shortname": "Any",
-    "platform_description": "Überträgt Wärte in der aktuell offenen Webseite.",
+    "platform_description": "Überträgt Wärte in ein Textarea oder Text-Input einer beliebigen offenen Webseite. (Eher ein test-Case, welcher zusammen mit dem Filter: None verwendet werden kann)",
     "platform_url":"*",
     "platform_content": "false"
 }

@@ -16,13 +16,17 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel Module
   * Add Scrollbar for Platform-Modules with function-content
 
-## V 1.2.51
+* **Fixes:**
+  * Module Amag ProTime: Fix observer polling (better observing of elements and values in ProTime)
+
+## V 1.2.52 - *Silver Fox Update (Pre-Release)*
 
 * **Features** *
   * Detection-Items: 
     - can now be minimized
     - editable title for better orientation
     - dynamic content
+  * Add new platform and filter modules
 
 * **Fixes:**
   * Module Amag ProTime: Return error message on reloading / changing website while inject-script is running

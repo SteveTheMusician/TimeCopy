@@ -7,7 +7,7 @@
     "error_addDetection":"Bitte erstelle mindestens eine Projekt-Erkennung.",
     "error_noBookingData": "Keine Buchungsdaten",
     "error_noBookingData_disc": "Der ausgewählte Filter kann die Daten nicht zuordnen / wiedergeben. Ein Grund dafür kann sein, dass du nicht gültige Daten kopiert hast oder einer deiner Einträge einen Fehler aufweist.",
-    "message_bookingProcessEnded": "Buchungsprozess beendet",
+    "message_bookingProcessEnded": "Übertragung abgeschlossen",
     "message_offline": "Offline",
     "message_offline_disc": "Du bist offline. Einige Funktionen von Time Copy können eingeschrenkt sein.",
     "message_noDetailsAvailable": "Keine Details verfügbar.",

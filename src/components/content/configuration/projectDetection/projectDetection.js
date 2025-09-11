@@ -87,6 +87,13 @@ function loadDetectionItems() {
       input_activity.value = loaded_input_activity
       input_activity.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "protimeactivity", input_activity.value) });
     }
+    // ANY Default Platform listener
+    if(select_bookingPlatform.value === 'select_bookingPlatform_Any') {
+      let input_anyTrigger = document.getElementById("input_anyTriggerWord_" + detectionItemId)
+      input_anyTrigger.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "anytrigger", input_anyTrigger.value) });
+      let input_anyAddWord = document.getElementById("input_anyAddWord_" + detectionItemId)
+      input_anyAddWord.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "anyaddword", input_anyAddWord.value) });
+    }
   }
   debugStick(detectionItems,'Detection-Item function loaded')
 }

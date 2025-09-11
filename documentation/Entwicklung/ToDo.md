@@ -2,27 +2,17 @@
 
 ### Features & Fixes für die Zukunft
  
-- sprache in dlcs und html integrieren
+- sprache in modules und html integrieren
 - eigene farbthemen importieren/ generieren
-- willkommens screen mit anleitung
+- willkommens screen mit anleitung (✅)
 - detectionItems von den platformen rendern
 - Firefox & Opera Version
 - Generell mehr dynamisches html
-- dlc: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon
+- module: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon
 - Yosha Update: im Ticketname akzeptiert Leere Ticketnummer bzw Tickets ohne Nummer / Tobias Excel FIlter anpassen 
 (GGF eigenes Module Nötig)
-
-- feature: wenn z.b. detections erstellt werden müssen, werden die buttons/der weg zu den einstellungen rot umrandet
-- feature: amag protime dlc: warnung bei doubled tickets
-- texte überarbeiten
-- dlc: amagprotime: feedback wenn low latency auf grund von problemen aktiviert wird ❓
-- "Inventierte" Farbthemen (Strawberry Icecream ect)
-- Module configs in profil speichern
-- code clean up -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
 - app storages zu einem profile-object zusammenfassen, dass gleichzeitig 1zu1 exportiert werden kann
-- dlc amagProTime: ProTime services updaten (aktuell gibt es nur 3) - ggf standard variabeln dafür machen und dynamishc rendern
 
--dlc amag protime: wenn inputs on first start noch values haben lösche alle und dann starten
 
 ## Maintance updates
 - security: 
@@ -32,18 +22,30 @@
 
 - Wenn Ticket bereits gebucht soll dieser übersprungen werden (Kann schwer bzw unmöglich sein, da diese Infos in protime nicht genau bekommen werden können - ticketnummer nich da, beschreibung nur teilweise)
 
-- Code clean up:
-    - Local Storages vereinheitlichen
-    - Funktionen / Listener zusammen fassen
+---------- Silver Fox Update -----------
 - Dokumentation
     - Alle Details Pflegen
     - Technische Details
     - Beispiel Profil
 
 - Oktober Module (Kürbis und blätter)
+- Code clean up:
+    - Local Storages vereinheitlichen
+    - Funktionen / Listener zusammen fassen
+- code clean up -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
+    (Alles noch mal genau checken)
+- Silver Fox Theme
+- texte überarbeiten
+- feature: wenn z.b. detections erstellt werden müssen, werden die buttons/der weg zu den einstellungen rot umrandet
+- feature: Wenn fehlermeldung bei erstellen identischer detection items (oder text: ist identisch mit ...)
+- "Inventierte" Farbthemen (Strawberry Icecream ect)
+
+
+--- done ---
 
 - ✅ profil bild wird nicht importiert/export -> checken 
 
+- ✅ Module configs in profil speichern
 - ✅ Status bar timing verbessern,
 - ✅ Notification timing verbessern (manchmal bleiben errors mit hidden hängen wenn 3 oder mehr nachrichten gleichzeitig erscheinen)
 - ✅ detection items modular machen (acuh für any notwändig)
@@ -54,8 +56,5 @@
     - ggf deci id prefix ändern und beim generieren checken ob neu oder alt. wenn alt dann importiere die objecte und convertiere sie
 
 - ✅ alte profil imports comaptibility aufbauen (namings der variabeln sind noch auf dlc) oder funktion skippen (cuz dl wurde glaube nicht verwendet oder einfach compatibiliyt nur auf v3 lassen)
-
-
-update mit eigenem profil nach beendigung testen
-
+- ✅ update mit eigenem profil nach beendigung testen
 - ✅ 1-Ticket Meldung fixen, wenn z.B. 16 übertragen werden, einer aber ein retry war
