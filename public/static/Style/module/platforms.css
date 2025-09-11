@@ -1,0 +1,19 @@
+.configItem-logo-container--amagprotime {
+    background-color: #000;
+}
+
+.configItem-logo-container--dzbankprores {
+    background-color: #ffffff;
+}
+
+.configItem-logo-container--automatic {
+    background-color: #ececec;
+}
+
+.configItem-logo-container--any {
+    background-color: #31706d;
+}
+
+#moduleItemPlatform_amagprotime .module-details--visible {
+    height: 320px;
+}

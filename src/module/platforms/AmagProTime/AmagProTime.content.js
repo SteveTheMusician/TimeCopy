@@ -1,0 +1,74 @@
+// customContent is automatically generated / imported in to the module-item by platform.module
+export const customContent = `<div class="module-platform_custom-content">
+    <p class="text-label">Funktionen</p>
+    <div class="module-platform_custom-content-row dFlex">
+        <div class="row-cell-left">
+            <p class="subtext">Latenz-Modus erzwingen</p>
+        </div>
+        <div class="row-cell-right">
+            <label class="switch">
+                <input type="checkbox" class="" id="check_forceLatencyModeProTime" />
+                <span class="switch_slider" title="Erzwinkt den Latenz-Modus und bucht immer mit Verzögerung. (Standard: Deaktiviert)"></span>
+            </label>
+        </div>
+    </div>
+    <div class="module-platform_custom-content-row dFlex">
+        <div class="row-cell-left">
+            <p class="subtext">Latenz erkennen</p>
+        </div>
+        <div class="row-cell-right">
+            <label class="switch">
+                <input type="checkbox" class="" id="check_useLatencyModeProTime"  />
+                <span class="switch_slider" title="Setzt den Latenz-Modus (Langsameres Buchen) ein, sobald auffällige Verzögerungen o.Ä. in ProTime erkannt werden. (Standard: Aktiv)"></span>
+            </label>
+        </div>
+    </div>
+    <div class="module-platform_custom-content-row dFlex">
+        <div class="row-cell-left">
+            <p class="subtext">Ticketnummer ins Textfeld</p>
+        </div>
+        <div class="row-cell-right">
+            <label class="switch">
+                <input type="checkbox" class="" id="check_useTicketnomberInTextProTime"  />
+                <span class="switch_slider" title="Fügt die Ticketnummer zusätzlich in das Beschreibungsfeld ein."></span>
+            </label>
+        </div>
+    </div>
+    <div class="module-platform_custom-content-row dFlex">
+        <div class="row-cell-left">
+            <p class="subtext">Tage übereinstimmen</p>
+        </div>
+        <div class="row-cell-right">
+            <label class="switch">
+                <input type="checkbox" class="" id="check_useMatchBookingDayProTime"  />
+                <span class="switch_slider" title="Überprüft, ob der Tag (wenn vorhanden) mit dem in ProTime übereinstimmt. Wenn nicht, wird der Prozess unterbrochen."></span>
+            </label>
+        </div>
+    </div>
+    <div class="module-platform_custom-content-row dFlex">
+        <div class="row-cell-left">
+            <p class="subtext">Tag autoselect (Exp.)</p>
+        </div>
+        <div class="row-cell-right">
+            <label class="switch">
+                <input type="checkbox" class="" id="check_useAutoSelectDayProTime"  />
+                <span class="switch_slider" title="Wählt automatisch den Tag innerhalb des aktuellen Monats zum Buchen in Protime aus, wenn das Datum mit kopiert wurde. (Experiementelle Funktion)"></span>
+            </label>
+        </div>
+    </div>
+    <div class="module-platform_custom-content-row dFlex">
+        <div class="row-cell-left">
+            <p class="subtext">Test-Modus</p>
+        </div>
+        <div class="row-cell-right">
+            <label class="switch">
+                <input type="checkbox" class="" id="check_useProTimeTestMode" />
+                <span class="switch_slider" title="Aktiviert den Test-Modus, in dem die Daten übertragen werden, ohne diese final zu buchen."></span>
+            </label>
+        </div>
+    </div>
+</div>`
+
+// custom functions
+
+

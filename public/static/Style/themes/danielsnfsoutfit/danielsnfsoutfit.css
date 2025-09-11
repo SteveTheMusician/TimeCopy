@@ -1,6 +1,5 @@
 :root {
-  /* ---- Daniels Gold Kette Theme---- */
-
+  /* ---- Daniels Need For Speed Theme---- */
   --gray: #ededed;
   --gray-e8: #e8e7e5;
   --gray-e1: #e1e0dd;
@@ -11,8 +10,7 @@
   --gold-light: #b09573;
   --red: #9f2224;
   --red-7e: #7e4243;
-
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--gray);
   --color-second: var(--gray-e8);
   --color-third: var(--gray-e1);
@@ -21,7 +19,6 @@
   --color-disabled: var(--red-7e);
   --color-close: var(--red);
   --color-warning: #9d9a00;
-
   /* Font colors */
   --color-font: var(--black);
   --color-font-navigation: var(--color-font-second);
@@ -29,7 +26,6 @@
   --color-font-second: var(--gray-5b);
   --color-font-headlabel: var(--black);
   --color-font-subtext: var(--gray-5b);
-  
   /* Icon colors */
   --color-icon-default: var(--blue-dark);
   --color-icon-light: var(--black);

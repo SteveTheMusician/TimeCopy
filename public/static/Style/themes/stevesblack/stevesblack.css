@@ -1,6 +1,6 @@
 :root {
   /* ---- Steve's Black Theme ---- */
-  /* color palette */
+  /* Color palette */
   --black: #121212;
   --black-17: #17181a;
   --black-1e: #1e1f22;
@@ -10,7 +10,7 @@
   --gold-dark: #b5af8e;
   --rotten-blood: #3b2b2e;
   --white: #fefefe;
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--black);
   --color-second: var(--black-17);
   --color-third: var(--black-1e);

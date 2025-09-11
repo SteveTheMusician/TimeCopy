@@ -1,6 +1,5 @@
 :root {
   /* ---- Yosha's Caffee Mug Theme ---- */
-
   /* color palette */
   --pale-green: #6c8067;
   --pale-green-5: #5a645b;
@@ -11,10 +10,7 @@
   --silver-gray: #d9dcd8;
   --color-none: transparent;
   --white: #fefefe;
-
-
-
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--mud-green);
   --color-second: var(--mud-green-5);
   --color-third: var(--pale-green);
@@ -23,7 +19,6 @@
   --color-disabled: var(--pale-green-5);
   --color-close: #ffae00;
   --color-warning: #e4e78f;
-
   /* Font colors */
   --color-font: var(--silver-gray);
   --color-font-navigation: var(--color-font-second);

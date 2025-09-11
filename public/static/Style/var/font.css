@@ -15,3 +15,17 @@ p,pre,a {
 button, input, select {
     font-family: Roboto, sans-serif;
 }
+
+.font-large {
+    --font-size-headline: 24px;
+    --font-size-headline2: 20px;
+    --font-size-regular: 16px;
+    --font-size-small: 14px; 
+}
+
+.font-xLarge {
+    --font-size-headline: 28px;
+    --font-size-headline2: 24px;
+    --font-size-regular: 20px;
+    --font-size-small: 18px; 
+}

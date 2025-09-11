@@ -1,13 +1,11 @@
 :root {
   /* ---- Chrome Black Theme ---- */
-
-  /* color palette */
+  /* Color palette */
   --black: #252525;
   --black-3b: #2b2b2b;
   --white: #fefefe;
   --gray-71: #717171;
-
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--black);
   --color-second: var(--black-3b);
   --color-third: #3d3d3d;
@@ -16,7 +14,6 @@
   --color-disabled: #753141;
   --color-close: #916e74;
   --color-warning: #c3c376;
-
   /* Font colors */
   --color-font: var(--white);
   --color-font-navigation: var(--color-font-second);
@@ -24,7 +21,6 @@
   --color-font-second: var(--gray-71);
   --color-font-headlabel: var(--white);
   --color-font-subtext: var(--gray-71);
-  
   /* Icon colors */
   --color-icon-default: var(--gray-71);
   --color-icon-light: var(--white);

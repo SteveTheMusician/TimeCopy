@@ -1,10 +1,10 @@
 {
-    "extension_version": "1.2.34",
-    "extension_version_name": "Silver Liquid",
-    "extension_build": "S25.07251550",
-    "profile_version": "2.0",
+    "extension_version": "1.2.52",
+    "extension_version_name": "Silver Fox (Pre-Release)",
+    "extension_build": "S25.09111733",
+    "profile_version": "2.1",
     "profile_type": ".TCP1",
-    "supported_profile_versions": ["1.6","1.7","1.8","1.9"],
+    "supported_profile_versions": ["1.6","1.7","1.8","1.9","2.0"],
     "supported_profile_types": [".tcprofile"],
     "extension_discription": "Übertrage Informatinen aus Excel-Tabellen in eine Online-Platform.",
     "extension_author": "Steve P.",
@@ -17,5 +17,5 @@
     "extension_license": "https://github.com/SteveTheMusician/TimeCopy/blob/main/LICENSE",
     "extension_contact": "contact@emptysoul.de",
     "extension_update_text_overview": "👋🏻 Willkommen in Version ",
-    "extension_update_text_details": "In der aktuellen Version erhältst du kleine Bugfixes in der Statusbar und den Filtern. Alle Changes im Detail findest du hier im ${changeloglink}."
+    "extension_update_text_details": "Es gibt neue Features und Bugfixes in den Filter- und Platform-Modulen. Alle Changes im Detail findest du hier im ${changeloglink}."
 }

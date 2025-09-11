@@ -1,8 +1,7 @@
 
 :root{
   /* ---- Blue Flame Theme ---- */
-    
-  /* color palette */
+  /* Color palette */
   --white-ec: #ececec;
   --white-bd: #bdbdbd;
   --lightgray: #96b0b5;
@@ -13,8 +12,7 @@
   --lightblue-90: #90E0EF;
   --paleblue: #CAF0F8;
   --darkblue-29: #295276;
-
-  /* theme colors */
+  /* Theme colors */
   --color-main: var(--darkblue-03);
   --color-second: var(--darkblue);
   --color-third: var(--blue);
@@ -23,7 +21,6 @@
   --color-disabled: var(--darkblue-29);
   --color-close: #ff209d;
   --color-warning: #f8ff2a;
-  
   /* Font colors */
   --color-font: var(--white-ec);
   --color-font-navigation: var(--color-font-second);
@@ -31,12 +28,15 @@
   --color-font-second: var(--white-bd);
   --color-font-headlabel:var(--white-bd);
   --color-font-subtext: var(--lightgray);
-
   /* Icon colors */
   --color-icon-default: var(--lightblue);
   --color-icon-light: var(--lightblue);  
 }
 
 .configItem-logo-container,.configItem-icon-container img {
+  border-radius: var(--border-radius-default);
+}
+
+.profileFrame {
   border-radius: var(--border-radius-default);
 }
