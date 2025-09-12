@@ -14,10 +14,11 @@ export function generateThemes() {
       "Gefühle": {
         "battlefield": "Battlefield",
         "blueflame": "Blue Flame",
+        "japansflare": "Japans Flare",
         "mint": "Mint",
         "mrwhite": "Mr. White",
         "neonretrored": "Neon Retro Red",
-        "japansflare": "Japans Flare"
+        "silversuit": "Silver Suit"
       },
       "Charactäre": {
         "danielsnfsoutfit": "Daniels NFS Outfit",

@@ -1,0 +1,41 @@
+:root {
+  /* ---- Silver Suit Theme ---- */
+  /* Color palette */
+  --black: #303841;
+  --black-3a: #3A4750;
+  --black-46: #46535d;
+  --lightgray: #D3D6DB;
+  --gray-95:#959595;
+  --white: #b7b7b7;
+  --red-be: #BE3144;
+  --red-d8: #d8596a;
+  --red-48: #483939;
+  /* Theme colors */
+  --color-main: #243039;
+  --color-second: #364550;
+  --color-third: #596b76;
+  --color-highlight:#97effb;
+  --color-active: #9ccfd4;
+  --color-disabled: var(--red-48);
+  --color-close: #bc2564;
+  --color-warning: #c3bb22;
+  /* Font colors */
+  --color-font: var(--lightgray);
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: var(--white);
+  --color-font-second: var(--lightgray);
+  --color-font-headlabel: var(--white);
+  --color-font-subtext: var(--gray-95);
+  /* Icon colors */
+  --color-icon-default: #d9bf9e;
+  --color-icon-light: var(--lightgray);
+}
+
+header {
+  background-color: var(--color-none);
+}
+
+.message {
+  background-color: var(--color-second);
+}
+/* Schriftfarbe anpassen */
