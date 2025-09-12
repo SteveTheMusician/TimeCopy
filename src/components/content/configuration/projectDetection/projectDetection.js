@@ -3,6 +3,7 @@ import { detectionItem } from "../../../ui/detectionItem/detectionItem.js"
 import { selectBookingPlatformPreName,detectionItemID_Prefix, selectProtimeService_defaultValue } from "../../../../utils/defaults/defaultVariables.js"
 import { generateDateId } from "../../../../utils/generateDateId.js"
 import { eventListenerHandler } from "../../../../utils/functionHandlers.js"
+import { markTabButtons } from "../../../../utils/elementChangers.js"
 import { debugStick } from "../../../../utils/appDebugStick.js"
 
 const button_addDetection = document.getElementById('button_add_projectDetection')
@@ -21,8 +22,10 @@ function updateDetectionItems(detectionItems) {
   let detectionItemsString = JSON.stringify(detectionItems)
   if(detectionItemsString === '[]') {
     localStorage.removeItem('tc_c_projectDetection')
+    markTabButtons('true','projects')
   } else {
     localStorage.setItem('tc_c_projectDetection', detectionItemsString)
+    markTabButtons('false','projects')
   }
   window.configUserChanges = true
 }

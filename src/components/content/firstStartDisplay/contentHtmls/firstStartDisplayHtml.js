@@ -2,7 +2,7 @@
     export const configWelcomeText = ` <p>
                     Schön dich hier zu sehen.
                     </br>
-                    In den Folgenden Schritten wirst du die Basics von Time Copy einrichten.
+                    In den folgenden Schritten wirst du die Basics von Time Copy einrichten.
                     </br>
                     </br>
                     Gib hier einen Namen/Pseudonym für dein Profil an und lade ein Profilbild hoch.

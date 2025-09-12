@@ -423,6 +423,7 @@ label:has(#button_importConfigs) {
 .button-config-tab {
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
+    outline: 1px solid transparent;
 }
 
 .button-tab--active {
@@ -436,6 +437,22 @@ label:has(#button_importConfigs) {
 
 .button-tab--active:hover svg {
     fill: var(--color-active);
+}
+
+.button-tab--marked::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position:absolute;
+    margin-left: -20px;
+    margin-top: -24px;
+    background-color: var(--color-close);
+    /* outline: 1px dashed var(--color-close); */
+}
+
+.button-tab--marked svg {
+    fill: var(--color-close);
 }
 
 .button-padding--small {
@@ -623,6 +640,13 @@ input[type=text] {
 
 input[type=text]:focus {
     outline: 1px solid var(--color-icon-default);
+}
+
+input[type=text]:-webkit-autofill,
+input[type=text]:-webkit-autofill:hover, 
+input[type=text]:-webkit-autofill:focus, 
+input[type=text]:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 60px var(--color-active) inset !important;
 }
 
 .input-size--default {

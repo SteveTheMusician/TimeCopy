@@ -27,6 +27,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
     - editable title for better orientation
     - dynamic content
   * Add new platform and filter modules
+  * Show marker on tab-buttons, if something has to be maintained by the user
 
 * **Fixes:**
   * Module Amag ProTime: Return error message on reloading / changing website while inject-script is running

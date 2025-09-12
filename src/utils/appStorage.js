@@ -7,7 +7,7 @@ import { loadModuleStorage, clearmoduleLocalStorages } from "./moduleStorage.js"
 import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
 import { setScoreValues } from "./setScorevalues.js"
 import { firstStartDisplay } from "../components/content/firstStartDisplay/firstStartDisplay.js"
-import { showHideStatusBar } from "./elementChangers.js"
+import { showHideStatusBar,markTabButtons } from "./elementChangers.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -77,6 +77,8 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
     }
     if (lstorage_cFilter) {
       document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
+    } else {
+      markTabButtons('true','timesheets')
     }
     if (lstorage_cProfileName) {
       appGlobalArgs.configprofilename.value = lstorage_cProfileName
@@ -117,6 +119,9 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
     }
     if(lstorage_tcFirstStart !== 'done' || lstorage_tcFirstStart === null) {
       firstStartDisplay()
+    }
+    if(lstorage_cDetectionItems === 'undefined' || lstorage_cDetectionItems === null || lstorage_cDetectionItems === '[]') {
+      markTabButtons('true','projects')
     }
     loadModuleStorage(moduleGlobalArgs)
   }

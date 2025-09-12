@@ -28,7 +28,7 @@
     - Technische Details
     - Beispiel Profil
 
-- Automatisch Url-Zuweisung checken
+- Automatisch Url-Zuweisung checken ✅
 - Oktober Module (Kürbis und blätter)
 - Code clean up:
     - Local Storages vereinheitlichen

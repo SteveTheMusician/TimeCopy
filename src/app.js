@@ -14,7 +14,7 @@ import { eventListenerHandler } from "./utils/functionHandlers.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
-import { showHideStatusBar } from "./utils/elementChangers.js";
+import { markTabButtons, showHideStatusBar } from "./utils/elementChangers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
 // ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
@@ -335,6 +335,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   function timesheetFilterChange(e) {
     let timesheetFilterValue = e.target.value.split(filter_timesheetFilterPreValue)[1]
     localStorage.setItem('tc_c_filter', timesheetFilterValue)
+    markTabButtons('false','timesheets')
     window.configUserChanges = true
   }
 
