@@ -36,6 +36,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Change the profile picture from the imported file if an image is already set.
   * Set empty profile name to default
   * Module-AmagProTime: show correct nomber of booked tickets, when retry-list was triggered
+  * Module-Automatic: select correct platform module on web-url
 
 * **Other Changes:**
   * Code cleanup
