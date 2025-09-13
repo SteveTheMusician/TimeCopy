@@ -12,26 +12,31 @@ export function notification(notificationShow, notificationStatus, notificationT
                                     </svg>
                                 </button>
                             </div>`
-    if(!document.getElementById('notification')) {
-        main.insertAdjacentHTML('beforeend', notificationHTML);
-    }                        
+
+    let notificationClassOk = 'notification--ok'
+    let notificationClassHidden = 'notification--hidden'
     let notification = document.getElementById('notification')
     let text_notification = document.getElementById('notification-text')
+
+    if(!document.getElementById('notification')) {
+        main.insertAdjacentHTML('beforeend', notificationHTML);
+    }    
+                        
     if (notificationShow === true) {
         text_notification.innerHTML = notificationText
         if (notificationStatus) {
-            notification.classList.add('notification--ok')
+            notification.classList.add(notificationClassOk)
             autoHideNotification_timerDefault(notification,notificationShow,notificationText)
         } else {
-            notification.classList.remove('notification--ok')
+            notification.classList.remove(notificationClassOk)
             autoHideNotification_timerError(notification,notificationShow,notificationText)
         }
         setTimeout(function () {
-            notification.classList.remove('notification--hidden')
+            notification.classList.remove(notificationClassHidden)
         }, 300)
     } else if (notificationShow === false || notificationShow === null) {
         setTimeout(function () {
-            notification.classList.add('notification--hidden')
+            notification.classList.add(notificationClassHidden)
         }, 300)
     }
     let button_notificationClose = document.getElementById('button_close-notification')
@@ -41,7 +46,7 @@ export function notification(notificationShow, notificationStatus, notificationT
 }
 
 function hideNotification(notification,notificationShow,notificationText){
-    notification.classList.add('notification--hidden')
+    notification.classList.add(notificationClassHidden)
     notificationShow = false
     notificationText = null
 }

@@ -8,7 +8,6 @@ export function firstStartDisplay() {
         document.querySelectorAll('.main-window').forEach(elem => {
             elem.style.opacity = '0'
         });
-        // document.getElementsByTagName('main')[0].style.opacity = "0"
         setTimeout(function(){
         },400)
 

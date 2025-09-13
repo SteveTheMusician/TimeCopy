@@ -21,6 +21,9 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 1.3.11
 
+* **Features** *
+  * New theme "Silver Suit"
+
 ## V 1.2.52 - *Silver Fox Update (Pre-Release)*
 
 * **Features** *
