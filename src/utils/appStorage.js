@@ -1,6 +1,6 @@
 
 import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../module/module.js"
-import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e } from "./defaults/defaultVariables.js"
+import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e, appFirstStartDoneValue } from "./defaults/defaultVariables.js"
 import { toast } from "../components/ui/toast/toast.js"
 import { message } from "../components/ui/message/message.js"
 import { loadModuleStorage, clearmoduleLocalStorages } from "./moduleStorage.js"
@@ -117,7 +117,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
       setScoreValues('0',appGlobalArgs)
       localStorage.setItem('tc_c_bookingScore','0')
     }
-    if(lstorage_tcFirstStart !== 'done' || lstorage_tcFirstStart === null) {
+    if(lstorage_tcFirstStart !== appFirstStartDoneValue || lstorage_tcFirstStart === null) {
       firstStartDisplay()
     }
     if(lstorage_cDetectionItems === 'undefined' || lstorage_cDetectionItems === null || lstorage_cDetectionItems === '[]') {
