@@ -4,11 +4,21 @@ import data_version from "../public/version.json" with { type: "json" };
 import { useLanguage } from "./utils/language.js";
 import { message } from "./components/ui/message/message.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
-import {xmasModule, 
-          platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./module/module.js";
-import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform, lstorage_cBookingScore} from "./utils/appStorage.js";
+import { 
+  xmasModule, platformsContent, platforms, 
+  filters, filtersContent, platform_bookingPlatformPreValue, 
+  filter_timesheetFilterPreValue
+} from "./module/module.js";
+import { 
+  appStorage, removeProfile,lstorage_cDetectionItems, 
+  lstorage_cFilter, lstorage_cBookingPlatform, 
+  lstorage_cBookingScore
+} from "./utils/appStorage.js";
 import { clearmoduleLocalStorages, reloadModuleCache,setModuleAmagProTimeTestStyle } from "./utils/moduleStorage.js";
-import { defaultProfileName,consoleWarnMessage_showMessageTurnedOff, module_details_classVisible,default_e} from "./utils/defaults/defaultVariables.js";
+import { 
+  defaultProfileName, consoleWarnMessage_showMessageTurnedOff, 
+  module_details_classVisible, default_e 
+} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 import { eventListenerHandler } from "./utils/functionHandlers.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";

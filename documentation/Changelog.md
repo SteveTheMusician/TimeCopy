@@ -9,28 +9,31 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## Last important changes summary
 
-* **Features:**
+* **Features**
   * New Detection-Items with labeling- and minimize-function
 
-* **Filter-Modules:**
+* **Filter-Modules**
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel Module
   * Add Scrollbar for Platform-Modules with function-content
 
-* **Fixes:**
+* **Fixes**
   * Module Amag ProTime: Fix observer polling (better observing of elements and values in ProTime)
 
-## V 1.3.11
+## V 1.3.13
 
-* **Features** *
+* **Features**
   * New theme "Silver Suit"
 
-* **Other Changes:**
+* **Fixes**
+  * Hide First-Start-Screen, when user resets app and import profile directly after it
+
+* **Other Changes**
   * Rename Notification to Toast
   * Fix Toast functions that arouses durning redevelopment
 
 ## V 1.2.52 - *Silver Fox Update (Pre-Release)*
 
-* **Features** *
+* **Features**
   * Detection-Items: 
     - can now be minimized
     - editable title for better orientation
@@ -38,7 +41,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Add new platform and filter modules
   * Show marker on tab-buttons, if something has to be maintained by the user
 
-* **Fixes:**
+* **Fixes**
   * Module Amag ProTime: Return error message on reloading / changing website while inject-script is running
   * Module Amag ProTime: Fix observer polling (better observing of elements and values in ProTime)
   * Stylings
@@ -48,7 +51,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Module-AmagProTime: show correct nomber of booked tickets, when retry-list was triggered
   * Module-Automatic: select correct platform module on web-url
 
-* **Other Changes:**
+* **Other Changes**
   * Code cleanup
   * Module-Items functionality & styling refactoring
   * Default "Modules" filter none and platform any added
@@ -57,11 +60,11 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 1.2.34 (Release)
 
-* **Fixes:**
+* **Fixes**
   * Show right messages on app crash in Statusbar
   * Move all statusbartexts to languaguage.json (For different languages in future)
 
-* **Other Changes:**
+* **Other Changes**
   * Better description in Filter-Modules
 
 ## V 1.2.33 (Release)
@@ -70,26 +73,26 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Add status bar feedback text and change styling
   * Add Scrollbar for Platform-Modules with function-content
 
-* **Fixes:**
+* **Fixes**
   * Show/Hide statusbar in startscreen
 
-* **Other Changes:**
+* **Other Changes**
   * Change Filter-Modules descriptions and add supported sources
   * Ability to export profile decoded (hidden option)
 
 ## V 1.2.27 (Release)
 
-* **Fixes:**
+* **Fixes**
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel Module
 
 ## V 1.2.26 (Release)
 
-* **Features:**
+* **Features**
   * Module Tobias Excel: (cryptpad fix) Ability to filter informations from cryptpad
 
 ## V 1.2.25
 
-* **Fixes:**
+* **Fixes**
   * Styling fixes
   * Fix theme import
 
@@ -100,7 +103,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 1.2.24 (Release) - *Liquid Silver Update*
 
-* **Features:**
+* **Features**
 
   * New theme: Liquid Silver
   * New technical theme: Oceans Ground
@@ -116,7 +119,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Module Amag ProTime: Toggle ticket number pasting as text
   * Module Amag ProTime: Show how many Tickets are booked successfully
 
-* **Fixes:**
+* **Fixes**
 
   * Styling issues on small screens
   * Default value for `showAllMessages`
@@ -131,7 +134,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Show warning, if no detection items are avaible after deleting all
   * Notification doubles removed
 
-* **Other Changes:**
+* **Other Changes**
 
   * Code cleanup and restructuring
   * Dynamic mapping of theme options
@@ -155,25 +158,25 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 1.0.21
 
-* **Fixes:**
+* **Fixes**
 
   * Export settings immediately after change
 
-* **Other:**
+* **Other**
 
   * Added mini session storage service
 
 ## V 1.0.20
 
-* **Features:**
+* **Features**
 
   * Limit messages to 20 items
 
-* **Fixes:**
+* **Fixes**
 
   * Styles for small screens
 
-* **Other:**
+* **Other**
 
   * Placeholder opacity adjustment
   * New profile version (backwards-compatible)
@@ -183,24 +186,24 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 1.0.01 (Release / v1.0.011 due to Chrome Store issue)
 
-* **Fixes:**
+* **Fixes**
 
   * Messages not displaying after cache reset
 
-* **Other:**
+* **Other**
 
   * Notification when ProTime test mode is active
 
 ## V 1.0.0 (Release) — *March Update*
 
-* **Features:**
+* **Features**
 
   * Toggle visibility of messages via settings
   * Module AmagProTime: Multi-string match in detection items
   * Compatibility with older profile versions
   * Return a message when offline
 
-* **Fixes:**
+* **Fixes**
 
   * Show error on corrupt profile import
   * Error alert when reimporting the same profile
@@ -209,7 +212,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Font fallbacks
   * General styling improvements
 
-* **Other:**
+* **Other**
 
   * New profile version
   * New themes: Japan’s White & Oceans Ground
@@ -223,11 +226,11 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 0.9.82 (Release)
 
-* **Fixes:**
+* **Fixes**
 
   * Invisible text in some themes
 
-* **Other:**
+* **Other**
 
   * Code cleanup
   * Renamed latency setting
@@ -236,24 +239,24 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 0.9.81 (Release)
 
-* **Fixes:**
+* **Fixes**
 
   * Nostalgica theme styling
   * Notification overlapping Christmas Module
 
-* **Other:**
+* **Other**
 
   * Removed unused permissions and storage keys
 
 ## V 0.9.80
 
-* **Features:**
+* **Features**
 
   * Module Amag ProTime: Refactored, with latency mode and retry on errors
   * Input and text titles shown on hover (German)
   * New theme: Nostalgica
 
-* **Other:**
+* **Other**
 
   * Pointer cursor for select fields
   * Theme refinements
@@ -261,41 +264,41 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 0.9.72
 
-* **Features:**
+* **Features**
 
   * Cancel button
 
-* **Fixes:**
+* **Fixes**
 
   * Error logging when Chrome window is empty (Automatic & ProTime Modules)
 
-* **Other:**
+* **Other**
 
   * New theme tweaks: Mr. White & Midnight Glow
 
 ## V 0.9.71
 
-* **Features:**
+* **Features**
 
   * Responsive layout for detection items
 
 ## V 0.9.70
 
-* **Features:**
+* **Features**
 
   * Responsive design for wide screens
   * Clear Module cache button
   * Loading spinner during paste
   * Lock action buttons while pasting
 
-* **Fixes:**
+* **Fixes**
 
   * Detection item styling
   * Chrome tab execution error handling
   * Module AmagProTime: Reopen page/paste overlays
   * Module AmagProTime: Post-error overlay handling
 
-* **Other:**
+* **Other**
 
   * Placeholder for empty message descriptions
   * Improved error handling
@@ -305,23 +308,23 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 0.9.63 (Release)
 
-* **Other:**
+* **Other**
 
   * Added detection activity filter
 
 ## V 0.9.62
 
-* **Features:**
+* **Features**
 
   * New theme
   * "Clear all" message animation
 
-* **Fixes:**
+* **Fixes**
 
   * Module SteveGoogleExcel (v1.2) bugs
   * Styling tweaks
 
-* **Other:**
+* **Other**
 
   * Initial documentation
   * Code and data cleanup
@@ -330,56 +333,56 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 0.9.60
 
-* **Fixes:**
+* **Fixes**
 
   * Module SteveGoogleExcel data filter
 
-* **Other:**
+* **Other**
 
   * Module ProTime: Timer improvements
   * Better Tobias theme
 
 ## V 0.9.50
 
-* **Features:**
+* **Features**
 
   * Feedback messages
 
-* **Other:**
+* **Other**
 
   * Refactored code
   * Improved message wording
 
 ## V 0.9.21
 
-* **Fixes:**
+* **Fixes**
 
   * Automatic Module detection
   * Project detection errors
   * Module ProTime ticket validation
   * General styling
 
-* **Other:**
+* **Other**
 
   * HTML structure refactored
   * Added logging
 
 ## V 0.9.20
 
-* **Features:**
+* **Features**
 
   * Redesigned configuration UI
   * Module information dropdown
   * New and redesigned themes
   * ProTime test function in Module
 
-* **Fixes:**
+* **Fixes**
 
   * Hidden tag detection
   * Fallback when theme is null
   * German labels for Module and themes
 
-* **Other:**
+* **Other**
 
   * Dynamic Module imports
   * Renamed elements and storage keys
@@ -387,11 +390,11 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 0.9.10
 
-* **Fixes:**
+* **Fixes**
 
   * Fixed ES module import error
 
-* **Other:**
+* **Other**
 
   * Webpack integration
   * Functions now load on DOM ready
@@ -400,19 +403,19 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 0.9.00
 
-* **Features:**
+* **Features**
 
   * New theme: Chrome Black
   * Module SteveGoogleExcel filter
   * Hidden tag support
   * Theme dropdown grouping
 
-* **Fixes:**
+* **Fixes**
 
   * Error catching for empty ticket descriptions
   * Improved icons in settings
 
-* **Other:**
+* **Other**
 
   * Timesheet filter refactored
   * Component reorganization
@@ -420,21 +423,21 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 0.8.92
 
-* **Features:**
+* **Features**
 
   * Instant plugin reload on config changes + notifications
   * Plugin reload before export
   * Timesheet filter icons
   * Notification timeout
 
-* **Fixes:**
+* **Fixes**
 
   * Error catching: missing booking number
   * Default booking platform for empty profiles
   * ProTime overlay on double-click
   * Filter icon + text styling for small screens
 
-* **Other:**
+* **Other**
 
   * Replaced `if` logic with `try/catch`
   * Optimized RegEx variables for timesheet
@@ -442,14 +445,14 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 0.8.80
 
-* **Fixes:**
+* **Fixes**
 
   * Text label styling on small resolutions
 
-* **Features:**
+* **Features**
 
   * Detect and label new "Master Booking Number" as ticket number (marked with "°")
 
-* **Other:**
+* **Other**
 
   * Cleaned up booking platform ProTime code and logic
