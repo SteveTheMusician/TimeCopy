@@ -289,7 +289,7 @@ select {
   width: calc(100% - 45px);
 }
 
-.notification--ok {
+.toast--ok {
   background-color: var(--dark-gray-30);
 }
 
@@ -364,7 +364,7 @@ select {
   border-right: 10px solid transparent;
 }
 
-.notification--ok {
+.toast--ok {
   background-color: var(--color-second);
 }
 

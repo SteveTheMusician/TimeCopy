@@ -7,8 +7,6 @@
   --lightgray: #D3D6DB;
   --gray-95:#959595;
   --white: #b7b7b7;
-  --red-be: #BE3144;
-  --red-d8: #d8596a;
   --red-48: #483939;
   /* Theme colors */
   --color-main: #243039;
@@ -17,7 +15,7 @@
   --color-highlight:#97effb;
   --color-active: #9ccfd4;
   --color-disabled: var(--red-48);
-  --color-close: #bc2564;
+  --color-close: #ff5fa2;
   --color-warning: #c3bb22;
   /* Font colors */
   --color-font: var(--lightgray);

@@ -896,7 +896,7 @@ input:checked+.switch_slider:before {
     border-radius: 50%;
 }
 
-.notification {
+.toast {
     width: -webkit-fill-available;
     padding: 10px;
     margin: 20px;
@@ -911,30 +911,30 @@ input:checked+.switch_slider:before {
     z-index: 100;
 }
 
-.text-notification {
+.text-toast {
     color: var(--color-close);
     filter: brightness(0.5);
     padding: 0px 10px;
 }
 
-.notification .button-primary svg {
+.toast .button-primary svg {
     fill: var(--color-close);
     filter: brightness(0.5);
     width: 12px;
     height: 12px;
 }
 
-.notification--ok {
+.toast--ok {
     background-color: var(--color-highlight);
 }
 
-.notification--ok .text-notification,
-.notification--ok .button-primary svg {
+.toast--ok .text-toast,
+.toast--ok .button-primary svg {
     color: var(--color-highlight);
     fill: var(--color-highlight);
 }
 
-.notification--hidden {
+.toast--hidden {
     bottom: -60px;
     opacity: 0;
     pointer-events: none;
@@ -1047,7 +1047,7 @@ input:checked+.switch_slider:before {
     justify-content: space-around;
     align-items: center;
     bottom: 0;
-    z-index: 100;
+    z-index: 98;
 }
 
 .statusBar--hidden {

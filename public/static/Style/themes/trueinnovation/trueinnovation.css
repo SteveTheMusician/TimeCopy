@@ -37,8 +37,8 @@
   --color-module-snowflake: var(--blue-dark-ti);
 }
 
-.notification--ok .text-notification, 
-.notification--ok .button-primary svg {
+.toast--ok .text-toast, 
+.toast--ok .button-primary svg {
   fill: var(--color-main);
   color: var(--color-main);
 }

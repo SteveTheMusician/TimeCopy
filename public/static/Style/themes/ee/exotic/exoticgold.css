@@ -225,7 +225,7 @@ select {
   width: calc(100% - 45px);
 }
 
-.notification--ok {
+.toast--ok {
   background-color: var(--dark-gray-30);
 }
 

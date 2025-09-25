@@ -1,7 +1,7 @@
 
 import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../module/module.js"
 import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e } from "./defaults/defaultVariables.js"
-import { notification } from "../components/ui/notification/notification.js"
+import { toast } from "../components/ui/toast/toast.js"
 import { message } from "../components/ui/message/message.js"
 import { loadModuleStorage, clearmoduleLocalStorages } from "./moduleStorage.js"
 import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
@@ -133,14 +133,14 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
     let sModuleCacheReloaded = sessionStorage.getItem('tc_c_messageModuleCacheReloaded')
     let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
     if (sMessageImported === 'true') {
-      notification(true, true, window.language.notification_profileImported)
+      toast(true, true, window.language.notification_profileImported)
       sessionReloadHandler('tc_c_messageImported')
     }
     if (sMessageImported === 'false') {
-      notification(true, false, window.language.notification_profileNotFullyImported)
+      toast(true, false, window.language.notification_profileNotFullyImported)
     }
     if (sMessageProfileRemoved === 'true') {
-      notification(true, true, window.language.notification_profileReset)
+      toast(true, true, window.language.notification_profileReset)
       sessionReloadHandler('tc_c_messageProfileRemoved')
     }
     if (sExportProfile_afterChange === 'true') {
@@ -151,7 +151,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
       sessionReloadHandler('tc_c_changeLanguage')
     }
     if (sModuleCacheReloaded === 'true') {
-      notification(true, true, window.language.notification_moduleCacheReset)
+      toast(true, true, window.language.notification_moduleCacheReset)
       sessionReloadHandler('tc_c_messageModuleCacheReloaded')
     }
   }

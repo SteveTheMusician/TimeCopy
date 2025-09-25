@@ -68,7 +68,7 @@ function loadDetectionItems() {
     select_bookingPlatform.addEventListener('change', () => { setDetectionBookingPlatform(detectionItemId, select_bookingPlatform.value) });
     debugStick(select_bookingPlatform.value,'Detection Item '+detectionItemId+' set to')
     // init listeners for elems
-    eventListenerHandler(input_thisDetectionName,'change',changeProjectDetectionItemName,{detectionItemId,input_thisDetectionName})
+    eventListenerHandler(input_thisDetectionName,'change',changeDetectionItemData,{detectionItemId,input_thisDetectionName})
     eventListenerHandler(button_thisDetectionDelete,'click',removeProjectDetectionItem,{detectionItemId,button_thisDetectionDelete})
     if(!!button_thisDetectionMinimize) {
       eventListenerHandler(button_thisDetectionMinimize,'click',minimizeProjectDetectionItem,{detectionItemId,button_thisDetectionMinimize})

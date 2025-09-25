@@ -24,6 +24,10 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 * **Features** *
   * New theme "Silver Suit"
 
+* **Other Changes:**
+  * Rename Notification to Toast
+  * Fix Toast functions that arouses durning redevelopment
+
 ## V 1.2.52 - *Silver Fox Update (Pre-Release)*
 
 * **Features** *
