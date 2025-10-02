@@ -2,7 +2,7 @@
     export const configWelcomeText = ` <p>
                     Schön dich hier zu sehen.
                     </br>
-                    In den Folgenden Schritten wirst du die Basics von Time Copy einrichten.
+                    In den folgenden Schritten wirst du die Basics von Time Copy einrichten.
                     </br>
                     </br>
                     Gib hier einen Namen/Pseudonym für dein Profil an und lade ein Profilbild hoch.
@@ -37,7 +37,7 @@
                     Wenn du verschiedene Seiten benutzt oder nicht sicher bist, lass einfach "Automatisch" eingeschaltet.
                     </br>
                     </br>
-                    Die Platform-DLCs verarbeiten alle Daten und fügen sie auf die jeweilige Seite ein.
+                    Die Platform-Module verarbeiten alle Informationen und fügen sie auf die jeweilige Seite ein.
                     </br>
                     Wenn du eine Platform ausgewählt hast, kann Time Copy nur mit dieser Seite operieren und für eine andere musst du
                     </br>
@@ -46,13 +46,13 @@
                     Automatich wählt hingegen eine Platform automatisch nach der Web-Url aus.
                     </br>
                     </br>
-                    Informationen und zusätzliche Funktionen findest du unter dem Pfeil rechts eines platform-DLCs.
+                    Informationen und zusätzliche Funktionen findest du unter dem Pfeil rechts eines Platform-Modules.
                     </p>`
     export const configEndTitel = 'Wichtig!'
     export const configEndText = ` <p>
                     Damit du loslegen kannst, gehe nach der Einrichtung bitte in die Einstellungen und
                     </br>
-                   erstelle "Erkennungen" unter Erkennung (Augen-Icon).
+                   erstelle "Erkennungen" unter Erkennung (Auge-Icon).
                     </br>
                     </br>
                     Erkennungs-Parameter sortieren deine Informationen und leiten es

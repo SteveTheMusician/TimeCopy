@@ -237,6 +237,10 @@ header {
     height: 240px;
 }
 
+.detectionItem-module--Any {
+    height: 190px;
+}
+
 .detectionItem-module--hidden {
     height: 0px;
 }
@@ -285,7 +289,7 @@ select {
   width: calc(100% - 45px);
 }
 
-.notification--ok {
+.toast--ok {
   background-color: var(--dark-gray-30);
 }
 
@@ -360,7 +364,7 @@ select {
   border-right: 10px solid transparent;
 }
 
-.notification--ok {
+.toast--ok {
   background-color: var(--color-second);
 }
 

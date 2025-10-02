@@ -14,10 +14,11 @@ export function generateThemes() {
       "Gefühle": {
         "battlefield": "Battlefield",
         "blueflame": "Blue Flame",
+        "japansflare": "Japans Flare",
         "mint": "Mint",
         "mrwhite": "Mr. White",
         "neonretrored": "Neon Retro Red",
-        "japansflare": "Japans Flare"
+        "silversuit": "Silver Suit"
       },
       "Charactäre": {
         "danielsnfsoutfit": "Daniels NFS Outfit",
@@ -55,13 +56,6 @@ export function generateThemes() {
     if(lstorage_eeTheme === 'true'){
       allThemes = [...allThemes, ...themeEEArray];
     }
-    // special themes to unlock -> currently not used
-    // if(localStorage.getItem('tc_creator') === 'true'){
-      // allThemes = [...allThemes, ...themeECreatorArray];
-    // }
-    // if(localStorage.getItem('tc_c_bookingScore') > "1000"){
-      // allThemes = [...allThemes, ...themeETimeGoldArray];
-    // }
       
     const optionsHTML = allThemes.map(themeGroup =>
         Object.entries(themeGroup).map(([category, themes]) =>

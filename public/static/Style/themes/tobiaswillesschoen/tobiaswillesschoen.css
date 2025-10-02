@@ -181,7 +181,7 @@ select {
   width: calc(100% - 45px);
 }
 
-.notification--ok {
+.toast--ok {
   backdrop-filter: var(--blur-default);
   background-color: var(--white-transparent);
 }

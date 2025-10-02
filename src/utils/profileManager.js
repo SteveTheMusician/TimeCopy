@@ -10,12 +10,13 @@ import {
   lstorage_cBookingScore,
   lstorage_eeTheme
 } from "./appStorage.js";
-import { notification } from "../components/ui/notification/notification.js";
+import { toast } from "../components/ui/toast/toast.js";
 import {
   defaultTheme,
   defaultLanguage,
   defaultShowAllMessages,
-  defaultProfileAuthor
+  defaultProfileAuthor,
+  appFirstStartDoneValue
 } from "./defaults/defaultVariables.js";
 import { moduleProfileExport, moduleProfileImport } from "./moduleProfileManagerUtil.js";
 
@@ -94,6 +95,10 @@ export function profileManager(appGlobalArgs, appVersionData, moduleGlobalArgs) 
       localStorage.setItem('tc_c_bookingPlatform', cfg.platform);
       localStorage.setItem('tc_c_profilePicture', profilePicture);
       lstorage_cProfilePicture = localStorage.getItem('tc_c_profilePicture');
+
+      if(!localStorage.getItem('tc_firstStart') || localStorage.getItem('tc_firstStart') !== appFirstStartDoneValue) {
+        localStorage.setItem('tc_firstStart', appFirstStartDoneValue)
+      }
       
       appStorage(appGlobalArgs, appVersionData, moduleGlobalArgs);
 
@@ -108,7 +113,7 @@ export function profileManager(appGlobalArgs, appVersionData, moduleGlobalArgs) 
       importErrorMessage = e.message;
     } finally {
       if (importErrorMessage) {
-        notification(true, false, importErrorMessage);
+        toast(true, false, importErrorMessage);
       }
     }
   }
@@ -215,7 +220,7 @@ function importProfilePicture(appGlobalArgs) {
   const imageFile = appGlobalArgs.elem_button_importProfilePicture.files[0];
 
   if (!imageFile || !imageFile.type.startsWith('image/')) {
-    notification(true, false, "Datei Import fehlgeschlagen. Nur Bilddateien erlaubt.");
+    toast(true, false, "Datei Import fehlgeschlagen. Nur Bilddateien erlaubt.");
     return;
   }
 
@@ -227,7 +232,7 @@ function importProfilePicture(appGlobalArgs) {
 
     img.onload = function () {
       if (img.width > 1500 || img.height > 1500) {
-        notification(true, false, "Das Bild darf maximal 1200x1200 Pixel groß sein.");
+        toast(true, false, "Das Bild darf maximal 1200x1200 Pixel groß sein.");
         return;
       }
       setUnsetProfilePicture(true, base64, appGlobalArgs);

@@ -23,3 +23,22 @@ export async function reimportModuleStorageData(moduleCategoryName){
     }
 }
 
+export function changeModuleEEWidgetHeightHandler() {
+  let eEWidgetElem = document.getElementsByClassName('module-timeEEWidget')[0]
+  if(localStorage.getItem('tc_c_showStatusBar') === 'true' && !window.configOpen){
+    eEWidgetElem.classList.add('module-timeEEWidget--statusBarActive')
+  } else {
+    eEWidgetElem.classList.remove('module-timeEEWidget--statusBarActive')
+  }
+}
+
+export function showHideEEWidget(Event,elemId,lStorageName) {
+  if (Event.target.checked === true) {
+    document.getElementById(elemId).classList.remove('dNone')
+    localStorage.setItem(lStorageName, 'true')
+  } else {
+    document.getElementById(elemId).classList.add('dNone')
+    localStorage.setItem(lStorageName, 'false')
+  }
+}
+

@@ -12,6 +12,7 @@
 - Yosha Update: im Ticketname akzeptiert Leere Ticketnummer bzw Tickets ohne Nummer / Tobias Excel FIlter anpassen 
 (GGF eigenes Module Nötig)
 - app storages zu einem profile-object zusammenfassen, dass gleichzeitig 1zu1 exportiert werden kann
+- feature: fehlermeldung bei erstellen identischer detection items (oder text: ist identisch mit ...)
 
 
 ## Maintance updates
@@ -36,15 +37,18 @@
     (Alles noch mal genau checken)
 - Silver Fox Theme
 - texte überarbeiten
-- feature: wenn z.b. detections erstellt werden müssen, werden die buttons/der weg zu den einstellungen rot umrandet
-- feature: Wenn fehlermeldung bei erstellen identischer detection items (oder text: ist identisch mit ...)
 - "Inventierte" Farbthemen (Strawberry Icecream ect)
-
+- xmas module tree auf höhe der statusleiste stellen, wenn statusleiste da
+- icon für toast
 
 --- done ---
 
+- ✅ message auf toast umbenennen
+- ✅ fix app reset error ggf schließe app (message)
+- ✅ fix: changeDetectionProjectName is not defined - wenn nur keine items vorhanden und ein neues erstellt wird
+- ✅ feature: wenn z.b. detections erstellt werden müssen, werden die buttons/der weg zu den einstellungen rot umrandet
 - ✅ profil bild wird nicht importiert/export -> checken 
-
+- ✅ Automatisch Url-Zuweisung checken
 - ✅ Module configs in profil speichern
 - ✅ Status bar timing verbessern,
 - ✅ Notification timing verbessern (manchmal bleiben errors mit hidden hängen wenn 3 oder mehr nachrichten gleichzeitig erscheinen)

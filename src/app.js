@@ -4,17 +4,28 @@ import data_version from "../public/version.json" with { type: "json" };
 import { useLanguage } from "./utils/language.js";
 import { message } from "./components/ui/message/message.js";
 import { projectDetection } from "./components/content/configuration/projectDetection/projectDetection.js";
-import {xmasModule, 
-          platformsContent, platforms, filters, filtersContent, platform_bookingPlatformPreValue, filter_timesheetFilterPreValue} from "./module/module.js";
-import { appStorage, removeProfile,lstorage_cDetectionItems, lstorage_cFilter, lstorage_cBookingPlatform, lstorage_cBookingScore} from "./utils/appStorage.js";
+import { 
+  xmasModule, hlweenModule, platformsContent, platforms, 
+  filters, filtersContent, platform_bookingPlatformPreValue, 
+  filter_timesheetFilterPreValue
+} from "./module/module.js";
+import { 
+  appStorage, removeProfile,lstorage_cDetectionItems, 
+  lstorage_cFilter, lstorage_cBookingPlatform, 
+  lstorage_cBookingScore
+} from "./utils/appStorage.js";
 import { clearmoduleLocalStorages, reloadModuleCache,setModuleAmagProTimeTestStyle } from "./utils/moduleStorage.js";
-import { defaultProfileName,consoleWarnMessage_showMessageTurnedOff, module_details_classVisible,default_e} from "./utils/defaults/defaultVariables.js";
+import { 
+  defaultProfileName, consoleWarnMessage_showMessageTurnedOff, 
+  module_details_classVisible, default_e 
+} from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
-import { eventListenerHandler } from "./utils/functionHandlers.js";
+import { eventListenerHandler, reloadAppAfterChangeHandler } from "./utils/functionHandlers.js";
+import { changeModuleEEWidgetHeightHandler } from "./utils/moduleGlobalUtils.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
-import { showHideStatusBar } from "./utils/elementChangers.js";
+import { markTabButtons, showHideStatusBar } from "./utils/elementChangers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
 
 // savety function to prevent unwanted webpage content manipulation (triggered by window.onload)
@@ -134,7 +145,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const moduleProTime_config_check_useAutoSelectDay = document.getElementById('check_useAutoSelectDayProTime')
   moduleProTime_config_check_useAutoSelectDay.addEventListener('change', moduleProTimeUseAutoSelectDay)
   let bookingScore = 0
-  let configOpen = false
+  window.configOpen = false
   try{
     window.language = await useLanguage()
   }catch(error){
@@ -163,23 +174,18 @@ document.addEventListener('DOMContentLoaded', async function () {
   const supportedProfileTypes = data_version.supported_profile_types
   const updateTextOverview = data_version.extension_update_text_overview
   const updateTextDetails = data_version.extension_update_text_details
-
-  function reloadChangeHandler(){
-    if (window.configUserChanges === true) {
-        window.location.reload()
-    }
-  }
   // main action buttons functions
   function openConfigs() {
-    if (configOpen) {
+    if (window.configOpen) {
       configButton.classList.remove('button--active')
       fillButton.classList.remove('object--hidden')
       configurations.classList.add('dNone')
       overview.classList.remove('dNone')
       header.classList.add('dNone')
       statusBar.classList.remove('dNone')
-      configOpen = false
-      reloadChangeHandler()
+      reloadAppAfterChangeHandler()
+      window.configOpen  = false
+      changeModuleEEWidgetHeightHandler()
     } else {
       configButton.classList.add('button--active')
       fillButton.classList.add('object--hidden')
@@ -187,11 +193,12 @@ document.addEventListener('DOMContentLoaded', async function () {
       overview.classList.add('dNone')
       header.classList.remove('dNone')
       statusBar.classList.add('dNone')
-      configOpen = true
+      window.configOpen  = true
       let lstorage_cLastConfigTab = localStorage.getItem('tc_c_lastConfigTab')
       if(lstorage_cLastConfigTab !== '' && lstorage_cLastConfigTab !== null) {
         document.getElementById('button-tab-'+lstorage_cLastConfigTab).click()
       }
+      changeModuleEEWidgetHeightHandler()
     }
   }
   // cancel
@@ -262,7 +269,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         } else {
           console.warn(consoleWarnMessage_showMessageTurnedOff)
         }
-        // setStatusBarText('','reset')
         // score counter
         if(!bookEntries.testMode) {
           if(lstorage_cBookingScore > "0") {
@@ -333,6 +339,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   function timesheetFilterChange(e) {
     let timesheetFilterValue = e.target.value.split(filter_timesheetFilterPreValue)[1]
     localStorage.setItem('tc_c_filter', timesheetFilterValue)
+    markTabButtons('false','timesheets')
     window.configUserChanges = true
   }
 
@@ -558,6 +565,9 @@ document.addEventListener('DOMContentLoaded', async function () {
       profileManager(...window.appGlobalArgs,...appVersionData,...window.moduleGlobalArgs)
       appStorage(...window.appGlobalArgs,...appVersionData,...window.moduleGlobalArgs)
       xmasModule()
+      hlweenModule()
+      // ‼️ remove developer on prod
+      developer()
       // reset restart count
       setTimeout(function(){
         if(sessionStorage.getItem('tc_s_restartCount') < "4"){
