@@ -1,4 +1,5 @@
 export function showHideStatusBar(showHideState,appGlobalArgs) {
+  let eEWidgetElem = document.getElementsByClassName('module-timeEEWidget')[0]
   if(showHideState) {
     appGlobalArgs.elem_statusBar.classList.remove('statusBar--hidden')
   }else {

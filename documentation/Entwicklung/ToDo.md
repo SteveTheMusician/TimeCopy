@@ -38,7 +38,8 @@
 - Silver Fox Theme
 - texte überarbeiten
 - "Inventierte" Farbthemen (Strawberry Icecream ect)
-
+- xmas module tree auf höhe der statusleiste stellen, wenn statusleiste da
+- icon für toast
 
 --- done ---
 
