@@ -566,8 +566,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       appStorage(...window.appGlobalArgs,...appVersionData,...window.moduleGlobalArgs)
       xmasModule()
       hlweenModule()
-      // ‼️ remove developer on prod
-      developer()
       // reset restart count
       setTimeout(function(){
         if(sessionStorage.getItem('tc_s_restartCount') < "4"){
