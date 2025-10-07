@@ -1,5 +1,5 @@
-import { importPlatformsData } from "../module/platforms/platforms.import"
-import { importFiltersData } from "../module/filters/filters.import"
+import { importPlatformsData } from "../module/platforms/platforms.import.js"
+import { importFiltersData } from "../module/filters/filters.import.js"
 
 export async function reimportModuleStorageData(moduleCategoryName){
     let importNewData = ''
@@ -24,12 +24,14 @@ export async function reimportModuleStorageData(moduleCategoryName){
 }
 
 export function changeModuleEEWidgetHeightHandler() {
-  let eEWidgetElem = document.getElementsByClassName('module-timeEEWidget')[0]
-  if(localStorage.getItem('tc_c_showStatusBar') === 'true' && !window.configOpen){
-    eEWidgetElem.classList.add('module-timeEEWidget--statusBarActive')
-  } else {
-    eEWidgetElem.classList.remove('module-timeEEWidget--statusBarActive')
-  }
+  setTimeout(function() {
+    let eEWidgetElem = document.getElementsByClassName('module-timeEEWidget')[0]
+    if(localStorage.getItem('tc_c_showStatusBar') === 'true' && !window.configOpen){
+      eEWidgetElem.classList.add('module-timeEEWidget--statusBarActive')
+    } else {
+      eEWidgetElem.classList.remove('module-timeEEWidget--statusBarActive')
+    }
+  },50)
 }
 
 export function showHideEEWidget(Event,elemId,lStorageName) {

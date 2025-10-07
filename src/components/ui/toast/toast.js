@@ -1,9 +1,13 @@
 
-export function toast(toastShow, toastStatus, toastText) {
+import { notificationErrorIconHtml,notificationInformationIconHtml } from "../notificationIcon/notificationIcon.js"
+export function toast(toastStatus, toastText) {
 
     let main = document.getElementsByTagName('main')[0]
-    let toastHTML = `<div class="toast flex toast--hidden" id="toast">
-                        <p class="text-label text-toast" id="toast-text"></p>
+    let toastHTML = `<div class="toast flex toast--hidden `+(toastStatus ? 'toast--ok' : '')+`" id="toast">
+                        <div class="icon-container">
+                            `+(toastStatus ? notificationInformationIconHtml : notificationErrorIconHtml)+`
+                        </div>
+                        <p class="text-label text-toast" id="toast-text">${toastText}</p>
                         <button class="button-primary" id="button_close-toast" title="PopUp schließen.">
                             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
                             <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -14,7 +18,6 @@ export function toast(toastShow, toastStatus, toastText) {
                             </svg>
                         </button>
                     </div>`
-    let toastClassOk = 'toast--ok'
     let toastClassHidden = 'toast--hidden'
 
     if(!document.getElementById('toast')) {
@@ -22,47 +25,28 @@ export function toast(toastShow, toastStatus, toastText) {
     }
 
     let toast = document.getElementById('toast')
-    let text_toast = document.getElementById('toast-text')
-                        
-    if (toastShow === true) {
-        text_toast.innerHTML = toastText
-        if (toastStatus) {
-            toast.classList.add(toastClassOk)
-            autoHideToast_timerDefault(toast,toastShow,toastText)
-        } else {
-            toast.classList.remove(toastClassOk)
-            autoHideToast_timerError(toast,toastShow,toastText)
-        }
-        setTimeout(function () {
-            toast.classList.remove(toastClassHidden)
-        }, 300)
-    } else if (toastShow === false || toastShow === null) {
-        setTimeout(function () {
-            toast.classList.add(toastClassHidden)
-        }, 300)
-    }
-    
+    // show toast
+    setTimeout(function () {
+        toast.classList.remove(toastClassHidden)
+    }, 300)
+    // auto hide toast after 4000ms
+    autoHideToast()
+    // close toast via button function
     let button_toastClose = document.getElementById('button_close-toast')
     button_toastClose.addEventListener('click', function () {
-        hideToast(toast,toastShow,toastText)
+        hideToast(true)
     })
-
-    function hideToast(toast,toastShow,toastText){
+    // hide function
+    function hideToast(){
         toast.classList.add(toastClassHidden)
-        toastShow = false
-        toastText = null
-    }
-
-    function autoHideToast_timerDefault(toast,toastShow,toastText) {
         setTimeout(function(){
-            hideToast(toast,toastShow,toastText)
-        },3000)
+            toast.remove()
+        },300)
     }
-
-    function autoHideToast_timerError(toast,toastShow,toastText) {
+    function autoHideToast() {
         setTimeout(function(){
-            hideToast(toast,toastShow,toastText)
-        },4500)
+            hideToast()
+        }, 4000)
     }
 }
 

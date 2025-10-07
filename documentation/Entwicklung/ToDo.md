@@ -29,7 +29,6 @@
     - Technische Details
     - Beispiel Profil
 
-- Oktober Module (Kürbis und blätter)
 - Code clean up:
     - Local Storages vereinheitlichen
     - Funktionen / Listener zusammen fassen
@@ -38,11 +37,12 @@
 - Silver Fox Theme
 - texte überarbeiten
 - "Inventierte" Farbthemen (Strawberry Icecream ect)
-- xmas module tree auf höhe der statusleiste stellen, wenn statusleiste da
 - icon für toast
 
 --- done ---
 
+- ✅ Oktober Module
+- ✅ xmas module tree auf höhe der statusleiste stellen, wenn statusleiste da
 - ✅ message auf toast umbenennen
 - ✅ fix app reset error ggf schließe app (message)
 - ✅ fix: changeDetectionProjectName is not defined - wenn nur keine items vorhanden und ein neues erstellt wird

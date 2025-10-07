@@ -19,10 +19,11 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 * **Fixes**
   * Module Amag ProTime: Fix observer polling (better observing of elements and values in ProTime)
 
-## V 1.3.13
+## V 1.3.14
 
 * **Features**
   * New theme "Silver Suit"
+  * Add icon for toast
 
 * **Fixes**
   * Hide First-Start-Screen, when user resets app and import profile directly after it

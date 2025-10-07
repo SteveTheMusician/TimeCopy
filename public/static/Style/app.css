@@ -696,7 +696,7 @@ input[type=text]:-webkit-autofill:active{
     margin-right: 10px;
 }
 
-.configItem-icon-container svg {
+.icon-container svg {
     width: 20px;
     height: 20px;
     fill: var(--color-icon-default);
@@ -924,12 +924,17 @@ input:checked+.switch_slider:before {
     height: 12px;
 }
 
+.toast svg {
+    fill: var(--color-close);
+    filter: brightness(0.5);
+}
+
 .toast--ok {
     background-color: var(--color-highlight);
 }
 
 .toast--ok .text-toast,
-.toast--ok .button-primary svg {
+.toast--ok .button-primary svg, .toast--ok svg {
     color: var(--color-highlight);
     fill: var(--color-highlight);
 }
