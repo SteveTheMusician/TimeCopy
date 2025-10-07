@@ -7,7 +7,7 @@ export const detectionHTML = (detectionObj) => {
     </div>
     <div class="configItem-content-row dFlex">
       <div class="detectionItem-content-smaller">
-        <input type="text" class="input-size--large ${detectionObj.bookingsheet ? '' : 'dNone'}" name="input_ticketPrefix" id="input_ticketPrefix${detectionObj.id}" placeholder="RELAUNCHAM" value="${ detectionObj.ticketprefix }" title="Gebe hier einen Teil der Ticketnummer, Prefixes oder Namen ein, der immer konstant bleibt."/>
+        <input type="text" class="input-size--large ${detectionObj.bookingsheet ? '' : 'dNone'}" name="input_ticketPrefix" id="input_ticketPrefix${detectionObj.id}" placeholder="RELAUNCHAM" value="${ detectionObj.ticketprefix }" title="Teil der Ticketnummer, Prefixes oder des Namens, der immer konstant bleibt. (Bsp.: RELAUNCHAM)"/>
       </div>
       <div class="detectionItem-content-larger">
         <input type="text" class="input-size--large" 
