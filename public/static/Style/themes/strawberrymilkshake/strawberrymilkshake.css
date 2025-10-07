@@ -1,0 +1,25 @@
+:root {
+  /* Strawberry Milkshake Theme - basicly Oceanwave inverted :D */
+  /* Color Palette */
+  --color-brownish: #a0847c;
+  /* Colors */
+  --color-main: #fae5de;
+  --color-second: #f7dbd1;
+  --color-third: #f3d0c4;
+  --color-darker: #010e12;
+  --color-highlight: #8f2f3a;
+  --color-active: #950026;
+  --color-edit: var(--lightyellow);
+  --color-disabled: var(--color-third);
+  --color-close: #007eaf;
+  --color-warning: #2500e0;
+  --color-font: #111111;
+  --color-font-navigation: var(--color-font-second);
+  --color-font-headline: #895f63;
+  --color-font-second: #555555;
+  --color-font-headlabel: #ce9e95;
+  --color-font-subtext: #856f71;
+  --color-icon-default: var(--color-brownish);
+  --color-icon-light: var(--color-brownish);
+}
+  

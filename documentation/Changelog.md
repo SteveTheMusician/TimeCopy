@@ -11,6 +11,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 * **Features**
   * New Detection-Items with labeling- and minimize-function
+  * Strawberry Milkshake theme added
 
 * **Filter-Modules**
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel Module

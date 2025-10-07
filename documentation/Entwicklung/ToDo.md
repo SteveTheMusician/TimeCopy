@@ -17,18 +17,11 @@
 
 ## Maintance updates
 - security: 
-    - Pattern für Eingabe Felder (Sonderzeichen nicht erlauben ausser z.B. * in Filter)
-- ee themes: notifications anpassen (style)
+    - pattern für alle inputs??
 - Node version checken ggf updaten
 
+## silverfox 2
 - Wenn Ticket bereits gebucht soll dieser übersprungen werden (Kann schwer bzw unmöglich sein, da diese Infos in protime nicht genau bekommen werden können - ticketnummer nich da, beschreibung nur teilweise)
-
----------- Silver Fox Update -----------
-- Dokumentation
-    - Alle Details Pflegen
-    - Technische Details
-    - Beispiel Profil
-
 - Code clean up:
     - Local Storages vereinheitlichen
     - Funktionen / Listener zusammen fassen
@@ -40,6 +33,8 @@
 
 --- done ---
 
+- ✅ ee themes: notifications anpassen (style)
+- ✅ Pattern für Eingabe Felder (Sonderzeichen nicht erlauben ausser z.B. * in Filter) / name Input
 - ✅ icon für toast
 - ✅ Oktober Module
 - ✅ xmas module tree auf höhe der statusleiste stellen, wenn statusleiste da
