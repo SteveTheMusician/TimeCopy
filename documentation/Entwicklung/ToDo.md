@@ -37,10 +37,10 @@
 - Silver Fox Theme
 - texte überarbeiten
 - "Inventierte" Farbthemen (Strawberry Icecream ect)
-- icon für toast
 
 --- done ---
 
+- ✅ icon für toast
 - ✅ Oktober Module
 - ✅ xmas module tree auf höhe der statusleiste stellen, wenn statusleiste da
 - ✅ message auf toast umbenennen

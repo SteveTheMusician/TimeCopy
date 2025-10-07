@@ -27,6 +27,7 @@ import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
 import { markTabButtons, showHideStatusBar } from "./utils/elementChangers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
+import { nameInputInvalidRegexep } from "./utils/defaults/defaultVariables.js";
 // ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
 
@@ -353,10 +354,13 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function configSetProfileName() {
     let nameTrimmed = configProfileName.value.trim()
+    if(nameInputInvalidRegexep.exec(nameTrimmed)) {
+      nameTrimmed = defaultProfileName
+    }
     if (nameTrimmed === 'LOVE') {
       localStorage.setItem('tc_ee_exoticTheme', 'true')
     }
-    if(nameTrimmed === '') {
+    if(nameTrimmed === '' || nameTrimmed.length <= 2) {
       configProfileName.value = defaultProfileName
       nameTrimmed = defaultProfileName
     } else {

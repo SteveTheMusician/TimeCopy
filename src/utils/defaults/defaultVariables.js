@@ -14,3 +14,4 @@ export const default_e = "e_"
 export const defaultProfileAuthor = "Steve from TimeCopy"
 export const scoreTitles = ["Timecopyrier","Copycat","Copywarrior","Time Wizard","Copy Legend","Time God","The Creator"]
 export const appFirstStartDoneValue = "done"
+export const nameInputInvalidRegexep = /[<>(){}\[\]/,]/
