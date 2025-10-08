@@ -60,7 +60,7 @@ export async function detectionItem(detectionItems) {
                   </div>
                 </div>
                 <div class="detectionItem-action-container flex">
-                  <button class="button-primary button-dropdown ${detectionItem.viewall === 'true' ? 'button-dropdown--active' : ''} button_minimizeDetection ${detectionItem.bookingsheet ? '' : 'dNone'}" id="minimizeDetection_${detectionItem.id}">
+                  <button class="button-primary button-dropdown ${detectionItem.viewall === 'true' ? 'button-dropdown--active' : ''} button_minimizeDetection ${detectionItem.bookingsheet ? '' : 'dNone'}" id="minimizeDetection_${detectionItem.id}" title="Minimieren / Maximieren">
                     <?xml version="1.0" encoding="utf-8"?>
                     <svg version="1.1" xmlns:serif="http://www.serif.com/"
                     	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"

@@ -133,14 +133,14 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
     let sModuleCacheReloaded = sessionStorage.getItem('tc_c_messageModuleCacheReloaded')
     let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
     if (sMessageImported === 'true') {
-      toast(true, true, window.language.notification_profileImported)
+      toast(true, window.language.notification_profileImported)
       sessionReloadHandler('tc_c_messageImported')
     }
     if (sMessageImported === 'false') {
-      toast(true, false, window.language.notification_profileNotFullyImported)
+      toast( false, window.language.notification_profileNotFullyImported)
     }
     if (sMessageProfileRemoved === 'true') {
-      toast(true, true, window.language.notification_profileReset)
+      toast(true, window.language.notification_profileReset)
       sessionReloadHandler('tc_c_messageProfileRemoved')
     }
     if (sExportProfile_afterChange === 'true') {
@@ -151,7 +151,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
       sessionReloadHandler('tc_c_changeLanguage')
     }
     if (sModuleCacheReloaded === 'true') {
-      toast(true, true, window.language.notification_moduleCacheReset)
+      toast(true, window.language.notification_moduleCacheReset)
       sessionReloadHandler('tc_c_messageModuleCacheReloaded')
     }
   }

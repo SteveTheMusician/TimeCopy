@@ -113,7 +113,7 @@ export function profileManager(appGlobalArgs, appVersionData, moduleGlobalArgs) 
       importErrorMessage = e.message;
     } finally {
       if (importErrorMessage) {
-        toast(true, false, importErrorMessage);
+        toast(false, importErrorMessage);
       }
     }
   }
@@ -220,7 +220,7 @@ function importProfilePicture(appGlobalArgs) {
   const imageFile = appGlobalArgs.elem_button_importProfilePicture.files[0];
 
   if (!imageFile || !imageFile.type.startsWith('image/')) {
-    toast(true, false, "Datei Import fehlgeschlagen. Nur Bilddateien erlaubt.");
+    toast(false, "Datei Import fehlgeschlagen. Nur Bilddateien erlaubt.");
     return;
   }
 
@@ -232,7 +232,7 @@ function importProfilePicture(appGlobalArgs) {
 
     img.onload = function () {
       if (img.width > 1500 || img.height > 1500) {
-        toast(true, false, "Das Bild darf maximal 1200x1200 Pixel groß sein.");
+        toast(false, "Das Bild darf maximal 1200x1200 Pixel groß sein.");
         return;
       }
       setUnsetProfilePicture(true, base64, appGlobalArgs);

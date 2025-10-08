@@ -9,7 +9,8 @@ export function generateThemes() {
         "nostalgica": "Nostalgica",
         "oceansground": "Oceans Ground",
         "oceansgroundtechnical": "Oceans Ground Technical",
-        "oceanswave": "Oceans Wave"
+        "oceanswave": "Oceans Wave",
+        "silverfox": "Silver Fox"
       },
       "Gefühle": {
         "battlefield": "Battlefield",
@@ -18,7 +19,8 @@ export function generateThemes() {
         "mint": "Mint",
         "mrwhite": "Mr. White",
         "neonretrored": "Neon Retro Red",
-        "silversuit": "Silver Suit"
+        "silversuit": "Silver Suit",
+        "strawberrymilkshake": "Strawberry Milkshake"
       },
       "Charactäre": {
         "danielsnfsoutfit": "Daniels NFS Outfit",
