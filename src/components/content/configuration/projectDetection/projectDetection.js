@@ -3,6 +3,7 @@ import { detectionItem } from "../../../ui/detectionItem/detectionItem.js"
 import { selectBookingPlatformPreName,detectionItemID_Prefix, selectProtimeService_defaultValue } from "../../../../utils/defaults/defaultVariables.js"
 import { generateDateId } from "../../../../utils/generateDateId.js"
 import { eventListenerHandler } from "../../../../utils/functionHandlers.js"
+import { markTabButtons } from "../../../../utils/elementChangers.js"
 import { debugStick } from "../../../../utils/appDebugStick.js"
 
 const button_addDetection = document.getElementById('button_add_projectDetection')
@@ -21,8 +22,10 @@ function updateDetectionItems(detectionItems) {
   let detectionItemsString = JSON.stringify(detectionItems)
   if(detectionItemsString === '[]') {
     localStorage.removeItem('tc_c_projectDetection')
+    markTabButtons('true','projects')
   } else {
     localStorage.setItem('tc_c_projectDetection', detectionItemsString)
+    markTabButtons('false','projects')
   }
   window.configUserChanges = true
 }
@@ -65,7 +68,7 @@ function loadDetectionItems() {
     select_bookingPlatform.addEventListener('change', () => { setDetectionBookingPlatform(detectionItemId, select_bookingPlatform.value) });
     debugStick(select_bookingPlatform.value,'Detection Item '+detectionItemId+' set to')
     // init listeners for elems
-    // eventListenerHandler(input_thisDetectionName,'change',changeProjectDetectionItemName,{detectionItemId,input_thisDetectionName})
+    eventListenerHandler(input_thisDetectionName,'change',changeDetectionItemData,{detectionItemId,input_thisDetectionName})
     eventListenerHandler(button_thisDetectionDelete,'click',removeProjectDetectionItem,{detectionItemId,button_thisDetectionDelete})
     if(!!button_thisDetectionMinimize) {
       eventListenerHandler(button_thisDetectionMinimize,'click',minimizeProjectDetectionItem,{detectionItemId,button_thisDetectionMinimize})
@@ -87,7 +90,7 @@ function loadDetectionItems() {
       input_activity.value = loaded_input_activity
       input_activity.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "protimeactivity", input_activity.value) });
     }
-    // ANY Default Platform listener
+    // ANY default platform listener
     if(select_bookingPlatform.value === 'select_bookingPlatform_Any') {
       let input_anyTrigger = document.getElementById("input_anyTriggerWord_" + detectionItemId)
       input_anyTrigger.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "anytrigger", input_anyTrigger.value) });
@@ -170,5 +173,4 @@ function minimizeProjectDetectionItem (obj) {
     setDetectionItemValueToObject(obj.detectionItemId, 'viewall', 'true')
     updateDetectionItems(detectionItems)
   }
-  
 }

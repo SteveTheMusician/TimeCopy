@@ -4,3 +4,5 @@ export const pAmagProTime_defaultForceHighLatencyMode = false
 export const pAmagProTime_defaultUseProTimeTestMode = false
 export const pAmagProTime_defaultUseMatchBookingDay = true
 export const pAmagProTime_defaultUseAutoSelectDay = false
+export const dateNow = new Date();
+export const dateMonth = dateNow.getMonth();

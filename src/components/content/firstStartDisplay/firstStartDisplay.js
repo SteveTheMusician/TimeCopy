@@ -1,6 +1,8 @@
+import { appFirstStartDoneValue } from "../../../utils/defaults/defaultVariables";
 import { configWelcomeTitle,configWelcomeText,configDesignTitle,configDesignText,configFilterTitel,configFilterText,
     configPlatformTitel,configPlatformText,configEndTitel,configEndText,mainHtml
   } from "./contentHtmls/firstStartDisplayHtml";
+  
 export function firstStartDisplay() {
     
     if (document.body && !sessionStorage.getItem('tc_c_messageProfileRemoved')) {
@@ -8,7 +10,6 @@ export function firstStartDisplay() {
         document.querySelectorAll('.main-window').forEach(elem => {
             elem.style.opacity = '0'
         });
-        // document.getElementsByTagName('main')[0].style.opacity = "0"
         setTimeout(function(){
         },400)
 
@@ -98,5 +99,5 @@ function closeStartScreen(){
     document.querySelectorAll('.main-window').forEach(elem => {
             elem.style.opacity = ''
         });
-    localStorage.setItem('tc_firstStart', 'done')
+    localStorage.setItem('tc_firstStart', appFirstStartDoneValue)
 }

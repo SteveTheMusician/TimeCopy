@@ -1,6 +1,3 @@
-// const tcResetButton = document.getElementById('resetTimeCopy')
-// tcResetButton.addEventListener('click',appReset)
-// <button hidden id="resetTimeCopy">Reset</button>
 document.addEventListener("DOMContentLoaded", function () {
   // create allways reset button
   const resetButton = document.createElement('button');

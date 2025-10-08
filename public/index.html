@@ -228,14 +228,14 @@
                 <h2>Allgemein</h2>
                 <div class="subtext-container">
                   <p class="subtext">
-                    Hier kannst du die Erweiterung nach deinen Wünschen anpassen.
+                    Anpassung der Erweiterung nach deinen Wünschen.
                   </p>
                 </div>
               </section>
               <div class="configuration-window-content" id="config-win-general--content">
                 <div class="configItem">
                   <div class="configItem-title-row--center flex" title="Wähle ein Profilbild">
-                    <div class="configItem-icon-container profileFrame flex" id="profile_picture">
+                    <div class="icon-container configItem-icon-container profileFrame flex" id="profile_picture">
                         <img src="" id="profile_picture_user" class="dNone"/>
                         <?xml version="1.0" encoding="utf-8"?>
                         <svg version="1.1" id="Profile" xmlns="http://www.w3.org/2000/svg"
@@ -251,7 +251,7 @@
                   </div>
                   <div class="configItem-content">
                     <div class="configItem-content-row flex">
-                      <input type="text" class="input-size--medium input-profile" id="configProfileName" value="" title="Name des aktuellen Profils. (Wird auch zum Export verwendet)"/>
+                      <input type="text" class="input-size--medium input-profile" id="configProfileName" value="" title="Name des aktuellen Profils. (Wird auch zum Export verwendet)" maxlength="20"/>
                     </div>
                     <div class="configItem-content-section profile-section">
                       <div class="configItem-content-row dFlex" id="configProfileScore">
@@ -290,7 +290,7 @@
                 </div>
                 <div class="configItem">
                   <div class="configItem-title-row flex" title="Time Copy anpassen.">
-                    <div class="configItem-icon-container flex">
+                    <div class="icon-container configItem-icon-container flex">
                       <?xml version="1.0" encoding="utf-8"?>
                       <svg version="1.1" id="brush" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
@@ -310,7 +310,7 @@
                   <div class="configItem-content" id="configItem-design-themes">
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Farbthemen:</p>
+                        <p class="text-label text-margin--small">Farbthemen</p>
                       </div>
                       <div class="configItem-content-right">
                         <select name="select_themes" id="select-themes">
@@ -320,7 +320,7 @@
                     </div>
                     <div class="configItem-content-row dFlex padding-top-bottom-10">
                       <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Statusleiste:</p>
+                        <p class="text-label text-margin--small">Statusleiste</p>
                       </div>
                       <div class="configItem-content-right">
                         <label class="switch">
@@ -334,7 +334,7 @@
                 </div>
                 <div class="configItem">
                   <div class="configItem-title-row flex" title="Benachrichtigungen innerhalb von Time Copy ein oder ausschalten.">
-                    <div class="configItem-icon-container flex">
+                    <div class="icon-container configItem-icon-container flex">
                       <?xml version="1.0" encoding="utf-8"?>
                       <svg version="1.1" id="Bell" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          width="1000px" height="1000px" viewBox="0 0 1000 1000" style="enable-background:new 0 0 1000 1000;" xml:space="preserve">
@@ -365,7 +365,7 @@
                 </div>
                 <div class="configItem">
                   <div class="configItem-title-row flex" title="Hilfestellungen und alle wichtigen Verlinkungen.">
-                    <div class="configItem-icon-container flex">
+                    <div class="icon-container configItem-icon-container flex">
                       <?xml version="1.0" encoding="utf-8"?>
                       <svg version="1.1" id="questmark" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
@@ -420,7 +420,7 @@
                 </div>
                 <div class="configItem">
                   <div class="configItem-title-row flex" title="Technische Informationen über das PlugIn.">
-                    <div class="configItem-icon-container flex">
+                    <div class="icon-container configItem-icon-container flex">
                       <?xml version="1.0" encoding="utf-8"?>
                       <svg version="1.1" id="information_single" xmlns:serif="http://www.serif.com/"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -437,7 +437,7 @@
                   <div class="configItem-content">
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Version:</p>
+                        <p class="text-label text-margin--small">Version</p>
                       </div>
                       <div class="configItem-content-right">
                         <p class="label-version dFlex text-margin--small" id="label_version">V </p>
@@ -445,7 +445,7 @@
                     </div>
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Version-Name:</p>
+                        <p class="text-label text-margin--small">Version-Name</p>
                       </div>
                       <div class="configItem-content-right">
                         <p class="label-version dFlex text-margin--small" id="label_version_name"></p>
@@ -453,7 +453,7 @@
                     </div>
                     <div class="configItem-content-row dFlex dNone" id="configItem_content_row_build_version">
                       <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Build-Version:</p>
+                        <p class="text-label text-margin--small">Build-Version</p>
                       </div>
                       <div class="configItem-content-right">
                         <p class="label-version dFlex text-margin--small" id="label_build_version"></p>
@@ -461,7 +461,7 @@
                     </div>
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Creator:</p>
+                        <p class="text-label text-margin--small">Creator</p>
                       </div>
                       <div class="configItem-content-right">
                         <p class="label-version dFlex text-margin--small" id="label_extensionDevelop"></p>
@@ -469,7 +469,7 @@
                     </div>
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
-                        <p class="text-label text-margin--small">Testing:</p>
+                        <p class="text-label text-margin--small">Testing</p>
                       </div>
                       <div class="configItem-content-right">
                         <p class="label-version dFlex text-margin--small" id="label_extensionCoDevelop"></p>

@@ -60,6 +60,10 @@ header {
     height: 240px;
 }
 
+.detectionItem-module--Any {
+    height: 190px;
+}
+
 .detectionItem-module--hidden {
     height: 0px;
 }
