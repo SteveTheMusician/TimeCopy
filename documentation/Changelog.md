@@ -11,7 +11,6 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 * **Features**
   * New Detection-Items with labeling- and minimize-function
-  * Strawberry Milkshake theme added
 
 * **Filter-Modules**
   * "IAPP-FIX": Fix matching error with single string in Tobias Excel Module
@@ -23,8 +22,9 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## V 1.3.16 - *Silver Fox Update
 
 * **Features**
-  * New theme "Silver Suit"
   * Add icon for toast
+  * New theme "Silver Suit"
+  * Strawberry Milkshake theme added
 
 * **Fixes**
   * Hide First-Start-Screen, when user resets app and import profile directly after it
@@ -33,6 +33,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Rename Notification to Toast
   * Fix Toast functions that arouses durning redevelopment
   * Add pattern to name input
+  * Lots of other code clean up
 
 ## V 1.2.52 - *Silver Fox Update (Pre-Release)*
 
