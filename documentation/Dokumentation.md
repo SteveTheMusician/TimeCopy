@@ -210,6 +210,7 @@ Das "+" wird durch eine Banane ersetzt. (Ab V. 1.0)
 Danach kannst du im Design-Bereich den Skin "Exotic-Gold" auswählen.
 - **Build-Version anzeigen (ab V 1.0.2):**
 Shift + Click auf den Versionsnamen bei "Version-Name".
+- **Pumpkin:** Im Oktober zeigt sich ein kleiner Kürbis un der unteren rechten Ecke (Ab Silver-Fox Update)
 
 ## Weitere Dokumentationen
 
