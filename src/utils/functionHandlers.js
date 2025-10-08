@@ -19,3 +19,9 @@ export function eventListenerHandler(elements,type,func,funcprop) {
     elements.addEventListener(type, functionHandler)
   }
 }
+
+export function reloadAppAfterChangeHandler(){
+  if (window.configUserChanges === true) {
+      window.location.reload()
+  }
+}

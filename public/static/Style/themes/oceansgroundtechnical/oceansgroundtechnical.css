@@ -92,6 +92,10 @@ header {
     height: 240px;
 }
 
+.detectionItem-module--Any {
+    height: 190px;
+}
+
 .detectionItem-module--hidden {
     height: 0px;
 }
@@ -132,6 +136,8 @@ select {
   border-radius: 100px;
   background-color: transparent;
   outline: 1px solid var(--color-third);
+}
+select {
   border-right: 10px solid transparent;
 }
 

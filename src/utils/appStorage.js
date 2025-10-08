@@ -1,13 +1,13 @@
 
 import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../module/module.js"
-import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e } from "./defaults/defaultVariables.js"
-import { notification } from "../components/ui/notification/notification.js"
+import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e, appFirstStartDoneValue } from "./defaults/defaultVariables.js"
+import { toast } from "../components/ui/toast/toast.js"
 import { message } from "../components/ui/message/message.js"
 import { loadModuleStorage, clearmoduleLocalStorages } from "./moduleStorage.js"
 import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
 import { setScoreValues } from "./setScorevalues.js"
 import { firstStartDisplay } from "../components/content/firstStartDisplay/firstStartDisplay.js"
-import { showHideStatusBar } from "./elementChangers.js"
+import { showHideStatusBar,markTabButtons } from "./elementChangers.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -77,6 +77,8 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
     }
     if (lstorage_cFilter) {
       document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
+    } else {
+      markTabButtons('true','timesheets')
     }
     if (lstorage_cProfileName) {
       appGlobalArgs.configprofilename.value = lstorage_cProfileName
@@ -115,8 +117,11 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
       setScoreValues('0',appGlobalArgs)
       localStorage.setItem('tc_c_bookingScore','0')
     }
-    if(lstorage_tcFirstStart !== 'done' || lstorage_tcFirstStart === null) {
+    if(lstorage_tcFirstStart !== appFirstStartDoneValue || lstorage_tcFirstStart === null) {
       firstStartDisplay()
+    }
+    if(lstorage_cDetectionItems === 'undefined' || lstorage_cDetectionItems === null || lstorage_cDetectionItems === '[]') {
+      markTabButtons('true','projects')
     }
     loadModuleStorage(moduleGlobalArgs)
   }
@@ -128,14 +133,14 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
     let sModuleCacheReloaded = sessionStorage.getItem('tc_c_messageModuleCacheReloaded')
     let sChangeLanguage = sessionStorage.getItem('tc_c_changeLanguage')
     if (sMessageImported === 'true') {
-      notification(true, true, window.language.notification_profileImported)
+      toast(true, window.language.notification_profileImported)
       sessionReloadHandler('tc_c_messageImported')
     }
     if (sMessageImported === 'false') {
-      notification(true, false, window.language.notification_profileNotFullyImported)
+      toast( false, window.language.notification_profileNotFullyImported)
     }
     if (sMessageProfileRemoved === 'true') {
-      notification(true, true, window.language.notification_profileReset)
+      toast(true, window.language.notification_profileReset)
       sessionReloadHandler('tc_c_messageProfileRemoved')
     }
     if (sExportProfile_afterChange === 'true') {
@@ -146,7 +151,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
       sessionReloadHandler('tc_c_changeLanguage')
     }
     if (sModuleCacheReloaded === 'true') {
-      notification(true, true, window.language.notification_moduleCacheReset)
+      toast(true, window.language.notification_moduleCacheReset)
       sessionReloadHandler('tc_c_messageModuleCacheReloaded')
     }
   }

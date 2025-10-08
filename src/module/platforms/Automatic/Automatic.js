@@ -1,4 +1,5 @@
 import { setStatusBarText } from "../../../utils/setStatusBarText";
+import { anyPlatformUrl } from "./variables/Automatic.variables";
 export async function Automatic() {
     try {
         setStatusBarText(window.language.statusbartext_moduleAutomatic_isSelectingPlatform)
@@ -17,9 +18,9 @@ export async function Automatic() {
         tc_s_moduleplatforminformations = JSON.parse(tc_s_moduleplatforminformations)
         let foundPlatformInformationObject = tc_s_moduleplatforminformations.find(platformObj => {
             let key = Object.keys(platformObj)[0];
-            if (currentURL.includes(platformObj[key].platform_url)) {
+            if (currentURL.includes(platformObj[key].platform_url) || platformObj[key].platform_url === anyPlatformUrl) {
                 return platformObj[key].platform_url
-            }
+            } 
         });
         try {
             if (foundPlatformInformationObject) {

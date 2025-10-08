@@ -1,0 +1,83 @@
+
+.module-hlween {
+
+	fill: #ff7300;
+	right: 0;
+	z-index: 99;
+}
+
+.module-hlween:before {
+	content: '';
+	width: 50px;
+    height: 30px;
+	border-radius: 20%;
+	background-color: #333311;
+	position: absolute;
+	z-index: -1;
+    top: 22px;
+    left: 5px;
+	animation-name: pumpkineyesanimation;
+	animation-duration: 10s;
+	animation-iteration-count: infinite;
+	animation-timing-function: cubic-bezier(1, 0, 1, 0.5);
+}
+
+@keyframes pumpkineyesanimation {
+	0% {
+		background-color: #110b04;
+	}
+	10% {
+		background-color: #553510;
+	}
+	15% {
+		background-color: #110b04;
+	}
+	20% {
+		background-color: #797d12;
+	}
+	30% {
+		background-color: #110b04;
+	}
+	40% {
+		background-color: #81830d;
+	}
+	45% {
+		background-color: #110b04;
+	}
+	48% {
+		background-color: #797d12;
+	}
+	50% {
+		background-color: #110b04;
+	}
+	55% {
+		background-color: #c0c60e;
+	}
+	58% {
+		background-color: #110b04;
+	}
+	60% {
+		background-color: #797d12;
+	}
+	65% {
+		background-color: #110b04;
+	}
+	70% {
+		background-color: #797d12;
+	}
+	75% {
+		background-color: #2c2c09;
+	}
+	80% {
+		background-color: #e2cd12;
+	}
+	85% {
+		background-color: #6d6411;
+	}
+	90% {
+		background-color: #e2cd12;
+	}
+	100% {
+		background-color: #110b04;
+	}
+}

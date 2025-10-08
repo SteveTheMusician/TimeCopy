@@ -43,7 +43,7 @@
   border-radius: var(--border-radius-default);
 }
 
-.notification--ok {
+.toast--ok {
   background-color: var(--color-active);
 }
 
