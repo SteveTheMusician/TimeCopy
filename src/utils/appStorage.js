@@ -52,7 +52,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
         message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
       }
     } else {
-      // "First" app start
+      // "first" app start
       localStorage.setItem('tc_appVersion', appVersionData.version)
       message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
     }

@@ -1,4 +1,3 @@
-// customContent is automatically generated / imported in to the module-item by platform.module
 export const customContent = `<div class="module-platform_custom-content">
     <p class="text-label">Funktionen</p>
     <div class="module-platform_custom-content-row dFlex">
@@ -8,7 +7,7 @@ export const customContent = `<div class="module-platform_custom-content">
         <div class="row-cell-right">
             <label class="switch">
                 <input type="checkbox" class="" id="check_forceLatencyModeProTime" />
-                <span class="switch_slider" title="Erzwinkt den Latenz-Modus und bucht immer mit Verzögerung. (Standard: Deaktiviert)"></span>
+                <span class="switch_slider" title="Erzwinkt den Latenz-Modus und bucht immer mit Verzögerung. [Standard: AUS]"></span>
             </label>
         </div>
     </div>
@@ -19,7 +18,7 @@ export const customContent = `<div class="module-platform_custom-content">
         <div class="row-cell-right">
             <label class="switch">
                 <input type="checkbox" class="" id="check_useLatencyModeProTime"  />
-                <span class="switch_slider" title="Setzt den Latenz-Modus (Langsameres Buchen) ein, sobald auffällige Verzögerungen o.Ä. in ProTime erkannt werden. (Standard: Aktiv)"></span>
+                <span class="switch_slider" title="Setzt den Latenz-Modus (Langsameres Buchen) ein, sobald auffällige Verzögerungen o.Ä. in ProTime erkannt werden. [Standard: AN]"></span>
             </label>
         </div>
     </div>
@@ -30,7 +29,7 @@ export const customContent = `<div class="module-platform_custom-content">
         <div class="row-cell-right">
             <label class="switch">
                 <input type="checkbox" class="" id="check_useTicketnomberInTextProTime"  />
-                <span class="switch_slider" title="Fügt die Ticketnummer zusätzlich in das Beschreibungsfeld ein."></span>
+                <span class="switch_slider" title="Fügt die Ticketnummer zusätzlich in das Beschreibungsfeld ein. [Standard: AN]"></span>
             </label>
         </div>
     </div>
@@ -41,7 +40,7 @@ export const customContent = `<div class="module-platform_custom-content">
         <div class="row-cell-right">
             <label class="switch">
                 <input type="checkbox" class="" id="check_useMatchBookingDayProTime"  />
-                <span class="switch_slider" title="Überprüft, ob der Tag (wenn vorhanden) mit dem in ProTime übereinstimmt. Wenn nicht, wird der Prozess unterbrochen."></span>
+                <span class="switch_slider" title="Überprüft, ob der Tag (wenn vorhanden) mit dem in ProTime übereinstimmt. Wenn nicht, wird der Prozess unterbrochen. [Standard: AN]"></span>
             </label>
         </div>
     </div>
@@ -52,7 +51,7 @@ export const customContent = `<div class="module-platform_custom-content">
         <div class="row-cell-right">
             <label class="switch">
                 <input type="checkbox" class="" id="check_useAutoSelectDayProTime"  />
-                <span class="switch_slider" title="Wählt automatisch den Tag innerhalb des aktuellen Monats zum Buchen in Protime aus, wenn das Datum mit kopiert wurde. (Experiementelle Funktion)"></span>
+                <span class="switch_slider" title="Wählt automatisch den Tag innerhalb des aktuellen Monats zum Buchen in Protime aus, wenn das Datum mit kopiert wurde. (Experiementelle Funktion) [Standard: AUS]"></span>
             </label>
         </div>
     </div>
@@ -63,12 +62,8 @@ export const customContent = `<div class="module-platform_custom-content">
         <div class="row-cell-right">
             <label class="switch">
                 <input type="checkbox" class="" id="check_useProTimeTestMode" />
-                <span class="switch_slider" title="Aktiviert den Test-Modus, in dem die Daten übertragen werden, ohne diese final zu buchen."></span>
+                <span class="switch_slider" title="Aktiviert den Test-Modus, in dem die Daten übertragen werden, ohne diese final zu buchen. [Standard: AUS]"></span>
             </label>
         </div>
     </div>
 </div>`
-
-// custom functions
-
-

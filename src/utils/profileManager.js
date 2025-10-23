@@ -125,7 +125,6 @@ export function profileManager(appGlobalArgs, appVersionData, moduleGlobalArgs) 
       version
     };
   }
-
   const button_exportConfigs = document.getElementById('button_exportConfigs');
   button_exportConfigs.addEventListener('click', () => exportProfile(appVersionData, appGlobalArgs));
 }
