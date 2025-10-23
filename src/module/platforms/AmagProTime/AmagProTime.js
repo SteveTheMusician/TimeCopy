@@ -498,6 +498,10 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
               }
               // set ticket nomber child nom to get next feeld correctly
               protime_ticketElemNom = 4
+            } else if(document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]:not([value])')[0]){
+              // check if a activity dropdown exists with no entries (cuz protime is an idiot) and then set the elemnom up to 4
+              console.warn('[Time Copy] Warning, ProTime has empty Activity')
+              protime_ticketElemNom = 4
             } else {
               protime_ticketElemNom = 3
             }
@@ -595,6 +599,16 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           await waitTimer(bookingWaitingTimer500)
           await checkpointLoadingDots(false)
           await checkpointLoadingDots(true)
+
+          // try {
+            // await observeElement('.lsMANotifier .lsMANotifierError', false, '0');
+            // await observeElement('.lsMACenter [aria-label="Meldungen"] [ierrormsgcount] [style~="visibility: visible"]', false, '0');
+          // } catch (e) {
+            // return result = { success: false, message: error };
+          // } 
+          // throw ({ errorstatus: 'error', errorheadline: 'Fehler in der Buchung', errortext: 'ProTime hat vor dem Abschließen der Buchung einen Fehler zurück gegeben. Bitte überprüfe die Meldung oben rechts auf der Seite.' })
+            
+
 
           try {
             await observeElement('textarea', false, '0');
