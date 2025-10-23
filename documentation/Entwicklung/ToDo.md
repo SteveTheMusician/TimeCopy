@@ -14,6 +14,14 @@
 - Wenn Ticket bereits gebucht soll dieser übersprungen werden (Kann schwer bzw unmöglich sein, da diese Infos in protime nicht genau bekommen werden können - ticketnummer nich da, beschreibung nur teilweise)
 - Wenn ein Error am ende der buchung von Protime kommt - breche buchung ab (z.B. bei Projekt ist abgelaufen)
 
+
+!!!!
+- Datum Stimmt nicht überein fix: Wenn Protime lahm ist, wird nach einem auto-klick das datum nicht erkannt. Da dann einen timer oder observer einbauen, wenn die auto klick funktion aktiv ist, sonst nicht
+- wenn alle felder zum buchungs beginn gefüllt sind, weild er user die seite nicht aktualisiert hat -> mach ein clear. (aber nur im aller ersten start nach dem screen click)
+!!!!
+
+
+
 ## Maintance updates
 - security: 
     - pattern für alle inputs??
