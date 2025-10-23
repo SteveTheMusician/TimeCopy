@@ -1113,6 +1113,7 @@ input:checked+.switch_slider:before {
 .StartScreen-container {
     width: calc(100% - 20px);
     padding: 10px;
+    margin-top: 20px;
 }
 
 .firstStartScreen-discriptionBlock {
