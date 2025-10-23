@@ -1097,12 +1097,13 @@ input:checked+.switch_slider:before {
 }
 
 #firstStartScreen {
-    position:absolute;
-    width: 100%;
+    position: absolute;
+    padding-top: 20px;
+    width: calc(100% - 40px);
     height: calc(100% - 38px);
     background-color: var(--color-main);
     display: grid;
-    align-content: center;
+    align-content: space-around;
     padding: 0 20px;
     transition: var(--transition-default);
     z-index: 99;
@@ -1110,8 +1111,9 @@ input:checked+.switch_slider:before {
 }
 
 .StartScreen-container {
-    width: calc(100% - 60px);
+    width: calc(100% - 20px);
     padding: 10px;
+    margin-top: 20px;
 }
 
 .firstStartScreen-discriptionBlock {

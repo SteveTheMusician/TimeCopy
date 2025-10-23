@@ -8,16 +8,18 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ---
 
 ## Last important changes summary
+* see V 1.3.17
 
-* **Features**
-  * New Detection-Items with labeling- and minimize-function
-
-* **Filter-Modules**
-  * "IAPP-FIX": Fix matching error with single string in Tobias Excel Module
-  * Add Scrollbar for Platform-Modules with function-content
+## V 1.3.17
 
 * **Fixes**
-  * Module Amag ProTime: Fix observer polling (better observing of elements and values in ProTime)
+  * Module Amag ProTime: Fix booking problems, when an empty activity is maintained in protime
+  * Module Amag ProTime: Wording fixes
+  * Theme fixes
+  * Fix first start screen display error
+
+* **Other Changes**
+  * Code cleanup
 
 ## V 1.3.16 - *Silver Fox Update
 

@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const bodyBefore = getComputedStyle(document.body, '::before');
     if (bodyBefore.content && bodyBefore.content !== 'none' && bodyBefore.content !== '""') {
       resetButton.hidden = false
-      // tcResetButton.removeAttribute('hidden')
     }
   },2000)
 });
