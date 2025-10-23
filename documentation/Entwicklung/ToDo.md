@@ -18,6 +18,8 @@
 !!!!
 - Datum Stimmt nicht überein fix: Wenn Protime lahm ist, wird nach einem auto-klick das datum nicht erkannt. Da dann einen timer oder observer einbauen, wenn die auto klick funktion aktiv ist, sonst nicht
 - wenn alle felder zum buchungs beginn gefüllt sind, weild er user die seite nicht aktualisiert hat -> mach ein clear. (aber nur im aller ersten start nach dem screen click)
+- wenn eine activity einen value hat, im nächsten ticket aber keins zum selecten ist, muss dass erkannt werden.
+ggf ein klick in einer der leeren selects oder durch das erkennen der leeren items einfach skippen egal ob value da oder nicht
 !!!!
 
 
