@@ -12,7 +12,7 @@
 (GGF eigenes Module Nötig)
 - feature: fehlermeldung bei erstellen identischer detection items (oder text: ist identisch mit ...)
 - Wenn Ticket bereits gebucht soll dieser übersprungen werden (Kann schwer bzw unmöglich sein, da diese Infos in protime nicht genau bekommen werden können - ticketnummer nich da, beschreibung nur teilweise)
-
+- Wenn ein Error am ende der buchung von Protime kommt - breche buchung ab (z.B. bei Projekt ist abgelaufen)
 
 ## Maintance updates
 - security: 

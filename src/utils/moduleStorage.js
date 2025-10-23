@@ -1,4 +1,3 @@
-
 import { pAmagProTime_defaultUseTicketNomberInText, pAmagProTime_defaultHighLatencyMode, pAmagProTime_defaultForceHighLatencyMode, 
   pAmagProTime_defaultUseProTimeTestMode, pAmagProTime_defaultUseMatchBookingDay,pAmagProTime_defaultUseAutoSelectDay } from "./defaults/defaultModuleVariables"
 export let lstorage_c_moduleProTimeTest = JSON.parse(localStorage.getItem('tc_c_module_proTimeTest'))
@@ -81,7 +80,6 @@ export function reloadModuleCache() {
 }
 
 export function setModuleAmagProTimeTestStyle (PTTestBoolean,moduleGlobalArgs){
-
   if(PTTestBoolean){ 
     moduleGlobalArgs.moduleItem_platform_amagProTime.classList.add('moduleItem-amagProTime-TestMode')
   }else {

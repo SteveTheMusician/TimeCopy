@@ -4,6 +4,6 @@
     "platform_id": "automatic",
     "platform_shortname": "Auto",
     "platform_description": "Wählt das Buchungsverfahren automatisch aus. Sie gleicht dabei die Browser-Url mit der Erkennungs-Url eines Module's ab.",
-    "platform_url":"[Liest Browser URL]",
+    "platform_url":"[Liest Browser-URL]",
     "platform_content": "false"
 }
