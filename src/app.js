@@ -337,7 +337,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     localStorage.setItem('tc_c_lastConfigTab',idName)
   }
-
   // configuration functions
   function timesheetFilterChange(e) {
     let timesheetFilterValue = e.target.value.split(filter_timesheetFilterPreValue)[1]
@@ -413,11 +412,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     showHideStatusBar(showStatusBarSwitchCurrentStatus,...window.appGlobalArgs)
     window.configUserChanges = true
   }
-
-  // function switchFilter(e) {
-    // localStorage.setItem('tc_c_filter', e.target.value)
-    // window.configUserChanges = true
-  // }
 
   function showBuildVersion(e){
     if(e.shiftKey){
