@@ -8,9 +8,14 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ---
 
 ## Last important changes summary
-* see V 1.3.17
+-
 
-## V 1.3.17
+## V 1.3.18
+
+* **Other Changes**
+  * Code cleanup
+
+## V 1.3.17 (Release)
 
 * **Fixes**
   * Module Amag ProTime: Fix booking problems, when an empty activity is maintained in protime
