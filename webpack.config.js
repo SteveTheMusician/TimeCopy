@@ -11,7 +11,7 @@ module.exports = {
         ],
       },
     entry : {
-        app: './src/app.js',
+        app: './src/app.ts',
         appReset: './src/appReset.js',
         service: './src/service.js'
     },
