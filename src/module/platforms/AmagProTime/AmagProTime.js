@@ -358,13 +358,17 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         if (!document.getElementById('timeCopyProTimeClick')) {
           let dom_clickContainer = document.createElement("div")
           let dom_clickContainerInner = document.createElement("div")
+          let dom_clickContainerSubText = document.createElement('p')
           
           dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
           dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
           dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
           dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
-          dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
-          dom_clickContainerInner.innerHTML = "Click here to focus window"
+          dom_clickContainerSubText.setAttribute('style', 'background-color: #a2906f88; color: #e6d1ab; font-size: 14px; padding: 10px; border-radius: 100px; word-break: break-word; text-align: center; line-height: 1.2')
+          dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center; flex-flow: column;')
+          dom_clickContainerInner.innerHTML = "Klicke hier zum Starten."
+          dom_clickContainerSubText.innerHTML = "Während dem Prozess bitte den Tab offen, sowie Maus und Tastatur unbedient lassen."
+          dom_clickContainerInner.appendChild(dom_clickContainerSubText)
           dom_clickContainer.appendChild(dom_clickContainerInner)
           document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
           dom_clickContainer.addEventListener("click", resolveFirstBookingLoop);

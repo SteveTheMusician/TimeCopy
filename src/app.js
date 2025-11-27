@@ -129,7 +129,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_docuDatenschutz = document.getElementById('button_openDatenschutz')
   const button_openStore = document.getElementById('button_openStore')
   const button_openLicense = document.getElementById('button_openLicense')
-
   // module-platform element listeners
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const module_platform_element = document.getElementsByClassName('moduleItem-platform')
@@ -156,7 +155,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     message(true, 'error', 'APP LANGUAGE ERROR' , error, true)
     return
   }
-  // console.log('Language Object: ',window.language)
+  debugStick(window.language,'Language Object')
   // this variable activates tc reloading after pressing the back button when its set to true
   window.configUserChanges = false
   // version json vars

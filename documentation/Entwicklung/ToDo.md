@@ -26,6 +26,7 @@ ggf ein klick in einer der leeren selects oder durch das erkennen der leeren ite
 
 
 ## Maintance updates
+- amagprotime module: text der click fläche ändern+ warnung
 - security: 
     - pattern für alle inputs??
 - auf latest node version
