@@ -15,6 +15,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 * **Other Changes**
   * Code cleanup
   * Module Amag ProTime: Change click-overlay text + warning text
+  * Module Amag ProTime: Push Tickets with failed Textarea-Status in to retry list
 
 ## V 1.3.17 (Release)
 
