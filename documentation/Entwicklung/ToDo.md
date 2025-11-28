@@ -15,15 +15,6 @@
 - Wenn ein Error am ende der buchung von Protime kommt - breche buchung ab (z.B. bei Projekt ist abgelaufen)
 
 
-!!!!
-- wenn alle felder zum buchungs beginn gefüllt sind, weild er user die seite nicht aktualisiert hat -> mach ein clear. (aber nur im aller ersten start nach dem screen click)
-- wenn eine activity einen value hat, im nächsten ticket aber keins zum selecten ist, muss dass erkannt werden.
-ggf ein klick in einer der leeren selects oder durch das erkennen der leeren items einfach skippen egal ob value da oder nicht
-- bei fehler mit textarea @false (weil z.b relaunch in der zeit geschrieben wurde) checken,warum diese nicht in der retry liste landen
-- code cleanup von protime module
-!!!!
-
-
 
 ## Maintance updates
 - amagprotime module: text der click fläche ändern+ warnung

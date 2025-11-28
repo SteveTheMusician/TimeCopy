@@ -10,6 +10,10 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 -
 
+## V 1.3.19
+* **Fixes**
+  * EE Error when time is up but changes to Statusbar happen
+
 ## V 1.3.18
 
 * **Other Changes**
