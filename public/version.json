@@ -1,7 +1,7 @@
 {
-    "extension_version": "1.3.18",
+    "extension_version": "1.3.19",
     "extension_version_name": "Silver Fox",
-    "extension_build": "S25.11280820",
+    "extension_build": "S25.11281811",
     "profile_version": "2.1",
     "profile_type": ".TCP1",
     "supported_profile_versions": ["1.6","1.7","1.8","1.9","2.0"],
@@ -17,5 +17,5 @@
     "extension_license": "https://github.com/SteveTheMusician/TimeCopy/blob/main/LICENSE",
     "extension_contact": "contact@emptysoul.de",
     "extension_update_text_overview": "👋🏻 Willkommen in Version ",
-    "extension_update_text_details": "Neue Changes? Keine :D Nur etwas Code-Cleanup. Alle Changes im Detail findest du hier im ${changeloglink}."
+    "extension_update_text_details": "Neue Changes? Nur wenig :D Etwas Code-Cleanup hier, paar Fixes da. Alle Changes im Detail findest du hier im ${changeloglink}."
 }
