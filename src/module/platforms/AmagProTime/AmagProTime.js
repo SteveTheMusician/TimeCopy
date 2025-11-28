@@ -358,13 +358,17 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         if (!document.getElementById('timeCopyProTimeClick')) {
           let dom_clickContainer = document.createElement("div")
           let dom_clickContainerInner = document.createElement("div")
+          let dom_clickContainerSubText = document.createElement('p')
           
           dom_clickContainer.setAttribute('id', 'timeCopyProTimeClick')
           dom_clickContainer.setAttribute('class', 'TimeCopy-ProtTime-clickArea')
           dom_clickContainer.setAttribute('style', 'position: fixed; width: 100%; height: 100%; z-index: 9999; background-color: #031a21ee; top: 0; left: 0; display: flex; justify-content: center; align-items: center; cursor: pointer;')
           dom_clickContainer.setAttribute('onClick', 'document.getElementById("timeCopyProTimeClick").remove()')
-          dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center;')
-          dom_clickContainerInner.innerHTML = "Click here to focus window"
+          dom_clickContainerSubText.setAttribute('style', 'background-color: #a2906f88; color: #e6d1ab; font-size: 14px; padding: 10px; border-radius: 100px; word-break: break-word; text-align: center; line-height: 1.2')
+          dom_clickContainerInner.setAttribute('style', 'width: 30%; height: 12%; border: 2px dashed #5ecac3; font-size: 24px; color: #5ecac3; padding: 20px; border-radius: 20px; display: flex; justify-content: center; align-items: center; flex-flow: column;')
+          dom_clickContainerInner.innerHTML = "Klicke hier zum Starten."
+          dom_clickContainerSubText.innerHTML = "Während dem Prozess bitte den Tab offen, sowie Maus und Tastatur unbedient lassen."
+          dom_clickContainerInner.appendChild(dom_clickContainerSubText)
           dom_clickContainer.appendChild(dom_clickContainerInner)
           document.getElementsByTagName('body')[0].appendChild(dom_clickContainer)
           dom_clickContainer.addEventListener("click", resolveFirstBookingLoop);
@@ -507,10 +511,8 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             }
           } catch (error) {
             return result = { success: false, message: error };
-          }
-          
+          }     
           await waitTimer(bookingWaitingTimer500)
-
           // 1s break on high latency mode
           if (highLatency === true) {
             await waitTimer(bookingWaitingTimer1000)
@@ -526,14 +528,12 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           protime_hours.value = ticketObject.item_tickettime
 
           await waitTimer(bookingWaitingTimerDefault)
-
           // press enter on protime hours-field only on booking-mode and if list has no length to prevent wrong entries
           if(!dev_pttest && !retryTicketList.length){
             protime_hours.dispatchEvent(keyEventEnter)
           }
           await checkpointLoadingDots(false)
           await checkpointLoadingDots(true)
-
           // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
           let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
           bookingItem_TicketNumber = bookingItem_TicketNumber.toUpperCase()
@@ -544,11 +544,9 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           if (!dev_pttest) {
             protime_ticketNumber.dispatchEvent(keyEventEnter)
           }
-
           await waitTimer(bookingWaitingTimerDefault)
           await checkpointLoadingDots(false)
           await checkpointLoadingDots(true)
-
           // join tickent number and discription if use ticket nomber in desc.
           let ticketItemDesc
           if(useTicketNomberInText){
@@ -570,7 +568,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           document.getElementsByTagName('textarea')[1].setSelectionRange(document.getElementsByTagName('textarea')[1].value.length, document.getElementsByTagName('textarea')[1].value.length);
 
           await waitTimer(bookingWaitingTimerDefault)
-
           // last check of the main inputs
           // if values are incorrect (tickettime empty), put it into retry list
           if (document.getElementsByClassName('lsField--f4')[0].childNodes[0].value !== proTime_projectNomber ||
@@ -584,7 +581,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             protime_ticketText.value = ''
             protime_ticketText.dispatchEvent(eventChange)
           } else {
-            totalBookedTickets ++
             // press on book only when test-mode is unused and all fields are filled correctly
             if (!dev_pttest) {
               let bookingButton = document.getElementsByClassName('lsToolbar--item-button')[8]
@@ -595,29 +591,22 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
               protime_ticketText.value = ''
             }
           }
-
+          
           await waitTimer(bookingWaitingTimer500)
           await checkpointLoadingDots(false)
           await checkpointLoadingDots(true)
-
-          // try {
-            // await observeElement('.lsMANotifier .lsMANotifierError', false, '0');
-            // await observeElement('.lsMACenter [aria-label="Meldungen"] [ierrormsgcount] [style~="visibility: visible"]', false, '0');
-          // } catch (e) {
-            // return result = { success: false, message: error };
-          // } 
-          // throw ({ errorstatus: 'error', errorheadline: 'Fehler in der Buchung', errortext: 'ProTime hat vor dem Abschließen der Buchung einen Fehler zurück gegeben. Bitte überprüfe die Meldung oben rechts auf der Seite.' })
-            
-
-
+          
           try {
             await observeElement('textarea', false, '0');
           } catch (error) {
-            return result = { success: false, message: error };
-          }
-
+            // if textarea is still filled and booking failed, push ticket in to retry array
+            console.warn('[Time Copy] 🎫 Retry Ticket: ',ticket, ' Error: ',error.text + ' ' + error.message)
+            retryTicketList.push(ticket)
+            protime_ticketText.value = ''
+          } 
           // disconnect cross observer
           stopCrossObserver()
+          totalBookedTickets ++
           bookingLoopCount++
         } catch (error) {
           throw error
