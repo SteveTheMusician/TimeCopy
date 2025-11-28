@@ -26,10 +26,12 @@ export async function reimportModuleStorageData(moduleCategoryName){
 export function changeModuleEEWidgetHeightHandler() {
   setTimeout(function() {
     let eEWidgetElem = document.getElementsByClassName('module-timeEEWidget')[0]
-    if(localStorage.getItem('tc_c_showStatusBar') === 'true' && !window.configOpen){
-      eEWidgetElem.classList.add('module-timeEEWidget--statusBarActive')
-    } else {
-      eEWidgetElem.classList.remove('module-timeEEWidget--statusBarActive')
+    if(eEWidgetElem) {
+      if(localStorage.getItem('tc_c_showStatusBar') === 'true' && !window.configOpen){
+        eEWidgetElem.classList.add('module-timeEEWidget--statusBarActive')
+      } else {
+        eEWidgetElem.classList.remove('module-timeEEWidget--statusBarActive')
+      }
     }
   },50)
 }
