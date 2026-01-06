@@ -30,7 +30,6 @@ import { setStatusBarText } from "./utils/setStatusBarText.js";
 import { nameInputInvalidRegexep } from "./utils/defaults/defaultVariables.js";
 // ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
-
 // savety function to prevent unwanted webpage content manipulation (triggered by window.onload)
 function isTimeCopy() {
   try {
