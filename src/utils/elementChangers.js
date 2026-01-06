@@ -1,3 +1,5 @@
+import { buttonTabPreValue } from "./defaults/defaultVariables"
+
 export function showHideStatusBar(showHideState,appGlobalArgs) {
   let eEWidgetElem = document.getElementsByClassName('module-timeEEWidget')[0]
   if(showHideState) {
@@ -9,8 +11,8 @@ export function showHideStatusBar(showHideState,appGlobalArgs) {
 
 export function markTabButtons(markState, ElementNamePart){
   if(markState === 'true') {
-    document.getElementById('button-tab-'+ElementNamePart).classList.add('button-tab--marked')
+    document.getElementById(buttonTabPreValue+ElementNamePart).classList.add('button-tab--marked')
   } else {
-    document.getElementById('button-tab-'+ElementNamePart).classList.remove('button-tab--marked')
+    document.getElementById(buttonTabPreValue+ElementNamePart).classList.remove('button-tab--marked')
   }
 }

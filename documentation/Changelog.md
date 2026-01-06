@@ -10,6 +10,15 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 -
 
+## V 1.3.21
+* **Fixes**
+- Module AmagProTime: regonize when textarea is filled at the beginning of the booking process and reload page
+- Module AmagProTime: mark ProTime elements, when they didnt change as expected
+
+* **Other Changes* **
+- component error feedback
+- code cleanup
+
 ## V 1.3.19
 * **Fixes**
   * EE Error when time is up but changes to Statusbar happen

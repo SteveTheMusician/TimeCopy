@@ -1,4 +1,3 @@
-
 import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../module/module.js"
 import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e, appFirstStartDoneValue } from "./defaults/defaultVariables.js"
 import { toast } from "../components/ui/toast/toast.js"
@@ -38,7 +37,6 @@ if(lstorage_cBookingScore !== null && lstorage_cBookingScore !== '' && lstorage_
 }
 
 export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
-  
   // load localstorage
   function loadStorage() {
     let newUpdatetextVersion = appVersionData.updateTextDetails
@@ -78,7 +76,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
     if (lstorage_cFilter) {
       document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
     } else {
-      markTabButtons('true','timesheets')
+      markTabButtons('true','platforms')
     }
     if (lstorage_cProfileName) {
       appGlobalArgs.configprofilename.value = lstorage_cProfileName
@@ -121,7 +119,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
       firstStartDisplay()
     }
     if(lstorage_cDetectionItems === 'undefined' || lstorage_cDetectionItems === null || lstorage_cDetectionItems === '[]') {
-      markTabButtons('true','projects')
+      markTabButtons('true','detections')
     }
     loadModuleStorage(moduleGlobalArgs)
   }

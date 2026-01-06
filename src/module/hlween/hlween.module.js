@@ -5,7 +5,7 @@ export function hlween() {
     let lstorage_c_moduleHlweenPumkin = localStorage.getItem('tc_c_module_hlweenPumpkin')
     const pumpkinId = 'pumpkin'
     const mainHtml = document.getElementsByTagName('main')[0]
-    const configItemDesign = document.getElementById('configItem-design-themes')
+    const configItemDesign = document.getElementById('configItem-designThemes')
     const hlweenHtml = `<div class="module-hlween module-timeEEWidget" id="${pumpkinId}"><?xml version="1.0" encoding="UTF-8"?>
         <?xml version="1.0" encoding="UTF-8"?>
         <svg id="PumpkinSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1099.53">

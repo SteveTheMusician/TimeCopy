@@ -4,11 +4,16 @@
 - mainfest.json -> Version
 - version.json -> Version, Build-version, Overview- & Details-Text 
 - package.json -> Version
-- package.lock.json -> version
+- package.lock.json -> version 2x
+- alle letzte Versionsnummer muss immer eine "1" sein
 
 ## Documentation
 - documentation -> version, updates
 - changelog
 
 ## Build
-- Extension build, wenn der Dist-Ordner als Commit gewünscht ist (zB. für Tests)
+- über npm run build, die Extension bauen und dann mit strg+c terminal stoppen
+- inhalt des "dist"-Ordners in zip verpacken
+
+## upload
+- Beim verpacken in zip darauf achten, dass keine anderen Fremd-Dateien enthalten sind (wie z.B. Mac-Hidden-Files)

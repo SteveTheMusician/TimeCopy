@@ -6,7 +6,7 @@ import { eventListenerHandler } from "../../../../utils/functionHandlers.js"
 import { markTabButtons } from "../../../../utils/elementChangers.js"
 import { debugStick } from "../../../../utils/appDebugStick.js"
 
-const button_addDetection = document.getElementById('button_add_projectDetection')
+const button_addDetection = document.getElementById('button_addProjectDetection')
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
 detectionItems = JSON.parse(detectionItems)
 const window_detection = document.getElementById('window_detection')
@@ -22,10 +22,10 @@ function updateDetectionItems(detectionItems) {
   let detectionItemsString = JSON.stringify(detectionItems)
   if(detectionItemsString === '[]') {
     localStorage.removeItem('tc_c_projectDetection')
-    markTabButtons('true','projects')
+    markTabButtons('true','detections')
   } else {
     localStorage.setItem('tc_c_projectDetection', detectionItemsString)
-    markTabButtons('false','projects')
+    markTabButtons('false','detections')
   }
   window.configUserChanges = true
 }

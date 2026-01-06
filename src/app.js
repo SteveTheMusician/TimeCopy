@@ -17,7 +17,7 @@ import {
 import { clearmoduleLocalStorages, reloadModuleCache,setModuleAmagProTimeTestStyle } from "./utils/moduleStorage.js";
 import { 
   defaultProfileName, consoleWarnMessage_showMessageTurnedOff, 
-  module_details_classVisible, default_e 
+  module_details_classVisible, default_e, buttonTabPreValue
 } from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 import { eventListenerHandler, reloadAppAfterChangeHandler } from "./utils/functionHandlers.js";
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const messagesHeadline = document.getElementById('messages-headline')
   const elem_messageSection = document.getElementById('messages-section')
   const configurationsContainer = document.getElementById('config-container')
-  const configWindow_getAll = document.getElementsByClassName('configuration-window')
+  const configWindow_getAll = document.getElementsByClassName('configurationWindow')
   const configProfileName = document.getElementById('configProfileName')
   const profilePictureUser = document.getElementById('profile_picture_user')
   const profileSVG = document.getElementById('Profile')
@@ -105,11 +105,11 @@ document.addEventListener('DOMContentLoaded', async function () {
   const statusBar = document.getElementById('statusBar')
   // tab buttons
   const buttonsTab_getAll = document.getElementsByClassName('button-config-tab')
-  const buttonTab_General = document.querySelector('button#button-tab-general')
-  const buttonTab_Timesheets = document.querySelector('button#button-tab-timesheets')
-  const buttonTab_Bookingsheets = document.querySelector('button#button-tab-bookingsheets')
-  const buttonTab_Projects = document.querySelector('button#button-tab-projects')
-  const buttonBackToMain = document.querySelector('button#buttonBackToMain')
+  const buttonTab_General = document.querySelector('button#'+buttonTabPreValue+'general')
+  const buttonTab_Timesheets = document.querySelector('button#'+buttonTabPreValue+'filters')
+  const buttonTab_Bookingsheets = document.querySelector('button#'+buttonTabPreValue+'platforms')
+  const buttonTab_Projects = document.querySelector('button#'+buttonTabPreValue+'detections')
+  const button_backToMain = document.querySelector('button#button_backToMain')
   // main buttons
   const fillButton = document.querySelector('button#fillButton')
   const fillCancelButton = document.querySelector('button#fillCancelButton')
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     removeTabActiveClass()
     elem.classList.add('button-tab--active')
     let idName = elemId.split('-')[2]
-    let configWindowToShow = document.getElementById('config-win-'+idName)
+    let configWindowToShow = document.getElementById('configWindow_'+idName)
     configWindowToShow.classList.remove('dNone')
     if(idName === "general") {
       configurationsContainer.classList.add('configuration-container-first-tab-selected')
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   function showBuildVersion(e){
     if(e.shiftKey){
-      configItem_content_row_build_version.classList.remove('dNone')
+      configItem_content_row_buildversion.classList.remove('dNone')
     }
   }
 
@@ -513,10 +513,10 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     // display version
     label_version.insertAdjacentHTML('beforeend', version)
-    label_version_name.insertAdjacentHTML('beforeend', versionName)
-    label_build_version.insertAdjacentHTML('beforeend', buildVersion)
-    label_extensionDevelop.insertAdjacentHTML('beforeend', author)
-    label_extensionCoDevelop.insertAdjacentHTML('beforeend', tester)
+    label_versionname.insertAdjacentHTML('beforeend', versionName)
+    label_buildversion.insertAdjacentHTML('beforeend', buildVersion)
+    label_extensiondevelop.insertAdjacentHTML('beforeend', author)
+    label_extensioncodevelop.insertAdjacentHTML('beforeend', tester)
     // add aceppted profile formats
     button_importConfigs.setAttribute('accept',profileType+", "+supportedProfileTypes.toString())
     // main action buttons listener
@@ -524,7 +524,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     fillCancelButton.addEventListener('click', cancelPasteData)
     configButton.addEventListener('click', openConfigs)
     button_clearAllMessages.addEventListener('click', clearAllMessages)
-    buttonBackToMain.addEventListener('click', openConfigs)
+    button_backToMain.addEventListener('click', openConfigs)
     // configuration tabs listener
     buttonTab_General.addEventListener('click', () => switchConfigTab(buttonTab_General.id,buttonTab_General))
     buttonTab_Projects.addEventListener('click', () => switchConfigTab(buttonTab_Projects.id,buttonTab_Projects))
@@ -542,8 +542,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     button_openStore.addEventListener('click', () => window.open(chromeStoreUrl))
     button_openLicense.addEventListener('click', () => window.open(licenseUrl))
     // other
-    label_version_name.addEventListener('click', (e) => showBuildVersion(e))
-    label_extensionDevelop.addEventListener('click', (e) => setCreatorStorage(e))
+    label_versionname.addEventListener('click', (e) => showBuildVersion(e))
+    label_extensiondevelop.addEventListener('click', (e) => setCreatorStorage(e))
     profileOptionsSelect.addEventListener('change', selectProfileOption)
     //theme select
     themeSelect.addEventListener('change', switchTheme)
@@ -561,8 +561,16 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
     try{
       // load needed app functions
-      profileManager(...window.appGlobalArgs,...appVersionData,...window.moduleGlobalArgs)
-      appStorage(...window.appGlobalArgs,...appVersionData,...window.moduleGlobalArgs)
+      try {
+        profileManager(...window.appGlobalArgs,...appVersionData,...window.moduleGlobalArgs)
+      } catch(e){
+        throw new Error('ProfileManager fehlerhaft | ',e)
+      }
+      try {
+        appStorage(...window.appGlobalArgs,...appVersionData,...window.moduleGlobalArgs)
+      } catch(e){
+        throw 'AppStorage fehlerhaft | '+e
+      }
       xmasModule()
       hlweenModule()
       // ‼️ remove developer on prod

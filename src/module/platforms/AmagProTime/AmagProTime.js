@@ -290,6 +290,11 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       const intervalId = setInterval(checkAndObserveVisibility, checkInterval);
     });
   }
+
+  function setProTimeElementErrorStyle(selector, selectorNumber) {
+    document.querySelectorAll(selector)[selectorNumber].style.border = "2px dashed #00ffd5"
+    document.querySelectorAll(selector)[selectorNumber].style.backgroundColor = "2px dashed #00ffd555"
+  }
   // variables 
   const proTimeElem_loadingBox = '#ur-loading'
   // timing variables for wait timer
@@ -377,6 +382,13 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         resolveFirstBookingLoop()
       }
       function resolveFirstBookingLoop() {
+        if(document.getElementsByTagName('textarea')[0].value !== '') {
+          reject({
+            text: 'Vorausgefüllte Felder',
+            textdetails: `Time Copy hat bereits ausgefüllte Felder in ProTime gefunden. Um Probleme mit den Buchungen zu vermeiden, wurde die Seite neu geladen. Bitte klicke erneut auf einfügen.`,
+          });
+          window.location.reload()
+        }
         if(!document.getElementById('timeCopyProTimeClick')){
           resolve('first booking loop ok')
         } else {
@@ -418,6 +430,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           try {
             await observeElement('textarea', false, '0');
           } catch (error) {
+            setProTimeElementErrorStyle('textarea','0')
             return result = { success: false, message: error };
           }
           // checkpoint loading dots (quick-check)
@@ -478,6 +491,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
             protime_leistungenOption.click()
           } catch (error) {
+            setProTimeElementErrorStyle('.lsField--list [aria-roledescription="Auswählen"]','0')
             return result = { success: false, message: error };
           }
           await waitTimer(bookingWaitingTimerDefault)

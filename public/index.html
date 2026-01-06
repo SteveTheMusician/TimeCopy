@@ -2,6 +2,7 @@
 <html lang="de">
   <head>
     <title>Time Copy</title>
+    <!-- created by Steve P.-->
     <meta charset="UTF-8">
     <link href="./static/Style/app.css" rel="stylesheet">
     <link href="./static/Style/themes/themeLoading.css" rel="stylesheet" id="link-theme">
@@ -10,7 +11,7 @@
     <script src='appReset.bundle.js' type="module"></script>
     <div class="specialbackground"></div>
     <header class="header dFlex dNone">
-      <button class="button-primary" id="buttonBackToMain" title="Zurück zur Übersicht">
+      <button class="button-primary" id="button_backToMain" title="Zurück zur Übersicht">
         <?xml version="1.0" encoding="UTF-8" standalone="no"?>
         <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
         <svg width="100%" height="100%" viewBox="0 0 691 1200" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +166,7 @@
                     h233C1182.1,756,1200,773.9,1200,796z" />
               </svg>
             </button>
-            <button class="button-primary button-config-tab" id="button-tab-timesheets" title="Filter für Tabellendaten">
+            <button class="button-primary button-config-tab" id="button-tab-filters" title="Filter für Tabellendaten">
               <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
               <?xml version="1.0" encoding="utf-8"?>
               <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +180,7 @@
                   	c-3.7-8.3-0.5-15.3,1.1-18c1.7-3,6.9-9.9,17.2-9.9h799.9c10.3,0,15.5,6.9,17.2,9.9C1018.8,192.6,1022,199.7,1018.3,208z" />
               </svg>
             </button>
-            <button class="button-primary button-config-tab" id="button-tab-projects" title="Erkennungsparameter">
+            <button class="button-primary button-config-tab" id="button-tab-detections" title="Erkennungsparameter">
               <?xml version="1.0" encoding="utf-8"?>
               <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
@@ -194,7 +195,7 @@
                   	C1091.5,630.4,1045.8,675.5,987.5,720.5z" />
               </svg>
             </button>
-            <button class="button-primary button-config-tab" id="button-tab-bookingsheets" title="Buchungsplatformen">
+            <button class="button-primary button-config-tab" id="button-tab-platforms" title="Buchungsplatformen">
               <?xml version="1.0" encoding="utf-8"?>
               <svg version="1.1" id="Configs-3" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1200 1200"
@@ -223,8 +224,8 @@
             </button>
           </div>
           <div class="configuration-container configuration-container-first-tab-selected" id="config-container">
-            <div class="configuration-window" id="config-win-general">
-              <section class="configuration-window-headline-container">
+            <div class="configurationWindow" id="configWindow_general">
+              <section class="configurationWindow-headline-container">
                 <h2>Allgemein</h2>
                 <div class="subtext-container">
                   <p class="subtext">
@@ -232,7 +233,7 @@
                   </p>
                 </div>
               </section>
-              <div class="configuration-window-content" id="config-win-general--content">
+              <div class="configurationWindow-content" id="configWindow_general--content">
                 <div class="configItem">
                   <div class="configItem-title-row--center flex" title="Wähle ein Profilbild">
                     <div class="icon-container configItem-icon-container profileFrame flex" id="profile_picture">
@@ -307,7 +308,7 @@
                       <p class="text-label">Design</p>
                     </div>
                   </div>
-                  <div class="configItem-content" id="configItem-design-themes">
+                  <div class="configItem-content" id="configItem-designThemes">
                     <div class="configItem-content-row dFlex">
                       <div class="configItem-content-left">
                         <p class="text-label text-margin--small">Farbthemen</p>
@@ -448,15 +449,15 @@
                         <p class="text-label text-margin--small">Version-Name</p>
                       </div>
                       <div class="configItem-content-right">
-                        <p class="label-version dFlex text-margin--small" id="label_version_name"></p>
+                        <p class="label-version dFlex text-margin--small" id="label_versionname"></p>
                       </div>
                     </div>
-                    <div class="configItem-content-row dFlex dNone" id="configItem_content_row_build_version">
+                    <div class="configItem-content-row dFlex dNone" id="configItem_content_row_buildversion">
                       <div class="configItem-content-left">
                         <p class="text-label text-margin--small">Build-Version</p>
                       </div>
                       <div class="configItem-content-right">
-                        <p class="label-version dFlex text-margin--small" id="label_build_version"></p>
+                        <p class="label-version dFlex text-margin--small" id="label_buildversion"></p>
                       </div>
                     </div>
                     <div class="configItem-content-row dFlex">
@@ -464,7 +465,7 @@
                         <p class="text-label text-margin--small">Creator</p>
                       </div>
                       <div class="configItem-content-right">
-                        <p class="label-version dFlex text-margin--small" id="label_extensionDevelop"></p>
+                        <p class="label-version dFlex text-margin--small" id="label_extensiondevelop"></p>
                       </div>
                     </div>
                     <div class="configItem-content-row dFlex">
@@ -472,15 +473,15 @@
                         <p class="text-label text-margin--small">Testing</p>
                       </div>
                       <div class="configItem-content-right">
-                        <p class="label-version dFlex text-margin--small" id="label_extensionCoDevelop"></p>
+                        <p class="label-version dFlex text-margin--small" id="label_extensioncodevelop"></p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="configuration-window dNone" id="config-win-timesheets">
-              <section class="configuration-window-headline-container">
+            <div class="configurationWindow dNone" id="configWindow_filters">
+              <section class="configurationWindow-headline-container">
                 <h2>Filter</h2>
                 <div class="subtext-container">
                   <p class="subtext">
@@ -489,28 +490,28 @@
                   </p>
                 </div>
               </section>
-              <div class="configuration-window-content" id="window_timesheetfilters">
+              <div class="configurationWindow-content" id="window_filters">
                 <!-- module filters here -->
               </div>
             </div>
-            <div class="configuration-window dGrid dNone" id="config-win-projects">
-              <section class="configuration-window-headline-container">
+            <div class="configurationWindow dGrid dNone" id="configWindow_detections">
+              <section class="configurationWindow-headline-container">
                 <h2>Erkennung</h2>
                 <div class="subtext-container">
                   <p class="subtext">
                     Erstelle hier neue Erkennungs-/Übertragungsmerkmale um die kopierten Informationen zu identifizieren und zuzuordnen.
                   </p>
-                  <button class="button-primary button-add" id="button_add_projectDetection" title="Erkennungsparameter hinzufügen">+</button>
+                  <button class="button-primary button-add" id="button_addProjectDetection" title="Erkennungsparameter hinzufügen">+</button>
                 </div>
               </section>
-              <div class="configuration-window-content dFlex">
-                <div class="configuration-window-content-inner dFlex" id="window_detection">
+              <div class="configurationWindow-content dFlex">
+                <div class="configurationWindow-content-inner dFlex" id="window_detection">
                   <!-- detection items here -->
                 </div>
               </div>
             </div>
-            <div class="configuration-window dNone" id="config-win-bookingsheets">
-              <section class="configuration-window-headline-container">
+            <div class="configurationWindow dNone" id="configWindow_platforms">
+              <section class="configurationWindow-headline-container">
                 <h2>Platformen</h2>
                 <div class="subtext-container">
                   <p class="subtext">
@@ -520,8 +521,8 @@
                   </p>
                 </div>
               </section>
-              <div class="configuration-window-content" id="window_bookingplatforms">
-                <!-- module platforms here -->
+              <div class="configurationWindow-content" id="window_bookingPlatforms">
+                <!-- platforms modules here -->
               </div>
             </div>
           </div>

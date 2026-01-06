@@ -33,9 +33,9 @@ export function firstStartDisplay() {
         // get original elements
         let profile_picture = document.getElementById('profile_picture')
         let configProfileName = document.getElementById('configProfileName')
-        let designThemes = document.getElementById('configItem-design-themes')
-        let filterWindow = document.getElementById('window_timesheetfilters')
-        let platformWindow = document.getElementById('window_bookingplatforms')
+        let designThemes = document.getElementById('configItem-designThemes')
+        let filterWindow = document.getElementById('window_filters')
+        let platformWindow = document.getElementById('window_platforms')
 
         if(nextCounter === 0){
             // insert first content

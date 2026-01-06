@@ -93,7 +93,7 @@ export async function filtersContent() {
                  </div>
                </div>
              </label>`
-    document.getElementById('window_timesheetfilters').innerHTML += filterChild
+    document.getElementById('window_filters').innerHTML += filterChild
     loadedFiltersFeedbackArray.push(plDataObject.filter_id)
   }
   resolve({success:true,feedback:"🧩 [Module: Filters] Content for "+loadedFiltersFeedbackArray+" loaded.",ids:loadedFiltersFeedbackArray})

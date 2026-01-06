@@ -103,7 +103,7 @@ export async function platformsContent() {
                     </div>
                   </div>
                 </label>`
-      document.getElementById('window_bookingplatforms').innerHTML += platformChild
+      document.getElementById('window_bookingPlatforms').innerHTML += platformChild
       loadedPlatformsFeedbackArray.push(plDataObject.platform_id)
       platformCustomAppFunctions
     }
