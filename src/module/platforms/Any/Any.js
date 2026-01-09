@@ -4,9 +4,15 @@ import { setStatusBarText } from "../../../utils/setStatusBarText"
 // You can find the html, which is inherit to the detection property in the detection folder of the any-module
 export async function Any (dataObj,detectionItemsAny) {
     // we just taking the discription from the object, cuz this is the only one good for testing and also the only which we gets from the "none-filter"
-    let data = dataObj[0].item_ticketdisc
+    let data
     // FILTER FUNCTIONS
+    console.log('--------->',dataObj[0])
     try {
+        if(!dataObj[0].item_ticketdisc || dataObj[0].item_ticketdisc === ''){
+            throw ('Es wurden keine Datein an das Modul weitergegeben. Grund dafür kann sein, dass du keinen passenden Filter ausgewählt hast.')
+        } else {
+            data = dataObj[0].item_ticketdisc
+        }
         let matchedTriggers = await checkForTrigger(data,detectionItemsAny)
         if(matchedTriggers.length === 0) {
             throw ('Es wurden keine Filter-Matches in deinem String gefunden')

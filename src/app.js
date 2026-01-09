@@ -246,6 +246,9 @@ document.addEventListener('DOMContentLoaded', async function () {
     try {
       setStatusBarText(window.language.statusbartext_filterData)
       filterData = await filters(filter, clipboarsString)
+      if(!filterData || filterData === null || filterData.length < 1 ) {
+        throw('Unable to filter String. Filter data length: ',filterData.length)
+      }
       debugStick(filterData,"💽 Selected Filter-Module: " + filter)
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error + " | app");
@@ -261,6 +264,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       debugStick(bookingPlatform,"🔘 Selected Platform-Module: ")
       setStatusBarText(window.language.statusbartext_passDataToPlatform)
       let bookEntries = await platforms(bookingPlatform, filterData, lstorage_cDetectionItems)
+      debugStick(bookEntries,"📝 Booking entries | ")
       let detailMessage = ''
       if (bookEntries.success) {
         debugStick(bookEntries,"✅ Booking process finished | ")
@@ -291,7 +295,11 @@ document.addEventListener('DOMContentLoaded', async function () {
       debugStick(error,"Booking Error-Feedback: ")
       lockActionButtons('false',fillButton)
       if(switch_showAllMessages.checked) {
-        message(true, error.errorstatus, window.language.error + ': ' + error.errorheadline, error.errortext || bookingPlatform)
+        // error message fallback, if wie get uncatched errors
+        let errorheadline = error.errorheadline ?? window.language.error_errorscript
+        let errortext = error.errortext ?? error + ' | '+ bookingPlatform
+        let errorstatus = error.errorstatus ?? 'error'
+        message(true, errorstatus, window.language.error + ': ' + errorheadline, errortext || bookingPlatform)
       } else {
         console.warn(consoleWarnMessage_showMessageTurnedOff)
       }
@@ -340,7 +348,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   function timesheetFilterChange(e) {
     let timesheetFilterValue = e.target.value.split(filter_timesheetFilterPreValue)[1]
     localStorage.setItem('tc_c_filter', timesheetFilterValue)
-    markTabButtons('false','timesheets')
+    markTabButtons('false','filters')
     window.configUserChanges = true
   }
 

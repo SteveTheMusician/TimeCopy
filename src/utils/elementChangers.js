@@ -9,9 +9,11 @@ export function showHideStatusBar(showHideState,appGlobalArgs) {
 }
 
 export function markTabButtons(markState, ElementNamePart){
+  let elem = document.getElementById(buttonTabPreValue+ElementNamePart)
+  let elemMarkedClass ='button-tab--marked'
   if(markState === 'true') {
-    document.getElementById(buttonTabPreValue+ElementNamePart).classList.add('button-tab--marked')
+    elem.classList.add(elemMarkedClass)
   } else {
-    document.getElementById(buttonTabPreValue+ElementNamePart).classList.remove('button-tab--marked')
+    elem.classList.remove(elemMarkedClass)
   }
 }

@@ -27,5 +27,4 @@
 - texte noch mal checken ggf als json strings in language
 - app storages zu einem profile-object zusammenfassen, dass gleichzeitig 1zu1 exportiert werden kann
 - Datum Stimmt nicht überein fix: Wenn Protime lahm ist, wird nach einem auto-klick das datum nicht erkannt. -> Funktion ist experimentell daher in zukunft ggf ein Observer einbauen
-
 - language einbauen (ggf mit different htmls)
