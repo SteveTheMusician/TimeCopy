@@ -25,3 +25,12 @@ export function reloadAppAfterChangeHandler(){
       window.location.reload()
   }
 }
+
+export function removeLocalStoragesByKey(keyWord) {
+  for (let i = localStorage.length - 1; i >= 0; i--) {
+    const key = localStorage.key(i);
+    if (key.includes(keyWord)) {
+      localStorage.removeItem(key);
+    }
+  }
+}

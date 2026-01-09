@@ -1,6 +1,6 @@
 # Datenschutzerklärung
 
-Stand: 27. September 2024
+Stand: 24. Dezember 2025
 
 ## Inhaltsübersicht
 
@@ -13,8 +13,6 @@ Stand: 27. September 2024
 ## Verantwortlicher
 
 Steve Pietrowski  
-Riesengebirgstraße 2a  
-65520 Bad Camberg
 
 E-Mail-Adresse: [contact@emptysoul.de](mailto:contact@emptysoul.de)
 

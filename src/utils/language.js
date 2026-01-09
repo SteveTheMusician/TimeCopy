@@ -15,7 +15,6 @@ export async function useLanguage(userLanguage) {
         let getlang = await getLanguage(userLanguage);
         return getlang; 
     } catch (error) {
-        // console.error("Error using language: ", e);
         throw error; 
     }
 }

@@ -1,4 +1,4 @@
-import { dateMonth } from "../../utils/defaults/defaultModuleVariables.js";
+import { dateMonth } from "../../utils/modules/defaults/defaultModuleVariables.js";
 import { xmas } from "./xmas.module.js";
 
 export function xmasModule() {

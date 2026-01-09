@@ -1,13 +1,13 @@
-
 import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platform_functionName_automatic } from "../module/module.js"
 import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e, appFirstStartDoneValue } from "./defaults/defaultVariables.js"
 import { toast } from "../components/ui/toast/toast.js"
 import { message } from "../components/ui/message/message.js"
-import { loadModuleStorage, clearmoduleLocalStorages } from "./moduleStorage.js"
+import { loadModuleStorage, clearmoduleLocalStorages } from "./modules/moduleStorage.js"
 import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
 import { setScoreValues } from "./setScorevalues.js"
 import { firstStartDisplay } from "../components/content/firstStartDisplay/firstStartDisplay.js"
 import { showHideStatusBar,markTabButtons } from "./elementChangers.js"
+import { updateHelper } from "./updateHelper.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -38,7 +38,6 @@ if(lstorage_cBookingScore !== null && lstorage_cBookingScore !== '' && lstorage_
 }
 
 export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
-  
   // load localstorage
   function loadStorage() {
     let newUpdatetextVersion = appVersionData.updateTextDetails
@@ -48,12 +47,16 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
         localStorage.setItem('tc_appVersion', appVersionData.version)
         // reset module information cache
         clearmoduleLocalStorages(true)
+        // start update helper if some special operations are needed
+        updateHelper(appVersionData.updateClearModuleStorage)
         // show update message
         message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
       }
     } else {
       // "first" app start
       localStorage.setItem('tc_appVersion', appVersionData.version)
+      // start update helper if some special operations are needed
+      updateHelper(appVersionData.updateClearModuleStorage)
       message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
     }
     
@@ -78,7 +81,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
     if (lstorage_cFilter) {
       document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
     } else {
-      markTabButtons('true','timesheets')
+      markTabButtons('true','platforms')
     }
     if (lstorage_cProfileName) {
       appGlobalArgs.configprofilename.value = lstorage_cProfileName
@@ -121,7 +124,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
       firstStartDisplay()
     }
     if(lstorage_cDetectionItems === 'undefined' || lstorage_cDetectionItems === null || lstorage_cDetectionItems === '[]') {
-      markTabButtons('true','projects')
+      markTabButtons('true','detections')
     }
     loadModuleStorage(moduleGlobalArgs)
   }
@@ -175,7 +178,6 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
 // clear local storage
 export function clearLocalStorage() {
   localStorage.clear()
-  clearmoduleLocalStorages()
 }
 
 export function clearSessionStorage() {

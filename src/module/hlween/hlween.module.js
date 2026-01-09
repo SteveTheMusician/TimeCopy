@@ -1,11 +1,11 @@
-import { changeModuleEEWidgetHeightHandler } from "../../utils/moduleGlobalUtils"
-import { showHideEEWidget } from "../../utils/moduleGlobalUtils"
-
+import { changeModuleEEWidgetHeightHandler } from "../../utils/modules/moduleGlobalUtils"
+import { showHideEEWidget } from "../../utils/modules/moduleGlobalUtils"
+import { moduleStorage_preValueConfiguration } from "../../utils/modules/defaults/defaultModuleVariables"
 export function hlween() {
-    let lstorage_c_moduleHlweenPumkin = localStorage.getItem('tc_c_module_hlweenPumpkin')
+    let lstorage_c_moduleHlweenPumkin = localStorage.getItem(moduleStorage_preValueConfiguration+'_hlweenPumpkin')
     const pumpkinId = 'pumpkin'
     const mainHtml = document.getElementsByTagName('main')[0]
-    const configItemDesign = document.getElementById('configItem-design-themes')
+    const configItemDesign = document.getElementById('configItem-designThemes')
     const hlweenHtml = `<div class="module-hlween module-timeEEWidget" id="${pumpkinId}"><?xml version="1.0" encoding="UTF-8"?>
         <?xml version="1.0" encoding="UTF-8"?>
         <svg id="PumpkinSVG" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1099.53">
@@ -31,7 +31,7 @@ export function hlween() {
   configItemDesign.insertAdjacentHTML('beforeend', configPumpkinOnOffHtml);
 
   const checkModulePumpkin = document.getElementById('check_showModulePumpkin')
-  checkModulePumpkin.addEventListener('change', (e) => showHideEEWidget(e,pumpkinId,'tc_c_module_hlweenPumpkin'))
+  checkModulePumpkin.addEventListener('change', (e) => showHideEEWidget(e,pumpkinId,moduleStorage_preValueConfiguration+'_hlweenPumpkin'))
 
   // loadup
   if (lstorage_c_moduleHlweenPumkin === 'true') {

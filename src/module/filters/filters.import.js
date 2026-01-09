@@ -1,6 +1,7 @@
 // enter the folder/file-names of the modules here
 export const importFilters = ["TobiasExcel", "SteveGoogleExcel","None"]
 export const filter_timesheetFilterPreValue = 'timesheetfilter_'
+import { moduleStorage_preValueSystem } from "../../utils/modules/defaults/defaultModuleVariables"
 
 async function generateFilterData() {
     return new Promise(async (resolve) => { 
@@ -19,13 +20,13 @@ async function generateFilterData() {
 
 export async function importFiltersData() {
     return new Promise(async (resolve) => { 
-        let tc_s_moduleFilterInformations = localStorage.getItem('tc_s_moduleFilterInformations')
+        let tc_s_moduleFilterInformations = localStorage.getItem(moduleStorage_preValueSystem+'FilterInformations')
         if (!tc_s_moduleFilterInformations) {
             let moduleFiltersData = await generateFilterData()
             try {
                 if (moduleFiltersData) {
                     // push all informations about the filter modules into ls
-                    tc_s_moduleFilterInformations = localStorage.setItem('tc_s_moduleFilterInformations', JSON.stringify(moduleFiltersData))
+                    tc_s_moduleFilterInformations = localStorage.setItem(moduleStorage_preValueSystem+'FilterInformations', JSON.stringify(moduleFiltersData))
                     resolve(tc_s_moduleFilterInformations)
                 } else {
                     throw new Error('unable to create module (filters) import data')
