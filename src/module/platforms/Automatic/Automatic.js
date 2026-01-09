@@ -1,5 +1,7 @@
 import { setStatusBarText } from "../../../utils/setStatusBarText";
 import { anyPlatformUrl } from "./variables/Automatic.variables";
+import { moduleStorage_preValueSystem } from "../../../utils/modules/defaults/defaultModuleVariables";
+
 export async function Automatic() {
     try {
         setStatusBarText(window.language.statusbartext_moduleAutomatic_isSelectingPlatform)
@@ -11,7 +13,7 @@ export async function Automatic() {
             throw ({ errorstatus: 'error', errorheadline: 'Chrome Window URL', errortext: '"Automatisch" konnte nicht auf die Chrome-Tab API zugreifen. Vermutlich ist ein leeres Fenster geöffnet oder es gibt andere Probleme mit der URL.' })
         }
         currentURL = tab.url
-        let tc_s_moduleplatforminformations = localStorage.getItem('tc_s_modulePlatformInformations')
+        let tc_s_moduleplatforminformations = localStorage.getItem(moduleStorage_preValueSystem+'PlatformInformations')
         if(tc_s_moduleplatforminformations === null || tc_s_moduleplatforminformations === '') {
             throw ({ errorstatus: 'error', errorheadline: 'Automatisch konnte Storage nicht finden', errortext: 'Platforminformations Storage konnte nicht gelesen werden oder ist leer. (Bitte Entwickler kontaktieren)' })
         }

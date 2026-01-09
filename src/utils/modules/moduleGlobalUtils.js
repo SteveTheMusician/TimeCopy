@@ -1,5 +1,5 @@
-import { importPlatformsData } from "../module/platforms/platforms.import.js"
-import { importFiltersData } from "../module/filters/filters.import.js"
+import { importPlatformsData } from "../../module/platforms/platforms.import.js"
+import { importFiltersData } from "../../module/filters/filters.import.js"
 
 export async function reimportModuleStorageData(moduleCategoryName){
     let importNewData = ''
@@ -18,7 +18,7 @@ export async function reimportModuleStorageData(moduleCategoryName){
         throw new Error('Unable to import Module '+moduleCategoryName+' data')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       window.location.reload()
     }
 }

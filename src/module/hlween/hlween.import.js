@@ -1,5 +1,5 @@
 import { hlween } from "./hlween.module";
-import { dateMonth } from "../../utils/defaults/defaultModuleVariables";
+import { dateMonth } from "../../utils/modules/defaults/defaultModuleVariables";
 
 export function hlweenModule() {
     // load haloween module in oktober

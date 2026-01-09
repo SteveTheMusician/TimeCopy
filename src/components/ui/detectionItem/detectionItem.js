@@ -1,9 +1,10 @@
 import { importPlatforms } from "../../../module/platforms/platforms.import.js"
 import { importPlatformDetectionContent } from "../../../module/platforms/platforms.import.js"
+import { moduleStorage_preValueSystem } from "../../../utils/modules/defaults/defaultModuleVariables.js"
 
 export async function generateDetectionItemSelectOptions() {
   let platformSelectItems = []
-  let platformInfoData = localStorage.getItem('tc_s_modulePlatformInformations')
+  let platformInfoData = localStorage.getItem(moduleStorage_preValueSystem+'PlatformInformations')
   platformInfoData = JSON.parse(platformInfoData)
   let plDataObject = ''
   for (let plKey of importPlatforms){

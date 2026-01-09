@@ -87,7 +87,7 @@ button:focus-visible,.button-primary:focus-visible, div:focus-visible,
     filter: invert(1);
 }
 
-#button_add_projectDetection:focus-visible {
+#button_addProjectDetection:focus-visible {
     filter: invert(1);
     outline: 1px solid;
 }
@@ -186,10 +186,6 @@ input::placeholder {
 
 .dFlex {
     display: flex;
-}
-
-.dNone {
-    display: none;
 }
 
 .padding-right-10 {
@@ -481,7 +477,7 @@ label:has(#button_importConfigs) {
     user-select: text;
 }
 
-#label_build_version {
+#label_buildVersion {
     user-select: text;
 }
 
@@ -508,14 +504,14 @@ label:has(#button_importConfigs) {
     width: 36px;
 }
 
-.configuration-window-content {
+.configurationWindow-content {
     padding: 10px;
     max-height: calc(100vh - 224px);
     overflow-y: scroll;
     flex-direction: column;
 }
 
-.configuration-window-content-inner {
+.configurationWindow-content-inner {
     flex-direction: column-reverse;
     flex-grow: 1;
 }
@@ -1309,12 +1305,12 @@ input:checked+.switch_slider:before {
 
 @media only screen and (min-width: 706px) {
 
-    .configuration-window-content {
+    .configurationWindow-content {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
 
-    #config-win-projects .configuration-window-content {
+    #configWindow_detections .configurationWindow-content {
         display: flex;
     }
 }
@@ -1333,7 +1329,7 @@ input:checked+.switch_slider:before {
 
 @media only screen and (min-width: 1280px) {
 
-    .configuration-window-content {
+    .configurationWindow-content {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }

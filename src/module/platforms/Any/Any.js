@@ -4,9 +4,14 @@ import { setStatusBarText } from "../../../utils/setStatusBarText"
 // You can find the html, which is inherit to the detection property in the detection folder of the any-module
 export async function Any (dataObj,detectionItemsAny) {
     // we just taking the discription from the object, cuz this is the only one good for testing and also the only which we gets from the "none-filter"
-    let data = dataObj[0].item_ticketdisc
+    let data
     // FILTER FUNCTIONS
     try {
+        if(!dataObj[0].item_ticketdisc || dataObj[0].item_ticketdisc === ''){
+            throw ('Es wurden keine Datein an das Modul weitergegeben. Grund dafür kann sein, dass du keinen passenden Filter ausgewählt hast.')
+        } else {
+            data = dataObj[0].item_ticketdisc
+        }
         let matchedTriggers = await checkForTrigger(data,detectionItemsAny)
         if(matchedTriggers.length === 0) {
             throw ('Es wurden keine Filter-Matches in deinem String gefunden')
@@ -26,7 +31,6 @@ export async function Any (dataObj,detectionItemsAny) {
           setStatusBarText('Pass data to webplatform...')
           const iChrTab = await injectChromeTabScript(data)
           if (iChrTab.result !== null && iChrTab.result.success === false ) {
-            console.log('error 1')
             throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
           }else if (iChrTab.result === null) {
             setStatusBarText('FEHLER: Prozess beendet','timeout')
@@ -50,7 +54,6 @@ export async function Any (dataObj,detectionItemsAny) {
               args: [data]
             });
         if (chromeExecScript[0].result && chromeExecScript[0].result.error) {
-            console.log('chrome error 1')
             throw new Error(chromeExecScript[0].result.error);
         }
         return chromeExecScript[0];

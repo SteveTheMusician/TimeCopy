@@ -1,8 +1,8 @@
 # Time Copy
-#### V 1.2.XX (Sidebar Version)
+#### V 1.3.XX (Sidebar Version)
 By Steve Pietrowski / EmptySoul
 </br>
-04.07.2023 - 11.2025
+04.07.2023 - 01.2026
 
 ## Benutzerinformationen
 
@@ -105,6 +105,7 @@ Einstellungen.
 Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende Adressen wenden
 
 - E-Mail-Adresse: [contact@emptysoul.de](mailto:contact@emptysoul.de)
+- Bugs/Probleme melden: [Issues auf Github](https://github.com/SteveTheMusician/TimeCopy/issues)
 
 ## Technische Informationen
 

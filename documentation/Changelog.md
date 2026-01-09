@@ -8,7 +8,28 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ---
 
 ## Last important changes summary
--
+- Fix filter not accepted after change
+
+## V 1.3.22
+* **Fixes**
+- Show platform module list on start screen again
+- Catch undefiened errors from filters and platforms
+- Fix filter not accepted after change
+- Theme fixes
+
+* **Other Changes* **
+- code cleanup (also storage changes)
+- replace License url with Issue reporting
+- update license and dokumentation
+
+## V 1.3.21
+* **Fixes**
+- Module AmagProTime: regonize when textarea is filled at the beginning of the booking process and reload page
+- Module AmagProTime: mark ProTime elements, when they didnt change as expected
+
+* **Other Changes* **
+- component error feedback
+- code cleanup
 
 ## V 1.3.19
 * **Fixes**
