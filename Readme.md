@@ -105,6 +105,7 @@ Einstellungen.
 Bei Anfragen, Bedenken oder Bug-Reports kannst du dich an folgende Adressen wenden
 
 - E-Mail-Adresse: [contact@emptysoul.de](mailto:contact@emptysoul.de)
+- Bugs/Probleme melden: [Issues auf Github](https://github.com/SteveTheMusician/TimeCopy/issues)
 
 ## Technische Informationen
 

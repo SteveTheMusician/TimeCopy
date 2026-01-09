@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const button_docuChangelog = document.getElementById('button_openChangelog')
   const button_docuDatenschutz = document.getElementById('button_openDatenschutz')
   const button_openStore = document.getElementById('button_openStore')
-  const button_openLicense = document.getElementById('button_openLicense')
+  const button_openIssues = document.getElementById('button_openIssues')
   // module-platform element listeners
   const radio_bookingPlatforms = document.getElementsByName('booking-platform')
   const module_platform_element = document.getElementsByClassName('moduleItem-platform')
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const privacyUrl = data_version.extension_privacy
   const readmeUrl = data_version.extension_readme
   const chromeStoreUrl = data_version.extension_chromestore
-  const licenseUrl = data_version.extension_license
+  const issuesUrl = data_version.extension_issues
   const version = data_version.extension_version
   const versionName = data_version.extension_version_name
   const buildVersion = data_version.extension_build
@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const supportedProfileTypes = data_version.supported_profile_types
   const updateTextOverview = data_version.extension_update_text_overview
   const updateTextDetails = data_version.extension_update_text_details
+  const updateClearModuleStorage = data_version.update_clear_moduleconfigurations
   // main action buttons functions
   function openConfigs() {
     if (window.configOpen) {
@@ -492,9 +493,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   window.addEventListener("load", (event) => {
     // set global vars
     window.appVersionData = [{dokuUrl:dokuUrl,changelogUrl:changelogUrl,privacyUrl:privacyUrl,readmeUrl:readmeUrl,
-      chromeStoreUrl:chromeStoreUrl,licenseUrl:licenseUrl,version:version, versionName: versionName, buildVersion:buildVersion,
+      chromeStoreUrl:chromeStoreUrl,issuesUrl:issuesUrl,version:version, versionName: versionName, buildVersion:buildVersion,
       author:author,tester:tester,profileVersion:profileVersion,profileType: profileType,supportedProfileVersions:supportedProfileVersions,
-      supportedProfileTypes: supportedProfileTypes,updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails
+      supportedProfileTypes: supportedProfileTypes,updateTextOverview:updateTextOverview,updateTextDetails:updateTextDetails, updateClearModuleStorage: updateClearModuleStorage
     }]
     window.appGlobalArgs = [{elem_themeselect: themeSelect,configprofilename: configProfileName,link_csstheme: link_cssTheme,switch_showallmessages: switch_showAllMessages,
       switch_showStatusBar: switch_showStatusBar,elem_messagesection: elem_messageSection,messagesheadline: messagesHeadline, elem_configButton: configButton,elem_profilePictureUser: profilePictureUser, 
@@ -539,7 +540,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     button_docuChangelog.addEventListener('click', () => window.open(changelogUrl))
     button_docuReadme.addEventListener('click', () => window.open(readmeUrl))
     button_openStore.addEventListener('click', () => window.open(chromeStoreUrl))
-    button_openLicense.addEventListener('click', () => window.open(licenseUrl))
+    button_openIssues.addEventListener('click', () => window.open(issuesUrl))
     // other
     label_versionname.addEventListener('click', (e) => showBuildVersion(e))
     label_extensiondevelop.addEventListener('click', (e) => setCreatorStorage(e))

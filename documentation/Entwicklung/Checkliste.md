@@ -6,6 +6,7 @@
 - package.json -> Version
 - package.lock.json -> version 2x
 - alle letzte Versionsnummer muss immer eine "1" sein
+- updateHelper in den Utils checken und Funktionen ggf umschreiben
 
 ## Documentation
 - documentation -> version, updates

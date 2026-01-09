@@ -7,6 +7,7 @@ import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
 import { setScoreValues } from "./setScorevalues.js"
 import { firstStartDisplay } from "../components/content/firstStartDisplay/firstStartDisplay.js"
 import { showHideStatusBar,markTabButtons } from "./elementChangers.js"
+import { updateHelper } from "./updateHelper.js"
 
 let defaultBookingPlatform = platform_functionName_automatic
 let lstorage_cProfileName = localStorage.getItem('tc_c_profileName')
@@ -46,12 +47,16 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
         localStorage.setItem('tc_appVersion', appVersionData.version)
         // reset module information cache
         clearmoduleLocalStorages(true)
+        // start update helper if some special operations are needed
+        updateHelper(appVersionData.updateClearModuleStorage)
         // show update message
         message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
       }
     } else {
       // "first" app start
       localStorage.setItem('tc_appVersion', appVersionData.version)
+      // start update helper if some special operations are needed
+      updateHelper(appVersionData.updateClearModuleStorage)
       message(true, 'information', appVersionData.updateTextOverview + appVersionData.version, newUpdatetextVersion)
     }
     
@@ -173,7 +178,6 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
 // clear local storage
 export function clearLocalStorage() {
   localStorage.clear()
-  clearmoduleLocalStorages()
 }
 
 export function clearSessionStorage() {

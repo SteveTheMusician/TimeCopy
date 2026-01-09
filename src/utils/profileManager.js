@@ -225,7 +225,6 @@ function importProfilePicture(appGlobalArgs) {
 
   const reader = new FileReader();
   reader.onload = function (e) {
-
     const base64 = e.target.result;
     const img = new Image();
 
@@ -237,7 +236,6 @@ function importProfilePicture(appGlobalArgs) {
       setUnsetProfilePicture(true, base64, appGlobalArgs);
       window.configUserChanges = true;
     };
-
     img.src = base64;
   };
   reader.readAsDataURL(imageFile);

@@ -15,6 +15,8 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 * **Other Changes* **
 - code cleanup (also storage changes)
+- replace License url with Issue reporting
+- update license and dokumentation
 
 ## V 1.3.21
 * **Fixes**

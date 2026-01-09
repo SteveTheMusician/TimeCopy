@@ -1,5 +1,6 @@
 import { pAmagProTime_defaultUseTicketNomberInText, pAmagProTime_defaultHighLatencyMode, pAmagProTime_defaultForceHighLatencyMode, 
   pAmagProTime_defaultUseProTimeTestMode, pAmagProTime_defaultUseMatchBookingDay,pAmagProTime_defaultUseAutoSelectDay,moduleStorage_preValueConfiguration, moduleStorage_preValueSystem } from "./defaults/defaultModuleVariables"
+  import { removeLocalStoragesByKey } from "../functionHandlers"
 export let lstorage_c_moduleProTimeTest = JSON.parse(localStorage.getItem(moduleStorage_preValueConfiguration+'_proTimeTest'))
 export let lstorage_c_moduleProTimeForceLatencyMode = JSON.parse(localStorage.getItem(moduleStorage_preValueConfiguration+'_proTimeForceLatencyMode'))
 export let lstorage_c_moduleProTimeUseLatencyMode = JSON.parse(localStorage.getItem(moduleStorage_preValueConfiguration+'_proTimeUseLatencyMode'))
@@ -57,32 +58,9 @@ export function loadModuleStorage(moduleGlobalArgs) {
 export function clearmoduleLocalStorages(onlyImportantModule) {
   // module storages
   if(onlyImportantModule) {
-    for (let i = localStorage.length - 1; i >= 0; i--) {
-      const key = localStorage.key(i);
-    if (key.includes(moduleStorage_preValueSystem)) {
-      localStorage.removeItem(key);
-      console.log('removed:', key);
-    }
-  }
+    removeLocalStoragesByKey(moduleStorage_preValueSystem)
   } else {
-   for (let i = localStorage.length - 1; i >= 0; i--) {
-      const key = localStorage.key(i);
-    if (key.includes(moduleStorage_preValueConfiguration)) {
-      localStorage.removeItem(key);
-      console.log('removed:', key);
-    }
-  }
-
-    // localStorage.removeItem(moduleStorage_preValueSystem+'PlatformInformations')
-    // localStorage.removeItem(moduleStorage_preValueSystem+'FilterInformations')
-    // localStorage.removeItem(moduleStorage_preValueConfiguration+'_proTimeTest')
-    // localStorage.removeItem(moduleStorage_preValueConfiguration+'_xMasSnowFlakes')
-    // localStorage.removeItem(moduleStorage_preValueConfiguration+'_xMasTree')
-    // localStorage.removeItem(moduleStorage_preValueConfiguration+'_proTimeForceLatencyMode')
-    // localStorage.removeItem(moduleStorage_preValueConfiguration+'_proTimeUseLatencyMode')
-    // localStorage.removeItem(moduleStorage_preValueConfiguration+'_proTimeTicketNomberInText')
-    // localStorage.removeItem(moduleStorage_preValueConfiguration+'_proTimeMatchBookingDay')
-    // localStorage.removeItem(moduleStorage_preValueConfiguration+'_proTimeAutoSelectDay')
+    removeLocalStoragesByKey(moduleStorage_preValueConfiguration) 
   }
 }
   
