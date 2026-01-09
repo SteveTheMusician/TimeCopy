@@ -2,7 +2,7 @@ import { platform_bookingPlatformPreValue,filter_timesheetFilterPreValue,platfor
 import { defaultProfileName, defaultTheme, defaultShowAllMessages,defaultShowStatusBar,default_e, appFirstStartDoneValue } from "./defaults/defaultVariables.js"
 import { toast } from "../components/ui/toast/toast.js"
 import { message } from "../components/ui/message/message.js"
-import { loadModuleStorage, clearmoduleLocalStorages } from "./moduleStorage.js"
+import { loadModuleStorage, clearmoduleLocalStorages } from "./modules/moduleStorage.js"
 import { exportProfile, setUnsetProfilePicture } from "./profileManager.js"
 import { setScoreValues } from "./setScorevalues.js"
 import { firstStartDisplay } from "../components/content/firstStartDisplay/firstStartDisplay.js"

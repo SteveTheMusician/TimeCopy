@@ -9,6 +9,12 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## Last important changes summary
 -
+## V 1.3.22
+* **Fixes**
+- Show platform module list on start screen again
+
+* **Other Changes* **
+- code cleanup (also storage changes)
 
 ## V 1.3.21
 * **Fixes**

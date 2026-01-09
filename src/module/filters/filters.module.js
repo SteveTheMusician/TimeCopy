@@ -3,7 +3,8 @@ import { filter_TobiasExcel } from "./TobiasExcel/TobiasExcel.js"
 import { filter_None } from "./None/None.js"
 import { importFilters } from "./filters.import.js"
 import { importFiltersData } from "./filters.import.js"
-import { reimportModuleStorageData } from "../../utils/moduleGlobalUtils.js"
+import { reimportModuleStorageData } from "../../utils/modules/moduleGlobalUtils.js"
+import { moduleStorage_preValueSystem } from "../../utils/modules/defaults/defaultModuleVariables.js"
 
 const selfId = 'filters'
 // map filters
@@ -22,7 +23,7 @@ export async function filters(filter,clipboarsString) {
 export async function filtersContent() {
   let loadedFiltersFeedbackArray = []
   return new Promise(async (resolve, reject) => { 
-  let filterInfoData = localStorage.getItem('tc_s_moduleFilterInformations')
+  let filterInfoData = localStorage.getItem(moduleStorage_preValueSystem+'FilterInformations')
   if (!filterInfoData) {
     importFiltersData()
   } else {
@@ -38,7 +39,7 @@ export async function filtersContent() {
       }
     } catch (error) {
       console.log(error)
-      localStorage.removeItem('tc_s_moduleFilterInformations')
+      localStorage.removeItem(moduleStorage_preValueSystem+'FilterInformations')
       reimportModuleStorageData(selfId)
       return
     }

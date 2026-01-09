@@ -18,7 +18,7 @@ import {
   defaultProfileAuthor,
   appFirstStartDoneValue
 } from "./defaults/defaultVariables.js";
-import { moduleProfileExport, moduleProfileImport } from "./moduleProfileManagerUtil.js";
+import { moduleProfileExport, moduleProfileImport } from "./modules/moduleProfileManagerUtil.js";
 
 export function profileManager(appGlobalArgs, appVersionData, moduleGlobalArgs) {
   const tcprofileVersion = appVersionData.profileVersion;

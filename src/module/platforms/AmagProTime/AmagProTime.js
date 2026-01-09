@@ -17,7 +17,7 @@ import {
   noTicketDiscFill
 } from "./variables/AmagProTime.variables.js";
 import { lstorage_c_moduleProTimeUseLatencyMode,lstorage_c_moduleProTimeForceLatencyMode,
-  lstorage_c_moduleProtimeTicketNomberInText,lstorage_c_moduleProTimeTest, lstorage_c_moduleProtimeUseMatchBookingDay, lstorage_c_moduleProtimeUseAutoSelectDay } from "../../../utils/moduleStorage.js";
+  lstorage_c_moduleProtimeTicketNomberInText,lstorage_c_moduleProTimeTest, lstorage_c_moduleProtimeUseMatchBookingDay, lstorage_c_moduleProtimeUseAutoSelectDay } from "../../../utils/modules/moduleStorage.js";
 import { setStatusBarText } from "../../../utils/setStatusBarText.js";
 import { debugStick } from "../../../utils/appDebugStick.js";
   

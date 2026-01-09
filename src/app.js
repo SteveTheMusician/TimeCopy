@@ -14,20 +14,20 @@ import {
   lstorage_cFilter, lstorage_cBookingPlatform, 
   lstorage_cBookingScore
 } from "./utils/appStorage.js";
-import { clearmoduleLocalStorages, reloadModuleCache,setModuleAmagProTimeTestStyle } from "./utils/moduleStorage.js";
+import { clearmoduleLocalStorages, reloadModuleCache,setModuleAmagProTimeTestStyle } from "./utils/modules/moduleStorage.js";
 import { 
   defaultProfileName, consoleWarnMessage_showMessageTurnedOff, 
-  module_details_classVisible, default_e, buttonTabPreValue
+  module_details_classVisible, default_e, buttonTabPreValue,nameInputInvalidRegexep
 } from "./utils/defaults/defaultVariables.js";
 import { profileManager } from "./utils/profileManager.js";
 import { eventListenerHandler, reloadAppAfterChangeHandler } from "./utils/functionHandlers.js";
-import { changeModuleEEWidgetHeightHandler } from "./utils/moduleGlobalUtils.js";
+import { changeModuleEEWidgetHeightHandler } from "./utils/modules/moduleGlobalUtils.js";
 import { generateThemes } from "./components/ui/selectThemes/selectThemes.js";
 import { setScoreValues } from "./utils/setScorevalues.js";
 import { debugStick } from "./utils/appDebugStick.js";
 import { markTabButtons, showHideStatusBar } from "./utils/elementChangers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
-import { nameInputInvalidRegexep } from "./utils/defaults/defaultVariables.js";
+import { moduleStorage_preValueConfiguration } from "./utils/modules/defaults/defaultModuleVariables.js";
 // ‼️ remove developer on prod
 import { developer } from "./developer/developer.js";
 // savety function to prevent unwanted webpage content manipulation (triggered by window.onload)
@@ -446,33 +446,33 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   function moduleProTimeForceLatencyMode(e){
-    localStorage.setItem('tc_c_module_proTimeForceLatencyMode', e.target.checked)
+    localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeForceLatencyMode', e.target.checked)
     window.configUserChanges = true
   }
 
   function moduleProTimeUseLatencyMode(e){
-    localStorage.setItem('tc_c_module_proTimeUseLatencyMode', e.target.checked)
+    localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeUseLatencyMode', e.target.checked)
     window.configUserChanges = true
   }
 
   function moduleProTimeCheckUsePTTest(){
-    localStorage.setItem('tc_c_module_proTimeTest', moduleProTime_config_check_usePTTest.checked)
+    localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeTest', moduleProTime_config_check_usePTTest.checked)
     setModuleAmagProTimeTestStyle(moduleProTime_config_check_usePTTest.checked,...window.moduleGlobalArgs )
     window.configUserChanges = true
   }
 
   function moduleProTimeUseTicketNomberInText(e){
-    localStorage.setItem('tc_c_module_proTimeTicketNomberInText', e.target.checked)
+    localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeTicketNomberInText', e.target.checked)
     window.configUserChanges = true
   }
 
   function moduleProTimeUseMatchBookingDay(e) {
-    localStorage.setItem('tc_c_proTimeMatchBookingDay', e.target.checked)
+    localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeMatchBookingDay', e.target.checked)
     window.configUserChanges = true
   }
 
   function moduleProTimeUseAutoSelectDay(e) {
-    localStorage.setItem('tc_c_proTimeAutoSelectDay', e.target.checked)
+    localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeAutoSelectDay', e.target.checked)
     window.configUserChanges = true
   }
 

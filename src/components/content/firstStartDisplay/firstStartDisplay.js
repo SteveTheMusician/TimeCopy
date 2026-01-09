@@ -35,7 +35,7 @@ export function firstStartDisplay() {
         let configProfileName = document.getElementById('configProfileName')
         let designThemes = document.getElementById('configItem-designThemes')
         let filterWindow = document.getElementById('window_filters')
-        let platformWindow = document.getElementById('window_platforms')
+        let platformWindow = document.getElementById('window_bookingPlatforms')
 
         if(nextCounter === 0){
             // insert first content
@@ -63,7 +63,7 @@ export function firstStartDisplay() {
         if(nextCounter === 3) {
             startScreenTitle.innerHTML = configPlatformTitel
             startScreenTextBlock.innerHTML = configPlatformText
-            startScreenContent.innerHTML = ''
+            // startScreenContent.innerHTML = ''
             startScreenMain.innerHTML = ''
             startScreenMain.appendChild(platformWindow)
         }
