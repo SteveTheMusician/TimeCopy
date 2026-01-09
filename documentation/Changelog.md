@@ -15,6 +15,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 - Show platform module list on start screen again
 - Catch undefiened errors from filters and platforms
 - Fix filter not accepted after change
+- Theme fixes
 
 * **Other Changes* **
 - code cleanup (also storage changes)
