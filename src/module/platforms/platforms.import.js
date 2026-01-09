@@ -3,6 +3,7 @@
 export const importPlatforms = ["Automatic", "AmagProTime", "Any"]
 export const platform_functionName_automatic = 'Automatic'
 export const platform_bookingPlatformPreValue = 'bookingPlatform_'
+import { moduleStorage_preValueSystem } from "../../utils/modules/defaults/defaultModuleVariables"
 
 async function generatePlatformData() {
     return new Promise(async (resolve) => { 
@@ -21,13 +22,13 @@ async function generatePlatformData() {
 
 export async function importPlatformsData() {
     return new Promise(async (resolve) => { 
-        let tc_s_modulePlatformInformations = localStorage.getItem('tc_s_modulePlatformInformations')
+        let tc_s_modulePlatformInformations = localStorage.getItem(moduleStorage_preValueSystem+'PlatformInformations')
         if (!tc_s_modulePlatformInformations) {
             let modulePlatformsData = await generatePlatformData()
             try {
                 if (modulePlatformsData) {
                     // push all informations about the platform modules into ls
-                    tc_s_modulePlatformInformations = localStorage.setItem('tc_s_modulePlatformInformations', JSON.stringify(modulePlatformsData))
+                    tc_s_modulePlatformInformations = localStorage.setItem(moduleStorage_preValueSystem+'PlatformInformations', JSON.stringify(modulePlatformsData))
                     resolve(tc_s_modulePlatformInformations)
                 } else {
                     throw new Error('unable to create module (platforms) import data')

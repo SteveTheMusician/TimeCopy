@@ -1,7 +1,8 @@
 import { lstorage_c_moduleProTimeTest,lstorage_c_moduleProTimeForceLatencyMode,lstorage_c_moduleProTimeUseLatencyMode,
   lstorage_c_moduleProtimeTicketNomberInText,lstorage_c_moduleProtimeUseAutoSelectDay,lstorage_c_moduleProtimeUseMatchBookingDay
  } from "./moduleStorage"
- import { debugStick } from "./appDebugStick"
+ import { debugStick } from "../appDebugStick"
+ import { moduleStorage_preValueConfiguration } from "./defaults/defaultModuleVariables"
 
 export function moduleProfileExport() {
 
@@ -41,10 +42,10 @@ export function moduleProfileExport() {
 export function moduleProfileImport(fileData,version) {
   debugStick(fileData,'Imported profile data')
   const moduleObjectSelect = version === '2.1' ? 'modulecfg' : 'dlccfg'
-  localStorage.setItem('tc_c_module_proTimeForceLatencyMode', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useForceLatencyMode)
-  localStorage.setItem('tc_c_module_proTimeUseLatencyMode', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useLatencyMode)
-  localStorage.setItem('tc_c_module_proTimeTicketNomberInText', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useTicketNomberInText)
-  localStorage.setItem('tc_c_proTimeMatchBookingDay', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useMatchDays)
-  localStorage.setItem('tc_c_proTimeAutoSelectDay', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useAutoSelectDay)
-  localStorage.setItem('tc_c_module_proTimeTest', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useTestMode)
+  localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeForceLatencyMode', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useForceLatencyMode)
+  localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeUseLatencyMode', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useLatencyMode)
+  localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeTicketNomberInText', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useTicketNomberInText)
+  localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeMatchBookingDay', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useMatchDays)
+  localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeAutoSelectDay', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useAutoSelectDay)
+  localStorage.setItem(moduleStorage_preValueConfiguration+'_proTimeTest', fileData.tcprofile[moduleObjectSelect].platforms.AmagProTime.useTestMode)
 }

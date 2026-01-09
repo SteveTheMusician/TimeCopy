@@ -5,7 +5,8 @@ import { importPlatforms } from "./platforms.import.js";
 import { importPlatformCustomContent } from "./platforms.import.js";
 import { importPlatformsData } from "./platforms.import.js";
 import { platform_functionName_automatic } from "./platforms.import.js";
-import { reimportModuleStorageData } from "../../utils/moduleGlobalUtils.js";
+import { reimportModuleStorageData } from "../../utils/modules/moduleGlobalUtils.js";
+import { moduleStorage_preValueSystem } from "../../utils/modules/defaults/defaultModuleVariables.js";
 
 const selfId = 'platforms'
 // module function import / static map cuz eval is unsave
@@ -18,7 +19,7 @@ const platformFunctionsMap = {
 export async function platformsContent() {
   let loadedPlatformsFeedbackArray = []
   return new Promise(async (resolve) => { 
-    let platformInfoData = localStorage.getItem('tc_s_modulePlatformInformations')
+    let platformInfoData = localStorage.getItem(moduleStorage_preValueSystem+'PlatformInformations')
     if (!platformInfoData) {
       await importPlatformsData()
     } else {
@@ -36,7 +37,7 @@ export async function platformsContent() {
         }
       }catch(error){
         console.log(error)
-        localStorage.removeItem('tc_s_modulePlatformInformations')
+        localStorage.removeItem(moduleStorage_preValueSystem+'PlatformInformations')
         await reimportModuleStorageData(selfId)
         return
       }
@@ -103,7 +104,7 @@ export async function platformsContent() {
                     </div>
                   </div>
                 </label>`
-      document.getElementById('window_bookingplatforms').innerHTML += platformChild
+      document.getElementById('window_bookingPlatforms').innerHTML += platformChild
       loadedPlatformsFeedbackArray.push(plDataObject.platform_id)
       platformCustomAppFunctions
     }

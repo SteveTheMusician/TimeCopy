@@ -6,3 +6,5 @@ export const pAmagProTime_defaultUseMatchBookingDay = true
 export const pAmagProTime_defaultUseAutoSelectDay = false
 export const dateNow = new Date();
 export const dateMonth = dateNow.getMonth();
+export const moduleStorage_preValueConfiguration = 'tc_c_module'
+export const moduleStorage_preValueSystem = 'tc_s_module'

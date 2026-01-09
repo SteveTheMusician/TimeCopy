@@ -166,7 +166,7 @@ header {
   }
 }
 
-#buttonBackToMain {
+#button_backToMain {
   margin-right: 10px;
 }
 
@@ -289,10 +289,6 @@ select {
   width: calc(100% - 45px);
 }
 
-.toast--ok {
-  background-color: var(--dark-gray-30);
-}
-
 .switch {
   margin: 2px 10px;
 }
@@ -362,6 +358,10 @@ input:checked+.switch_slider:before {
 
 select {
   border-right: 10px solid transparent;
+}
+
+.toast {
+  backdrop-filter: var(--blur-default);
 }
 
 .toast--ok {

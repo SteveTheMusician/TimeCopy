@@ -1,13 +1,14 @@
-import { changeModuleEEWidgetHeightHandler } from "../../utils/moduleGlobalUtils"
-import { showHideEEWidget } from "../../utils/moduleGlobalUtils"
+import { changeModuleEEWidgetHeightHandler } from "../../utils/modules/moduleGlobalUtils"
+import { showHideEEWidget } from "../../utils/modules/moduleGlobalUtils"
+import { moduleStorage_preValueConfiguration } from "../../utils/modules/defaults/defaultModuleVariables"
 
 export function xmas() {
   // module is controled by app js date
-  let lstorage_c_moduleSnowflakes = localStorage.getItem('tc_c_module_xMasSnowFlakes')
-  let lstorage_c_moduleXmastree = localStorage.getItem('tc_c_module_xMasTree')
+  let lstorage_c_moduleSnowflakes = localStorage.getItem(moduleStorage_preValueConfiguration+'_xMasSnowFlakes')
+  let lstorage_c_moduleXmastree = localStorage.getItem(moduleStorage_preValueConfiguration+'_xMasTree')
   const xmassTreeId = 'xmastree'
   const mainHtml = document.getElementsByTagName('main')[0]
-  const configItemDesign = document.getElementById('configItem-design-themes')
+  const configItemDesign = document.getElementById('configItem-designThemes')
   const xmastreeHtml = `<div class="module-xmastree module-timeEEWidget" id="${xmassTreeId}">
     <?xml version="1.0" encoding="UTF-8"?>
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1200 1200">
@@ -416,7 +417,7 @@ export function xmas() {
   const checkModuleSnow = document.getElementById('check_showModuleSnow')
   checkModuleSnow.addEventListener('change', (e) => snowflakeModuleOnOff(e))
   const checkModuleXmastree = document.getElementById('check_showModuleXmastree')
-  checkModuleXmastree.addEventListener('change', (e) => showHideEEWidget(e,xmassTreeId,'tc_c_module_xMasTree'))
+  checkModuleXmastree.addEventListener('change', (e) => showHideEEWidget(e,xmassTreeId,moduleStorage_preValueConfiguration+'_xMasTree'))
 
   if (lstorage_c_moduleSnowflakes === 'true') {
     if (!document.getElementById('initial-snow')) {
@@ -443,10 +444,10 @@ export function xmas() {
       if (!document.getElementById('initial-snow')) {
         mainHtml.insertAdjacentHTML('beforeend', xmassnowflakesHtml);
       }
-      localStorage.setItem('tc_c_module_xMasSnowFlakes', 'true')
+      localStorage.setItem(moduleStorage_preValueConfiguration+'_xMasSnowFlakes', 'true')
     } else {
       document.getElementById('initial-snow').remove()
-      localStorage.setItem('tc_c_module_xMasSnowFlakes', 'false')
+      localStorage.setItem(moduleStorage_preValueConfiguration+'_xMasSnowFlakes', 'false')
     }
   }
 
