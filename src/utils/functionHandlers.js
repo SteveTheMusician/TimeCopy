@@ -31,7 +31,6 @@ export function removeLocalStoragesByKey(keyWord) {
     const key = localStorage.key(i);
     if (key.includes(keyWord)) {
       localStorage.removeItem(key);
-      console.log('removed:', key);
     }
   }
 }

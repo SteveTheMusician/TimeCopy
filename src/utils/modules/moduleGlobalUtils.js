@@ -18,7 +18,7 @@ export async function reimportModuleStorageData(moduleCategoryName){
         throw new Error('Unable to import Module '+moduleCategoryName+' data')
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       window.location.reload()
     }
 }
