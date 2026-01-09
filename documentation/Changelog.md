@@ -10,7 +10,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 - Fix filter not accepted after change
 
-## V 1.3.22
+## V 1.3.22 (Release)
 * **Fixes**
 - Show platform module list on start screen again
 - Catch undefiened errors from filters and platforms
@@ -31,7 +31,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 - component error feedback
 - code cleanup
 
-## V 1.3.19
+## V 1.3.19 (Release)
 * **Fixes**
   * EE Error when time is up but changes to Statusbar happen
 
