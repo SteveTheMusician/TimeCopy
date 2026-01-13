@@ -229,7 +229,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         cleanup();
         reject({
           text: "ProTime-Element timeout",
-          textdetails: `Timeout: ${selector} @${shouldHaveValue ? "true" : "false"} | Bitte ändere ggf. auch deine Filter-Einstellungen.`,
+          textdetails: `Timeout: ${selector} @${shouldHaveValue ? "true" : "false"} | Bitte überprüfe deine Filter-Einstellungen. Der Fehler kann bei Problemen mit der Activity oder anderen Ticketeigenschaften zusammenhängen.`,
         });
       };
 
@@ -379,7 +379,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           dom_clickContainer.addEventListener("click", resolveFirstBookingLoop);
         }
       } else {
-        resolveFirstBookingLoop()
+        resolve('first booking loop skipped')
       }
       function resolveFirstBookingLoop() {
         if(document.getElementsByTagName('textarea')[0].value !== '') {
@@ -450,7 +450,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             )
             await waitTimer(bookingWaitingTimer500)
           }
-          
+          let error_protimeactivity = false
           let protime_hours
           let protime_ticketNumber
           let protime_activityDropdown
@@ -519,6 +519,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             } else if(document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]:not([value])')[0]){
               // check if a activity dropdown exists with no entries (cuz protime is an idiot) and then set the elemnom up to 4
               console.warn('[Time Copy] Warning, ProTime has empty Activity')
+              error_protimeactivity = true
               protime_ticketElemNom = 4
             } else {
               protime_ticketElemNom = 3
@@ -580,7 +581,6 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           document.getElementsByTagName('textarea')[1].focus();
           // set the cursor position to the end of the text
           document.getElementsByTagName('textarea')[1].setSelectionRange(document.getElementsByTagName('textarea')[1].value.length, document.getElementsByTagName('textarea')[1].value.length);
-
           await waitTimer(bookingWaitingTimerDefault)
           // last check of the main inputs
           // if values are incorrect (tickettime empty), put it into retry list
@@ -611,6 +611,9 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           await checkpointLoadingDots(true)
           
           try {
+            if(error_protimeactivity === true) {
+              setProTimeElementErrorStyle('.lsField--list [aria-roledescription="Auswählen"]:not([value])','0')
+            }
             await observeElement('textarea', false, '0');
           } catch (error) {
             // if textarea is still filled and booking failed, push ticket in to retry array
