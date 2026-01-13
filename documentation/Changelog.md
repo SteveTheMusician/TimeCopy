@@ -10,6 +10,11 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 - Fix filter not accepted after change
 
+## V 1.3.23 (Release)
+* **Fixes**
+- Module AmagProTime: set "inputs already filled"-Error only at the start of booking
+- Module AmagProTime: mark activity field, if its empty
+
 ## V 1.3.22 (Release)
 * **Fixes**
 - Show platform module list on start screen again
