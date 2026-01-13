@@ -112,7 +112,7 @@ export async function platformsContent() {
   })
 }
 
-export async function platforms(bookingPlatformSelectValue, bookingData, detectionItems) {
+export async function platforms(bookingPlatformSelectValue, bookingData, detectionItems, appMetaToBrowser) {
   let bookingFunctionName = bookingPlatformSelectValue
   // if "Automatic" then wait for new Value
   if (bookingFunctionName === platform_functionName_automatic) {
@@ -136,6 +136,6 @@ export async function platforms(bookingPlatformSelectValue, bookingData, detecti
       detectionFiltersMatch_booking = [...detectionFiltersMatch_booking, allDetectionFilters[i]];
     }
   }
-  return bookingFunctionName ? platformFunctionsMap[bookingFunctionName](bookingData, detectionFiltersMatch_booking) : null
+  return bookingFunctionName ? platformFunctionsMap[bookingFunctionName](bookingData, detectionFiltersMatch_booking, appMetaToBrowser) : null
 }
 

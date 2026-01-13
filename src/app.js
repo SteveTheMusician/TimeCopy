@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // this variable activates tc reloading after pressing the back button when its set to true
   window.configUserChanges = false
   // version json vars
+  const appVisibleLogName = data_version.extension_visibleNameInLogs
   const dokuUrl = data_version.extension_documentation
   const changelogUrl = data_version.extension_changelog
   const privacyUrl = data_version.extension_privacy
@@ -263,7 +264,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     try {
       debugStick(bookingPlatform,"🔘 Selected Platform-Module: ")
       setStatusBarText(window.language.statusbartext_passDataToPlatform)
-      let bookEntries = await platforms(bookingPlatform, filterData, lstorage_cDetectionItems)
+      let bookEntries = await platforms(bookingPlatform, filterData, lstorage_cDetectionItems, ...window.appMetaToBrowser)
       debugStick(bookEntries,"📝 Booking entries | ")
       let detailMessage = ''
       if (bookEntries.success) {
@@ -514,7 +515,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       moduleProTime_config_check_usePTTest:moduleProTime_config_check_usePTTest,moduleItem_platform_amagProTime:moduleItem_platform_amagProTime, moduleProTime_config_check_useTicketnomberInText: moduleProTime_config_check_useTicketnomberInText,
       moduleProTime_config_check_useMatchBookingDay: moduleProTime_config_check_useMatchBookingDay,moduleProTime_config_check_useAutoSelectDay:moduleProTime_config_check_useAutoSelectDay
     }]
-    debugStick([...window.appVersionData,...window.appGlobalArgs,...window.moduleGlobalArgs],'App Global Args')
+    window.appMetaToBrowser = [{appVisibleLogName:appVisibleLogName}]
+    debugStick([...window.appVersionData,...window.appGlobalArgs,...window.moduleGlobalArgs],...window.appMetaToBrowser,'App Global Args')
     // return message if offline
     if (!navigator.onLine) {
       message(true, 'error', window.language.message_offline, window.language.message_offline_disc)

@@ -21,14 +21,14 @@ import { lstorage_c_moduleProTimeUseLatencyMode,lstorage_c_moduleProTimeForceLat
 import { setStatusBarText } from "../../../utils/setStatusBarText.js";
 import { debugStick } from "../../../utils/appDebugStick.js";
   
-  // 🍎 initial script to filter data and start the booking process
-  export async function AmagProTime(bookingData, detectionItemsProTime) {
-    let valideTickets = [];
-    let failedTickets = [];
-    let errorDetailMessage = ''
-    let dev_pttest = lstorage_c_moduleProTimeTest
-    let matchDateDay = lstorage_c_moduleProtimeUseMatchBookingDay
-    let bookedTicketCount = '-'
+// 🍎 initial script to filter data and start the booking process
+export async function AmagProTime(bookingData, detectionItemsProTime, appMetaToBrowser) {
+  let valideTickets = [];
+  let failedTickets = [];
+  let errorDetailMessage = ''
+  let dev_pttest = lstorage_c_moduleProTimeTest
+  let matchDateDay = lstorage_c_moduleProtimeUseMatchBookingDay
+  let bookedTicketCount = '-'
   // use force latency mode
   if (lstorage_c_moduleProTimeForceLatencyMode === true) {
     highLatency = true
@@ -112,7 +112,7 @@ import { debugStick } from "../../../utils/appDebugStick.js";
   try {
     if (valideTickets.length) {
       setStatusBarText(window.language.statusbartext_moduleAmagProTime_sendTickets_partOne+valideTickets.length + window.language.statusbartext_moduleAmagProTime_sendTickets_partTwo)
-      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay)
+      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay, appMetaToBrowser)
       bookingLoopCount++
       if (iChrTab.result !== null && iChrTab.result.success === false ) {
         throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
@@ -133,7 +133,7 @@ import { debugStick } from "../../../utils/appDebugStick.js";
 }
 
 // 🍎 chrom tab scripts
-async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay) {
+async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay,appMetaToBrowser) {
   // check latency in current tab + only when use high latency is aktivated
   if (useHighLatency) {
     try {
@@ -141,7 +141,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
       proTimeJSPageTime = Math.round(proTimeJSPageTime / 1000)
       // use high latency only when page ping is low
       if (proTimeJSPageTime > 150) {
-        console.warn("[Time Copy][Module Platforms: AmagProTime] ⚠️ Warning: Page has low ping (" + proTimeJSPageTime + " ms )")
+        console.warn(appMetaToBrowser.appVisibleLogName+"[Module Platforms: AmagProTime] ⚠️ Warning: Page has low ping (" + proTimeJSPageTime + " ms )")
         message(true, 'warning', window.language.message_moduleAmagproTime_webHighPing, window.language.message_moduleAmagproTime_webHighPing_disc )
         // highLatency = true
       }
@@ -159,7 +159,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
     let chromeExecScript = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: AmagProTimeBookTickets,
-      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay]
+      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay,appMetaToBrowser]
     });
 
     if (chromeExecScript[0].result && chromeExecScript[0].result.error) {
@@ -173,7 +173,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
   }
 }
 // 🍎 main booking logic
-async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay) {
+async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay,appMetaToBrowser) {
   let crossObserver_mutationObserver
   function crossObserver(elementSelector) {
     let appearanceCount = 0;
@@ -245,7 +245,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         }
 
         if ((shouldHaveValue && hasContent) || (!shouldHaveValue && !hasContent)) {
-          finish(`[Time Copy] 👀 🟢 Element "${selector}" erfüllt Bedingung`);
+          finish(appMetaToBrowser.appVisibleLogName+` 👀 🟢 Element "${selector}" erfüllt Bedingung`);
         }
       };
       // Start Interval-Polling
@@ -352,7 +352,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
   function checkFirstBookingLoop(bookingLoopCount) {
 
     if(dev_pttest){
-      console.warn('[Time Copy] ## ProTime Test-Mode ##')
+      console.warn(appMetaToBrowser.appVisibleLogName+' ## ProTime Test-Mode ##')
     }
     return new Promise((resolve,reject) => {
       // if click-overlay already exists duo error / plugin reload - remove it
@@ -411,7 +411,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             // use the booking-loop function to check where we are at the process and if we need the overlay
             await checkFirstBookingLoop(bookingLoopCount)
           } catch (error) {
-            console.error("[Time Copy] Error in checkFirstBookingLoop: ", error);
+            console.error(appMetaToBrowser.appVisibleLogName+" Error in checkFirstBookingLoop: ", error);
             return result = { success: false, message: error };
           }
           // check if observer element exists
@@ -518,7 +518,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
               protime_ticketElemNom = 4
             } else if(document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]:not([value])')[0]){
               // check if a activity dropdown exists with no entries (cuz protime is an idiot) and then set the elemnom up to 4
-              console.warn('[Time Copy] Warning, ProTime has empty Activity')
+              console.warn(appMetaToBrowser.appVisibleLogName+' Warning, ProTime has empty Activity')
               error_protimeactivity = true
               protime_ticketElemNom = 4
             } else {
@@ -589,7 +589,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             document.getElementsByTagName('textarea')[0].value !== ticketItemDesc ||
             document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0].value !== bookingItem_TicketNumber
           ) {
-            console.warn('[Time Copy] 🎫 Retry Ticket: ',ticket)
+            console.warn(appMetaToBrowser.appVisibleLogName+' 🎫 Retry Ticket: ',ticket)
             retryTicketList.push(ticket)
             // make text area empty on any errors, so we can move on with booking
             protime_ticketText.value = ''
@@ -617,7 +617,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             await observeElement('textarea', false, '0');
           } catch (error) {
             // if textarea is still filled and booking failed, push ticket in to retry array
-            console.warn('[Time Copy] 🎫 Retry Ticket: ',ticket, ' Error: ',error.text + ' ' + error.message)
+            console.warn(appMetaToBrowser.appVisibleLogName+' 🎫 Retry Ticket: ',ticket, ' Error: ',error.text + ' ' + error.message)
             retryTicketList.push(ticket)
             protime_ticketText.value = ''
           } 
@@ -647,7 +647,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       return bookingLoopResult
     }
     if(bookingLoopResult.retryBooking){
-      console.log('[Time Copy] 🕤 🟡 Retry process started')
+      console.log(appMetaToBrowser.appVisibleLogName+' 🕤 🟡 Retry process started')
       for ( let i = 0; i < 4 ; i++ ) {
         try {
           // activate high latency, after 1st retry failed
@@ -656,7 +656,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           }
           // error after 3 tries
           if(i >= 3) {
-            console.error('[Time Copy] 🕤 🔴 Retry process max count reached')
+            console.error(appMetaToBrowser.appVisibleLogName+' 🕤 🔴 Retry process max count reached')
             highLatency = false
             return result = { success: false, message: {text: 'Maximale Retries erreicht',textdetails: `Time Copy konnte nach mehrfache Versuche einige Tickets nicht buchen und hat den Prozess desshalb unterbrochhen.`}}
           }
@@ -672,7 +672,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             // succsess
             if(bookingLoopResult.success && !bookingLoopResult.retryBooking) {
               highLatency = false
-              console.log('[Time Copy] 🕤 🟢 Retry process finished')
+              console.log(appMetaToBrowser.appVisibleLogName+' 🕤 🟢 Retry process finished')
               return bookingLoopResult 
             }
           }catch (error) {
