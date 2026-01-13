@@ -101,7 +101,6 @@ export async function filtersContent() {
  })
 }
 
-
 export function createFilterObject(
     item_bookingnumber,
     item_ticketmasternumber,
@@ -122,6 +121,5 @@ export function createFilterObject(
       "item_date":item_date,
       "item_dateday": item_dateday
   }
-
   return itemObject
 }

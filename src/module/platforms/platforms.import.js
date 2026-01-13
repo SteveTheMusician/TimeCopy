@@ -12,7 +12,6 @@ async function generatePlatformData() {
             let infoData = Promise.resolve(import(`../../../public/static/Module/Platforms/${importedPlatform}/info.json`))
             await infoData.then(plInfo => {
                 let platformStorageObject = { [importedPlatform]: { ...plInfo } }
-                // let lstorage_sModulePlatformInformations = 
                 modulePlatformsData.push(platformStorageObject)
             })
         }
@@ -51,7 +50,6 @@ export async function importPlatformCustomContent(contentName) {
         throw error;
     }
 }
-
 
 export async function importPlatformDetectionContent(platformName) {
     try {
