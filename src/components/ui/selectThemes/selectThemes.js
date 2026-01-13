@@ -1,6 +1,7 @@
 import { lstorage_eeTheme } from "../../../utils/appStorage";
 
 export function generateThemes() {
+  
   const selectThemes = document.getElementById('select-themes');
   const themesArray = [{
     "Original": {

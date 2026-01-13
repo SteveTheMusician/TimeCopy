@@ -12,7 +12,7 @@ export async function Any (dataObj,detectionItemsAny,appMetaToBrowser) {
         } else {
             data = dataObj[0].item_ticketdisc
         }
-        let matchedTriggers = await checkForTrigger(data,detectionItemsAny)
+        let matchedTriggers = await checkForTrigger(data,detectionItemsAny,appMetaToBrowser)
         if(matchedTriggers.length === 0) {
             throw ('Es wurden keine Filter-Matches in deinem String gefunden')
         }
