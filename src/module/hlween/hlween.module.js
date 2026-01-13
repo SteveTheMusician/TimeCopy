@@ -1,6 +1,7 @@
 import { changeModuleEEWidgetHeightHandler } from "../../utils/modules/moduleGlobalUtils"
 import { showHideEEWidget } from "../../utils/modules/moduleGlobalUtils"
 import { moduleStorage_preValueConfiguration } from "../../utils/modules/defaults/defaultModuleVariables"
+
 export function hlween() {
     let lstorage_c_moduleHlweenPumkin = localStorage.getItem(moduleStorage_preValueConfiguration+'_hlweenPumpkin')
     const pumpkinId = 'pumpkin'
@@ -29,10 +30,8 @@ export function hlween() {
 
   mainHtml.insertAdjacentHTML('beforeend', hlweenHtml)
   configItemDesign.insertAdjacentHTML('beforeend', configPumpkinOnOffHtml);
-
   const checkModulePumpkin = document.getElementById('check_showModulePumpkin')
   checkModulePumpkin.addEventListener('change', (e) => showHideEEWidget(e,pumpkinId,moduleStorage_preValueConfiguration+'_hlweenPumpkin'))
-
   // loadup
   if (lstorage_c_moduleHlweenPumkin === 'true') {
     if (document.getElementById(pumpkinId).classList.contains('dNone')) {
@@ -43,6 +42,5 @@ export function hlween() {
     document.getElementById(pumpkinId).classList.add('dNone')
     checkModulePumpkin.checked = false
   }
-
   changeModuleEEWidgetHeightHandler()
 }

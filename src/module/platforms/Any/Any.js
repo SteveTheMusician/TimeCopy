@@ -2,7 +2,7 @@ import { checkForTrigger } from "./services/Any.services"
 import { setStatusBarText } from "../../../utils/setStatusBarText"
 // This Module is more like an quick and dirty demo for developer to understand how the platform-modules are working
 // You can find the html, which is inherit to the detection property in the detection folder of the any-module
-export async function Any (dataObj,detectionItemsAny) {
+export async function Any (dataObj,detectionItemsAny,appMetaToBrowser) {
     // we just taking the discription from the object, cuz this is the only one good for testing and also the only which we gets from the "none-filter"
     let data
     // FILTER FUNCTIONS
@@ -12,7 +12,7 @@ export async function Any (dataObj,detectionItemsAny) {
         } else {
             data = dataObj[0].item_ticketdisc
         }
-        let matchedTriggers = await checkForTrigger(data,detectionItemsAny)
+        let matchedTriggers = await checkForTrigger(data,detectionItemsAny,appMetaToBrowser)
         if(matchedTriggers.length === 0) {
             throw ('Es wurden keine Filter-Matches in deinem String gefunden')
         }
