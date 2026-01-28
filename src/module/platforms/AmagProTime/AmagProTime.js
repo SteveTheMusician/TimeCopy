@@ -14,7 +14,7 @@ import {
   useTicketNomberInText,
   useAutoSelectDay,
   noTicketNomberFill,
-  noTicketDiscFill
+  noTicketDescFill
 } from "./variables/AmagProTime.variables.js";
 import { lstorage_c_moduleProTimeUseLatencyMode,lstorage_c_moduleProTimeForceLatencyMode,
   lstorage_c_moduleProtimeTicketNomberInText,lstorage_c_moduleProTimeTest, lstorage_c_moduleProtimeUseMatchBookingDay, lstorage_c_moduleProtimeUseAutoSelectDay } from "../../../utils/modules/moduleStorage.js";
@@ -33,16 +33,16 @@ export async function AmagProTime(bookingData, detectionItemsProTime, appMetaToB
   if (lstorage_c_moduleProTimeForceLatencyMode === true) {
     highLatency = true
     forceHighLatency = true
-    message(true, 'warning', window.language.message_moduleProTime_highLatencyMode, window.language.message_moduleProTime_highLatencyMode_disc)
+    message(true, 'warning', window.language.message_moduleProTime_highLatencyMode, window.language.message_moduleProTime_highLatencyMode_desc)
   }
   if(lstorage_c_moduleProTimeTest === true){
-    message(true, 'warning', window.language.message_moduleProTime_testMode, window.language.message_moduleProTime_testMode_disc)
+    message(true, 'warning', window.language.message_moduleProTime_testMode, window.language.message_moduleProTime_testMode_desc)
     console.warn('Module Amag ProTime: Test Mode activated')
   }
   // set use High Latency
   useHighLatency = lstorage_c_moduleProTimeUseLatencyMode ?? useHighLatency
   useAutoSelectDay = lstorage_c_moduleProtimeUseAutoSelectDay ?? useAutoSelectDay
-  // check if to use ticketnomber in the discription
+  // check if to use ticketnomber in the description
   useTicketNomberInText = lstorage_c_moduleProtimeTicketNomberInText
   if (useTicketNomberInText === false) {
     console.warn('Module Amag ProTime: Use Ticketnomber in description is deaktivated')
@@ -56,11 +56,11 @@ export async function AmagProTime(bookingData, detectionItemsProTime, appMetaToB
       let ticketRefinePrefixesMatches = filterAllPrefixes(ticket, ticketAddPrefixMatches);
       let ticketRefineBookingNomber = filterBookingNomber(ticket, ticketRefinePrefixesMatches);
       debugStick({ticketPrefixMatches,ticketAddPrefixMatches,ticketRefinePrefixesMatches,ticketRefineBookingNomber},'AmagProTime Services')
-      if (ticket.item_ticketdisc.length < 2) {
+      if (ticket.item_ticketdesc.length < 2) {
         throw ({ errorstatus: 'error', errorheadline: "Ticket hat keine Beschreibung", errortext: ticket.item_ticketnumber + ' ' + ticket.item_bookingnumber })
       }
       if (ticketRefineBookingNomber.length > 1) {
-        throw ({ errorstatus: 'error', errorheadline: "Ticket Mehrfachmatches", errortext: "Ticket hat mehrfache Ergebnisse | " + ticket.item_ticketnumber + " " + ticket.item_ticketdisc });
+        throw ({ errorstatus: 'error', errorheadline: "Ticket Mehrfachmatches", errortext: "Ticket hat mehrfache Ergebnisse | " + ticket.item_ticketnumber + " " + ticket.item_ticketdesc });
       } else if (ticketRefineBookingNomber.length === 1) {
         valideTickets.push([ticket, ticketRefineBookingNomber[0]]);
       } else if (ticketRefineBookingNomber.length === 0) {
@@ -70,12 +70,12 @@ export async function AmagProTime(bookingData, detectionItemsProTime, appMetaToB
         throw ({ errorstatus: 'error', errorheadline: "Arbeitszeit ist 0", errortext: ticket.item_ticketnumber+' hat eine eingetragene Arbeitszeit von 0h und kann nicht gebucht werden. Prozess wurde abgebrochen.' })
       }
       if (/\p{L}/u.test(ticket.item_tickettime)) {
-        errorDetailMessage = 'Fehler im folgendem Ticket: ' + ticket.item_ticketnumber + ', ' + ticket.item_ticketdisc
+        errorDetailMessage = 'Fehler im folgendem Ticket: ' + ticket.item_ticketnumber + ', ' + ticket.item_ticketdesc
         throw ({ errorstatus: 'error', errorheadline: "Ticket hat ungewöhnliche Zeitangabe", errortext: errorDetailMessage })
       }
       if (ticket.item_bookingnumber.length < 1 && ticketRefineBookingNomber.length > 0) {
         if (ticketRefineBookingNomber[0].projectnomber.length < 1) {
-          errorDetailMessage = '[' + ticket.item_ticketnumber + '] ' + ticket.item_ticketdisc + ' : Die Buchungsnummer fehlt entweder im Ticket oder den Erkennsungs-Filter.'
+          errorDetailMessage = '[' + ticket.item_ticketnumber + '] ' + ticket.item_ticketdesc + ' : Die Buchungsnummer fehlt entweder im Ticket oder den Erkennsungs-Filter.'
           throw ({ errorstatus: 'error', errorheadline: "Buchungsnummer fehlt", errortext: errorDetailMessage })
         }
       }
@@ -89,21 +89,21 @@ export async function AmagProTime(bookingData, detectionItemsProTime, appMetaToB
     console.warn("✂︎ [Module Platforms: AmagProTime] removed tickets: ", failedTickets);
     failedTickets.forEach((failedTicketItem) => {
       let ticketnumber;
-      let ticketdisc;
+      let ticketdesc;
       if (!failedTicketItem.item_ticketnumber.length) {
         ticketnumber = noTicketNomberFill;
       } else {
         ticketnumber = failedTicketItem.item_ticketnumber;
       }
-      if (!failedTicketItem.item_ticketdisc.length) {
-        ticketdisc = noTicketDiscFill;
+      if (!failedTicketItem.item_ticketdesc.length) {
+        ticketdesc = noTicketDescFill;
       } else {
-        ticketdisc = failedTicketItem.item_ticketdisc;
+        ticketdesc = failedTicketItem.item_ticketdesc;
       }
       // message feedback
       notificationTimeOut += 150
       setTimeout(function () {
-        message(true, 'warning', window.language.message_moduleAmagProTime_ticketNotAdopted, ticketnumber + ': ' + ticketdisc)
+        message(true, 'warning', window.language.message_moduleAmagProTime_ticketNotAdopted, ticketnumber + ': ' + ticketdesc)
       }, notificationTimeOut)
     });
     notificationTimeOut = 0
@@ -142,7 +142,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
       // use high latency only when page ping is low
       if (proTimeJSPageTime > 150) {
         console.warn(appMetaToBrowser.appVisibleLogName+"[Module Platforms: AmagProTime] ⚠️ Warning: Page has low ping (" + proTimeJSPageTime + " ms )")
-        message(true, 'warning', window.language.message_moduleAmagproTime_webHighPing, window.language.message_moduleAmagproTime_webHighPing_disc )
+        message(true, 'warning', window.language.message_moduleAmagproTime_webHighPing, window.language.message_moduleAmagproTime_webHighPing_desc )
         // highLatency = true
       }
       chrome.windows.getCurrent(function (window) {
@@ -188,7 +188,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         appearanceCount++;
         if (appearanceCount === 2) {
           highLatency = true
-          crossObserver_mutationObserver.disconnect()
+          crossObserver_mutationObserver.desconnect()
           }
         }
     });
@@ -203,7 +203,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
   function stopCrossObserver() {
     if (crossObserver_mutationObserver) {
-      crossObserver_mutationObserver.disconnect();
+      crossObserver_mutationObserver.desconnect();
     }
   }
   // element change observer
@@ -217,7 +217,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       const cleanup = () => {
         clearInterval(intervalId);
         clearTimeout(timeoutId);
-        if (observer) observer.disconnect();
+        if (observer) observer.desconnect();
       };
 
       const finish = (msg) => {
@@ -549,7 +549,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           }
           await checkpointLoadingDots(false)
           await checkpointLoadingDots(true)
-          // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the discription later
+          // if a "master number" is there, take this as ticket number for protime and let the original ticket number for the description later
           let bookingItem_TicketNumber = ticketObject.item_ticketmasternumber ? ticketObject.item_ticketmasternumber : ticketObject.item_ticketnumber
           bookingItem_TicketNumber = bookingItem_TicketNumber.toUpperCase()
           protime_ticketNumber = document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0]
@@ -562,12 +562,12 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           await waitTimer(bookingWaitingTimerDefault)
           await checkpointLoadingDots(false)
           await checkpointLoadingDots(true)
-          // join tickent number and discription if use ticket nomber in desc.
+          // join tickent number and description if use ticket nomber in desc.
           let ticketItemDesc
           if(useTicketNomberInText){
-            ticketItemDesc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdisc
+            ticketItemDesc = "[" + ticketObject.item_ticketnumber + "] " + ticketObject.item_ticketdesc
           }else {
-            ticketItemDesc = ticketObject.item_ticketdisc
+            ticketItemDesc = ticketObject.item_ticketdesc
           }
           if(detectionObject.protimeaddtext.length > 0) {
             ticketItemDesc = ticketItemDesc + ' ' + detectionObject.protimeaddtext
@@ -624,7 +624,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             retryTicketList.push(ticket)
             protime_ticketText.value = ''
           } 
-          // disconnect cross observer
+          // desconnect cross observer
           stopCrossObserver()
           totalBookedTickets ++
           bookingLoopCount++

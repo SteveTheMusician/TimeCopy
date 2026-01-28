@@ -802,7 +802,6 @@ select {
 
 .detectionItem-module {
     transition: var(--transition-default);
-    /* min-height: 150px; */
     overflow-y: scroll;
 }
 
@@ -1108,7 +1107,7 @@ input:checked+.switch_slider:before {
     margin-top: 20px;
 }
 
-.firstStartScreen-discriptionBlock {
+.firstStartScreen-descriptionBlock {
     color: var(--color-font);
     padding: 0 20px;
     margin-bottom: 40px;
