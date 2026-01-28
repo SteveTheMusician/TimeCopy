@@ -20,6 +20,7 @@
 - language einbauen (ggf mit different htmls)
 - language json für module auslagern in public module folder (Jedes Modul soll unabhängige sprache haben)
 
+- Profilname und Bild auf Start sichtbar ?
 - Detection Items sortierbar
 
 ## Maintance updates
