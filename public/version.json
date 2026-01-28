@@ -19,5 +19,5 @@
     "extension_issues": "https://github.com/SteveTheMusician/TimeCopy/issues",
     "extension_contact": "contact@emptysoul.de",
     "extension_update_text_overview": "👋🏻 Willkommen in Version ",
-    "extension_update_text_details": "Wie so oft gibt es hier nur paar Bugfixes und Code-Cleanup. Du hast also nicht viel verpasst :D. Alle Changes im Detail findest du hier im ${changeloglink}."
+    "extension_update_text_details": "Das Neuste: Die ProTime-Erkennungen haben jetzt ein zusätzliches Input, welches deine Beschreibungen im Textfeld auf ProTime ergänzen. Alle Changes im Detail findest du hier im ${changeloglink}."
 }
