@@ -51,7 +51,13 @@ async function addNewProjectDetection(e) {
 function loadDetectionItemInput(detectionItems,detectionItemId,objectName,inputType) {
   // function to get Element and its object from json
   let input = document.getElementById(inputType+"_"+ objectName + '-' + detectionItemId)
-  input.value = detectionItems.find(x => x.id === detectionItemId)[objectName] ?? ''
+  let foundObjectName = detectionItems.find(x => x.id === detectionItemId)[objectName]
+  if(foundObjectName === undefined) {
+    console.log('💾 [Project-Detection] ','Detection Item '+detectionItemId+' has been updated with new object ',objectName)
+    setDetectionItemValueToObject(detectionItemId, objectName, '')
+    updateDetectionItems(detectionItems)
+  }
+  input.value = foundObjectName ?? ''
   input.addEventListener('change', () => { changeDetectionItemData(detectionItemId, objectName, input.value) });
 }
 
