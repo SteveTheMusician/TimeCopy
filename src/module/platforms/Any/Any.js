@@ -28,14 +28,14 @@ export async function Any (dataObj,detectionItemsAny,appMetaToBrowser) {
     try {
         if (data) {
             // DATA MUSS ZU FILTERED DATA WERDEN
-          setStatusBarText('Pass data to webplatform...')
-          const iChrTab = await injectChromeTabScript(data)
-          if (iChrTab.result !== null && iChrTab.result.success === false ) {
-            throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
-          }else if (iChrTab.result === null) {
-            setStatusBarText('FEHLER: Prozess beendet','timeout')
-            throw ({errorstatus: 'error', errorheadline: 'Prozess abgebrochen', errortext:'Es kam kein Ergebnis von der Übertragung an die Platform zurück.'})
-          }
+            setStatusBarText(window.language.statusbartext_passDataToPlatform)
+            const iChrTab = await injectChromeTabScript(data)
+            if (iChrTab.result !== null && iChrTab.result.success === false ) {
+                throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
+            }else if (iChrTab.result === null) {
+                setStatusBarText(window.lanuage.tatusbartext_error+': Prozess beendet','timeout')
+                throw ({errorstatus: 'error', errorheadline: 'Prozess abgebrochen', errortext:'Es kam kein Ergebnis von der Übertragung an die Platform zurück.'})
+            }
         } else {
           throw ({ errorstatus: 'error', errorheadline: 'Keine Validen Daten', errortext: 'Die kopierten Informationen konnten nicht validiert bzw. keinen Filter zugeordnet werden. Bitte Prüfe ob: - die richtigen Informationen kopiert wurden  - der richtige Filter ausgewählt wurde  - die Erkennungs-Items stimmen' })
         }

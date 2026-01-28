@@ -17,3 +17,11 @@
 #moduleItemPlatform_amagprotime .module-details--visible {
     height: 320px;
 }
+/* Detection Item Style */
+.detectionItem-module--AmagProTime {
+    height: 245px;
+}
+
+.detectionItem-module--Any {
+    height: 172px;
+}

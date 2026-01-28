@@ -569,6 +569,9 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           }else {
             ticketItemDesc = ticketObject.item_ticketdisc
           }
+          if(detectionObject.protimeaddtext.length > 0) {
+            ticketItemDesc = ticketItemDesc + ' ' + detectionObject.protimeaddtext
+          }
           let mdown = new Event('focus');
           let protime_ticketText = document.getElementsByTagName('textarea')[0];
           protime_ticketText.dispatchEvent(mover)
