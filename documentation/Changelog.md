@@ -18,6 +18,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 * **Fixes**
 - Mark Filters Tab on app reset
 - Skip First-Start-Screen directly after reset, when user changes requiered configs
+- Module SteveGoogleExcel: Remove ending bracket at the beginning of description
 
 * **Other Changes* **
 - Code cleanup

@@ -18,8 +18,10 @@ export function filter_SteveGoogleExcel(clipboarsString) {
   const regExp_ticketCustomBookingNumber = /(?<=\#).*?(?=\])/
   const regExp_ticketTime = /\d+[.,]?\d*$/
   const regExp_ticketDateDay = /([\d]{1,2})\./
+  const regExp_stringFirstBracket = /^\]/
+
   let fullDateString = ''
-  let workingBeginTime = ''
+
   let matches = []
   let match
   let bookingData = []
@@ -95,6 +97,8 @@ export function filter_SteveGoogleExcel(clipboarsString) {
     let item_ticketDisc = ticket.replace(item_ticketNumberAll, '').trim()
     item_ticketDisc = item_ticketDisc.replace(item_ticketCustomBookingNumber, '').trim()
     item_ticketDisc = item_ticketDisc.replace(regExp_ticketTime, '').trim()
+    console.log('DISC ',item_ticketDisc)
+    item_ticketDisc = item_ticketDisc.replace(regExp_stringFirstBracket,'').trim()
     // item date from global
     item_date = fullDateString.replace("\t", "").trim()
     if(item_date){
