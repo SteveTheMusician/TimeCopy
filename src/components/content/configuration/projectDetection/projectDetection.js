@@ -48,6 +48,19 @@ async function addNewProjectDetection(e) {
   window_detection.parentElement.scroll({ top: 0, behavior: 'smooth' })
 }
 
+function loadDetectionItemInput(detectionItems,detectionItemId,objectName,inputType) {
+  // function to get Element and its object from json
+  let input = document.getElementById(inputType+"_"+ objectName + '-' + detectionItemId)
+  let foundObjectName = detectionItems.find(x => x.id === detectionItemId)[objectName]
+  if(foundObjectName === undefined) {
+    console.log('💾 [Project-Detection] ','Detection Item '+detectionItemId+' has been updated with new object ',objectName)
+    setDetectionItemValueToObject(detectionItemId, objectName, '')
+    updateDetectionItems(detectionItems)
+  }
+  input.value = foundObjectName ?? ''
+  input.addEventListener('change', () => { changeDetectionItemData(detectionItemId, objectName, input.value) });
+}
+
 function loadDetectionItems() {
   // add item change-listeners
   let detectionItemsHtml = document.getElementsByName('item_detection')
@@ -75,20 +88,19 @@ function loadDetectionItems() {
     }
     // AMAGCH Platform abfrage -> Listener Modular umbauen
     if(select_bookingPlatform.value === 'select_bookingPlatform_AmagProTime') {
+      // Input TicketPrefix
       let input_ticketPrefix = document.getElementById("input_ticketPrefix" + detectionItemId)
       input_ticketPrefix.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "ticketprefix", input_ticketPrefix.value) });
+      // Input TicketAdditionalPrefix
       let input_additionalPrefix = document.getElementById("input_additionalPrefix" + detectionItemId)
       input_additionalPrefix.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "addprefix", input_additionalPrefix.value) });
-      let select_proTimeService = document.getElementById("select_proTimeService_" + detectionItemId)
-      let loaded_select_proTimeService = detectionItems.find(x => x.id === detectionItemId).protimeservice
-      select_proTimeService.value = loaded_select_proTimeService
-      select_proTimeService.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "protimeservice", select_proTimeService.value) });
-      let input_projectNomber = document.getElementById("input_projectNomber" + detectionItemId)
+      // Input Projectnomber
+      let input_projectNomber = document.getElementById("input_projectNomber-" + detectionItemId)
       input_projectNomber.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "projectnomber", input_projectNomber.value) });
-      let input_activity = document.getElementById("input_activity" + detectionItemId)
-      let loaded_input_activity = detectionItems.find(x => x.id === detectionItemId).protimeactivity
-      input_activity.value = loaded_input_activity
-      input_activity.addEventListener('change', () => { changeDetectionItemData(detectionItemId, "protimeactivity", input_activity.value) });
+      // Ohter Inputs
+      loadDetectionItemInput(detectionItems,detectionItemId,'protimeservice','select')
+      loadDetectionItemInput(detectionItems,detectionItemId,'protimeactivity','input')
+      loadDetectionItemInput(detectionItems,detectionItemId,'protimeaddtext','input')
     }
     // ANY default platform listener
     if(select_bookingPlatform.value === 'select_bookingPlatform_Any') {
@@ -119,7 +131,7 @@ async function setDetectionBookingPlatform(itemId, selected_bookingPlatform) {
   let newData = {}
   // create new objects for the selected platforms
   if (selected_bookingPlatform === selectBookingPlatformPreName + "AmagProTime") {
-    newData = { "ticketprefix": "", "addprefix": "", "protimeservice": selectProtimeService_defaultValue, "projectnomber": "", "protimeactivity": "" }
+    newData = { "ticketprefix": "", "addprefix": "", "protimeservice": selectProtimeService_defaultValue, "projectnomber": "", "protimeactivity": "", "protimeaddtext":"" }
   }
   if (selected_bookingPlatform === selectBookingPlatformPreName + "Any") {
     newData = { "anytrigger": "", "anyaddword": "" }

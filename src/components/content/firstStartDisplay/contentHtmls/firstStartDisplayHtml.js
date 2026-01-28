@@ -68,7 +68,7 @@
             <div class="firstStartScreen-titleRow">
                 <h2 id="startScreenTitle"></h2>
             </div>
-            <div class="firstStartScreen-discriptionBlock" id="startScreenTextBlock" >
+            <div class="firstStartScreen-descriptionBlock" id="startScreenTextBlock" >
                <!-- text here -->
             </div>
             <div id="startScreenMain">

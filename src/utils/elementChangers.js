@@ -1,4 +1,4 @@
-import { buttonTabPreValue } from "./defaults/defaultVariables"
+import { buttonTabPreValue,appFirstStartDoneValue } from "./defaults/defaultVariables"
 
 export function showHideStatusBar(showHideState,appGlobalArgs) {
   if(showHideState) {
@@ -15,5 +15,6 @@ export function markTabButtons(markState, ElementNamePart){
     elem.classList.add(elemMarkedClass)
   } else {
     elem.classList.remove(elemMarkedClass)
+    localStorage.setItem('tc_firstStart', appFirstStartDoneValue)
   }
 }
