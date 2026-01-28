@@ -188,7 +188,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         appearanceCount++;
         if (appearanceCount === 2) {
           highLatency = true
-          crossObserver_mutationObserver.desconnect()
+          crossObserver_mutationObserver.disconnect()
           }
         }
     });
@@ -203,7 +203,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
 
   function stopCrossObserver() {
     if (crossObserver_mutationObserver) {
-      crossObserver_mutationObserver.desconnect();
+      crossObserver_mutationObserver.disconnect();
     }
   }
   // element change observer
@@ -217,7 +217,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
       const cleanup = () => {
         clearInterval(intervalId);
         clearTimeout(timeoutId);
-        if (observer) observer.desconnect();
+        if (observer) observer.disconnect();
       };
 
       const finish = (msg) => {
@@ -624,7 +624,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
             retryTicketList.push(ticket)
             protime_ticketText.value = ''
           } 
-          // desconnect cross observer
+          // disconnect cross observer
           stopCrossObserver()
           totalBookedTickets ++
           bookingLoopCount++
