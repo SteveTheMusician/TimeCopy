@@ -89,15 +89,15 @@ header {
 }
 
 .detectionItem-module {
-    height: 240px;
+  height: 285px;
 }
 
 .detectionItem-module--Any {
-    height: 190px;
+  height: 190px;
 }
 
 .detectionItem-module--hidden {
-    height: 0px;
+  height: 0px;
 }
 
 .configItem {

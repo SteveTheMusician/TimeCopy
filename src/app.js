@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       console.error("❌ Unable to call bookingData: ", error + " | app");
       lockActionButtons('false',fillButton)
       if(switch_showAllMessages.checked) {
-        message(true, 'error', window.language.error+': '+window.language.error_noBookingData, window.language.error_noBookingData_disc)
+        message(true, 'error', window.language.error+': '+window.language.error_noBookingData, window.language.error_noBookingData_desc)
       } else {
         console.warn(consoleWarnMessage_showMessageTurnedOff+' | '+error)
       }
@@ -517,7 +517,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     debugStick([...window.appVersionData,...window.appGlobalArgs,...window.moduleGlobalArgs],...window.appMetaToBrowser,'App Global Args')
     // return message if offline
     if (!navigator.onLine) {
-      message(true, 'error', window.language.message_offline, window.language.message_offline_disc)
+      message(true, 'error', window.language.message_offline, window.language.message_offline_desc)
     }
     // display version
     label_version.insertAdjacentHTML('beforeend', version)

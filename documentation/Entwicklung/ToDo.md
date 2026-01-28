@@ -13,19 +13,20 @@
 - feature: fehlermeldung bei erstellen identischer detection items (oder text: ist identisch mit ...)
 - Wenn Ticket bereits gebucht soll dieser übersprungen werden (Kann schwer bzw unmöglich sein, da diese Infos in protime nicht genau bekommen werden können - ticketnummer nich da, beschreibung nur teilweise)
 - Wenn ein Error am ende der buchung von Protime kommt - breche buchung ab (z.B. bei Projekt ist abgelaufen)
-
-- Fehler Undefined wenn ich beliebige daten mit steve google excel wähle -> Fehler abfangen
-
-## Maintance updates
-
-- Code clean up:
-    - Local Storages vereinheitlichen
-    - Funktionen / Listener zusammen fassen
-- code clean up -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
-    (Alles noch mal genau checken)
 - Silver Fox Theme
 - texte noch mal checken ggf als json strings in language
 - app storages zu einem profile-object zusammenfassen, dass gleichzeitig 1zu1 exportiert werden kann
 - Datum Stimmt nicht überein fix: Wenn Protime lahm ist, wird nach einem auto-klick das datum nicht erkannt. -> Funktion ist experimentell daher in zukunft ggf ein Observer einbauen
 - language einbauen (ggf mit different htmls)
 - language json für module auslagern in public module folder (Jedes Modul soll unabhängige sprache haben)
+
+- Profilname und Bild auf Start sichtbar ?
+- Detection Items sortierbar
+
+## Maintance updates
+
+- Code clean up:
+    - Local Storages vereinheitlichen bzw als object
+    - Funktionen / Listener zusammen fassen
+- code clean up -> groß und kleinschreibung einheitlich, klassennamen und IDs einheitlich
+    (Alles noch mal genau checken)
