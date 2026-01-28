@@ -10,7 +10,22 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 - Fix filter not accepted after change
 
+## V 1.3.24 (Release)
+
+* **Features**
+- Module AmagProTime: Add ability to maintain an Additional-Text for ProTime in the project detection item
+
+* **Fixes**
+- Mark Filters Tab on app reset
+- Skip First-Start-Screen directly after reset, when user changes requiered configs
+- Module SteveGoogleExcel: Remove ending bracket at the beginning of description
+- Cover-Size for profile picture
+
+* **Other Changes* **
+- Code cleanup
+
 ## V 1.3.23 (Release)
+
 * **Fixes**
 - Module AmagProTime: set "inputs already filled"-Error only at the start of booking
 - Module AmagProTime: mark activity field, if its empty
@@ -19,6 +34,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 - App Metas for platforms
 
 ## V 1.3.22 (Release)
+
 * **Fixes**
 - Show platform module list on start screen again
 - Catch undefiened errors from filters and platforms
@@ -31,6 +47,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 - update license and dokumentation
 
 ## V 1.3.21
+
 * **Fixes**
 - Module AmagProTime: regonize when textarea is filled at the beginning of the booking process and reload page
 - Module AmagProTime: mark ProTime elements, when they didnt change as expected
@@ -40,6 +57,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 - code cleanup
 
 ## V 1.3.19 (Release)
+
 * **Fixes**
   * EE Error when time is up but changes to Statusbar happen
 

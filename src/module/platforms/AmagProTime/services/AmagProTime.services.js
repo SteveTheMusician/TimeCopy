@@ -25,8 +25,8 @@ export function filterPrefix(ticket, detectionItemsProTime) {
 export function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
     let filterAddPrefix_addPrefixMatches = []
     detectionItems_ticketPrefixMatches.forEach((detectionItemPrefixItem) => {
-        let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
-        item_ticketdiscWithHiddenTag = item_ticketdiscWithHiddenTag.trim()
+        let item_ticketdescWithHiddenTag = ticket.item_ticketdesc + " " + ticket.item_hiddentag
+        item_ticketdescWithHiddenTag = item_ticketdescWithHiddenTag.trim()
         let detectionItemAddPrefixArray = []
         let detectionItemPrefixItemAddPrefix = detectionItemPrefixItem.addprefix
         detectionItemPrefixItemAddPrefix.trim()
@@ -37,7 +37,7 @@ export function filterAddPrefix(ticket, detectionItems_ticketPrefixMatches) {
         }
         detectionItemAddPrefixArray.forEach((addPrefixArrayItem) => {
             // push only if prefix is included in detection or prefix is 0 but has booking nomber / project nomber in detection
-            if (addPrefixArrayItem.length > 0 && item_ticketdiscWithHiddenTag.includes(addPrefixArrayItem) 
+            if (addPrefixArrayItem.length > 0 && item_ticketdescWithHiddenTag.includes(addPrefixArrayItem) 
                 || addPrefixArrayItem.length === 0 && ticket.item_bookingnumber 
                 || addPrefixArrayItem.length === 0 && detectionItemPrefixItem.projectnomber ) {
                 if(!filterAddPrefix_addPrefixMatches.length){
@@ -53,8 +53,8 @@ export function filterAllPrefixes(ticket, ticketAddPrefixMatches) {
     let refinePrefix_Matches = []
     if (ticketAddPrefixMatches.length > 1) {
         ticketAddPrefixMatches.forEach((detectionItemRefineMatch) => {
-            let item_ticketdiscWithHiddenTag = ticket.item_ticketdisc + " " + ticket.item_hiddentag
-            if (detectionItemRefineMatch.addprefix.length > 0 && item_ticketdiscWithHiddenTag.includes(detectionItemRefineMatch.addprefix) && ticket.item_ticketnumber.includes(detectionItemRefineMatch.ticketprefix)) {
+            let item_ticketdescWithHiddenTag = ticket.item_ticketdesc + " " + ticket.item_hiddentag
+            if (detectionItemRefineMatch.addprefix.length > 0 && item_ticketdescWithHiddenTag.includes(detectionItemRefineMatch.addprefix) && ticket.item_ticketnumber.includes(detectionItemRefineMatch.ticketprefix)) {
                 refinePrefix_Matches.push(detectionItemRefineMatch)
             }
         });

@@ -703,6 +703,7 @@ input[type=text]:-webkit-autofill:active{
     height: 50px;
     border-radius: var(--border-radius-round);
     overflow: hidden;
+    object-fit: cover;
 }
 
 .configItem-icon-container label {
@@ -802,12 +803,7 @@ select {
 
 .detectionItem-module {
     transition: var(--transition-default);
-    height: 210px;
     overflow-y: scroll;
-}
-
-.detectionItem-module--Any {
-    height: 172px;
 }
 
 .detectionItem-module--hidden {
@@ -1112,7 +1108,7 @@ input:checked+.switch_slider:before {
     margin-top: 20px;
 }
 
-.firstStartScreen-discriptionBlock {
+.firstStartScreen-descriptionBlock {
     color: var(--color-font);
     padding: 0 20px;
     margin-bottom: 40px;

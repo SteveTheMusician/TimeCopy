@@ -81,7 +81,7 @@ export function appStorage(appGlobalArgs, appVersionData,moduleGlobalArgs) {
     if (lstorage_cFilter) {
       document.querySelector('input[value="' + filter_timesheetFilterPreValue + lstorage_cFilter + '"]').checked = true
     } else {
-      markTabButtons('true','platforms')
+      markTabButtons('true','filters')
     }
     if (lstorage_cProfileName) {
       appGlobalArgs.configprofilename.value = lstorage_cProfileName

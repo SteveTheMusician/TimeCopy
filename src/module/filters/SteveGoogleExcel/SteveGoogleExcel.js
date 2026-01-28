@@ -1,7 +1,8 @@
 import { createFilterObject } from "../filters.module"
+import { debugStick } from "../../../utils/appDebugStick"
 
 export function filter_SteveGoogleExcel(clipboarsString) {
-
+  
   let allTickets
   // the regexp to get all needed informations
   const regExp_fullDateString = /(Mo\.|Di\.|Mi\.|Do\.|Fr\.|Sa\.|So\.)\s*\d{2}\.\d{2}\.\d{4}/
@@ -18,8 +19,10 @@ export function filter_SteveGoogleExcel(clipboarsString) {
   const regExp_ticketCustomBookingNumber = /(?<=\#).*?(?=\])/
   const regExp_ticketTime = /\d+[.,]?\d*$/
   const regExp_ticketDateDay = /([\d]{1,2})\./
+  const regExp_stringFirstBracket = /^\]/
+  
   let fullDateString = ''
-  let workingBeginTime = ''
+  
   let matches = []
   let match
   let bookingData = []
@@ -58,6 +61,7 @@ export function filter_SteveGoogleExcel(clipboarsString) {
   while ((match = regExp_Ticket.exec(allTickets)) !== null) {
     matches.push(match[1]);
   }
+  debugStick(matches,'🧩 SteveGoogleExcel - Matches')
   matches.forEach(function (ticket, i) {
 
     ticket = ticket.replaceAll("\t", " ")
@@ -91,10 +95,11 @@ export function filter_SteveGoogleExcel(clipboarsString) {
     //ticket time 
     let item_ticketTime = ticket.match(regExp_ticketTime)[0]
     item_ticketTime = item_ticketTime.replaceAll(",", ".")
-    // ticket discription
-    let item_ticketDisc = ticket.replace(item_ticketNumberAll, '').trim()
-    item_ticketDisc = item_ticketDisc.replace(item_ticketCustomBookingNumber, '').trim()
-    item_ticketDisc = item_ticketDisc.replace(regExp_ticketTime, '').trim()
+    // ticket description
+    let item_ticketDesc = ticket.replace(item_ticketNumberAll, '').trim()
+    item_ticketDesc = item_ticketDesc.replace(item_ticketCustomBookingNumber, '').trim()
+    item_ticketDesc = item_ticketDesc.replace(regExp_ticketTime, '').trim()
+    item_ticketDesc = item_ticketDesc.replace(regExp_stringFirstBracket,'').trim()
     // item date from global
     item_date = fullDateString.replace("\t", "").trim()
     if(item_date){
@@ -106,7 +111,7 @@ export function filter_SteveGoogleExcel(clipboarsString) {
     }
     // create object
     let itemObject = createFilterObject(item_bookingNumber,
-      item_ticketMasterNomber,item_ticketNumber,item_ticketDisc,
+      item_ticketMasterNomber,item_ticketNumber,item_ticketDesc,
       item_hiddenTag,item_ticketTime,item_date,item_dateDay
     )
     bookingData.push(itemObject)
