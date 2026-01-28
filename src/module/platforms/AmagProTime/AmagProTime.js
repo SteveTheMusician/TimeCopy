@@ -385,7 +385,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
         if(document.getElementsByTagName('textarea')[0].value !== '') {
           reject({
             text: 'Vorausgefüllte Felder',
-            textdetails: `Time Copy hat bereits ausgefüllte Felder in ProTime gefunden. Um Probleme mit den Buchungen zu vermeiden, wurde die Seite neu geladen. Bitte klicke erneut auf einfügen.`,
+            textdetails: `Time Copy hat bereits ausgefüllte Felder in ProTime gefunden. Um Probleme mit den Buchungen zu vermeiden, wurde die Seite neu geladen. Bitte klicke erneut auf Einfügen.`,
           });
           window.location.reload()
         }
