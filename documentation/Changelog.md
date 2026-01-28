@@ -8,12 +8,12 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ---
 
 ## Last important changes summary
-- Fix filter not accepted after change
+- Module AmagProTime: Add ability to maintain an Additional-Text for ProTime in the project detection item
 
 ## V 1.3.24 (Release)
 
 * **Features**
-- Module AmagProTime: Add ability to maintain an Additional-Text for ProTime in the project detection item
+- Module AmagProTime: Add ability to maintain an Additional-Text for ProTime in the project detection item (This can used as an static additional text to your copied description)
 
 * **Fixes**
 - Mark Filters Tab on app reset
