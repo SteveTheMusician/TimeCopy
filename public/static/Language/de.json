@@ -12,6 +12,8 @@
     "message_offline": "Offline",
     "message_offline_desc": "Du bist offline. Einige Funktionen von Time Copy können eingeschrenkt sein.",
     "message_noDetailsAvailable": "Keine Details verfügbar.",
+    "message_processAboardUser": "Prozess beendet",
+    "message_processAboardUser_desc": "User hat den prozess beendet",
     "message_moduleProTime_highLatencyMode": "High Latency Modus",
     "message_moduleProTime_highLatencyMode_desc": "Erzwinge 'High Latency-Modus' ist in den ProTime Module-Funktionen aktiviert. Time Copy wird die Daten langsamer, dafür sicherer übertragen.",
     "message_moduleProTime_testMode": "Test Modus",
