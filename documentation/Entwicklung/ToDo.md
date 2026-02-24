@@ -22,6 +22,7 @@
 
 - Profilname und Bild auf Start sichtbar ?
 - Detection Items sortierbar
+- ee themes detection open/close anim jump fix, input fields sizings/length
 
 ## Maintance updates
 
