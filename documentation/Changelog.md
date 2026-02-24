@@ -10,6 +10,14 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 - Module AmagProTime: Add ability to maintain an Additional-Text for ProTime in the project detection item
 
+## V 1.3.25 (Release)
+* **Fixes**
+- Module AmagProTime: dont count ticket, when its pushed into retry list, untill its booked
+
+* **Other Changes* **
+- Let Messages stay after cancel process (for better user xperience)
+- Show "user canceled process" information, when user stops process instead of error
+
 ## V 1.3.24 (Release)
 
 * **Features**
