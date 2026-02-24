@@ -594,6 +594,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           ) {
             console.warn(appMetaToBrowser.appVisibleLogName+' 🎫 Retry Ticket: ',ticket)
             retryTicketList.push(ticket)
+            totalBookedTickets--
             // make text area empty on any errors, so we can move on with booking
             protime_ticketText.value = ''
             protime_ticketText.dispatchEvent(eventChange)

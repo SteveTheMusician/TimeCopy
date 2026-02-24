@@ -145,6 +145,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   moduleProTime_config_check_useAutoSelectDay.addEventListener('change', moduleProTimeUseAutoSelectDay)
   let bookingScore = 0
   window.configOpen = false
+  window.userAboardProcess = false
   try{
     window.language = await useLanguage()
   }catch(error){
@@ -205,7 +206,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // cancel
   function cancelPasteData(){
     chrome.tabs.reload(function(){});
-    window.location.reload()
+    window.userAboardProcess = true
   }
   // paste
   async function pastePrepairData() {
@@ -294,11 +295,17 @@ document.addEventListener('DOMContentLoaded', async function () {
       debugStick(error,"Booking Error-Feedback: ")
       lockActionButtons('false',fillButton)
       if(switch_showAllMessages.checked) {
-        // error message fallback, if wie get uncatched errors
-        let errorheadline = error.errorheadline ?? window.language.error_errorscript
-        let errortext = error.errortext ?? error + ' | '+ bookingPlatform
-        let errorstatus = error.errorstatus ?? 'error'
-        message(true, errorstatus, window.language.error + ': ' + errorheadline, errortext || bookingPlatform)
+        if(!window.userAboardProcess) {
+          // error message fallback, if wie get uncatched errors
+          let errorheadline = error.errorheadline ?? window.language.error_errorscript
+          let errortext = error.errortext ?? error + ' | '+ bookingPlatform
+          let errorstatus = error.errorstatus ?? 'error'
+          message(true, errorstatus, window.language.error + ': ' + errorheadline, errortext || bookingPlatform)
+        } else {
+          window.userAboardProcess = false
+          message(true, 'information', window.language.message_processAboardUser, window.language.message_processAboardUser_desc)
+          return
+        }
       } else {
         console.warn(consoleWarnMessage_showMessageTurnedOff)
       }
