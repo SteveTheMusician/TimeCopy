@@ -12,31 +12,31 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 
 ## V 1.3.25 (Release)
 * **Fixes**
-- Module AmagProTime: dont count ticket, when its pushed into retry list, untill its booked
+  * Module AmagProTime: dont count ticket, when its pushed into retry list, untill its booked
 
-* **Other Changes* **
-- Let Messages stay after cancel process (for better user xperience)
-- Show "user canceled process" information, when user stops process instead of error
+* **Other Changes**
+  * Let Messages stay after cancel process (for better user xperience)
+  * Show "user canceled process" information, when user stops process instead of error
 
 ## V 1.3.24 (Release)
 
 * **Features**
-- Module AmagProTime: Add ability to maintain an Additional-Text for ProTime in the project detection item (This can used as an static additional text to your copied description)
+  * Module AmagProTime: Add ability to maintain an Additional-Text for ProTime in the project detection item (This can used as an static additional text to your copied description)
 
 * **Fixes**
-- Mark Filters Tab on app reset
-- Skip First-Start-Screen directly after reset, when user changes requiered configs
-- Module SteveGoogleExcel: Remove ending bracket at the beginning of description
-- Cover-Size for profile picture
+  * Mark Filters Tab on app reset
+  * Skip First-Start-Screen directly after reset, when user changes requiered configs
+  * Module SteveGoogleExcel: Remove ending bracket at the beginning of description
+  * Cover-Size for profile picture
 
-* **Other Changes* **
+* **Other Changes**
 - Code cleanup
 
 ## V 1.3.23 (Release)
 
 * **Fixes**
-- Module AmagProTime: set "inputs already filled"-Error only at the start of booking
-- Module AmagProTime: mark activity field, if its empty
+  * Module AmagProTime: set "inputs already filled"-Error only at the start of booking
+  * Module AmagProTime: mark activity field, if its empty
 
 * **Other Changes* **
 - App Metas for platforms
@@ -44,25 +44,25 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## V 1.3.22 (Release)
 
 * **Fixes**
-- Show platform module list on start screen again
-- Catch undefiened errors from filters and platforms
-- Fix filter not accepted after change
-- Theme fixes
+  * Show platform module list on start screen again
+  * Catch undefiened errors from filters and platforms
+  * Fix filter not accepted after change
+  * Theme fixes
 
-* **Other Changes* **
-- code cleanup (also storage changes)
-- replace License url with Issue reporting
-- update license and dokumentation
+* **Other Changes**
+  * code cleanup (also storage changes)
+  * replace License url with Issue reporting
+  * update license and dokumentation
 
 ## V 1.3.21
 
 * **Fixes**
-- Module AmagProTime: regonize when textarea is filled at the beginning of the booking process and reload page
-- Module AmagProTime: mark ProTime elements, when they didnt change as expected
+  * Module AmagProTime: regonize when textarea is filled at the beginning of the booking process and reload page
+  * Module AmagProTime: mark ProTime elements, when they didnt change as expected
 
 * **Other Changes* **
-- component error feedback
-- code cleanup
+  * component error feedback
+  * code cleanup
 
 ## V 1.3.19 (Release)
 
