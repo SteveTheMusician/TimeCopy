@@ -22,7 +22,10 @@
 
 - Profilname und Bild auf Start sichtbar ?
 - Detection Items sortierbar
-- ee themes detection open/close anim jump fix
+- ee themes detection open/close anim jump fix, input fields sizings/length
+
+- Wenn ein Ticket in die Retryliste fällt, wird dieser nicht als total count genommen, erst nach dem er erfolgreich gebucht wird (Sonst hat man z.B. 11 Tikets erforlgreich gebucht obwohl es nur 10 waren)
+- Messages bleiben nach dem Abbrechen erhalten
 
 ## Maintance updates
 
