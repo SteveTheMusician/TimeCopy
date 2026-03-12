@@ -10,6 +10,10 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 -
 
+### V 1.3.27
+* **Fixes**
+  * Module SteveGoogleExcel: get ticket master nomber with "-" now
+
 ### V 1.3.26 (Release)
 * **Fixes**
   * Set Statusbar text on cancle booking
