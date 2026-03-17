@@ -521,12 +521,17 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
               console.warn(appMetaToBrowser.appVisibleLogName+' Warning, ProTime has empty Activity')
               error_protimeactivity = true
               protime_ticketElemNom = 4
+            } else if(document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]').length > 1) {
             } else {
               protime_ticketElemNom = 3
             }
           } catch (error) {
             return result = { success: false, message: error };
-          }     
+          }
+          if(document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]').length > 1 && detectionObject.protimeactivity.length < 1){
+            setProTimeElementErrorStyle('.lsField--list [aria-roledescription="Auswählen"]','1')
+            return result = { success: false, message: {text: 'Ticket hat keine Aktivität', textdetails: ticketObject.item_ticketnumber + ' ' + ticketObject.item_bookingnumber + ' | Es wurde das Activity-Feld in ProTime gefunden, jedoch keine gepflegte Aktivität in den TimeCopy-Erkennungen. Bitte pflege eine Aktivität und stelle sicher, dass die richtige Buchungsnummer vorhanden ist.'} };
+          }
           await waitTimer(bookingWaitingTimer500)
           // 1s break on high latency mode
           if (highLatency === true) {
