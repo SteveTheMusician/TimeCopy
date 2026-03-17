@@ -8,7 +8,16 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ---
 
 ## Last important changes summary
-- Module AmagProTime: Add ability to maintain an Additional-Text for ProTime in the project detection item
+-
+
+### V 1.3.27 (Release)
+* **Fixes**
+  * Set Statusbar text on cancle booking
+  * Module AmagProTime: Catch error, when user has no activity maintained but needed in protime
+  * Module SteveGoogleExcel: get ticket master nomber with "-" now
+
+* **Other**
+  * Detection-Items maintenance
 
 ## V 1.3.25 (Release)
 * **Fixes**

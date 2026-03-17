@@ -31,6 +31,7 @@
     "notification_profileNotFullyImported": "Profil konnte nicht vollständig übernommen werden.",
     "statusbartext_filterData": "Filtere Daten...",
     "statusbartext_passDataToPlatform": "Sende Daten an Platform...",
+    "statusbartext_processCanceled": "Prozess abgebrochen",
     "statusbartext_extensionLoaded": "Extension geladen",
     "statusbartext_error": "FEHLER",
     "statusbartext_stby": "Bereit",

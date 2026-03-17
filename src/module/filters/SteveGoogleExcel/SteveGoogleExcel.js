@@ -12,7 +12,7 @@ export function filter_SteveGoogleExcel(clipboarsString) {
   const regExp_markerSymbol = /^(\p{So})?/u
   const regExp_markerSymbolTwo = /^(\s*)(.)(\s+)/gmu
   const regExp_Ticket = /(\w.*[\s]{1}\d{1,2}[,\.]?\d{0,2})(?=\s|$)/g
-  const regExp_ticketNumber = /(?:^|\n)\s*([A-Z0-9]+(?:-[A-Z0-9]+)?(?:>[A-Z0-9]+)?)/i
+  const regExp_ticketNumber = /(?:^|\n)\s*([A-Z0-9]+(?:-[A-Z0-9]+)?(?:>[A-Z0-9-]+)?)/i
   const regExp_ticketMasterNumber = />(.+)/
   const regExp_ticketAddInformation = /\[([^\]]+)\](?=[^\[]*$)/
   const regExp_ticketCustomBookingNumberAll = /\[#([^\]]+)\](?=[^\[]*$)/
