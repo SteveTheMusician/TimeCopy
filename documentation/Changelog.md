@@ -16,6 +16,9 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
   * Module AmagProTime: Catch error, when user has no activity maintained but needed in protime
   * Module SteveGoogleExcel: get ticket master nomber with "-" now
 
+* **Other**
+  * Detection-Items maintenance
+
 ## V 1.3.25 (Release)
 * **Fixes**
   * Module AmagProTime: dont count ticket, when its pushed into retry list, untill its booked
