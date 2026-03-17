@@ -10,7 +10,7 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 -
 
-### V 1.3.27
+### V 1.3.27 (Release)
 * **Fixes**
   * Set Statusbar text on cancle booking
   * Module AmagProTime: Catch error, when user has no activity maintained but needed in protime
