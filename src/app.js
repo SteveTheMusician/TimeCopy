@@ -206,6 +206,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   // cancel
   function cancelPasteData(){
     chrome.tabs.reload(function(){});
+    setStatusBarText(window.language.statusbartext_processCanceled,'timeout')
     window.userAboardProcess = true
   }
   // paste
