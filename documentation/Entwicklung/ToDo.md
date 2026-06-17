@@ -48,6 +48,8 @@ z.b. Ticket mit dem namen"SCA -  bla bla" und einem hidden Tag "AMAG XY" wird be
 
 - Detection Leer wird beforzugt: Wenn ich z.B. 2 SCRUM Tickets habe - eines ohne addPrefix eins mit + aktivity und ein Ticket kopiere, welches eine Buchungsnumer hat + addprefix, wird es dem SCRUM Leer zugeordnet statt dem mit addprefix trigger
 
+- Wenn Benachrichtigungen aus sind, bleibt die Status-Message z.b. auf "Filtere Daten..." hängen
+
 Optional:
     - Grund dafür sind z.B. scrums, die eine #Buchungsnummer in der Tabelle haben - dafür aber kein ErkennungsItem mit gepflegter Activity
     - Hier kluge logik ausdenken - vllt möglichkeit activity in die Tabelle zu schreiben mit ::activity: oder so
