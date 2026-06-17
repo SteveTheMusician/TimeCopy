@@ -36,6 +36,9 @@
 - Filter an/aus schalten (Dadurch kann man temporär durchläufe ignorieren)
 
 - Ticketprefix als Pflichtfeld
+- code clean up, createDocumentFragment() in startscreen benutzen
+- Detection-Item auto backup: wenn ich einen input ändere, wird vor dem ERSTEN change ein backup von dem item gemacht, dass so lange bleibt, bis das fenster geschlossen wird.
+Ein "Restore" icon taucht an dem item auf und kann bei falscher eintragung benutzt werden, um dieses Item wiederherzustellen
 
 ### BUGS
 
