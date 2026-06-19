@@ -27,6 +27,9 @@
 - Activity in der Tabelle pflegbar
 
 ## Wichtige Updates / Fixes
+
+- activity in protime module fallback/überspringen -> nimm einfach das, was als letztes selected wurde oder einen wert, der der user angibt als default, wenn activity vorhanden, der filter aber keins hat
+
 - Wenn ein Input leer ist und blau umrandet wird (z.B. bei nicht selectierter activity)
     Sollte das Plugin dem User die möglichkeit geben, dass im Prozess manuell anzuklicken.
     TimeCopy reagiert dann auf onChange, überprüft noch mal alles und geht dann weiter
