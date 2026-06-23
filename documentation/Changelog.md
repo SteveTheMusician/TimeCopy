@@ -10,6 +10,14 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 -
 
+### V 1.3.28
+* **Fixes**
+  * Module AmagProTime: Get new Elements after ProTime-Update
+  * Error-Feedback
+
+* **Other**
+  * Module AmagProTime: Element-Selectors to variables
+
 ### V 1.3.27 (Release)
 * **Fixes**
   * Set Statusbar text on cancle booking

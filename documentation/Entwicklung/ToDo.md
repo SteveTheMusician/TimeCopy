@@ -28,6 +28,10 @@
 
 ## Wichtige Updates / Fixes
 
+- ! Protime Update: Ab innenauftrag kann timecopy keine daten mehr einfügen
+    - ggf elemente in globalen variabeln festlegen zum einfacheren ändern
+    - versionskontrolle: wenn protime eine andere version hat als bekannt, zeige warn symbol an protime module und warnung ausgeben
+
 - activity in protime module fallback/überspringen -> nimm einfach das, was als letztes selected wurde oder einen wert, der der user angibt als default, wenn activity vorhanden, der filter aber keins hat
 
 - Wenn ein Input leer ist und blau umrandet wird (z.B. bei nicht selectierter activity)
@@ -44,6 +48,8 @@
 Ein "Restore" icon taucht an dem item auf und kann bei falscher eintragung benutzt werden, um dieses Item wiederherzustellen
 
 ### BUGS
+
+- > master Nummer überschriebt SCRUM NICHT
 
 - Ticket gleiche trigger machen probleme
 z.b. Ticket mit dem namen"SCA -  bla bla" und einem hidden Tag "AMAG XY" wird beim Filtern,  mit dem Filter der "am ehsten" mit "SCA" triggert gematched - unser Hidden trigger wird also ignoriert

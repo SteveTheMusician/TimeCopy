@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       } else {
         console.warn(consoleWarnMessage_showMessageTurnedOff)
       }
-      console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext + " | app ")
+      console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext + " | Please also check the Error-Logs in the Webpage | app ")
       return
     }
   }
