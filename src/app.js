@@ -256,6 +256,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error + " | app");
       lockActionButtons('false',fillButton)
+      setStatusBarText(window.language.statusbartext_processCanceled,'timeout')
       if(switch_showAllMessages.checked) {
         message(true, 'error', window.language.error+': '+window.language.error_noBookingData, window.language.error_noBookingData_desc)
       } else {

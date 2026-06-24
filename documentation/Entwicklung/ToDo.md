@@ -28,37 +28,33 @@
 
 ## Wichtige Updates / Fixes
 
-- ! Protime Update: Ab innenauftrag kann timecopy keine daten mehr einfügen
-    - ggf elemente in globalen variabeln festlegen zum einfacheren ändern
-    - versionskontrolle: wenn protime eine andere version hat als bekannt, zeige warn symbol an protime module und warnung ausgeben
-
+### activity update
 - activity in protime module fallback/überspringen -> nimm einfach das, was als letztes selected wurde oder einen wert, der der user angibt als default, wenn activity vorhanden, der filter aber keins hat
 
 - Wenn ein Input leer ist und blau umrandet wird (z.B. bei nicht selectierter activity)
     Sollte das Plugin dem User die möglichkeit geben, dass im Prozess manuell anzuklicken.
     TimeCopy reagiert dann auf onChange, überprüft noch mal alles und geht dann weiter
 
+ - Grund dafür sind z.B. scrums, die eine #Buchungsnummer in der Tabelle haben - dafür aber kein ErkennungsItem mit gepflegter Activity
+    - Hier kluge logik ausdenken - vllt möglichkeit activity in die Tabelle zu schreiben mit ::activity: oder so
+
+
+### DetectionItems Update
+- master Nummer überschriebt SCRUM NICHT
+z.b. Ticket mit dem namen"SCA -  bla bla" und einem hidden Tag "AMAG XY" wird beim Filtern,  mit dem Filter der "am ehsten" mit "SCA" triggert gematched - unser Hidden trigger wird also ignoriert
+- Twisted Buchungen werden bei fehledem filter erzeugt und nicht erkannt (Fehler alles bleibt stehen)
+- Detection Leer wird beforzugt: Wenn ich z.B. 2 SCRUM Tickets habe - eines ohne addPrefix eins mit + aktivity und ein Ticket kopiere, welches eine Buchungsnumer hat + addprefix, wird es dem SCRUM Leer zugeordnet statt dem mit addprefix trigger
+
+- Ticket gleiche trigger machen probleme
 - Farbliche Bookmarks die auf die Erkennungs-Items gesetzt werden können/Ganzes Item oder ein Teil Färben
 - Mäglichkeit für Datum anzeigen oder Ablaufdatum für einen Filter
 - Filter an/aus schalten (Dadurch kann man temporär durchläufe ignorieren)
-
-- Ticketprefix als Pflichtfeld
-- code clean up, createDocumentFragment() in startscreen benutzen
 - Detection-Item auto backup: wenn ich einen input ändere, wird vor dem ERSTEN change ein backup von dem item gemacht, dass so lange bleibt, bis das fenster geschlossen wird.
 Ein "Restore" icon taucht an dem item auf und kann bei falscher eintragung benutzt werden, um dieses Item wiederherzustellen
+### Startscreen update
+- code clean up, createDocumentFragment() in startscreen benutzen
 
-### BUGS
-
-- > master Nummer überschriebt SCRUM NICHT
-
-- Ticket gleiche trigger machen probleme
-z.b. Ticket mit dem namen"SCA -  bla bla" und einem hidden Tag "AMAG XY" wird beim Filtern,  mit dem Filter der "am ehsten" mit "SCA" triggert gematched - unser Hidden trigger wird also ignoriert
-- Twisted Buchungen werden bei fehledem filter erzeugt und nicht erkannt (Fehler alles bleibt stehen)
-
-- Detection Leer wird beforzugt: Wenn ich z.B. 2 SCRUM Tickets habe - eines ohne addPrefix eins mit + aktivity und ein Ticket kopiere, welches eine Buchungsnumer hat + addprefix, wird es dem SCRUM Leer zugeordnet statt dem mit addprefix trigger
-
+### Kleine Bugs
 - Wenn Benachrichtigungen aus sind, bleibt die Status-Message z.b. auf "Filtere Daten..." hängen
 
-Optional:
-    - Grund dafür sind z.B. scrums, die eine #Buchungsnummer in der Tabelle haben - dafür aber kein ErkennungsItem mit gepflegter Activity
-    - Hier kluge logik ausdenken - vllt möglichkeit activity in die Tabelle zu schreiben mit ::activity: oder so
+   
