@@ -14,7 +14,8 @@ import {
   useTicketNomberInText,
   useAutoSelectDay,
   noTicketNomberFill,
-  noTicketDescFill
+  noTicketDescFill,
+  proTimeSelectors
 } from "./variables/AmagProTime.variables.js";
 import { lstorage_c_moduleProTimeUseLatencyMode,lstorage_c_moduleProTimeForceLatencyMode,
   lstorage_c_moduleProtimeTicketNomberInText,lstorage_c_moduleProTimeTest, lstorage_c_moduleProtimeUseMatchBookingDay, lstorage_c_moduleProtimeUseAutoSelectDay } from "../../../utils/modules/moduleStorage.js";
@@ -112,12 +113,13 @@ export async function AmagProTime(bookingData, detectionItemsProTime, appMetaToB
   try {
     if (valideTickets.length) {
       setStatusBarText(window.language.statusbartext_moduleAmagProTime_sendTickets_partOne+valideTickets.length + window.language.statusbartext_moduleAmagProTime_sendTickets_partTwo)
-      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay, appMetaToBrowser)
+      debugStick({valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay, proTimeSelectors, appMetaToBrowser}, "Passed Data to Chrome-Tab Script")
+      const iChrTab = await injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay, proTimeSelectors, appMetaToBrowser)
       bookingLoopCount++
       if (iChrTab.result !== null && iChrTab.result.success === false ) {
         throw ({ errorstatus: 'error', errorheadline: iChrTab.result.message.text, errortext: iChrTab.result.message.textdetails })
       }else if (iChrTab.result === null) {
-        throw ({errorstatus: 'error', errorheadline: 'Prozess abgebrochen', errortext:'Die Verbindung zur Seite wurde unterbrochen. Grund dafür kann eine Änderung der Seite im offenen Tab sein.'})
+        throw ({errorstatus: 'error', errorheadline: 'Prozess abgebrochen', errortext:'Die Verbindung zur Seite wurde unterbrochen. Grund dafür kann eine Änderung der Seite im offenen Tab sein.', errorcodes: {iChrTab: iChrTab }})
       }
       bookedTicketCount = iChrTab.result.totalBookedTickets
     } else {
@@ -133,7 +135,7 @@ export async function AmagProTime(bookingData, detectionItemsProTime, appMetaToB
 }
 
 // 🍎 chrom tab scripts
-async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay,appMetaToBrowser) {
+async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay,proTimeSelectors,appMetaToBrowser) {
   // check latency in current tab + only when use high latency is aktivated
   if (useHighLatency) {
     try {
@@ -159,9 +161,8 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
     let chromeExecScript = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: AmagProTimeBookTickets,
-      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay,appMetaToBrowser]
+      args: [valideTickets, dev_pttest, bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay,proTimeSelectors,appMetaToBrowser]
     });
-
     if (chromeExecScript[0].result && chromeExecScript[0].result.error) {
       throw new Error(chromeExecScript[0].result.error);
     }
@@ -173,7 +174,7 @@ async function injectChromeTabScriptProTime(valideTickets, dev_pttest, bookingLo
   }
 }
 // 🍎 main booking logic
-async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay,appMetaToBrowser) {
+async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount, highLatency, useHighLatency,useTicketNomberInText,matchDateDay,useAutoSelectDay,proTimeSelectors,appMetaToBrowser) {
   let crossObserver_mutationObserver
   function crossObserver(elementSelector) {
     let appearanceCount = 0;
@@ -456,7 +457,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           let protime_activityDropdown
           let protime_activityDropdownList
           let protime_ticketElemNom
-          let protime_Innenauftrag = document.getElementsByClassName('lsField--f4')[0]
+          let protime_Innenauftrag = document.getElementsByClassName(proTimeSelectors.innenauftrag)[0]
           let proTime_projectNomber = ticketObject.item_bookingnumber || detectionObject.projectnomber
           let proTime_activeDateElement = document.querySelector(`[design="SELECTED5"]`)
           let proTime_activeDate = proTime_activeDateElement.getElementsByClassName('lsCalItemText')[0].innerHTML
@@ -479,26 +480,24 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           await checkpointLoadingDots(false)
           // service dropdown
           try {
-            await observeElement('.lsField--list [aria-roledescription="Auswählen"]', true, '0');
-            let protime_leistung = document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]')[0]
+            await observeElement(proTimeSelectors.lesitungen, true, '0');
+            let protime_leistung = document.querySelectorAll(proTimeSelectors.lesitungen)[0]
             let protime_leistungenOption;
-            const protime_leistungenArray = [{
-              "select_proTime_service_CSITEST": "[data-itemkey='ZCHN0730070']",
-              "select_proTime_service_ITDPC": "[data-itemkey='ZCHN0730009']",
-              "select_proTime_service_ITD": "[data-itemkey='ZCHN0730001']"
-            }]
+            const protime_leistungenArray = [proTimeSelectors.leistungsArray]
             protime_leistung.click()
             protime_leistungenOption = document.querySelector(protime_leistungenArray[0][detectionObject.protimeservice]);
             protime_leistungenOption.click()
           } catch (error) {
-            setProTimeElementErrorStyle('.lsField--list [aria-roledescription="Auswählen"]','0')
-            return result = { success: false, message: error };
+            let newError = appMetaToBrowser.appVisibleLogName+' '+error +' | If No Error appears, the Selector could be invalid. In this case, the developer has to make an update.'
+            console.error(newError)
+            setProTimeElementErrorStyle(proTimeSelectors.lesitungen,'0')
+            return result = { success: false, newError };
           }
           await waitTimer(bookingWaitingTimerDefault)
           // if detection item has activity book it
           try {
             if (detectionObject.protimeactivity.length > 1) {
-              let protime_activityDropdownSelector = '.lsField--list [aria-roledescription="Auswählen"]'
+              let protime_activityDropdownSelector = proTimeSelectors.lesitungen
               await observeElement(protime_activityDropdownSelector, true, '0');
               // checkpoint loading dots (loaw-latency)
               await checkpointLoadingDots(false)
@@ -516,20 +515,20 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
               }
               // set ticket nomber child nom to get next feeld correctly
               protime_ticketElemNom = 4
-            } else if(document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]:not([value])')[0]){
+            } else if(document.querySelectorAll(proTimeSelectors.lesitungen+':not([value])')[0]){
               // check if a activity dropdown exists with no entries (cuz protime is an idiot) and then set the elemnom up to 4
               console.warn(appMetaToBrowser.appVisibleLogName+' Warning, ProTime has empty Activity')
               error_protimeactivity = true
               protime_ticketElemNom = 4
-            } else if(document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]').length > 1) {
+            } else if(document.querySelectorAll(proTimeSelectors.lesitungen).length > 1) {
             } else {
               protime_ticketElemNom = 3
             }
           } catch (error) {
             return result = { success: false, message: error };
           }
-          if(document.querySelectorAll('.lsField--list [aria-roledescription="Auswählen"]').length > 1 && detectionObject.protimeactivity.length < 1){
-            setProTimeElementErrorStyle('.lsField--list [aria-roledescription="Auswählen"]','1')
+          if(document.querySelectorAll(proTimeSelectors.lesitungen).length > 1 && detectionObject.protimeactivity.length < 1){
+            setProTimeElementErrorStyle(proTimeSelectors.lesitungen,'1')
             return result = { success: false, message: {text: 'Ticket hat keine Aktivität', textdetails: ticketObject.item_ticketnumber + ' ' + ticketObject.item_bookingnumber + ' | Es wurde das Activity-Feld in ProTime gefunden, jedoch keine gepflegte Aktivität in den TimeCopy-Erkennungen. Bitte pflege eine Aktivität und stelle sicher, dass die richtige Buchungsnummer vorhanden ist.'} };
           }
           await waitTimer(bookingWaitingTimer500)
@@ -592,7 +591,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           await waitTimer(bookingWaitingTimerDefault)
           // last check of the main inputs
           // if values are incorrect (tickettime empty), put it into retry list
-          if (document.getElementsByClassName('lsField--f4')[0].childNodes[0].value !== proTime_projectNomber ||
+          if (document.getElementsByClassName(proTimeSelectors.innenauftrag)[0].childNodes[0].value !== proTime_projectNomber ||
             document.getElementsByClassName('lsField--right')[0].childNodes[0].value === '' ||
             document.getElementsByTagName('textarea')[0].value !== ticketItemDesc ||
             document.getElementsByClassName('lsField--list')[protime_ticketElemNom].childNodes[0].value !== bookingItem_TicketNumber
@@ -621,7 +620,7 @@ async function AmagProTimeBookTickets(valideTickets,dev_pttest,bookingLoopCount,
           
           try {
             if(error_protimeactivity === true) {
-              setProTimeElementErrorStyle('.lsField--list [aria-roledescription="Auswählen"]:not([value])','0')
+              setProTimeElementErrorStyle(proTimeSelectors.lesitungen+':not([value])','0')
             }
             await observeElement('textarea', false, '0');
           } catch (error) {
