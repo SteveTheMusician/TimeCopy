@@ -10,13 +10,14 @@ As of version 0.8.7, *Time Copy* was transformed into a sidebar-based interface.
 ## Last important changes summary
 -
 
-### V 1.3.28
+### V 1.3.28 (Quick-Fix-Release)
 * **Fixes**
   * Module AmagProTime: Get new Elements after ProTime-Update
   * Error-Feedback
 
 * **Other**
   * Module AmagProTime: Element-Selectors to variables
+  * Filter SteveGoogleExcel: fix ]> matching error
 
 ### V 1.3.27 (Release)
 * **Fixes**
