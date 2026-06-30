@@ -40,6 +40,7 @@
 
 
 ### DetectionItems Update
+- Buchungsnummer-Prefix-Bug: Wenn ich ein Ticket habe, dass einem Add-Prefix match entspricht (z.B. im Text SCA hat) und auch eine Buchungsnummer, die eigentlcih alles überschreibt, wird statdessen das match genommen, was zu fehler in der Buchung führt
 - Hidden-Tag Bug:
     z.b. Ticket mit dem namen"SCA -  bla bla" und einem hidden Tag "AMAG XY" wird beim Filtern,  mit dem Filter der "am ehsten" mit "SCA" triggert gematched - unser Hidden trigger wird also ignoriert
 - Twisted Buchungen werden bei fehledem filter erzeugt und nicht erkannt (Fehler alles bleibt stehen)
