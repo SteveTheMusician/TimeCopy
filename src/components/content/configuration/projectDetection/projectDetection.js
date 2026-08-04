@@ -5,7 +5,6 @@ import { generateDateId } from "../../../../utils/generateDateId.js"
 import { eventListenerHandler } from "../../../../utils/functionHandlers.js"
 import { markTabButtons } from "../../../../utils/elementChangers.js"
 import { debugStick } from "../../../../utils/appDebugStick.js"
-import { contexMenu } from "../../../ui/contexMenu/contexMenu.js";
 
 const button_addDetection = document.getElementById('button_addProjectDetection')
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
@@ -70,9 +69,8 @@ function loadDetectionItems() {
     let select_bookingPlatform = document.getElementById(selectBookingPlatformPreName + detectionItemId)
     let loaded_select_bookingPlatform = detectionItems.find(x => x.id === detectionItemId).bookingsheet
     //Actions 
-    //let button_thisDetectionDelete = document.getElementById('deleteDetection_'+detectionItemId)
+    let button_thisDetectionDelete = document.getElementById('deleteDetection_'+detectionItemId)
     let button_thisDetectionMinimize = document.getElementById('minimizeDetection_'+detectionItemId)
-    let button_thisDetectionContexMenu = document.getElementById('showOptions_'+detectionItemId)
     let input_thisDetectionName = document.getElementById('detectionName_'+detectionItemId)
     input_thisDetectionName.addEventListener('change', () => {changeDetectionItemData(detectionItemId,'title',input_thisDetectionName.value)})
     if(loaded_select_bookingPlatform !== '' && loaded_select_bookingPlatform !== null){
@@ -84,8 +82,7 @@ function loadDetectionItems() {
     debugStick(select_bookingPlatform.value,'Detection Item '+detectionItemId+' set to')
     // init listeners for elems
     eventListenerHandler(input_thisDetectionName,'change',changeDetectionItemData,{detectionItemId,input_thisDetectionName})
-    eventListenerHandler(button_thisDetectionContexMenu,'click',showProjectDetectionContexMenu,{detectionItemId})
-    //eventListenerHandler(button_thisDetectionDelete,'click',removeProjectDetectionItem,{detectionItemId,button_thisDetectionDelete})
+    eventListenerHandler(button_thisDetectionDelete,'click',removeProjectDetectionItem,{detectionItemId,button_thisDetectionDelete})
     if(!!button_thisDetectionMinimize) {
       eventListenerHandler(button_thisDetectionMinimize,'click',minimizeProjectDetectionItem,{detectionItemId,button_thisDetectionMinimize})
     }
@@ -164,17 +161,6 @@ function removeProjectDetectionItem(obj) {
   obj.button_thisDetectionDelete.removeEventListener('click', removeProjectDetectionItem);
   detectionItems = detectionItems.filter(detectionItems => detectionItems.id !== obj.detectionItemId);
   updateDetectionItems(detectionItems)
-}
-function markProjectDetectionItem () {
-  console.log('Mark Item Placeholder')
-}
-function deactivateProjectDetectionItem () {
-  console.log('Deactivate Item Placeholder')
-}
-//show contex menu
-function showProjectDetectionContexMenu(itemId,thisButton) {
-  const options = {"Markieren": markProjectDetectionItem, "Deaktivieren": deactivateProjectDetectionItem, "Löschen": removeProjectDetectionItem}
-  contexMenu(itemId,options)
 }
 
 function minimizeProjectDetectionItem (obj) {

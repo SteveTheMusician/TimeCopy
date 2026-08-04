@@ -1,8 +1,0 @@
-{
-    "copiers_version": "0.0´1",
-    "copiers_name": "Amag Jira",
-    "copiers_id": "amagjira",
-    "copiers_shortname": "Jira",
-    "copiers_supportedsources": "*",
-    "copiers_description": "Kopiert alle Informationen aus einem offenen Chrome Fenster mit Jira und erstellt daraus ein bearbeitungsfähiges Ticket."
-}
