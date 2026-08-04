@@ -72,12 +72,8 @@ export function filter_SteveGoogleExcel(clipboarsString) {
     let item_ticketMasterNomber = ''
     let item_ticketCustomBookingNumber = ''
     let item_hiddenTag = ''
-    let item_ticketNumberAll = ''
-    // if a ticket has [] the ]> will stain - check if this is the case
-    if(ticket.match(/\]>/g)) {
-      ticket = ticket.replace(']','')
-    }
-    item_ticketNumberAll = ticket.match(regExp_ticketNumber)[0].trim();
+    let item_ticketNumberAll = ticket.match(regExp_ticketNumber)[0].trim();
+
     if (item_ticketNumberAll.match(regExp_ticketMasterNumber)) {
       item_ticketNumber = item_ticketNumberAll.replace(regExp_ticketMasterNumber, '').trim()
       item_ticketMasterNomber = item_ticketNumberAll.replace(item_ticketNumber + ">", '').trim()

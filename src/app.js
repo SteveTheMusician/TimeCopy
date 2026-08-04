@@ -254,7 +254,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     } catch (error) {
       console.error("❌ Unable to call bookingData: ", error + " | app");
       lockActionButtons('false',fillButton)
-      setStatusBarText(window.language.statusbartext_processCanceled,'timeout')
       if(switch_showAllMessages.checked) {
         message(true, 'error', window.language.error+': '+window.language.error_noBookingData, window.language.error_noBookingData_desc)
       } else {
@@ -311,7 +310,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       } else {
         console.warn(consoleWarnMessage_showMessageTurnedOff)
       }
-      console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext + " | Please also check the Error-Logs in the Webpage | app ")
+      console.error('❌ Bookingprocess failed | ', error.errorheadline + ' ' + error.errortext + " | app ")
       return
     }
   }
