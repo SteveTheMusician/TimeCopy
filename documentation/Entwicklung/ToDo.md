@@ -4,7 +4,6 @@
  
 - sprache in modules und html integrieren
 - eigene farbthemen importieren/ generieren
-- willkommens screen mit anleitung (✅)
 - Firefox & Opera Version
 - Generell mehr dynamisches html
 - module: stevegoogleexcel - fixen: wenn datum und zusatzzeichen kopiert werden, kann in bestimmten fällen nicht richtig gefiltert werden - ohne schon
@@ -26,6 +25,17 @@
 - Erkennung anhand von Booking nomber
 - Activity in der Tabelle pflegbar
 
+### Copiers Module
+- Modul zum kopieren der Zeiten aus Jira: 
+    - Copiers Module müssen manuell aktiviert werden und es kann gleichzeitig nur eins aktiv sein
+    - Zusatz-Button zum Kopieren erscheint als Main Action vor dem Einfügen
+    - Beim erfolgreichen kopieren, wird ein "Ticket" als Message mit allen Infos erstellt.
+    - User gibt manuell bearbeitungszeit in das Feld.
+    - User KANN manuell ein Datum für die GRUPPE (Tag) angeben. Alle tickets in dieser Gruppe werden dann auf diesem Tag gebucht beim Einfügen
+    - Tickets die kopiert wurden bleiben gespeichert, bis der User diese löscht / gruppe löscht
+    - Einzelne Tickets können gelöscht werden
+    - Tickets können als einzelne datei exportiert werden
+
 ## Wichtige Updates / Fixes
 
 ### activity update
@@ -40,6 +50,7 @@
 
 
 ### DetectionItems Update
+- Buchungsnummer-Prefix-Bug: Wenn ich ein Ticket habe, dass einem Add-Prefix match entspricht (z.B. im Text SCA hat) und auch eine Buchungsnummer, die eigentlcih alles überschreibt, wird statdessen das match genommen, was zu fehler in der Buchung führt
 - Hidden-Tag Bug:
     z.b. Ticket mit dem namen"SCA -  bla bla" und einem hidden Tag "AMAG XY" wird beim Filtern,  mit dem Filter der "am ehsten" mit "SCA" triggert gematched - unser Hidden trigger wird also ignoriert
 - Twisted Buchungen werden bei fehledem filter erzeugt und nicht erkannt (Fehler alles bleibt stehen)

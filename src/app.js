@@ -28,8 +28,6 @@ import { debugStick } from "./utils/appDebugStick.js";
 import { markTabButtons, showHideStatusBar } from "./utils/elementChangers.js";
 import { setStatusBarText } from "./utils/setStatusBarText.js";
 import { moduleStorage_preValueConfiguration } from "./utils/modules/defaults/defaultModuleVariables.js";
-// ‼️ remove developer on prod
-import { developer } from "./developer/developer.js";
 // savety function to prevent unwanted webpage content manipulation (triggered by window.onload)
 function isTimeCopy() {
   try {
@@ -592,8 +590,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
       xmasModule()
       hlweenModule()
-      // ‼️ remove developer on prod
-      developer()
       // reset restart count
       setTimeout(function(){
         if(sessionStorage.getItem('tc_s_restartCount') < "4"){
