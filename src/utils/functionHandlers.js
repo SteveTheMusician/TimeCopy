@@ -7,7 +7,6 @@ export function eventListenerHandler(elements,type,func,funcprop) {
     }
     // create new listener for multiple elements
     for (let i = 0, iLen = elements.length; i < iLen; i++) {
-        
         const functionHandler = (e) => func(e,funcprop)
         elements[i].addEventListener(type, functionHandler)
     }
@@ -15,7 +14,7 @@ export function eventListenerHandler(elements,type,func,funcprop) {
     // remove eventlistener first to make shure n
     elements.removeEventListener(type,func)
     // create listener for single element
-    const functionHandler = () => func(funcprop)
+    const functionHandler = (e) => func(e, funcprop)
     elements.addEventListener(type, functionHandler)
   }
 }

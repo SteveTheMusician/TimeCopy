@@ -5,7 +5,7 @@ import { generateDateId } from "../../../../utils/generateDateId.js"
 import { eventListenerHandler } from "../../../../utils/functionHandlers.js"
 import { markTabButtons } from "../../../../utils/elementChangers.js"
 import { debugStick } from "../../../../utils/appDebugStick.js"
-import { contexMenu } from "../../../ui/contexMenu/contexMenu.js";
+import { contextMenu } from "../../../ui/contextMenu/contextMenu.js";
 
 const button_addDetection = document.getElementById('button_addProjectDetection')
 let detectionItems = localStorage.getItem('tc_c_projectDetection')
@@ -84,7 +84,7 @@ function loadDetectionItems() {
     debugStick(select_bookingPlatform.value,'Detection Item '+detectionItemId+' set to')
     // init listeners for elems
     eventListenerHandler(input_thisDetectionName,'change',changeDetectionItemData,{detectionItemId,input_thisDetectionName})
-    eventListenerHandler(button_thisDetectionContexMenu,'click',showProjectDetectionContexMenu,{detectionItemId})
+    eventListenerHandler(button_thisDetectionContexMenu,'click',showProjectDetectionContextMenu,{detectionItemId})
     //eventListenerHandler(button_thisDetectionDelete,'click',removeProjectDetectionItem,{detectionItemId,button_thisDetectionDelete})
     if(!!button_thisDetectionMinimize) {
       eventListenerHandler(button_thisDetectionMinimize,'click',minimizeProjectDetectionItem,{detectionItemId,button_thisDetectionMinimize})
@@ -172,9 +172,10 @@ function deactivateProjectDetectionItem () {
   console.log('Deactivate Item Placeholder')
 }
 //show contex menu
-function showProjectDetectionContexMenu(itemId,thisButton) {
-  const options = {"Markieren": markProjectDetectionItem, "Deaktivieren": deactivateProjectDetectionItem, "Löschen": removeProjectDetectionItem}
-  contexMenu(itemId,options)
+function showProjectDetectionContextMenu(e,itemId) {
+  console.log('PROPS: ',itemId)
+  const options = {"markProjectDetection": "Markieren","deactivateprojectDetection":"Deaktivieren"}
+  contextMenu(e,itemId,options)
 }
 
 function minimizeProjectDetectionItem (obj) {
