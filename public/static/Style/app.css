@@ -1131,27 +1131,51 @@ input:checked+.switch_slider:before {
     justify-items: center;
 }
 
-.detectionItem_contexMenu-container {
+.detectionItem_contextMenu-container {
     position: absolute;
+    z-index: 1000;
     width: 25%;
     height: 0;
     opacity: 0;
     pointer-events: none;
-    transition: var(--transition-default);
+    /* transition: var(--transition-default); */
 }
 
-.detectionItem_contexMenu-container--open {
+.detectionItem_contextMenu-container--open {
     position: absolute;
     width: 25%;
     height: 120px;
     opacity: 1;
     pointer-events: all;
+    transition: var(--transition-default);
 }
 
-.detectionItem-ContexMenu {
+.detectionItem_contextMenu-container--closing {
+    position: absolute;
+    width: 25%;
+    height: 0px;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition-default);
+}
+
+.detectionItem-ContextMenu {
+    width: calc(100% - 50px);
+    height: calc(100% - 40px);
+    background-color: var(--color-third);
+}
+
+#detectionItem_contextMenuOverlay {
     width: 100%;
     height: 100%;
-    background-color: #ff0000;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #00000055;
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: var(--transition-default);
 }
 
 @keyframes firstStartScreenFade {

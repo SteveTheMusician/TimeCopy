@@ -173,9 +173,15 @@ function deactivateProjectDetectionItem () {
 }
 //show contex menu
 function showProjectDetectionContextMenu(e,itemId) {
-  console.log('PROPS: ',itemId)
-  const options = {"markProjectDetection": "Markieren","deactivateprojectDetection":"Deaktivieren"}
-  contextMenu(e,itemId,options)
+  let options = {"markProjectDetection": "Markieren","deactivateprojectDetection":"Deaktivieren","removeProjectDetectionItem":"Löschen"}
+  let dNegative = true
+  if(!window.contextMenuOpen) {
+    window.contextMenuOpen = true
+    contextMenu(e,itemId,options,dNegative)
+  } else {
+    window.contextMenuOpen = false
+    contextMenu()
+  }
 }
 
 function minimizeProjectDetectionItem (obj) {

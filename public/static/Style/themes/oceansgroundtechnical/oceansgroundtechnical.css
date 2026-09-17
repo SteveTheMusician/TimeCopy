@@ -105,6 +105,10 @@ header {
   background-color: var(--color-none);
 }
 
+.detectionItem-ContextMenu {
+    background-color: var(--color-main);
+}
+
 .label-row {
   padding: 2px 5px;
 }

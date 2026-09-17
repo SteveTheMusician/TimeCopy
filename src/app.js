@@ -146,6 +146,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   let bookingScore = 0
   window.configOpen = false
   window.userAboardProcess = false
+  window.contextMenuOpen = false
   try{
     window.language = await useLanguage()
   }catch(error){
