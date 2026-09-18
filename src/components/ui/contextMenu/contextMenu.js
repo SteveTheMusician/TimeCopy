@@ -48,7 +48,6 @@ export function contextMenu(e,itemId,optionsObject,dNegative) {
             dNegative === true ? detectionItem_contextMenu.style.left = (e.clientX - contextMenuWidth + 20)  + "px" :
             detectionItem_contextMenu.style.left = x
             detectionItem_contextMenu.style.top = y
-            //detectionItem_contextMenu.style.left = "calc(" + (e.clientX - contextMenuWidth + 20) + "px + 2vw)"
             
             generateContextMenuItems(optionsObject)
             
