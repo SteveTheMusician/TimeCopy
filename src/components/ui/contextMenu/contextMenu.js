@@ -1,4 +1,5 @@
 import { debugStick } from "../../../utils/appDebugStick";
+import { eventListenerHandler } from '../../../utils/functionHandlers';
 
 export function contextMenu(e,itemId,optionsObject,dNegative) {
     let x = e.clientX + "px"
@@ -12,7 +13,7 @@ export function contextMenu(e,itemId,optionsObject,dNegative) {
     function generateContextMenuItems (optionsObject) {
         Object.keys(optionsObject).forEach(function(key, index){
             // console.log('value',optionsObject[key])
-            const contextMenuOptionHtml = '<div>'+optionsObject[key]+'</div>'
+            const contextMenuOptionHtml = '<button id="contextOption_'+optionsObject[key].id+'" class="button-primary button-contextOptions" '+optionsObject[key].disabled+'>'+optionsObject[key].label+'</button>'
             optionsArray.push(contextMenuOptionHtml)
         })
     }
@@ -23,7 +24,7 @@ export function contextMenu(e,itemId,optionsObject,dNegative) {
             setTimeout(function(){
                 detectionItem_contextMenuOverlay.style.opacity = "1"
             },10)
-            detectionItem_contextMenuOverlay.addEventListener('click',() => {console.log('click');  window.contextMenuOpen = false; contextMenuOpenClose()})
+            detectionItem_contextMenuOverlay.addEventListener('click',() => {window.contextMenuOpen = false; contextMenuOpenClose()})
         } else {
             detectionItem_contextMenuOverlay.style.opacity = "0"
             setTimeout(function(){
@@ -35,9 +36,19 @@ export function contextMenu(e,itemId,optionsObject,dNegative) {
     function contextMenuOpenClose (dNegative) {
         if(window.contextMenuOpen) {
             let contextMenuWidth = detectionItem_contextMenu.offsetWidth
-            dNegative === true ? detectionItem_contextMenu.style.left = e.clientX  - contextMenuWidth + 20 + "px" :
+            const contextMenuMaxWidth = 200
+            const contextMenuMinWidth = 80
+            // contet menu max and min width
+            if(contextMenuWidth > contextMenuMaxWidth) {
+                contextMenuWidth = contextMenuMaxWidth
+            } else if (contextMenuWidth < contextMenuMinWidth) {
+                contextMenuWidth = contextMenuMinWidth
+            }
+            console.log('width: ',contextMenuWidth)
+            dNegative === true ? detectionItem_contextMenu.style.left = (e.clientX - contextMenuWidth + 20)  + "px" :
             detectionItem_contextMenu.style.left = x
             detectionItem_contextMenu.style.top = y
+            //detectionItem_contextMenu.style.left = "calc(" + (e.clientX - contextMenuWidth + 20) + "px + 2vw)"
             
             generateContextMenuItems(optionsObject)
             
@@ -53,6 +64,8 @@ export function contextMenu(e,itemId,optionsObject,dNegative) {
                 document.getElementById('detectionItem_contextMenu').classList.add('detectionItem_contextMenu-container--open')
                 contextMenuOverlayShowhide()
             },10)
+            let allEnabledOptions = document.querySelectorAll('.button-contextOptions:not(:disabled)')
+            eventListenerHandler(allEnabledOptions,'click',(e) => {clickOption(e)})
         } else {
             document.getElementById('detectionItem_contextMenu').classList.add('detectionItem_contextMenu-container--closing')
             setTimeout(function(){
@@ -63,4 +76,10 @@ export function contextMenu(e,itemId,optionsObject,dNegative) {
         }
     }
     contextMenuOpenClose(dNegative)
+    function clickOption(e) {
+        console.log('click ',e.target.id)
+        window.contextMenuOpen = false; 
+        contextMenuOpenClose()
+        return e.target.id
+    }
 }

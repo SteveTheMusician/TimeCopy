@@ -8,4 +8,6 @@
     --font-size-headline2: 16px;
     --font-size-regular: 12px;
     --font-size-small: 10px;
+
+    --box-shadow-default: 0px 0px 12px #00000066;
 }

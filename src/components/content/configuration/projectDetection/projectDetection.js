@@ -173,18 +173,21 @@ function deactivateProjectDetectionItem () {
 }
 //show contex menu
 function showProjectDetectionContextMenu(e,itemId) {
-  let options = {"markProjectDetection": "Markieren","deactivateprojectDetection":"Deaktivieren","removeProjectDetectionItem":"Löschen"}
+  let options = {"markProjectDetection": {"id": "markdetection", "label": "Markieren","disabled": "disabled"},
+                  "deactivateprojectDetection":{"id": "deactivatedetection", "label": "Deaktivieren","disabled": "disabled"},
+                  "removeProjectDetectionItem":{"id": "removedetection", "label": "Löschen","disabled": ''}}
   let dNegative = true
   if(!window.contextMenuOpen) {
     window.contextMenuOpen = true
-    contextMenu(e,itemId,options,dNegative)
+    let x = contextMenu(e,itemId,options,dNegative)
+    console.log('X: ',x)
   } else {
     window.contextMenuOpen = false
     contextMenu()
   }
 }
 
-function minimizeProjectDetectionItem (obj) {
+function minimizeProjectDetectionItem (e,obj) {
   let buttonDropdownActiveClass = 'button-dropdown--active'
   let thisButtonDropdown = obj.button_thisDetectionMinimize
   let currentItem = document.getElementById(obj.detectionItemId)

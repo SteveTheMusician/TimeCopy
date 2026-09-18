@@ -5,6 +5,10 @@
 @import url('var/colors-default.css');
 @import url('module/module.css');
 
+:root {
+    interpolate-size: allow-keywords;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -1134,7 +1138,7 @@ input:checked+.switch_slider:before {
 .detectionItem_contextMenu-container {
     position: absolute;
     z-index: 1000;
-    width: 25%;
+    width: 20%;
     height: 0;
     opacity: 0;
     pointer-events: none;
@@ -1143,26 +1147,35 @@ input:checked+.switch_slider:before {
 
 .detectionItem_contextMenu-container--open {
     position: absolute;
-    width: 25%;
-    height: 120px;
+    width: 20%;
+    height: fit-content;
+    min-width: 80px;
+    max-width: 200px;
     opacity: 1;
     pointer-events: all;
-    transition: var(--transition-default);
+    overflow-y: clip;
+    transition: height var(--transition-default);
 }
 
 .detectionItem_contextMenu-container--closing {
     position: absolute;
-    width: 25%;
+    width: 20%;
     height: 0px;
     opacity: 0;
     pointer-events: none;
-    transition: var(--transition-default);
+    overflow-y: clip;
+    transition: height var(--transition-default);
 }
 
 .detectionItem-ContextMenu {
-    width: calc(100% - 50px);
-    height: calc(100% - 40px);
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    min-width: 80px;
+    max-width: 200px;
     background-color: var(--color-third);
+    overflow: hidden;
+    padding: 0;
+    box-shadow: var(--box-shadow-default);
 }
 
 #detectionItem_contextMenuOverlay {
@@ -1177,6 +1190,25 @@ input:checked+.switch_slider:before {
     opacity: 0;
     transition: var(--transition-default);
 }
+
+.button-contextOptions {
+    width: 100%;
+    border-radius: 0;
+    user-select: none;
+    min-width: 80px;
+}
+
+.button-contextOptions:hover {
+    width: 100%;
+    background-color: var(--color-highlight);
+    color: var(--color-second);
+}
+
+#contextOption_removedetection:hover {
+    background-color: var(--color-close);
+    color: var(--color-second);
+}
+
 
 @keyframes firstStartScreenFade {
     0% {
@@ -1333,6 +1365,11 @@ input:checked+.switch_slider:before {
 
     .configItem {
         padding: 10px 10px;
+    }
+
+    .detectionItem-ContextMenu {
+        margin: 0;
+        padding: 0;
     }
 
     .button-primary {
